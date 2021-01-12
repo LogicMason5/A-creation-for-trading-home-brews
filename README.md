@@ -8,4 +8,4 @@ Not yet deployed.
 
 ## Hours:
 
-[here]/hours.md
+[here](./hours)
