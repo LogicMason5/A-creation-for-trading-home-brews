@@ -8,6 +8,10 @@ Not deployed yet
 
 # hours
 
-[here](./hours)
+[here](./documentation/hours)
+
+# development plan
+
+[here](./documentation/development_plan)
 
 
