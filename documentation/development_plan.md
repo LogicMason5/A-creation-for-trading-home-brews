@@ -2,6 +2,8 @@
 
 This is a rough plan for the development of the app:
 
+
+
 # stage 1:
 
 ## front-end:
