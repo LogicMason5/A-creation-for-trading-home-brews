@@ -6,11 +6,7 @@ import black from '../../assets/black.png'
 
 const Messenger: React.FC = () => {
 
-
-  const icon = require('../../assets/black.png')
-
-  console.log(icon)
-
+  
   return (
     <div>
       <div className="test">

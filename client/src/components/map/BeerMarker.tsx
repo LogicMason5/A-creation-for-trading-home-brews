@@ -1,21 +1,26 @@
 import black from '../../assets/black.png';
+import { Marker } from '@react-google-maps/api'
+import './Marker.css';
 
-const BeerMarker = (props: any) => {
-    const { color, name } = props;
+const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral }> =  ({ name, position }) => {
 
-    const handleClick = () => {
-
-      console.log('moi')
-      new google.maps.Marker({
-        position: new google.maps.LatLng(60.16, 29.1),
-        icon: black,
-      })
+    const icon = {
+      url: black,
+      scaledSize: new google.maps.Size(60, 60)
     }
 
+    const handleClick = () => {
+      console.log('logging' + name)
+    } 
+
     return (
-      <div>
-        <img src={black} onClick={handleClick}/>
-      </div>
+      <Marker
+        position={position}
+        key={name}
+        icon={icon}
+        onClick={handleClick}
+        label={name}
+      />
     );
   };
 
