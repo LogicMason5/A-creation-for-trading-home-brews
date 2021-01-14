@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
-import GoogleMapReact from 'google-map-react';
+import { GoogleMap, LoadScript } from '@react-google-maps/api'
+import AnimatedMarker from './AnimatedMarker';
+import BeerMarker from './BeerMarker';
 
-const AnyReactComponent = ({text}: any) => <div>{text}</div>;
 
-const SimpleMap = (props: any) => {
-  
-    const [center, setCenter] = useState({lat: 60.16211995524449, lng: 24.920254801252657 });
-    const [zoom, setZoom] = useState(11);
+const Map = () => {
 
+  const mapStyles = {        
+    height: "100vh",
+    width: "100%"};
+
+  const center = {
+    lat: 60.16121,
+    lng: 24.92025
+    }
 
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'add your api key' }}
-          defaultCenter={center}
-          defaultZoom={zoom}
-        >
-          <AnyReactComponent
-            lat={11.0168}
-            lng={76.9558}
-            text="My Marker"
-          />
-        </GoogleMapReact>
-      </div>
-    );
+      <LoadScript
+        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string}>
+         <GoogleMap
+           mapContainerStyle={mapStyles}
+           zoom={13}
+           center={center}
+         />
+      </LoadScript>
+   )
 }
 
-export default SimpleMap;
+export default Map;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Menu from './components/menu/Menu'
+// import Menu from './components/menu/Menu'
 import Map from './components/map/Map'
 import Messenger from './components/messenger/Messenger'
 import Tabs from '@material-ui/core/Tabs';
