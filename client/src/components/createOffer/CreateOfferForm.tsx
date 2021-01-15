@@ -19,14 +19,14 @@ const CreateOfferForm: React.FC = () => {
   });
 
   return (
-    <Container maxWidth="md">
+    <Container fixed>
       <Box mb={3} p={2}>
         <Typography
           align="center"
           variant="h5"
           style={{ lineHeight: 1.25, marginBottom: 16 }}
         >
-          Create a new trade offer! <br />
+          Create an offer <br />
         </Typography>
       </Box>
       <Formik
@@ -45,21 +45,29 @@ const CreateOfferForm: React.FC = () => {
       >
         {(formikProps: FormikProps<FormValues>) => (
           <Form noValidate autoComplete="off">
-            <Grid container spacing={2}>
+            <Grid container spacing={2} >
               <Grid item xs={12}>
                 <Field
                   name="name"
-                  label="Beer name"
+                  label="What do you call it?"
                   size="small"
                   component={FormTextField}
+                  fullWidth
+                  initHelperText="This name will be displayed on the map"
                 />
               </Grid>
               <Grid item xs={12}>
                 <Field
                   name="description"
-                  label="Description"
+                  label="A few words about your brew"
+                  placeholder="test"
                   size="small"
                   component={FormTextField}
+                  fullWidth
+                  initHelperText="Users can filter based on this description"
+                  multiline="true"
+                  rows="6"
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -69,6 +77,7 @@ const CreateOfferForm: React.FC = () => {
                   size="large"
                   color="primary"
                   disabled={formikProps.isSubmitting}
+                  fullWidth
                 >
                   Submit
                 </Button>

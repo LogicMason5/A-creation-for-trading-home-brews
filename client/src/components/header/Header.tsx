@@ -13,6 +13,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../../assets/black.png';
 
@@ -149,7 +150,11 @@ const HeaderAppBar: React.FC = () => {
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+      </MenuItem>
+      <MenuItem component={Link} to="/create-offer" >
+        <IconButton aria-label="create offer" color="inherit" >
+            <MailIcon />         
+        </IconButton>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -206,11 +211,22 @@ const HeaderAppBar: React.FC = () => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 4 new mails" color="inherit" component={Link} to="/messages">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
+            <IconButton
+            aria-label="show 4 new mails"
+            color="inherit"
+            component={Link}
+            to="/messages">
+              <Badge badgeContent={4} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+            aria-label="create offer"
+            color="inherit"
+            component={Link}
+            to="/create-offer">
+                <AddLocation />
+            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
