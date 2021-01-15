@@ -1,13 +1,17 @@
 import React from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api'
+import { GoogleMap, useLoadScript } from '@react-google-maps/api'
 import BeerMarker from './BeerMarker'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add';
 
 
-const Map = () => {
+const Map: React.FC = () => {
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string;
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: apiKey
+  })
 
   const mapStyles = {        
     height: "90.3vh",
@@ -47,9 +51,11 @@ const Map = () => {
       disableDefaultUI: true
     }
 
+    if (loadError) return (<div>Failed to load Google Maps. Please try reloading the page.</div>)
+    if (!isLoaded) return (<div>Loading Google Maps...</div>)
+
     return (
-      <LoadScript
-        googleMapsApiKey={apiKey}>
+
         <GoogleMap           
           mapContainerStyle={mapStyles}
           zoom={13}
@@ -67,7 +73,6 @@ const Map = () => {
             <AddIcon />
           </Fab>
         </GoogleMap>
-      </LoadScript>
    )
 }
 

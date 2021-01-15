@@ -1,7 +1,8 @@
-import React from "react";
-import { Container, Typography, Grid, Button, Box } from "@material-ui/core";
+import React from 'react';
+import { Container, Typography, Grid, Button, Box, Radio, RadioGroup, FormControlLabel, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import { FormTextField } from "./FormTextField";
+import LocFieldTest from './LocFieldTest'
 import * as yup from "yup";
 
 
@@ -69,6 +70,19 @@ const CreateOfferForm: React.FC = () => {
                   rows="6"
 
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <FormLabel>Package size</FormLabel>
+                <Field
+                  component={RadioGroup} row label="package size" 
+                  >
+                  <FormControlLabel value="0.33" control={<Radio />} label="0.33" />
+                  <FormControlLabel value="0.5" control={<Radio />} label="0.5" />
+                  <FormControlLabel value="0.75" control={<Radio />} label="0.75+" />
+                </Field>
+                <Field component={LocFieldTest}>
+                  
+                </Field>
               </Grid>
               <Grid item xs={12}>
                 <Button
