@@ -7,6 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle';
 import { FieldProps, getIn } from 'formik';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 
 
 const autocompleteService = { current: null };
@@ -33,6 +37,7 @@ interface PlaceType {
 }
 
 const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
+
   const isTouched = getIn(props.form.touched, props.field.name)
   const errorMessage = getIn(props.form.errors, props.field.name)
 

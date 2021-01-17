@@ -5,25 +5,23 @@ import { FormTextField } from "./FormTextField";
 import LocationField from './LocationField'
 import * as yup from "yup";
 
-
-
 const CreateOfferForm: React.FC = () => {
 
   interface FormValues {
     beerName: string;
     description: string;
     packageSize: string;
+    amount: number;
     location: string;
+    recipeLink: string;
   }
   
   const validationSchema = yup.object().shape({
     beerName: yup.string().required("A name is required"),
     description: yup.string().required("Required"),
-    packageSize: yup.string().required("Pick any package size and specify in description if necessary"),
+    // packageSize: yup.string().required("Pick any package size and specify in description if necessary"),
     locationField: yup.string().required("A valid location is necessary to display the offer on the map")
   });
-
-
 
   return (
     <Container fixed>
@@ -41,13 +39,16 @@ const CreateOfferForm: React.FC = () => {
           beerName: "",
           description: "",
           packageSize: "",
+          amount: 2,
           location: "",
+          recipeLink: ""
         }}
         validationSchema={validationSchema}
         onSubmit={(
           values: FormValues,
           formikHelpers: FormikHelpers<FormValues>
         ) => {
+          console.log('test')  
           console.log(values)
           alert(JSON.stringify(values, null, 2));
           formikHelpers.setSubmitting(false);
@@ -89,10 +90,10 @@ const CreateOfferForm: React.FC = () => {
                   <FormControlLabel value="0.5" control={<Radio />} label="0.5" />
                   <FormControlLabel value="0.75" control={<Radio />} label="0.75+" />
                 </Field>
-              <Grid>
+              <Grid item xs={12}>
                 <FormLabel>Amount</FormLabel>
-
                 <Slider
+                  name="amount"
                   defaultValue={2}
                   aria-labelledby="discrete-slider-small-steps"
                   step={1}
@@ -110,6 +111,16 @@ const CreateOfferForm: React.FC = () => {
                   component={LocationField}
                   fullWidth
                   initHelperText="Give a default location for the trade. Any public location will do."
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  name="recipeLink"
+                  label="Link to recipe/brewing notes"
+                  size="small"
+                  component={FormTextField}
+                  fullWidth
+                  initHelperText="optional"
                 />
               </Grid>
               <Grid item xs={12}>
