@@ -4,6 +4,7 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import { FormTextField } from "./FormTextField";
 import LocationField from './LocationField'
 import * as yup from "yup";
+import LocationFieldHooked from './LocationFieldHooked';
 
 const CreateOfferForm: React.FC = () => {
 
@@ -109,6 +110,15 @@ const CreateOfferForm: React.FC = () => {
                   name="locationField"
                   label="Trade location"
                   component={LocationField}
+                  fullWidth
+                  initHelperText="Give a default location for the trade. Any public location will do."
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  name="locationFieldHoked"
+                  label="Trade location"
+                  component={LocationFieldHooked}
                   fullWidth
                   initHelperText="Give a default location for the trade. Any public location will do."
                 />
