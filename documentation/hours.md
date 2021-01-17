@@ -9,6 +9,9 @@
 |14.01.2021|2| custom markers
 |14.01.2021|4| formik and yup, first version of create-offer-form
 |14.01.2021|1| refactored app bar
+|16.02.2021|1| Integeraged google places picker to formik and yup for validation and errors
+|16.02.2021|1| Added the more trivial field to create-form
+
 
 |TOTAL|0| |	|
 
