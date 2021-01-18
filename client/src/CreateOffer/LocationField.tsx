@@ -1,27 +1,15 @@
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
+import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import Grid from '@material-ui/core/Grid';
 import { TextFieldProps } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { makeStyles } from '@material-ui/core/styles';
 import parse from 'autosuggest-highlight/parse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FieldProps } from 'formik';
 import FormTextField from './FormTextField'
 
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    color: theme.palette.text.secondary,
-    marginRight: theme.spacing(2),
-  },
-}));
+
 
 const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
-
-  const classes = useStyles();
 
   const {
 
@@ -44,7 +32,7 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
     getGeocode({ address: description })
       .then((results) => getLatLng(results[0]))
       .then(({ lat, lng }) => {
-        console.log("📍 Coordinates: ", { lat, lng });
+        console.log("Coordinates: ", { lat, lng });
       })
       .catch((error) => {
         console.log("Error: ", error);
@@ -60,9 +48,6 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
 
     return (
       <Grid container alignItems="center">
-        <Grid item>
-          <LocationOnIcon className={classes.icon} />
-        </Grid>
         <Grid item xs>
           {parts.map((part, index) => (
             <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
@@ -93,7 +78,8 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
         setValue(newInputValue);
       }}
       renderInput={(params) => (
-        <FormTextField {...params}
+        <FormTextField 
+        {...params}
         {...props}/>
       )}
       renderOption={renderSuggestion}

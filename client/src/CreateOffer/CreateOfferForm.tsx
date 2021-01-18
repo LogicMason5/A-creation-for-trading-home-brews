@@ -1,11 +1,11 @@
 import React from 'react';
-import { Container, Typography, Grid, Button, Box, Radio, FormControlLabel, FormLabel } from "@material-ui/core";
+import { Container, Typography, Grid, Button, Box, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "./FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
 import LocationField from './LocationField';
-import Slider from './FormSlider'
+import FormSlider from './FormSlider'
 
 const CreateOfferForm: React.FC = () => {
 
@@ -19,9 +19,8 @@ const CreateOfferForm: React.FC = () => {
   }
   
   const validationSchema = yup.object().shape({
-    beerName: yup.string().required("A name is required"),
-    description: yup.string().required("Required"),
-    // packageSize: yup.string().required("Pick any package size and specify in description if necessary"),
+    beerName: yup.string().required("A name is required").min(3).max(30),
+    description: yup.string().required("Required").min(6).max(600),
     location: yup.string().required("A valid location is necessary to display the offer on the map")
   });
 
@@ -82,8 +81,8 @@ const CreateOfferForm: React.FC = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormLabel>Package size</FormLabel>
                 <Field
+                  label="Package Size"
                   component={RadioGroup}
                   name="packageSize"
                   options={[
@@ -97,7 +96,7 @@ const CreateOfferForm: React.FC = () => {
               <Grid item xs={12}>
                 <FormLabel>Amount</FormLabel>
                 <Field 
-                  component={Slider}
+                  component={FormSlider}
                   name="amount"
                   defaultValue={2}
                   step={1}
@@ -105,7 +104,6 @@ const CreateOfferForm: React.FC = () => {
                   min={1}
                   max={12}
                   valueLabelDisplay="auto"
-                  // onChange={(event, value) => setFieldValue("amount", value)}
                 />
               </Grid>
               <Grid item xs={12}>

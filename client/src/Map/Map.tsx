@@ -42,7 +42,20 @@ const Map: React.FC = () => {
       }
     ];
 
-    const options = {
+    const mapRef = React.useRef() as any;
+
+    const onMapLoad = React.useCallback((map) => {
+      mapRef.current = map;
+    }, []);
+
+    const panTo = React.useCallback(({ lat, lng }) => {
+      
+        mapRef.current.panTo({ lat, lng });
+        mapRef.current.setZoom(13);
+      
+    }, []);
+
+    const mapOptions = {
       disableDefaultUI: true,
       styles: mapStyles as google.maps.MapTypeStyle[]
     }
@@ -53,7 +66,8 @@ const Map: React.FC = () => {
           mapContainerStyle={mapContainerStyles}
           zoom={13}
           center={center}
-          options={options}
+          options={mapOptions}
+          onLoad={onMapLoad}
           >
             {
               offers.map(o => {

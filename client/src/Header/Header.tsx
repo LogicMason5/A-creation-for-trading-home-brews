@@ -14,7 +14,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
-import black from '../../assets/black.png';
+import black from '../assets/black.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

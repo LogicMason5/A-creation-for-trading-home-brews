@@ -1,4 +1,4 @@
-import black from '../../assets/black.png';
+import black from '../assets/black.png';
 import { Marker } from '@react-google-maps/api'
 import './Marker.css';
 

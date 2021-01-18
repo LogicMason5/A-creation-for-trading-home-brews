@@ -17,15 +17,14 @@ export const fieldToSlider = ({
     ...props,
     ...field,
     name: field.name,
-    value: field.value
+    value: field.value,
   };
 };
 
-const Slider: React.ComponentType<SliderProps> = (props: SliderProps) => (
+const FormSlider: React.ComponentType<SliderProps> = (props: SliderProps) => (
   <MuiSlider {...fieldToSlider(props)}
-    onChange={(e, value) => props.form.setFieldValue(props.field.name, value)} />
+    onChange={(e, value) => props.form.setFieldValue(props.field.name, value)}
+    onBlur={() => props.form.setFieldTouched(props.field.name, true)} />
 );
 
-Slider.displayName = "FormikMaterialUISlider";
-
-export default Slider
+export default FormSlider
