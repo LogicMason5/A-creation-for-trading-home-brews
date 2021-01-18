@@ -2,7 +2,7 @@ import React from 'react'
 import { FieldProps, getIn } from 'formik'
 import { TextFieldProps, TextField } from '@material-ui/core'
 
-export const FormTextField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
+const FormTextField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
   const isTouched = getIn(props.form.touched, props.field.name)
   const errorMessage = getIn(props.form.errors, props.field.name)
 
@@ -18,3 +18,5 @@ export const FormTextField: React.FC<FieldProps & TextFieldProps & { initHelperT
     />
   )
 }
+
+export default FormTextField

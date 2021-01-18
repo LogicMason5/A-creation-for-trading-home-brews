@@ -1,19 +1,16 @@
-import React from 'react';
-import { TextFieldProps, TextField } from '@material-ui/core'
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import LocationOnIcon from '@material-ui/icons/LocationOn';import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import parse from 'autosuggest-highlight/parse';
-import throttle from 'lodash/throttle';
-import { FieldProps, getIn } from 'formik';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-
-
-const autocompleteService = { current: null };
+import Grid from '@material-ui/core/Grid';
+import { TextFieldProps } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { makeStyles } from '@material-ui/core/styles';
+import parse from 'autosuggest-highlight/parse';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { FieldProps } from 'formik';
+import FormTextField from './FormTextField'
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -22,132 +19,86 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface PlaceType {
-  description: string;
-  structured_formatting: {
-    main_text: string;
-    secondary_text: string;
-    main_text_matched_substrings: [
-      {
-        offset: number;
-        length: number;
-      },
-    ];
-  };
-}
-
 const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
 
-  const isTouched = getIn(props.form.touched, props.field.name)
-  const errorMessage = getIn(props.form.errors, props.field.name)
-
-  const { error, helperText, field, form, initHelperText, ...rest } = props
-
   const classes = useStyles();
-  const [value, setValue] = React.useState<PlaceType | null>(null);
-  const [inputValue, setInputValue] = React.useState('');
-  const [suggestions, setSuggestions] = React.useState<PlaceType[]>([]);
 
+  const {
 
-  const fetch = React.useMemo(
-    () =>
-      throttle((request: { input: string }, callback: (results?: PlaceType[]) => void) => {
-        (autocompleteService.current as any).getPlacePredictions(request, callback);
-      }, 200),
-    [],
-  );
+    suggestions: { data },
+    setValue,
 
-  React.useEffect(() => {
-    let active = true;
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      /* Define search scope here */
+    },
+    debounce: 200,
+  });
 
-    if (!autocompleteService.current && (window as any).google) {
-      autocompleteService.current = new (window as any).google.maps.places.AutocompleteService();
-    }
-    if (!autocompleteService.current) {
-      return undefined;
-    }
+  const handleSelect = (newValue: google.maps.places.AutocompletePrediction) => {
+    const description = newValue.description;
+    console.log('in handle select. desc: ' + description)
 
-    if (inputValue === '') {
-      setSuggestions(value ? [value] : []);
-      return undefined;
-    }
+    setValue(description, false);
 
-    fetch({ input: inputValue }, (results?: PlaceType[]) => {
-      if (active) {
-        let newSuggestions = [] as PlaceType[];
+    getGeocode({ address: description })
+      .then((results) => getLatLng(results[0]))
+      .then(({ lat, lng }) => {
+        console.log("📍 Coordinates: ", { lat, lng });
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
 
-        if (value) {
-          newSuggestions = [value];
-        }
+  const renderSuggestion = (option: google.maps.places.AutocompletePrediction) => {
+    const matches = option.structured_formatting.main_text_matched_substrings;
+    const parts = parse(
+      option.structured_formatting.main_text,
+      matches.map((match: any) => [match.offset, match.offset + match.length]),
+    );
 
-        if (results) {
-          newSuggestions = [...newSuggestions, ...results];
-        }
-
-        setSuggestions(newSuggestions);
-      }
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [value, inputValue, fetch]);
-
-
-
+    return (
+      <Grid container alignItems="center">
+        <Grid item>
+          <LocationOnIcon className={classes.icon} />
+        </Grid>
+        <Grid item xs>
+          {parts.map((part, index) => (
+            <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+              {part.text}
+            </span>
+          ))}
+          <Typography variant="body2" color="textSecondary">
+            {option.structured_formatting.secondary_text}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  };
 
   return (
     <Autocomplete
       id="location-autocomplete"
+      options={data}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
-      filterOptions={(x) => x}
-      options={suggestions}
+      getOptionSelected={() => true}
       autoComplete
       includeInputInList
-      filterSelectedOptions
-      value={value}
-      onChange={(event: any, newValue: PlaceType | null) => {
-        setSuggestions(newValue ? [newValue, ...suggestions] : suggestions);
-        setValue(newValue);
+      onChange={(event: any, newValue: google.maps.places.AutocompletePrediction | null) => {
+        console.log('printing in onCHange' + newValue)
+        newValue ? handleSelect(newValue) : console.log('no new value')
       }}
       onInputChange={(event, newInputValue) => {
-        setInputValue(newInputValue);
+        setValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params}
-        variant="outlined"
-        error={error ?? Boolean(isTouched && errorMessage)}
-        helperText={helperText ?? ((isTouched && errorMessage) ? errorMessage : initHelperText)}
-        {...rest}
-        {...field}/>
+        <FormTextField {...params}
+        {...props}/>
       )}
-      renderOption={(option) => {
-        const matches = option.structured_formatting.main_text_matched_substrings;
-        const parts = parse(
-          option.structured_formatting.main_text,
-          matches.map((match: any) => [match.offset, match.offset + match.length]),
-        );
-
-        return (
-          <Grid container alignItems="center">
-            <Grid item>
-              <LocationOnIcon className={classes.icon} />
-            </Grid>
-            <Grid item xs>
-              {parts.map((part, index) => (
-                <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
-                  {part.text}
-                </span>
-              ))}
-              <Typography variant="body2" color="textSecondary">
-                {option.structured_formatting.secondary_text}
-              </Typography>
-            </Grid>
-          </Grid>
-        );
-      }}
+      renderOption={renderSuggestion}
     />
   );
-}
+};
 
-export default LocationField
+export default LocationField;

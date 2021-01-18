@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Typography, Grid, Button, Box, Radio, RadioGroup, FormControlLabel, FormLabel, Slider } from "@material-ui/core";
+import { Container, Typography, Grid, Button, Box, Radio, FormControlLabel, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
-import { FormTextField } from "./FormTextField";
-import LocationField from './LocationField'
+import FormTextField from "./FormTextField";
+import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
-import LocationFieldHooked from './LocationFieldHooked';
+import LocationField from './LocationField';
+import Slider from './FormSlider'
 
 const CreateOfferForm: React.FC = () => {
 
@@ -21,7 +22,7 @@ const CreateOfferForm: React.FC = () => {
     beerName: yup.string().required("A name is required"),
     description: yup.string().required("Required"),
     // packageSize: yup.string().required("Pick any package size and specify in description if necessary"),
-    locationField: yup.string().required("A valid location is necessary to display the offer on the map")
+    location: yup.string().required("A valid location is necessary to display the offer on the map")
   });
 
   return (
@@ -84,41 +85,34 @@ const CreateOfferForm: React.FC = () => {
                 <FormLabel>Package size</FormLabel>
                 <Field
                   component={RadioGroup}
-                  row
-                  label="package size" 
-                  >
-                  <FormControlLabel value="0.33" control={<Radio />} label="0.33" />
-                  <FormControlLabel value="0.5" control={<Radio />} label="0.5" />
-                  <FormControlLabel value="0.75" control={<Radio />} label="0.75+" />
-                </Field>
+                  name="packageSize"
+                  options={[
+                    { value: '0.33', label: '0.33' },
+                    { value: '0.5', label: '0.5' },
+                    { value: 'other', label: 'other' },
+                  ]}
+                  groupProps={{ row: true }}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <FormLabel>Amount</FormLabel>
-                <Slider
+                <Field 
+                  component={Slider}
                   name="amount"
                   defaultValue={2}
-                  aria-labelledby="discrete-slider-small-steps"
                   step={1}
                   marks
                   min={1}
                   max={12}
                   valueLabelDisplay="auto"
+                  // onChange={(event, value) => setFieldValue("amount", value)}
                 />
-              </Grid>
               </Grid>
               <Grid item xs={12}>
                 <Field
-                  name="locationField"
+                  name="location"
                   label="Trade location"
                   component={LocationField}
-                  fullWidth
-                  initHelperText="Give a default location for the trade. Any public location will do."
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="locationFieldHoked"
-                  label="Trade location"
-                  component={LocationFieldHooked}
                   fullWidth
                   initHelperText="Give a default location for the trade. Any public location will do."
                 />
