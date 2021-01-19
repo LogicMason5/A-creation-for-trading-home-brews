@@ -1,9 +1,7 @@
-import express from 'express';
-import offerService from '../services/offersService';
-import { Offer } from '../type';
-import { toNewOffer } from '../utils';
-
-const router = express.Router();
+const offersRouter = require('express').Router()
+import { Offer } from '../type'
+import { toNewOffer } from '../utils'
+const OfferSchema = require('../models/offerSchema')
 
 // router.get('/', (_req, res) => {
 //   const offerData = offerService.getOffers();
@@ -15,17 +13,18 @@ const router = express.Router();
 //   res.send(offer);
 // });
 
-router.post('/api/offers', (req, res) => {
-  try {
+offersRouter.post('/', async (req: { body: any; }, res: { json: (arg0: Offer) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: any): void; new(): any; }; }; }) => {
+
     console.log('post req received')
     console.log(req.body)
-    const newOffer:Omit<Offer, "id"> = toNewOffer(req.body);
-    const addedOffer = offerService.addOffer(newOffer);
-    res.json(addedOffer);
-  } catch (e) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    res.status(400).send(e.message);
-  } 
+    const parsedOffer:Omit<Offer, "id"> = toNewOffer(req.body)
+    const newOffer = new OfferSchema({
+      ...parsedOffer
+      //user id need to be handled separately later, check blogs
+    })
+    const savedOffer = await newOffer.save()
+    res.json(savedOffer.toJSON())
+
 });
 
 // router.post('/:id/entries', (req, res) => {
@@ -40,4 +39,4 @@ router.post('/api/offers', (req, res) => {
 //   } 
 // });
 
-export default router;
+module.exports = offersRouter

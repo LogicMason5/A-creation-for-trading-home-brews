@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongo = require('mongoose')
 
-const offerSchema = mongoose.Schema({
+const offerSchema = mongo.Schema({
   beerName: { type: String, required: true },
   description: { type: String, required: true },
   packageSize: { type: String },
@@ -11,27 +11,20 @@ const offerSchema = mongoose.Schema({
   },
   recipeLink: { type: String },
   created: { type: String, required: true },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  id: mongoose.Schema.Types.ObjectId
-    // title: { type: String, required: true},
-    // author: String,
-    // url: { type: String, required: true},
-    // likes: { type: Number, default: 0},
-    // user: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'User'
-    // }
+  owner: { type: String }, //change to ref later
+  // {
+  //   type: mongo.Schema.Types.ObjectId,
+  //   ref: 'User'
+  // },
+  id: mongo.Schema.Types.ObjectId
   })
 
 offerSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  transform: (_document: any, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
   }
 })
 
-module.exports = mongoose.model('Offer', offerSchema)
+module.exports = mongo.model('OfferSchema', offerSchema)

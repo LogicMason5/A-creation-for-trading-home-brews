@@ -1,13 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import { default as offerRouter } from './controllers/offers';
-const app = express();
-app.use(express.json());
-app.use(cors());
-app.use('/', offerRouter);
+const application = require('./app')
+const http = require('http')
+const config = require('./utils/config')
+const serverLogger = require('./utils/logger')
 
-const PORT = 3001;
+const server = http.createServer(application)
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+application.listen(config.PORT, () => {
+  serverLogger.info(`Server running on port ${config.PORT}`)
+})
