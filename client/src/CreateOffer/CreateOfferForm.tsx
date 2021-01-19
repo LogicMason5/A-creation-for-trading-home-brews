@@ -6,6 +6,7 @@ import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
 import LocationField from './LocationField';
 import FormSlider from './FormSlider'
+import { createOffer } from './offersSlice'
 
 const CreateOfferForm: React.FC = () => {
 
@@ -49,9 +50,9 @@ const CreateOfferForm: React.FC = () => {
           values: FormValues,
           formikHelpers: FormikHelpers<FormValues>
         ) => {
-          console.log('test')  
-          console.log(values)
-          alert(JSON.stringify(values, null, 2));
+          const {location, ...otherValues} = values
+          console.log(otherValues)
+          createOffer(otherValues)
           formikHelpers.setSubmitting(false);
         }}
       >

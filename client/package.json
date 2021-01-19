@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@react-google-maps/api": "^2.1.0",
+    "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
@@ -15,6 +16,7 @@
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
     "autosuggest-highlight": "^3.1.1",
+    "axios": "^0.21.1",
     "formik": "^2.2.6",
     "material-ui-formik-components": "^0.7.3",
     "react": "^17.0.1",
@@ -32,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server -p3001 --watch db.json"
   },
   "eslintConfig": {
     "extends": [
@@ -54,10 +57,15 @@
   },
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.1.1",
+    "@types/axios": "^0.14.0",
     "@types/googlemaps": "^3.43.1",
     "@types/material-ui": "^0.21.8",
+    "@types/react-redux": "^7.1.15",
     "@types/react-router-dom": "^5.1.7",
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
     "@types/yup": "^0.29.11",
+    "json-server": "^0.16.3",
     "redux-devtools-extension": "^2.13.8"
   }
 }

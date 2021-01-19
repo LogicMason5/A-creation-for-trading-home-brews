@@ -6,10 +6,12 @@ import parse from 'autosuggest-highlight/parse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FieldProps } from 'formik';
 import FormTextField from './FormTextField'
-
-
+import { useDispatch } from 'react-redux';
+import { setLocation } from '../Map/locationSlice'
 
 const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
+
+  const dispatch = useDispatch();
 
   const {
 
@@ -18,25 +20,22 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
 
   } = usePlacesAutocomplete({
     requestOptions: {
-      /* Define search scope here */
+      // can define search scope here later based on user location
     },
     debounce: 200,
   });
 
-  const handleSelect = (newValue: google.maps.places.AutocompletePrediction) => {
+  const handleSelect = async (newValue: google.maps.places.AutocompletePrediction) => {
     const description = newValue.description;
-    console.log('in handle select. desc: ' + description)
 
-    setValue(description, false);
-
-    getGeocode({ address: description })
-      .then((results) => getLatLng(results[0]))
-      .then(({ lat, lng }) => {
-        console.log("Coordinates: ", { lat, lng });
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
+    try {
+      setValue(description, false);
+      const results = await getGeocode({ address: description });
+      const { lat, lng } = await getLatLng(results[0]);
+      dispatch(setLocation({ lat, lng }))
+    } catch (error) {
+      console.log("error: ", error)
+    }
   };
 
   const renderSuggestion = (option: google.maps.places.AutocompletePrediction) => {
@@ -71,7 +70,6 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
       autoComplete
       includeInputInList
       onChange={(event: any, newValue: google.maps.places.AutocompletePrediction | null) => {
-        console.log('printing in onCHange' + newValue)
         newValue ? handleSelect(newValue) : console.log('no new value')
       }}
       onInputChange={(event, newInputValue) => {

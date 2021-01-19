@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients/d2773c6e-f723-11e9-8f0b-362b9e155667/entries HTTP/1.1
+content-type: application/json
+
+  {
+        "date": "2019-05-01",
+        "specialist": "Dr Diibaa",
+        "type": "HealthCheck",
+        "description": "'Digital overdose, very bytestatic. Otherwise healthy.'",
+        "healthCheckRating": 0
+      }
