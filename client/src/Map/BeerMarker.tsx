@@ -1,12 +1,19 @@
 import black from '../assets/black.png';
 import { Marker } from '@react-google-maps/api'
-import './Marker.css';
 
-const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral }> =  ({ name, position }) => {
+const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral, id: string }> =  ({ name, position, id }) => {
 
     const icon = {
       url: black,
-      scaledSize: new google.maps.Size(60, 60)
+      scaledSize: new google.maps.Size(60, 60),
+      labelOrigin: new google.maps.Point(30, -30)
+    }
+
+    const label: google.maps.MarkerLabel = {
+      text: name,
+      fontSize: "24px",
+      fontWeight: "bold",
+      // color: "red"
     }
 
     const handleClick = () => {
@@ -14,13 +21,14 @@ const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral }
     } 
 
     return (
-      <Marker
-        position={position}
-        key={name}
-        icon={icon}
-        onClick={handleClick}
-        label={name}
-      />
+        <Marker
+          position={position}
+          key={id}
+          icon={icon}
+          onClick={handleClick}
+          label={label}
+          animation={google.maps.Animation.BOUNCE}
+        />
     );
   };
 

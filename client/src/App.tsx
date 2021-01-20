@@ -1,5 +1,6 @@
 import React from 'react'
-import CreateOfferForm from './CreateOffer/CreateOfferForm'
+import CreateOfferForm from './Offers/CreateOfferForm'
+import OfferDisplay from './Offers/OfferDisplay'
 import { useLoadScript } from '@react-google-maps/api'
 import Map from './Map/Map'
 import Box from '@material-ui/core/Box';
@@ -22,7 +23,7 @@ const App: React.FC = () => {
         <Header />
         <Switch>
           <Route path="/create-offer" render={() => isLoaded ? <CreateOfferForm /> : <div>Loading maps...</div>} />
-          {/* <Route path="/messages" render={() => <Messenger />} /> */}
+          <Route path="/offerid" render={() => <OfferDisplay />} />
           <Route path="/" render={() => isLoaded ? <Map /> : <div>Loading maps...</div>} />
         </Switch>
      </Box>

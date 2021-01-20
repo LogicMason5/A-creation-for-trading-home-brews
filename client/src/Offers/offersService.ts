@@ -4,6 +4,7 @@ import { Offer } from '../type'
 const baseUrl = 'http://localhost:3001/api/offers'
 
 const getAll = async () => {
+  
   const response = await axios.get(baseUrl)
   return response.data
 }

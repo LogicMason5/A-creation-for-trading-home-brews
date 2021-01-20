@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GoogleMap } from '@react-google-maps/api'
 import BeerMarker from './BeerMarker'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add';
 import { mapStyles } from './mapStyles'
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../rootReducer';
+import { fetchOffers } from '../Offers/offersSlice';
 
 
 const Map: React.FC = () => {
@@ -13,74 +16,61 @@ const Map: React.FC = () => {
     width: "100%",
   };
 
-  const center = {
-    lat: 60.16209,
-    lng: 24.92022
-  };
+  const dispatch = useDispatch()
 
-    const offers = [
-      {
-        name: "Location 1",
-        location: { 
-          lat: 60.15,
-          lng: 24.93 
-        },
-      },
-      {
-        name: "Location 2",
-        location: { 
-          lat: 60.15,
-          lng: 24.91
-        },
-      },
-      {
-        name: "Location 3",
-        location: { 
-          lat: 60.163,
-          lng: 24.921
-        },
-      }
-    ];
+  const center = useSelector(
+    (state: RootState) => state.location.location
+  )
 
-    const mapRef = React.useRef() as any;
+  const { offers } = useSelector(
+    (state: RootState) => state.offers
+  )
 
-    const onMapLoad = React.useCallback((map) => {
-      mapRef.current = map;
-    }, []);
+    //add dispatch and offers to 2nd argument later
+  useEffect(() => {
+    dispatch(fetchOffers())
+  }, [dispatch])
 
-    const panTo = React.useCallback(({ lat, lng }) => {
-      
-        mapRef.current.panTo({ lat, lng });
-        mapRef.current.setZoom(13);
-      
-    }, []);
 
-    const mapOptions = {
-      disableDefaultUI: true,
-      styles: mapStyles as google.maps.MapTypeStyle[]
-    }
+  const mapRef = React.useRef() as any;
 
-    return (
+  const onMapLoad = React.useCallback((map) => {
+    mapRef.current = map;
+  }, []);
 
-        <GoogleMap           
-          mapContainerStyle={mapContainerStyles}
-          zoom={13}
-          center={center}
-          options={mapOptions}
-          onLoad={onMapLoad}
-          >
-            {
-              offers.map(o => {
-                return (
-                  <BeerMarker key={o.name} name={o.name} position={o.location} />
-                )
-              })
-            }
-          <Fab color="secondary" aria-label="add" >
-            <AddIcon />
-          </Fab>
-        </GoogleMap>
-   )
+  const panTo = React.useCallback(({ lat, lng }) => {
+    
+      mapRef.current.panTo({ lat, lng });
+      mapRef.current.setZoom(13);
+    
+  }, []);
+
+  const mapOptions = {
+    disableDefaultUI: true,
+    styles: mapStyles as google.maps.MapTypeStyle[]
+  }
+
+  return (
+
+      <GoogleMap           
+        mapContainerStyle={mapContainerStyles}
+        zoom={13}
+        center={center}
+        options={mapOptions}
+        onLoad={onMapLoad}
+        >
+          {
+            offers.map(o => {
+              return (
+                <BeerMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
+              )
+            })
+          }
+        <Fab color="secondary" aria-label="add" >
+          <AddIcon />
+        </Fab>
+      </GoogleMap>
+  )
 }
 
 export default Map;

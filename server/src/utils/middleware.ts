@@ -1,18 +1,24 @@
-const infoLogger = require('./logger')
+export {}
+import { Request, Response, NextFunction } from 'express'
+const logger = require('./logger')
 
-const requestLogger = (request: { method: any; path: any; body: any }, _response: any, next: () => void) => {
-  infoLogger.info('Method:', request.method)
-  infoLogger.info('Path:  ', request.path)
-  infoLogger.info('Body:  ', request.body)
-  infoLogger.info('---')
+const requestLogger = (request: Request, _response: Response, next: NextFunction) => {
+  logger.info('Method:', request.method)
+  logger.info('Path:  ', request.path)
+  logger.info('Body:  ', request.body)
+  logger.info('---')
   next()
+}
+
+interface RequestWithUser extends Request {
+  token: string | null;
 }
 
 
 
-const tokenExtractor = (request: { token: any }, _response: any, next: () => void) => {
+const tokenExtractor = (request: RequestWithUser, _response: Response, next: NextFunction) => {
 
-  const getTokenFrom = (request: { token?: any; get?: any }) => {
+  const getTokenFrom = (request: Request) => {
     const authorization = request.get('authorization')
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
       return authorization.substring(7)
@@ -25,15 +31,14 @@ const tokenExtractor = (request: { token: any }, _response: any, next: () => voi
   next()
 }
 
-
-const unknownEndpoint = (_request: any, response: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { error: string }): void; new(): any } } }) => {
+const unknownEndpoint = (_request: Request, response: Response, _next: NextFunction) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-const errorHandler = (error: { name: string; message: any }, _request: any, response: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { error: string }): any; new(): any }; json: { (arg0: { error: any }): any; new(): any } } }, next: (arg0: any) => void) => {
+const errorHandler = (error: Error, _request: Request, response: Response, next: NextFunction) => {
   if (error.name === 'CastError') {
     return response.status(400).send({
-      error: 'malformatted id'
+      error: 'CastError'
     })
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({
@@ -48,6 +53,9 @@ const errorHandler = (error: { name: string; message: any }, _request: any, resp
   logger.error(error.message)
 
   next(error)
+  return response.status(350).json({
+    error: 'unknown error'
+  })
 }
 
 module.exports = {

@@ -118,7 +118,7 @@ const HeaderAppBar: React.FC = () => {
       onClose={handleMobileMenuClose}
     >
       
-      <MenuItem component={Link} to="/messages" >
+      <MenuItem component={Link} to="/offerid" >
         <IconButton aria-label="show 4 new mails" color="inherit" >
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
@@ -183,7 +183,7 @@ const HeaderAppBar: React.FC = () => {
             aria-label="show 4 new mails"
             color="inherit"
             component={Link}
-            to="/messages">
+            to="/offerid">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
               </Badge>

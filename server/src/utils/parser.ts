@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Coordinates, Offer } from "./type";
+import { ICoordinates, IOffer } from "../type";
 
-export const toNewOffer = (object: any): Omit<Offer, "id"> => {
+export const toNewOffer = (object: any): Omit<IOffer, "id"> => {
   console.log('in toNewOffer')
   console.log(object)
-  const newOffer: Omit<Offer, "id"> = {
+  const newOffer: Omit<IOffer, "id"> = {
     beerName: parseAsString(object.beerName, "beerName"),
     description: parseAsString(object.description, "description"),
     packageSize: object.packageSize ? parseAsString(object.packageSize, "packageSize") : undefined,
@@ -42,7 +42,7 @@ const parseAsDate = (value: any, key: string): string => {
   return value;
 };
 
-const parseAsCoordinates = (value: any, key: string): Coordinates => {
+const parseAsCoordinates = (value: any, key: string): ICoordinates => {
   if(!value || !isCoordinates(value)) {
     throw new Error(`Incorrect or missing ${key}. Found: ${value}`);
   }
@@ -61,6 +61,6 @@ const isNumber = (num: number): num is number => {
   return typeof num === 'number';
 };
 
-const isCoordinates = (param: any): param is Coordinates => {
+const isCoordinates = (param: any): param is ICoordinates => {
   return(isNumber(param.lat) && isNumber(param.lng))
 }

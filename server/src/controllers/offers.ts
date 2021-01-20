@@ -1,9 +1,11 @@
+import { Request, Response } from 'express'
+import { IOffer, IOfferDocument } from '../type'
+import { toNewOffer } from '../utils/parser'
+import mongoose from 'mongoose'
+const Offer = require('../models/offerSchema')
 const offersRouter = require('express').Router()
-import { Offer } from '../type'
-import { toNewOffer } from '../utils'
-const OfferSchema = require('../models/offerSchema')
 
-// router.get('/', (_req, res) => {
+// offersRouter.get('/', (_req: Request, res: Response) => {
 //   const offerData = offerService.getOffers();
 //   res.send(offerData);
 // });
@@ -13,16 +15,27 @@ const OfferSchema = require('../models/offerSchema')
 //   res.send(offer);
 // });
 
-offersRouter.post('/', async (req: { body: any; }, res: { json: (arg0: Offer) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: any): void; new(): any; }; }; }) => {
 
-    console.log('post req received')
-    console.log(req.body)
-    const parsedOffer:Omit<Offer, "id"> = toNewOffer(req.body)
-    const newOffer = new OfferSchema({
-      ...parsedOffer
+//this gets public info only, doesnt populate owner
+offersRouter.get('/', async (_req: Request, res: Response) => {
+  const offers = await Offer
+  .find({})
+
+  res.json(offers.map((offer: { toJSON: () => any }) => offer.toJSON()))
+});
+
+offersRouter.post('/', async (req: Request, res: Response) => {
+
+    const parsedOffer: Omit<IOffer, "id"> = toNewOffer(req.body)
+
+    const offer = new Offer({
+      ...parsedOffer,
+      _id: new mongoose.Types.ObjectId()
       //user id need to be handled separately later, check blogs
     })
-    const savedOffer = await newOffer.save()
+
+    const savedOffer = await offer.save()
+
     res.json(savedOffer.toJSON())
 
 });

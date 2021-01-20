@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
 import locationReducer from './Map/locationSlice'
-import offersReducer from './CreateOffer/offersSlice'
+import offersReducer from './Offers/offersSlice'
 
 const rootReducer = combineReducers({
   location: locationReducer,
