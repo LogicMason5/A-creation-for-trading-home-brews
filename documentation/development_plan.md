@@ -2,8 +2,6 @@
 
 This is a rough plan for the development of the app:
 
-
-
 # stage 1:
 
 ## front-end:
@@ -23,10 +21,11 @@ This is a rough plan for the development of the app:
 
 ## front-end:
 - user creation and login
+- display offer
 
 ## back-end:
 - user management
-- proxying api keys
+- api for offerbyid
 
 # stage 3:
 
