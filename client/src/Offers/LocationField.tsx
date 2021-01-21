@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import parse from 'autosuggest-highlight/parse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FieldProps } from 'formik';
-import FormTextField from './FormTextField';
+import FormTextField from '../SharedComponents/FormTextField';
 import { useDispatch } from 'react-redux';
 import { setLocation } from '../Map/locationSlice';
 

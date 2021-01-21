@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container, Typography, Grid, Button, Box, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
-import FormTextField from "./FormTextField";
+import FormTextField from "../SharedComponents/FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
 import LocationField from './LocationField';
-import FormSlider from './FormSlider';
+import FormSlider from '../SharedComponents/FormSlider';
 import { createOffer } from './offersSlice';
 
 const CreateOfferForm: React.FC = () => {

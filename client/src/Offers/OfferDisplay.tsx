@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import Close from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -33,12 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: theme.transitions.create('transform', {
         duration: theme.transitions.duration.shortest,
       }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
     },
   }),
 );
@@ -97,7 +90,7 @@ const OfferDisplay: React.FC = () => {
       <Divider />
       <CardMedia
         className={classes.media}
-        image={'/static/media/beer.f5aa4b22.svg'}
+        image={'https://images.ctfassets.net/sz2xpiwl6od9/ViVjIh4AALgAXfA2/86ce8853610527d1438c72220bc13533/bb19ca64bcd7dba6922d8a0fac623ff81fed831f_sours-primer.jpg?w=1600&fm=webp'}
         title="placeholder image"
       />
       <Divider />
