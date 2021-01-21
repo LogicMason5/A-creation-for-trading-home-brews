@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOfferById } from '../Offers/offersSlice';
@@ -47,43 +47,41 @@ interface MatchParams {
   id: string
 }
 
-const OfferDisplay = () => {
+const OfferDisplay: React.FC = () => {
+
   const classes = useStyles();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const match = useRouteMatch<MatchParams>('/offers/:id')
+  const match = useRouteMatch<MatchParams>('/offers/:id');
 
-  const id = match?.params.id
+  const id = match?.params.id;
 
-  console.log(match)
-
-  console.log('id' + id)
-  console.log('id tostr' + id)
-
-  const displayedOffer = useSelector(
+  const offer = useSelector(
     (state: RootState) => state.offers.displayedOffer
-  )
-
-  console.log(displayedOffer)
-
+  );
     //add dispatch and offers to 2nd argument later
   useEffect(() => {
     if (id) {
-      dispatch(fetchOfferById(id.toString()))
+      dispatch(fetchOfferById(id.toString()));
     }
-  }, [dispatch])
+  }, [dispatch, id]);
 
-  const { offers } = useSelector(
-    (state: RootState) => state.offers
-  )
+  // const { offers } = useSelector(
+  //   (state: RootState) => state.offers
+  // );
   
-  const offer = offers[0]
+  // const offer = offers[0];
+
+  if (!offer) return (
+    <div>loading offer...</div>
+  );
 
   const handleLinkClick = (event: React.MouseEvent) => {
-    event.preventDefault()
-    window.open(`//${offer.recipeLink}`, `_blank`)
-  }
+    event.preventDefault();
+    window.open(`//${offer.recipeLink}`, `_blank`);
+  };
+
 
   return (
     <Card className={classes.root}>
@@ -163,6 +161,6 @@ const OfferDisplay = () => {
       </CardActions>
     </Card>
   );
-}
+};
 
-export default OfferDisplay
+export default OfferDisplay;

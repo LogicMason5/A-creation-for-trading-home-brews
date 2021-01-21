@@ -3,7 +3,7 @@ export interface Coordinates  {
   lng: number;
 }
 
-export interface Offer {
+export interface IOffer {
   beerName: string;
   description: string;
   packageSize?: string;
@@ -16,25 +16,25 @@ export interface Offer {
 }
 
 export interface OffersState {
-  offers: Offer[]
+  offers: IOffer[]
 }
 export type LocationAction = {
   type: string;
   data: LatLng;
-}
+};
 
 type OneOfferAction = {
   type: string;
   data: Offer
-}
+};
 
 type IdOfferAction = {
   type: string;
   data: string
-}
+};
 
-export type OfferAction = OneOfferAction | IdOfferAction
+export type OfferAction = OneOfferAction | IdOfferAction;
 
-export type LocationDispatch = (args: LocationAction) => LocationAction
+export type LocationDispatch = (args: LocationAction) => LocationAction;
 
-export type OfferDispatch = (args: OfferAction) => OfferAction
+export type OfferDispatch = (args: OfferAction) => OfferAction;

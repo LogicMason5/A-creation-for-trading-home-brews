@@ -27,4 +27,4 @@ const FormSlider: React.ComponentType<SliderProps> = (props: SliderProps) => (
     onBlur={() => props.form.setFieldTouched(props.field.name, true)} />
 );
 
-export default FormSlider
+export default FormSlider;

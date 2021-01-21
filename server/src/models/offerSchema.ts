@@ -1,5 +1,5 @@
 export {};
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose';
 import { IOffer, IOfferDocument } from '../type';
 
 
@@ -20,14 +20,14 @@ const OfferSchema: Schema =  new Schema({
   //   ref: 'User'
   // },
   id: mongoose.Schema.Types.ObjectId
-  })
+  });
 
 OfferSchema.set('toJSON', {
   transform: (_document: any, returnedObject: IOfferDocument) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
   }
-})
+});
 
-module.exports = mongoose.model<IOfferDocument>('Offer', OfferSchema)
+module.exports = mongoose.model<IOfferDocument>('Offer', OfferSchema);

@@ -1,12 +1,21 @@
 import React, { useEffect } from 'react';
-import { GoogleMap } from '@react-google-maps/api'
-import BeerMarker from './BeerMarker'
-import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add';
-import { mapStyles } from './mapStyles'
+import { GoogleMap } from '@react-google-maps/api';
+import BeerMarker from './BeerMarker';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { mapStyles } from './mapStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOffers } from '../Offers/offersSlice';
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+
+  alertOnMap: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  }
+
+}));
 
 const mapContainerStyles = {        
   height: "90.3vh",
@@ -15,39 +24,41 @@ const mapContainerStyles = {
 
 const Map: React.FC = () => {
 
-  const dispatch = useDispatch()
+  const classes = useStyles();
+
+  const dispatch = useDispatch();
 
   const center = useSelector(
     (state: RootState) => state.location.location
-  )
+  );
 
   const offers = useSelector(
     (state: RootState) => state.offers.offers
-  )
+  );
 
     //add dispatch and offers to 2nd argument later
   useEffect(() => {
-    dispatch(fetchOffers())
-  }, [dispatch])
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
 
-  const mapRef = React.useRef() as any;
+  const mapRef = React.useRef();
 
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
-  }, []);
+  }, [mapRef]);
 
-  const panTo = React.useCallback(({ lat, lng }) => {
+  // const panTo = React.useCallback(({ lat, lng }) => {
     
-      mapRef.current.panTo({ lat, lng });
-      mapRef.current.setZoom(13);
+  //     mapRef.current.panTo({ lat, lng });
+  //     mapRef.current.setZoom(13);
     
-  }, []);
+  // }, []);
 
   const mapOptions = {
     disableDefaultUI: true,
     styles: mapStyles as google.maps.MapTypeStyle[]
-  }
+  };
 
   return (
 
@@ -62,14 +73,11 @@ const Map: React.FC = () => {
             offers.map(o => {
               return (
                   <BeerMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
-              )
+              );
             })
           }
-        <Fab color="secondary" aria-label="add" >
-          <AddIcon />
-        </Fab>
       </GoogleMap>
-  )
-}
+  );
+};
 
 export default Map;

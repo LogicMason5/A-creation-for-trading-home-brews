@@ -1,11 +1,11 @@
-import React from 'react'
-import CreateOfferForm from './Offers/CreateOfferForm'
-import OfferDisplay from './Offers/OfferDisplay'
-import { useLoadScript } from '@react-google-maps/api'
-import Map from './Map/Map'
+import React from 'react';
+import CreateOfferForm from './Offers/CreateOfferForm';
+import OfferDisplay from './Offers/OfferDisplay';
+import { useLoadScript } from '@react-google-maps/api';
+import Map from './Map/Map';
 import Box from '@material-ui/core/Box';
 import Header from './Header/Header';
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 const libraries = ["places"] as unknown as undefined;
 
@@ -16,9 +16,7 @@ const App: React.FC = () => {
     const { isLoaded } = useLoadScript({
       googleMapsApiKey: apiKey,
       libraries
-    })
-
-    const offerMatch = useRouteMatch('./offers/:id')
+    });
 
     return (
       <Box>
@@ -30,6 +28,6 @@ const App: React.FC = () => {
         </Switch>
      </Box>
     );
-  }
+  };
 
   export default App;

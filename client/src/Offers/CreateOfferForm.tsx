@@ -5,8 +5,8 @@ import FormTextField from "./FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
 import LocationField from './LocationField';
-import FormSlider from './FormSlider'
-import { createOffer } from './offersSlice'
+import FormSlider from './FormSlider';
+import { createOffer } from './offersSlice';
 
 const CreateOfferForm: React.FC = () => {
 
@@ -50,8 +50,7 @@ const CreateOfferForm: React.FC = () => {
           values: FormValues,
           formikHelpers: FormikHelpers<FormValues>
         ) => {
-          const {location, ...otherValues} = values
-          createOffer(otherValues)
+          createOffer(values);
           formikHelpers.setSubmitting(false);
         }}
       >
@@ -143,6 +142,6 @@ const CreateOfferForm: React.FC = () => {
       </Formik>
     </Container>
   );
-}
+};
 
-export default CreateOfferForm
+export default CreateOfferForm;

@@ -269,4 +269,4 @@ export const mapStyles = [
           }
       ]
   }
-]
+];
