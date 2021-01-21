@@ -55,6 +55,13 @@ export const fetchOffers = (): AppThunk => async dispatch => {
   } catch (error) {
     console.log(error)
   }
-  
+}
+
+export const fetchOfferById = (id: string): AppThunk => async dispatch => {
+  try {
+
+  } catch (error) {
+    console.log(error)
+  }
 }
 

@@ -5,7 +5,7 @@ import { useLoadScript } from '@react-google-maps/api'
 import Map from './Map/Map'
 import Box from '@material-ui/core/Box';
 import Header from './Header/Header';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 const libraries = ["places"] as unknown as undefined;
 
@@ -18,12 +18,14 @@ const App: React.FC = () => {
       libraries
     })
 
+    const offerMatch = useRouteMatch('./offers/:id')
+
     return (
       <Box>
         <Header />
         <Switch>
           <Route path="/create-offer" render={() => isLoaded ? <CreateOfferForm /> : <div>Loading maps...</div>} />
-          <Route path="/offerid" render={() => <OfferDisplay />} />
+          <Route path="/offers/:id" render={() => <OfferDisplay />} />
           <Route path="/" render={() => isLoaded ? <Map /> : <div>Loading maps...</div>} />
         </Switch>
      </Box>

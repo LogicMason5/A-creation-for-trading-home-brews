@@ -12,8 +12,8 @@ import { RootState } from '../rootReducer';
 import Close from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import Route from 'react-router-dom'
 import Link from '@material-ui/core/Link';
+import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 1000,
     },
     media: {
-      height: 140,
+      height: 0,
       paddingTop: '56.25%', // 16:9
     },
     expand: {
@@ -41,8 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-
 const OfferDisplay = () => {
   const classes = useStyles();
 
@@ -52,7 +50,7 @@ const OfferDisplay = () => {
   
   const offer = offers[0]
 
-  const preventDefault = (event: React.MouseEvent) => {
+  const handleLinkClick = (event: React.MouseEvent) => {
     event.preventDefault()
     window.open(`//${offer.recipeLink}`, `_blank`)
   }
@@ -68,11 +66,13 @@ const OfferDisplay = () => {
         title={offer.beerName}
         // subheader={offer.created}
       />
+      <Divider />
       <CardMedia
         className={classes.media}
-        image="/static/media/beer.f5aa4b22.svg"
-        title="Paella dish"
+        image={'/static/media/beer.f5aa4b22.svg'}
+        title="placeholder image"
       />
+      <Divider />
       <CardContent>
       <Typography color="textSecondary" component="p">
           Description:
@@ -89,9 +89,7 @@ const OfferDisplay = () => {
             {offer.amount}
         </Typography>
       </div>
-      :
-      null
-      }
+      : null}
       {offer.packageSize ?
       <div> 
         <Typography color="textSecondary" component="p">
@@ -109,14 +107,11 @@ const OfferDisplay = () => {
         <Typography color="textSecondary" component="p">
             Url to recipe/brewing notes:
         </Typography>
-        <Link href={offer.recipeLink} onClick={preventDefault} component="p">
+        <Link href={offer.recipeLink} onClick={handleLinkClick} component="p">
             {offer.recipeLink}
         </Link>
       </div>
-      :
-      null
-      }
-
+      : null}
       <div> 
         <Typography color="textSecondary" component="p">
             Offer expires in:

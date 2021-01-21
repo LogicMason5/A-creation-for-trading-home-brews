@@ -7,6 +7,7 @@ import { mapStyles } from './mapStyles'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOffers } from '../Offers/offersSlice';
+import { Link } from "react-router-dom"
 
 
 const Map: React.FC = () => {
@@ -62,7 +63,7 @@ const Map: React.FC = () => {
           {
             offers.map(o => {
               return (
-                <BeerMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
+                  <BeerMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
               )
             })
           }

@@ -160,7 +160,7 @@ const HeaderAppBar: React.FC = () => {
 
           <div className={classes.sectionDesktop}>
             <Typography className={classes.title} variant="h6" noWrap>
-              trade-a-brew
+              Brew Swap
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>

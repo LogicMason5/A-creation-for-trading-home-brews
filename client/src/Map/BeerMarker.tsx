@@ -1,5 +1,6 @@
 import black from '../assets/black.png';
 import { Marker } from '@react-google-maps/api'
+import { useHistory } from 'react-router-dom'
 
 const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral, id: string }> =  ({ name, position, id }) => {
 
@@ -16,18 +17,20 @@ const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral, 
       // color: "red"
     }
 
-    const handleClick = () => {
-      console.log('logging' + name)
-    } 
+    const history = useHistory()
+
+    const handleClick = () =>  {
+      history.push(`/offers/${id}`)
+    }
 
     return (
         <Marker
           position={position}
           key={id}
           icon={icon}
-          onClick={handleClick}
           label={label}
           animation={google.maps.Animation.BOUNCE}
+          onClick={handleClick}
         />
     );
   };
