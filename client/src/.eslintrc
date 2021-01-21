@@ -16,6 +16,7 @@
     "@typescript-eslint/no-unused-vars": [
         "error", { "argsIgnorePattern": "^_" }
     ],
+    "@typescript-eslint/no-explicit-any": 1,
     "no-case-declarations": 0,
     "react/prop-types": 0
   },

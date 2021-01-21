@@ -3,9 +3,8 @@ import CreateOfferForm from './Offers/CreateOfferForm';
 import OfferDisplay from './Offers/OfferDisplay';
 import { useLoadScript } from '@react-google-maps/api';
 import Map from './Map/Map';
-import Main from './Navigation/Main'
+import Main from './Navigation/Main';
 import Box from '@material-ui/core/Box';
-// import Header from './Header/Header';
 import { Switch, Route } from "react-router-dom";
 
 const libraries = ["places"] as unknown as undefined;
@@ -21,7 +20,6 @@ const App: React.FC = () => {
 
     return (
       <Box>
-        {/* <Header /> */}
         <Main />
         <Switch>
           <Route path="/create-offer" render={() => isLoaded ? <CreateOfferForm /> : <div>Loading maps...</div>} />

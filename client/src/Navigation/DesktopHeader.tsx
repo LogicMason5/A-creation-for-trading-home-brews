@@ -9,8 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';

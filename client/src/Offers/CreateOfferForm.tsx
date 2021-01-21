@@ -50,6 +50,7 @@ const CreateOfferForm: React.FC = () => {
           values: FormValues,
           formikHelpers: FormikHelpers<FormValues>
         ) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { location, ...newValues } = values;
           createOffer(newValues);
           formikHelpers.setSubmitting(false);

@@ -41,12 +41,14 @@ const Map: React.FC = () => {
     dispatch(fetchOffers());
   }, [dispatch]);
 
+  //TSEKKAA  https://react-google-maps-api-docs.netlify.app/#googlemap
+  //refen sijaan voi käyttää suoraan useGoogleMap()
 
-  const mapRef = React.useRef();
+  // const mapRef = useRef<HTMLDivElement>(null);
 
-  const onMapLoad = React.useCallback((map) => {
-    mapRef.current = map;
-  }, [mapRef]);
+  // const onMapLoad = React.useCallback((map: google.maps.Map) => {
+  //   mapRef.current = map;
+  // }, [mapRef]);
 
   // const panTo = React.useCallback(({ lat, lng }) => {
     
@@ -67,7 +69,7 @@ const Map: React.FC = () => {
         zoom={13}
         center={center}
         options={mapOptions}
-        onLoad={onMapLoad}
+        // onLoad={onMapLoad}
         >
         {
           offers.map(o => {

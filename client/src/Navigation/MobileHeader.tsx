@@ -3,9 +3,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import AddLocation from '@material-ui/icons/Phone';
+import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
-import black from '../assets/black.png'
+import black from '../assets/black.png';
 
 const a11yProps = (index: number) => {
   return {
@@ -47,6 +47,6 @@ const MobileHeader: React.FC = () => {
       </AppBar>
     </div>
   );
-}
+};
 
 export default MobileHeader;

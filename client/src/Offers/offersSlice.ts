@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IOffer } from '../type';
 import store, { AppThunk } from '../store';
@@ -41,14 +42,21 @@ export const { addOffer, getOffersSuccess, getOfferByIdSuccess } = offersSlice.a
 
 export default offersSlice.reducer;
 
-export const createOffer = (content: Omit<IOffer, "id" | "created" | "location" | "owner">) => {
+export const createOffer = (content: Omit<IOffer, "id" | "created" | "location" | "owner">): AppThunk => async dispatch => {
     const newOffer = {
       created: new Date().toISOString(),
       location: store.getState().location.location,
       owner: "FakeCurrentUser",
       ...content
     };
-    offersService.createNew(newOffer);
+
+    try {
+      const createdOffer = await offersService.createNew(newOffer);
+      dispatch(createdOffer);
+    } catch (error) {
+      console.log(error);
+    }
+
 };
 
 export const fetchOffers = (): AppThunk => async dispatch => {

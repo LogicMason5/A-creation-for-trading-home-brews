@@ -17,7 +17,7 @@ export const fieldToSlider = ({
     ...props,
     ...field,
     name: field.name,
-    value: field.value,
+    value: field.value as number
   };
 };
 

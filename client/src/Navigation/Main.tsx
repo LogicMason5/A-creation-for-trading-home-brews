@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  fade, makeStyles, Theme, createStyles,
-} from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import DesktopHeader from './DesktopHeader';
 import MobileHeader from './MobileHeader';
 
