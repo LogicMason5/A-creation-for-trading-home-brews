@@ -1,3 +1,4 @@
+import React from 'react'
 import black from '../assets/black.png';
 import { Marker } from '@react-google-maps/api';
 import { useHistory } from 'react-router-dom';

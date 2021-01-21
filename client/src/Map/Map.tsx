@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 import BeerMarker from './BeerMarker';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+// import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { mapStyles } from './mapStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOffers } from '../Offers/offersSlice';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+// const useStyles = makeStyles((theme: Theme) => createStyles({
 
-  alertOnMap: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  }
+//   alertOnMap: {
+//     [theme.breakpoints.up('sm')]: {
+//       display: 'block',
+//     },
+//   }
 
-}));
+// }));
 
 const mapContainerStyles = {        
   height: "90.3vh",
@@ -24,7 +24,7 @@ const mapContainerStyles = {
 
 const Map: React.FC = () => {
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const dispatch = useDispatch();
 
@@ -69,13 +69,15 @@ const Map: React.FC = () => {
         options={mapOptions}
         onLoad={onMapLoad}
         >
-          {
-            offers.map(o => {
-              return (
-                  <BeerMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
-              );
-            })
-          }
+        {
+          offers.map(o => {
+            return (
+                <BeerMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
+            );
+          })
+        }
+
+
       </GoogleMap>
   );
 };

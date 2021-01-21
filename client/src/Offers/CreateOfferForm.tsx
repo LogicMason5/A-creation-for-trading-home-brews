@@ -20,7 +20,7 @@ const CreateOfferForm: React.FC = () => {
   }
   
   const validationSchema = yup.object().shape({
-    beerName: yup.string().required("A name is required").min(3).max(30),
+    beerName: yup.string().required("A name is required").min(3).max(40),
     description: yup.string().required("Required").min(6).max(1200),
     location: yup.string().required("A valid location is necessary to display the offer on the map")
   });
@@ -50,7 +50,8 @@ const CreateOfferForm: React.FC = () => {
           values: FormValues,
           formikHelpers: FormikHelpers<FormValues>
         ) => {
-          createOffer(values);
+          const { location, ...newValues } = values;
+          createOffer(newValues);
           formikHelpers.setSubmitting(false);
         }}
       >
