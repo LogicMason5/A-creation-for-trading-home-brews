@@ -6,11 +6,13 @@ import offersService from './offersService'
 
 interface OffersState {
   offers: Offer[]
+  displayedOffer: Offer | null
   // isLoading: boolean
 }
 
 const initialOffersState: OffersState = {
   offers: [],
+  displayedOffer: null
   // isLoading: false
 }
 
@@ -29,11 +31,14 @@ const offersSlice = createSlice({
     // getOffersStart: startLoading
     getOffersSuccess(state, { payload }: PayloadAction<Offer[]>) {
       state.offers = payload
+    },
+    getOfferByIdSuccess(state, { payload }: PayloadAction<Offer>) {
+      state.displayedOffer = payload
     }
   }
 })
 
-export const { addOffer, getOffersSuccess } = offersSlice.actions
+export const { addOffer, getOffersSuccess, getOfferByIdSuccess } = offersSlice.actions
 
 export default offersSlice.reducer
 
@@ -59,7 +64,10 @@ export const fetchOffers = (): AppThunk => async dispatch => {
 
 export const fetchOfferById = (id: string): AppThunk => async dispatch => {
   try {
-
+    console.log('id in slice bef req' + id.toString())
+    const offer = await offersService.getById(id)
+    console.log('logging received offer in fetchOfferById ' + offer)
+    dispatch(getOfferByIdSuccess(offer))
   } catch (error) {
     console.log(error)
   }

@@ -7,15 +7,13 @@ import { mapStyles } from './mapStyles'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOffers } from '../Offers/offersSlice';
-import { Link } from "react-router-dom"
 
+const mapContainerStyles = {        
+  height: "90.3vh",
+  width: "100%",
+};
 
 const Map: React.FC = () => {
-
-  const mapContainerStyles = {        
-    height: "90.3vh",
-    width: "100%",
-  };
 
   const dispatch = useDispatch()
 
@@ -23,8 +21,8 @@ const Map: React.FC = () => {
     (state: RootState) => state.location.location
   )
 
-  const { offers } = useSelector(
-    (state: RootState) => state.offers
+  const offers = useSelector(
+    (state: RootState) => state.offers.offers
   )
 
     //add dispatch and offers to 2nd argument later
