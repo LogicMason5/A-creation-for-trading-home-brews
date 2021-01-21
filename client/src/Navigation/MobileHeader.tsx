@@ -3,48 +3,16 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import AddLocation from '@material-ui/icons/Phone';
+import { Link } from 'react-router-dom';
+import black from '../assets/black.png'
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-prevent-tabpanel-${index}`}
-      aria-labelledby={`scrollable-prevent-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: any) {
+const a11yProps = (index: number) => {
   return {
     id: `scrollable-prevent-tab-${index}`,
     'aria-controls': `scrollable-prevent-tabpanel-${index}`,
   };
-}
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -56,9 +24,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const MobileHeader: React.FC = () => {
   const classes = useStyles();
+
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setValue(newValue);
   };
 
@@ -68,40 +37,14 @@ const MobileHeader: React.FC = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          variant="scrollable"
+          variant="fullWidth"
           scrollButtons="off"
-          aria-label="scrollable prevent tabs example"
+          aria-label="mobile tabs"
         >
-          <Tab icon={<PhoneIcon />} aria-label="phone" {...a11yProps(0)} />
-          <Tab icon={<FavoriteIcon />} aria-label="favorite" {...a11yProps(1)} />
-          <Tab icon={<PersonPinIcon />} aria-label="person" {...a11yProps(2)} />
-          <Tab icon={<HelpIcon />} aria-label="help" {...a11yProps(3)} />
-          <Tab icon={<ShoppingBasket />} aria-label="shopping" {...a11yProps(4)} />
-          <Tab icon={<ThumbDown />} aria-label="up" {...a11yProps(5)} />
-          <Tab icon={<ThumbUp />} aria-label="down" {...a11yProps(6)} />
+          <Tab icon={<img src={black} alt="homeButton" height="40px" />} aria-label="phone" component={Link} to="/"         {...a11yProps(0)} fullWidth/>
+          <Tab icon={<AddLocation />} aria-label="create-offer" component={Link} to="/create-offer" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
     </div>
   );
 }
