@@ -17,10 +17,12 @@ import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
 import MainSwitch from './MainSwitch';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Close from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { setDrawerOpen } from './displaySlice';
+import DesktopAppBar from './DesktopAppBar';
+import Map from '../Map/Map'
 
 
 const drawerWidth = 360;
@@ -101,100 +103,36 @@ const Desktop: React.FC = () => {
     (state: RootState) => state.display.drawerOpen
   );
 
-  useEffect(() => {
-    dispatch(setDrawerOpen(window.location.pathname === '/'));
-  },[dispatch]);
-
-  const handleDrawerOpen = (): void => {
-    dispatch(setDrawerOpen(true));
-  };
+  // useEffect(() => {
+  //   dispatch(setDrawerOpen(window.location.pathname === '/'));
+  // },[dispatch]);
 
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));
-
   };
 
-  const menuId = 'primary-search-account-menu';
 
   return (
     <div className={classes.grow}>
-      <AppBar 
-        // position="static"
-        className={classes.appBar}   
+      <DesktopAppBar />
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
       >
-        <Toolbar>
-          <IconButton
-            component={Link}
-            to="/"
-            className="homeButton"
-            color="inherit"
-            edge="start"
-            onClick={handleDrawerClose}
-          >
-            <img src={black} alt="homeButton" height="40px" />
+        <div className={classes.drawerBuffer}/>
+        <MainSwitch />
+        <div className={classes.grow} />
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            <Close style={{ fontSize: 60 }} />
           </IconButton>
-            <Typography variant="h6" noWrap>
-              Brew Swap
-            </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <div className={classes.grow} />
-          <div>
-            <IconButton
-              aria-label="create-offer"
-              color="inherit"
-              component={Link}
-              to="/create-offer"
-              onClick={handleDrawerOpen}
-            >
-              <AddLocation />
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              color="inherit"
-              onClick={handleDrawerOpen}
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerBuffer}/>
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronRightIcon />
-            </IconButton>
-          </div>
-          <Divider />
-            <MainSwitch />
-          <Divider />
-
-        </Drawer>
-
+        </div>
+      </Drawer>
       </div>
   );
 };

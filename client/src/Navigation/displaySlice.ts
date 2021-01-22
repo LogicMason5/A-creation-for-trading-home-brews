@@ -6,7 +6,7 @@ interface DisplayState {
 }
 
 const initialState: DisplayState = {
-  drawerOpen: true,
+  drawerOpen: false,
   mapsLoaded: false
 };
 
