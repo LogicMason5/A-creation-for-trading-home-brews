@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { setDrawerOpen } from './displaySlice';
 import DesktopAppBar from './DesktopAppBar';
-import Map from '../Map/Map'
-import { Route, Switch } from 'react-router-dom';
 
 
 const drawerWidth = 360;
@@ -92,10 +90,6 @@ const Desktop: React.FC = () => {
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));
   };
-
-    // useEffect(() => {
-  //   dispatch(setDrawerOpen(window.location.pathname === '/#/'));
-  // },[dispatch]);
 
   return (
     <div className={classes.grow}>
