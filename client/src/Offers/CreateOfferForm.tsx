@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Container, Typography, Grid, Button, Box, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
 import LocationField from './LocationField';
+import Hidden from '@material-ui/core/Hidden';
 import FormSlider from '../SharedComponents/FormSlider';
 import { createOffer } from './offersSlice';
 import { RootState } from '../rootReducer';
@@ -20,6 +22,12 @@ interface FormValues {
   recipeLink: string;
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    toolbarBuffer: theme.mixins.toolbar,
+  }),
+);
+
 const validationSchema = yup.object().shape({
   beerName: yup.string().required("A name is required").min(3).max(40),
   description: yup.string().required("Required").min(6).max(1200),
@@ -28,6 +36,8 @@ const validationSchema = yup.object().shape({
 
 
 const CreateOfferForm: React.FC = () => {
+
+  const classes = useStyles();
  
   const dispatch = useDispatch();
 
@@ -43,6 +53,9 @@ const CreateOfferForm: React.FC = () => {
 
   return (
     <Container fixed>
+      <Hidden mdUp>
+        <div className={classes.toolbarBuffer} />
+      </Hidden>
       <Box mb={3} p={2}>
         <Typography
           align="center"

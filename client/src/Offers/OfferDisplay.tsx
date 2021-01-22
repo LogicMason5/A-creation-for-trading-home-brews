@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.shortest,
       }),
     },
+    toolbarBuffer: theme.mixins.toolbar,
   }),
 );
 
@@ -76,6 +78,9 @@ const OfferDisplay: React.FC = () => {
 
   return (
     <Paper className={classes.root}>
+      <Hidden mdUp>
+        <div className={classes.toolbarBuffer} />
+      </Hidden>
       <CardHeader
         title={offer.beerName}
       />

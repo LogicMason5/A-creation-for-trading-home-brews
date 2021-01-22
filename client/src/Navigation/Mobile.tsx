@@ -7,6 +7,7 @@ import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
 import MobileSwitch from './MobileSwitch';
+import Paper from '@material-ui/core/Paper';
 
 const tabProps = (index: number) => {
   return {
@@ -22,10 +23,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  toolbarBuffer: theme.mixins.toolbar
 }));
 
 const MobileHeader: React.FC = () => {
-  
+
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
@@ -36,27 +38,31 @@ const MobileHeader: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="fullWidth"
-          scrollButtons="off"
-          aria-label="mobile tabs"
-        >
-          <Tab icon={<img src={black} alt="homeButton" height="40px" />}
-            aria-label="map"
-            to="/"        
-            {...tabProps(0)} fullWidth
-          />
-          <Tab icon={<AddLocation />}
-            aria-label="create-offer"
-            to="/create-offer"
-            {...tabProps(1)}
-          />
-        </Tabs>
-      </AppBar>
-      <MobileSwitch />
+
+        <AppBar position="fixed">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="fullWidth"
+            scrollButtons="off"
+            aria-label="mobile tabs"
+          >
+            <Tab icon={<img src={black} alt="homeButton" height="40px" />}
+              aria-label="map"
+              to="/"        
+              {...tabProps(0)} fullWidth
+            />
+            <Tab icon={<AddLocation />}
+              aria-label="create-offer"
+              to="/create-offer"
+              {...tabProps(1)}
+            />
+          </Tabs>
+        </AppBar>
+        {/* <div className={classes.toolbarBuffer} /> */}
+        <Paper>
+        <MobileSwitch />
+      </Paper>
     </div>
   );
 };
