@@ -25,14 +25,14 @@ const offersSlice = createSlice({
   name: 'offers',
   initialState: initialOffersState,
   reducers: {
-    addOffer(state, action: PayloadAction<IOffer>) {
+    addOffer(state, action: PayloadAction<IOffer>): void {
         state.offers.push(action.payload);
     },
     // getOffersStart: startLoading
-    getOffersSuccess(state, { payload }: PayloadAction<IOffer[]>) {
+    getOffersSuccess(state, { payload }: PayloadAction<IOffer[]>): void {
       state.offers = payload;
     },
-    getOfferByIdSuccess(state, { payload }: PayloadAction<IOffer>) {
+    getOfferByIdSuccess(state, { payload }: PayloadAction<IOffer>): void {
       state.displayedOffer = payload;
     }
   }

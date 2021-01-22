@@ -18,7 +18,7 @@ import { fetchOffers } from '../Offers/offersSlice';
 // }));
 
 const mapContainerStyles = {        
-  height: "90.3vh",
+  height: "100vh",
   width: "100%",
 };
 

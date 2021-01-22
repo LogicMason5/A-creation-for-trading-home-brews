@@ -79,11 +79,6 @@ const OfferDisplay: React.FC = () => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        action={
-          <IconButton aria-label="close">
-            <Close />
-          </IconButton>
-        }
         title={offer.beerName}
         // subheader={offer.created}
       />

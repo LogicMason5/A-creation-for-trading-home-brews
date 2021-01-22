@@ -7,6 +7,9 @@ import * as yup from "yup";
 import LocationField from './LocationField';
 import FormSlider from '../SharedComponents/FormSlider';
 import { createOffer } from './offersSlice';
+import { RootState } from '../rootReducer';
+import { useSelector } from 'react-redux';
+
 
 const CreateOfferForm: React.FC = () => {
 
@@ -24,6 +27,12 @@ const CreateOfferForm: React.FC = () => {
     description: yup.string().required("Required").min(6).max(1200),
     location: yup.string().required("A valid location is necessary to display the offer on the map")
   });
+
+  const isLoaded = useSelector(
+    (state: RootState) => state.display.mapsLoaded
+  );
+
+  if (!isLoaded) return null;
 
   return (
     <Container fixed>

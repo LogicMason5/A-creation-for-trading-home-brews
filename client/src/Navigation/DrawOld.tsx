@@ -8,6 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MainSwitch from './MainSwitch';
+import { useDispatch } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -75,18 +77,17 @@ const ContentDrawer: React.FC = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = (): void => {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = (): void => {
     setOpen(false);
   };
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -96,7 +97,6 @@ const ContentDrawer: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
@@ -119,7 +119,7 @@ const ContentDrawer: React.FC = () => {
           </IconButton>
         </div>
         <Divider />
-          Drawer Content
+          <MainSwitch />
         <Divider />
       </Drawer>
     </div>

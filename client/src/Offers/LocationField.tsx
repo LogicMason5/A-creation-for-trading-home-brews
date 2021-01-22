@@ -68,7 +68,7 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
 
   return (
     <Autocomplete
-      id="location-autocomplete"
+      // id="location-autocomplete-field"
       options={data}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
       getOptionSelected={() => true}

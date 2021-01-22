@@ -6,11 +6,19 @@ import Tab from '@material-ui/core/Tab';
 import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
+import MainSwitch from './MainSwitch';
 
-const a11yProps = (index: number) => {
+// interface TabProps {
+//   id: string;
+//   'aria-controls': string
+//   component: Link
+// }
+
+const tabProps = (index: number) => {
   return {
     id: `scrollable-prevent-tab-${index}`,
     'aria-controls': `scrollable-prevent-tabpanel-${index}`,
+    component: (Link)
   };
 };
 
@@ -27,7 +35,7 @@ const MobileHeader: React.FC = () => {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
+  const handleChange = (event: React.ChangeEvent<unknown>, newValue: number): void => {
     setValue(newValue);
   };
 
@@ -41,10 +49,19 @@ const MobileHeader: React.FC = () => {
           scrollButtons="off"
           aria-label="mobile tabs"
         >
-          <Tab icon={<img src={black} alt="homeButton" height="40px" />} aria-label="phone" component={Link} to="/"         {...a11yProps(0)} fullWidth/>
-          <Tab icon={<AddLocation />} aria-label="create-offer" component={Link} to="/create-offer" {...a11yProps(1)} />
+          <Tab icon={<img src={black} alt="homeButton" height="40px" />}
+            aria-label="map"
+            to="/"        
+            {...tabProps(0)} fullWidth
+          />
+          <Tab icon={<AddLocation />}
+            aria-label="create-offer"
+            to="/create-offer"
+            {...tabProps(1)}
+          />
         </Tabs>
       </AppBar>
+      <MainSwitch />
     </div>
   );
 };
