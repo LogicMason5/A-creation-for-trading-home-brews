@@ -98,7 +98,6 @@ const Desktop: React.FC = () => {
 
   const dispatch = useDispatch();
 
-
   const open = useSelector(
     (state: RootState) => state.display.drawerOpen
   );
@@ -106,6 +105,7 @@ const Desktop: React.FC = () => {
   // useEffect(() => {
   //   dispatch(setDrawerOpen(window.location.pathname === '/'));
   // },[dispatch]);
+
 
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));

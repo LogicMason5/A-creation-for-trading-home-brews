@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Hidden from '@material-ui/core/Hidden';
 import { Switch, Route } from "react-router-dom";
 import { setDrawerOpen, setMapsLoaded } from './Navigation/displaySlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,17 +55,17 @@ const App: React.FC = () => {
 
   return (
     <Box>
-      <Box className={classes.sectionDesktop}>
+      <Hidden smDown>
         <Desktop />
-      </Box>
-      <Box className={classes.sectionMobile}>
+        <Switch>
+          <Route path="/" render={() => <Map />} />
+        </Switch>
+      </Hidden>
+      <Hidden mdUp>
         <Mobile />
-      </Box>
-      <Switch>
-        <Route path="/" render={() => <Map />} />
-      </Switch>
+      </Hidden>
     </Box>
   );
 };
 
-  export default App;
+export default App;

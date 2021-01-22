@@ -7,6 +7,7 @@ import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
 import MainSwitch from './MainSwitch';
+import MobileSwitch from './MobileSwitch';
 
 // interface TabProps {
 //   id: string;
@@ -61,7 +62,7 @@ const MobileHeader: React.FC = () => {
           />
         </Tabs>
       </AppBar>
-      <MainSwitch />
+      <MobileSwitch />
     </div>
   );
 };
