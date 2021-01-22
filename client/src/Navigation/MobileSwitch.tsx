@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux';
 import { Switch, Route } from "react-router-dom";
 import Map from '../Map/Map';
 import { RootState } from '../rootReducer';
-import CreateOfferForm from '../Offers/CreateOfferForm';
-import OfferDisplay from '../Offers/OfferDisplay';
+import MainSwitch from './MainSwitch';
       
 const MobileSwitch: React.FC = () => {
 
@@ -16,9 +15,8 @@ const MobileSwitch: React.FC = () => {
 
   return (
     <div>
+      <MainSwitch />
       <Switch>
-        <Route path="/create-offer" render={() =>  isLoaded ? <CreateOfferForm /> : <div>Loading maps...</div>} />
-        <Route path="/offers/:id" render={() => <OfferDisplay />} />
         <Route path="/" render={() => <Map />} />
       </Switch>
     </div>

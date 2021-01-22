@@ -47,10 +47,6 @@ const App: React.FC = () => {
     dispatch(setMapsLoaded(isLoaded));
   },[isLoaded, dispatch]);
 
-  useEffect(() => {
-    dispatch(setDrawerOpen(window.location.pathname === '/'));
-  },[dispatch]);
-
   if (!isLoaded) return (<h3>Loading google maps scripts...</h3>);
 
   return (

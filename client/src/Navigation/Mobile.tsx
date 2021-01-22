@@ -6,14 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
-import MainSwitch from './MainSwitch';
 import MobileSwitch from './MobileSwitch';
-
-// interface TabProps {
-//   id: string;
-//   'aria-controls': string
-//   component: Link
-// }
 
 const tabProps = (index: number) => {
   return {
@@ -32,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const MobileHeader: React.FC = () => {
+  
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);

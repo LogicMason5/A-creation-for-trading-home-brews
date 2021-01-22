@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Typography, Grid, Button, Box, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
@@ -8,29 +8,36 @@ import LocationField from './LocationField';
 import FormSlider from '../SharedComponents/FormSlider';
 import { createOffer } from './offersSlice';
 import { RootState } from '../rootReducer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setDrawerOpen } from '../Navigation/displaySlice';
+
+interface FormValues {
+  beerName: string;
+  description: string;
+  packageSize: string;
+  amount: number;
+  location: string;
+  recipeLink: string;
+}
+
+const validationSchema = yup.object().shape({
+  beerName: yup.string().required("A name is required").min(3).max(40),
+  description: yup.string().required("Required").min(6).max(1200),
+  location: yup.string().required("A valid location is necessary to display the offer on the map")
+});
 
 
 const CreateOfferForm: React.FC = () => {
-
-  interface FormValues {
-    beerName: string;
-    description: string;
-    packageSize: string;
-    amount: number;
-    location: string;
-    recipeLink: string;
-  }
-  
-  const validationSchema = yup.object().shape({
-    beerName: yup.string().required("A name is required").min(3).max(40),
-    description: yup.string().required("Required").min(6).max(1200),
-    location: yup.string().required("A valid location is necessary to display the offer on the map")
-  });
+ 
+  const dispatch = useDispatch();
 
   const isLoaded = useSelector(
     (state: RootState) => state.display.mapsLoaded
   );
+
+  useEffect(() => {
+    dispatch(setDrawerOpen(true));
+}, [dispatch]);
 
   if (!isLoaded) return null;
 

@@ -1,21 +1,7 @@
 import React, { useEffect } from 'react';
-import {
-  fade, makeStyles, Theme, createStyles, useTheme
-} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import AddLocation from '@material-ui/icons/AddLocation';
-import { Link } from 'react-router-dom';
-import black from '../assets/black.png';
 import MainSwitch from './MainSwitch';
 import Close from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,6 +9,7 @@ import { RootState } from '../rootReducer';
 import { setDrawerOpen } from './displaySlice';
 import DesktopAppBar from './DesktopAppBar';
 import Map from '../Map/Map'
+import { Route, Switch } from 'react-router-dom';
 
 
 const drawerWidth = 360;
@@ -102,15 +89,13 @@ const Desktop: React.FC = () => {
     (state: RootState) => state.display.drawerOpen
   );
 
-  // useEffect(() => {
-  //   dispatch(setDrawerOpen(window.location.pathname === '/'));
-  // },[dispatch]);
-
-
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));
   };
 
+    // useEffect(() => {
+  //   dispatch(setDrawerOpen(window.location.pathname === '/#/'));
+  // },[dispatch]);
 
   return (
     <div className={classes.grow}>

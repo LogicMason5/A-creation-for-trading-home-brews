@@ -10,7 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setDrawerOpen } from './displaySlice';
 
 
@@ -76,7 +76,6 @@ const DesktopAppBar: React.FC = () => {
 
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));
-
   };
 
   return (
