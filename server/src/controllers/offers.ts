@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { IOffer, IOfferDocument, IPubOffer } from '../type';
+import { IOffer } from '../type';
 import { toNewOffer } from '../utils/parser';
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 const Offer = require('../models/offerSchema');
 const offersRouter = require('express').Router();
 

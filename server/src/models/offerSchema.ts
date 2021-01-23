@@ -1,4 +1,3 @@
-export {};
 import mongoose, { Schema } from 'mongoose';
 import { IOffer, IOfferDocument } from '../type';
 

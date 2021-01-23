@@ -17,17 +17,24 @@
   "license": "MIT",
   "dependencies": {
     "assert-never": "^1.2.1",
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.12",
-    "mongoose-unique-validator": "^2.0.3"
+    "mongoose-unique-validator": "^2.0.3",
+    "passport": "^0.4.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.9",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.10.3",
+    "@types/node": "^14.14.22",
+    "@types/passport": "^1.0.5",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "eslint": "^7.17.0",

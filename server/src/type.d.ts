@@ -17,10 +17,31 @@ export interface IOffer {
   id: ObjectId;
 }
 
+export interface ThirdPartyAuth {
+  providerName: string;
+  providerId: string;
+  providerData: any;
+}
+
+export interface IUser {
+  username: string;
+  email: string;
+  emailIsVerified?: boolean;
+  passwordHash: string;
+  thirdPartyAuth?: ThirdPartyAuth;
+  offers?: IOffer[];
+  id: ObjectId
+
+}
+
+export interface IUserDocument extends Document, Omit<IUser, "id" > {
+
+}
+
 export interface IOfferDocument extends Document, Omit<IOffer, "id"> {
 
 }
 
-export type IPubOffer = Omit<IOffer, "owner">
+
 
 

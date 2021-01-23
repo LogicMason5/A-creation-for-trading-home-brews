@@ -9,7 +9,7 @@ const middleware = require('./utils/middleware')
 
 
 /* Routers */
-// const loginRouter = require('./controllers/login')
+const userRouter = require('./controllers/user')
 const offersRouter = require('./controllers/offers')
 
 const logger = require('./utils/logger')
@@ -32,6 +32,7 @@ app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
 app.use('/api/offers', offersRouter)
+app.use('/api/user', userRouter)
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
