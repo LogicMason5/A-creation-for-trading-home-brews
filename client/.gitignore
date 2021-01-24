@@ -20,7 +20,7 @@
 .env
 react-app-env.d.ts
 
-
+package-lock.json
 
 debug.log
 npm-debug.log*
