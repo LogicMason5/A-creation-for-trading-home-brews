@@ -1,4 +1,4 @@
-# Trade-a-brew
+# homebrew-swap
 
 This is a hobbyist project for trading home brews.
 
