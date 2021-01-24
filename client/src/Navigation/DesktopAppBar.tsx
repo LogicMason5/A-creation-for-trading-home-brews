@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     transition: theme.transitions.create('width'),
     width: '20ch',
   },
-
 }));
 
 
@@ -123,6 +122,8 @@ const DesktopAppBar: React.FC = () => {
         <IconButton
           edge="end"
           color="inherit"
+          component={Link}
+          to="/register"
           onClick={handleDrawerOpen}
         >
           <AccountCircle />

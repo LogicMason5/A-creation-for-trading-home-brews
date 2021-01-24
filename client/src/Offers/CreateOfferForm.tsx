@@ -10,8 +10,9 @@ import Hidden from '@material-ui/core/Hidden';
 import FormSlider from '../SharedComponents/FormSlider';
 import { createOffer } from './offersSlice';
 import { RootState } from '../rootReducer';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setDrawerOpen } from '../Navigation/displaySlice';
+import { useAppDispatch } from '../store';
 
 interface FormValues {
   beerName: string;
@@ -39,7 +40,7 @@ const CreateOfferForm: React.FC = () => {
 
   const classes = useStyles();
  
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const isLoaded = useSelector(
     (state: RootState) => state.display.mapsLoaded
@@ -81,7 +82,8 @@ const CreateOfferForm: React.FC = () => {
         ) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { location, ...newValues } = values;
-          createOffer(newValues);
+          console.log(newValues);
+          dispatch(createOffer(newValues));
           formikHelpers.setSubmitting(false);
         }}
       >

@@ -5,6 +5,8 @@ import Map from '../Map/Map';
 import CreateOfferForm from '../Offers/CreateOfferForm';
 import OfferDisplay from '../Offers/OfferDisplay';
 import { RootState } from '../rootReducer';
+import RegisterForm from '../User/RegisterForm';
+import LoginForm from '../User/LoginForm';
       
 const MobileSwitch: React.FC = () => {
 
@@ -15,13 +17,13 @@ const MobileSwitch: React.FC = () => {
   if (!isLoaded) return null;
 
   return (
-    <div>
       <Switch>
         <Route path="/create-offer" render={() =>  isLoaded ? <CreateOfferForm /> : <div>Loading maps...</div>} />
         <Route path="/offers/:id" render={() => <OfferDisplay />} />
+        <Route path="/register" render={() => <RegisterForm />} />
+        <Route path="/login" render={() => <LoginForm />} />
         <Route path="/" render={() => <Map />} />
       </Switch>
-    </div>
   );
 }; 
 

@@ -18,7 +18,14 @@
 .env.test.local
 .env.production.local
 .env
+react-app-env.d.ts
 
+
+
+debug.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# eslint
+.eslintcache

@@ -4,12 +4,12 @@ import { IOffer } from '../type';
 
 const baseUrl = 'http://localhost:3001/api/offers';
 
-const getAll = async (): Promise<any> => {
+const getAll = async (): Promise<IOffer[]> => {
   const response = await axios.get<IOffer[]>(baseUrl);
   return response.data;
 };
 
-const createNew = async (content: Omit<IOffer, "id">): Promise<any> => {
+const createNew = async (content: Omit<IOffer, "id">): Promise<IOffer> => {
   const response = await axios.post<IOffer>(baseUrl, content);
   return response.data;
 };
@@ -20,7 +20,7 @@ const createNew = async (content: Omit<IOffer, "id">): Promise<any> => {
 //   return response.data;
 // };
 
-const getById = async (id: string): Promise<any> => {
+const getById = async (id: string): Promise<IOffer> => {
   const response = await axios.get<IOffer>(`${ baseUrl }/${id}`);
   return response.data;
 };

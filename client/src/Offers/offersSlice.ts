@@ -25,8 +25,8 @@ const offersSlice = createSlice({
   name: 'offers',
   initialState: initialOffersState,
   reducers: {
-    addOffer(state, action: PayloadAction<IOffer>): void {
-        state.offers.push(action.payload);
+    addOffer(state, { payload }: PayloadAction<IOffer>): void {
+        state.offers.push(payload);
     },
     // getOffersStart: startLoading
     getOffersSuccess(state, { payload }: PayloadAction<IOffer[]>): void {
@@ -43,6 +43,9 @@ export const { addOffer, getOffersSuccess, getOfferByIdSuccess } = offersSlice.a
 export default offersSlice.reducer;
 
 export const createOffer = (content: Omit<IOffer, "id" | "created" | "location" | "owner">): AppThunk => async dispatch => {
+
+  console.log('logging in createOffer');
+
     const newOffer = {
       created: new Date().toISOString(),
       location: store.getState().location.location,
@@ -52,7 +55,7 @@ export const createOffer = (content: Omit<IOffer, "id" | "created" | "location" 
 
     try {
       const createdOffer = await offersService.createNew(newOffer);
-      dispatch(createdOffer);
+      dispatch(addOffer(createdOffer));
     } catch (error) {
       console.log(error);
     }

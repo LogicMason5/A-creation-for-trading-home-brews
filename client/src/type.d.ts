@@ -9,7 +9,7 @@ export interface IOffer {
   packageSize?: string;
   amount?: number;
   location: Coordinates;
-  recipeLink: string;
+  recipeLink?: string;
   created: string;
   owner: string;
   id: string;
@@ -25,13 +25,30 @@ export type LocationAction = {
 
 type OneOfferAction = {
   type: string;
-  data: Offer
+  data: Offer;
 };
 
 type IdOfferAction = {
   type: string;
-  data: string
+  data: string;
 };
+
+export interface RegisterFormValues {
+  displayName: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
+export interface CurrentUser {
+  id: string;
+  token: string;
+}
 
 export type OfferAction = OneOfferAction | IdOfferAction;
 

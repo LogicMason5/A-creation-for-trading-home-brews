@@ -10,7 +10,7 @@ import { setDrawerOpen } from './displaySlice';
 import DesktopAppBar from './DesktopAppBar';
 
 
-const drawerWidth = 360;
+const drawerWidth = 400;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
 
