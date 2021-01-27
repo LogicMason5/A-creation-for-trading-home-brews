@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { IOffer } from '../type';
 import { toNewOffer } from '../utils/parser';
 import mongoose from 'mongoose';
-const Offer = require('../models/offerSchema');
+const Offer = require('../models/offer');
 const offersRouter = require('express').Router();
 
 offersRouter.get('/:id', async (req: Request, res: Response) => {

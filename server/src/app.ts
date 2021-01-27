@@ -1,45 +1,36 @@
-export {}
-const config = require('./utils/config')
-const express = require('express')
-require('express-async-errors')
-const app = express()
+import express from 'express';
+import { Application } from 'express';
+import * as bodyParser from 'body-parser';
+import { MainRouter } from './routes';
+import { loadErrorHandlers } from './utils/errorHandler';
+import session from 'express-session';
+import helmet from "helmet";
+import compression from "compression";
+import { SESSION_SECRET } from "./utils/secrets"; //these are fucked atm
+import './db'; // initialize database
+import './utils/passport'
 const cors = require('cors')
-const middleware = require('./utils/middleware')
 
 
 
-/* Routers */
-const userRouter = require('./controllers/user')
-const offersRouter = require('./controllers/offers')
-
-const logger = require('./utils/logger')
-const mongoose = require('mongoose')
-
-logger.info('connecting to', config.MONGODB_URI)
-
-mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-  .then(() => {
-    logger.info('connected to MongoDB')
-  })
-  .catch((error: { message: any }) => {
-    logger.error('error connection to MongoDB:', error.message)
-  })
+const app: Application = express();
 
 app.use(cors())
-app.use(express.static('build'))
-app.use(express.json())
-app.use(middleware.requestLogger)
-app.use(middleware.tokenExtractor)
+app.use(helmet());
+app.use(compression());
+app.use(bodyParser.json());
+app.use(session({
+    secret: SESSION_SECRET,
+    cookie: {
+      maxAge: 60000
+    },
+    resave           : false,
+    saveUninitialized: false
+  }
+));
+app.use('/api', MainRouter);
 
-app.use('/api/offers', offersRouter)
-app.use('/api/user', userRouter)
+loadErrorHandlers(app);
 
-if (process.env.NODE_ENV === 'test') {
-  const testingRouter = require('./controllers/testing')
-  app.use('/api/testing', testingRouter)
-}
 
-app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
-
-module.exports = app
+export default app;

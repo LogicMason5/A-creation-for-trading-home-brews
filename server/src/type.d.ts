@@ -1,4 +1,5 @@
-import { Document, Mongoose, ObjectId } from 'mongoose';
+import { Document, Model, Mongoose, ObjectId } from 'mongoose';
+import User from './models/userModel'
 
 export interface ICoordinates  {
   lat: number;
@@ -23,24 +24,18 @@ export interface ThirdPartyAuth {
   providerData: any;
 }
 
-export interface IUser {
+export interface IUserPublic {
   username: string;
-  email: string;
-  emailIsVerified?: boolean;
-  passwordHash: string;
-  thirdPartyAuth?: ThirdPartyAuth;
-  offers?: IOffer[];
-  id: ObjectId
 
 }
 
-export interface IUserDocument extends Document, Omit<IUser, "id" > {
 
-}
 
 export interface IOfferDocument extends Document, Omit<IOffer, "id"> {
 
 }
+
+
 
 
 

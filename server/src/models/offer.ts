@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { IOffer, IOfferDocument } from '../type';
 
+//NEEDS TO BE CLEANED UP TO BE CONSISTEND WITH USER
 
 const OfferSchema: Schema =  new Schema({
   beerName: { type: String, required: true },

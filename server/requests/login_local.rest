@@ -1,7 +1,7 @@
-POST http://localhost:3003/api/login HTTP/1.1
+POST http://localhost:3001/api/user/login HTTP/1.1
 content-type: application/json
 
 {
-    "username": "tester",
-    "password": "sala"
+    "email": "test@te.te",
+    "password": "asdasd123"
 }

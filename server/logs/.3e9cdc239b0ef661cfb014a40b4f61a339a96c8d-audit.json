@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\juuso\\homebrew-swap\\server\\logs\\.3e9cdc239b0ef661cfb014a40b4f61a339a96c8d-audit.json",
+    "files": [
+        {
+            "date": 1611741796158,
+            "name": "C:\\Users\\juuso\\homebrew-swap\\server\\logs\\2021-01-27.log",
+            "hash": "adc7f242dde0ada3d51be3560c470ad9"
+        }
+    ]
+}
