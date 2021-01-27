@@ -33,10 +33,10 @@ const UserSchema = new Schema<IUserDocument, IUserModel>({
       ref : 'Offer'
     }
   ],
-  hash     : {
+  hash: {
     type: Schema.Types.String
   },
-  salt     : {
+  salt: {
     type: Schema.Types.String
   },
 }, {timestamps: true});
@@ -49,12 +49,12 @@ export interface IUserDocument extends IUser, Document {
   toAuthJSON(): any;
   setPassword(password: string): void;
   validPassword(password: string): boolean;
-  // offers: Offer["_id"]
+  // offers?: Offer["_id"]
 }
 
 export interface IUserModel extends Model<IUserDocument> {
   token?: string;
-  // offers: [Schema.Types.ObjectId];
+  offers: [Schema.Types.ObjectId];
 
 
   // toProfileJSONFor(user: IUserModel): any;

@@ -7,10 +7,11 @@ const router: Router = Router();
 
 router.post('/register', (req: Request, res: Response, next: NextFunction) => {
 
-    console.log('req received')
+    console.log('register req received')
 
     const user = new User();
   
+
     user.username = req.body.displayName;
     user.email    = req.body.email;
     user.setPassword(req.body.password);
