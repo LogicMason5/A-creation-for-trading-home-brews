@@ -11,46 +11,44 @@ router.post('/register', (req: Request, res: Response, next: NextFunction) => {
 
     const user = new User();
   
-
     user.username = req.body.displayName;
     user.email    = req.body.email;
     user.setPassword(req.body.password);
 
     return user.save()
       .then(() => {
-        return res.json({user: user.toAuthJSON()});
+        return res.json(user.toAuthJSON());
       })
       .catch(next);
   
   });
 
 
+router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
-// router.post('/user/login', (req: Request, res: Response, next: NextFunction) => {
-
-//     if (!req.body.user.email) {
-//       return res.status(422).json({errors: {email: "Can't be blank"}});
-//     }
+    if (!req.body.email) {
+      return res.status(422).json({errors: {email: "Can't be blank"}});
+    }
   
-//     if (!req.body.user.password) {
-//       return res.status(422).json({errors: {password: "Can't be blank"}});
-//     }
+    if (!req.body.password) {
+      return res.status(422).json({errors: {password: "Can't be blank"}});
+    }
   
-//     passport.authenticate('local', {session: false}, (err, user, info) => {
-//       if (err) {
-//         return next(err);
-//       }
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
   
-//       if (user) {
-//         user.token = user.generateJWT();
-//         return res.json({user: user.toAuthJSON()});
+      if (user) {
+        user.token = user.generateJWT();
+        return res.json(user.toAuthJSON());
   
-//       } else {
-//         return res.status(422).json(info);
-//       }
-//     })(req, res, next);
+      } else {
+        return res.status(422).json(info);
+      }
+    })(req, res, next);
   
-//   });
+  });
   
   
   export const UserRoutes: Router = router;

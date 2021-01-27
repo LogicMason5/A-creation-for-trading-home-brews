@@ -1,4 +1,4 @@
-import { Document, Model, model, Schema } from 'mongoose';
+import { Document, Model, model, Schema, SchemaTypes } from 'mongoose';
 import { IOffer } from '../interfaces';
 
 //NEEDS TO BE CLEANED UP TO BE CONSISTEND WITH USER
@@ -14,11 +14,11 @@ const OfferSchema =  new Schema<IOfferDocument, IOfferModel>({
   },
   recipeLink: { type: String },
   created: { type: String, required: true },
-  owwned: { type: String }
-  // owner:{
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User'
-  // },
+  id: { type: Schema.Types.ObjectId },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   });
 
 export interface IOfferDocument extends IOffer, Document {
@@ -38,7 +38,8 @@ OfferSchema.methods.toJSON = function (): any {
     amount: this.amount,
     location: this.location,
     recipeLink: this.recipeLink,
-    created: this.created
+    created: this.created,
+    id: this._id.toString()
   }
 }
 

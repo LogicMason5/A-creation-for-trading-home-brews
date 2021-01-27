@@ -1,0 +1,17 @@
+POST http://localhost:3001/api/offers/ HTTP/1.1
+content-type: application/json
+Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTE3MjU5ODYwMjQ5MjI5MDEyZjU5ZSIsInVzZXJuYW1lIjoidGVzdGVyIiwiZXhwIjoxNjE2OTM4NjIzLjgwNiwiaWF0IjoxNjExNzU4MjIzfQ.qR2VDD0TsB6HtEixtmgvAe9HybERTyzyl1Fn9aURHDc
+
+  {
+    "amount": 5,
+    "beerName": "AddLocalTest",
+    "description": "Great beer here. Great beer here. Great beer here. Great beer here. Great beer here. Great beer here. Great beer here. Great beer here. ",
+    "packageSize": "0.5",
+    "recipeLink": "kallionpanimo.fi",
+    "location": {
+      "lng": 15,
+      "lat": 25
+    },
+    "created": "2021-01-27T11:52:03.961Z",
+    "owner": "60117259860249229012f59e"
+  }

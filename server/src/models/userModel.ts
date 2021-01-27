@@ -7,9 +7,6 @@ import mongooseUniqueValidator = require("mongoose-unique-validator");
 
 
 
-
-
-// ISSUE: Own every parameter and any missing dependencies
 const UserSchema = new Schema<IUserDocument, IUserModel>({
   username : {
     type     : Schema.Types.String,
@@ -27,7 +24,7 @@ const UserSchema = new Schema<IUserDocument, IUserModel>({
     // match    : [/\S+@\S+\.\S+/, 'is invalid'],
     index    : true
   },
-  offers: [
+  offers: [     
     {
       type: Schema.Types.ObjectId,
       ref : 'Offer'
@@ -91,9 +88,9 @@ UserSchema.methods.generateJWT = function (): string {
 
 UserSchema.methods.toAuthJSON = function (): any {
   return {
-    username: this.username,
-    email   : this.email,
-    token   : this.generateJWT(),
+    displayName: this.username,
+    token: this.generateJWT(),
+    id: this.id    
   };
 };
 

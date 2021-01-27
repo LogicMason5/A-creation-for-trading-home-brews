@@ -1,31 +1,45 @@
 import { Request, Response, Router } from 'express';
 import { authentication } from '../utils/authentication';
 import Offer, { IOfferModel } from '../models/offerModel';
+import User from '../models/userModel';
 
 const router: Router = Router();
 
 
-router.get('/', function (req: Request, res: Response, next) {
-  const offers = Offer.find({})
-  console.log(offers[0])
+router.get('/', async function (req: Request, res: Response, next) {
+  
+  const offers = await Offer.find({}).catch(next)
+
+  res.json(offers.map((offers: { toJSON: () => any; }) => offers.toJSON())); //change this to some to publicJSON or so
+
+});
+
+
+
+router.get('/:id', async function (req: Request, res: Response, next) {
+
+  const offer = await Offer.findById(req.params.id).catch(next)
+
+  res.json(offer.toJSON())
+
 });
 
 
 
+router.post('/', authentication.required , async function (req: Request, res: Response, next) {
 
-router.post('/', function (req: Request, res: Response, next) {
+  const user = await User.findById(req.body.owner).catch(next)
 
-  console.log('post offer received')
+  if (!user) return res.sendStatus(401)
 
-  const offer = new Offer(req.body)
+  const newOffer = new Offer(req.body)
 
-  return offer.save()
-    .then(() => {
-      return res.json({ offer: offer.toJSON })
-    })
-    .catch(next)
+  const savedOffer = await newOffer.save().catch(next)
+
+  if (savedOffer) return res.json(savedOffer.toJSON())
 
 });
+
 
 
 
