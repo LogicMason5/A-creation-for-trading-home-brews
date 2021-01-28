@@ -5,14 +5,14 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
-import LocationField from './LocationField';
+import LocationField from '../SharedComponents/LocationField';
 import Hidden from '@material-ui/core/Hidden';
 import FormSlider from '../SharedComponents/FormSlider';
-import { createOffer } from './offersSlice';
+import { createOffer } from './offerSlice';
 import { RootState } from '../rootReducer';
 import { useSelector } from 'react-redux';
 import { setDrawerOpen } from '../Navigation/displaySlice';
-import { useAppDispatch } from '../store';
+import { useAsyncDispatch } from '../store';
 
 interface FormValues {
   beerName: string;
@@ -26,7 +26,11 @@ interface FormValues {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     toolbarBuffer: theme.mixins.toolbar,
+    formContainer: {
+      height: '100%'
+    },
   }),
+
 );
 
 const validationSchema = yup.object().shape({
@@ -40,7 +44,7 @@ const CreateOfferForm: React.FC = () => {
 
   const classes = useStyles();
  
-  const dispatch = useAppDispatch();
+  const dispatch = useAsyncDispatch();
 
   const isLoaded = useSelector(
     (state: RootState) => state.display.mapsLoaded
@@ -50,10 +54,8 @@ const CreateOfferForm: React.FC = () => {
     dispatch(setDrawerOpen(true));
 }, [dispatch]);
 
-  if (!isLoaded) return null;
-
   return (
-    <Container fixed>
+    <Container className={classes.formContainer}>
       <Hidden mdUp>
         <div className={classes.toolbarBuffer} />
       </Hidden>
@@ -82,8 +84,9 @@ const CreateOfferForm: React.FC = () => {
         ) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { location, ...newValues } = values;
-          console.log(newValues);
           dispatch(createOffer(newValues));
+          console.log('in offer form');
+          console.log(newValues);
           formikHelpers.setSubmitting(false);
         }}
       >
@@ -139,6 +142,7 @@ const CreateOfferForm: React.FC = () => {
                 />
               </Grid>
               <Grid item xs={12}>
+                {isLoaded ? 
                 <Field
                   name="location"
                   label="Trade location"
@@ -146,6 +150,9 @@ const CreateOfferForm: React.FC = () => {
                   fullWidth
                   initHelperText="Give a default location for the trade. Any public location will do."
                 />
+                :
+                'loading maps'
+                }
               </Grid>
               <Grid item xs={12}>
                 <Field

@@ -4,7 +4,7 @@ import BeerMarker from './BeerMarker';
 import { mapStyles } from './mapStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
-import { fetchOffers } from '../Offers/offersSlice';
+import { fetchOffers } from '../Offers/offerSlice';
 
 const mapContainerStyles = {        
   height: "100vh",

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import parse from 'autosuggest-highlight/parse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FieldProps } from 'formik';
-import FormTextField from '../SharedComponents/FormTextField';
+import FormTextField from './FormTextField';
 import { useDispatch } from 'react-redux';
 import { setLocation } from '../Map/locationSlice';
 
@@ -68,7 +68,6 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
 
   return (
     <Autocomplete
-      // id="location-autocomplete-field"
       options={data}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
       getOptionSelected={() => true}

@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Button, Box, Paper, Grow } from "@material-ui/core";
+import { Typography, Grid, Button, Box } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import { Link } from 'react-router-dom';
 import * as yup from "yup";
 import Hidden from '@material-ui/core/Hidden';
 import { setDrawerOpen } from '../Navigation/displaySlice';
-// import { login } from './userSlice';
+import { login } from './userSlice';
 import { LoginFormValues } from '../type';
-import { useAppDispatch } from '../store';
+import { useAsyncDispatch } from '../store';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     toolbarBuffer: theme.mixins.toolbar,
   }),
+
 );
 
 const validationSchema = yup.object().shape({
@@ -31,14 +32,14 @@ const LoginForm: React.FC = () => {
 
   const classes = useStyles();
  
-  const dispatch = useAppDispatch();
+  const dispatch = useAsyncDispatch();
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
-}, [dispatch]);
+  }, [dispatch]);
 
   return (
-    <Container>
+    <Container >
       <Hidden mdUp>
         <div className={classes.toolbarBuffer} />
       </Hidden>
@@ -62,7 +63,7 @@ const LoginForm: React.FC = () => {
           formikHelpers: FormikHelpers<LoginFormValues>
         ) => {
           console.log(values);
-          // dispatch(login(values));
+          dispatch(login(values));
           formikHelpers.setSubmitting(false);
         }}
       >
@@ -103,34 +104,33 @@ const LoginForm: React.FC = () => {
                 </Button>
               </Grid>
             </Grid>
-            <Grid container  spacing={2} >
-              <Grid item xs={12}>
-                <Typography
-                  align="center"
-                  variant="h6"
-                  style={{ lineHeight: 1.25 }}
-                >
-                  Not yet registered?
-                </Typography>
-              </Grid>
-              <Grid item xs={12} justify="flex-end">
-                <Link to="/register">
-                  <Button
-                      variant="outlined"
-                      size="large"
-                      color="primary"
-                      disabled={formikProps.isSubmitting}
-                      fullWidth
-                      >
-                      Register
-                  </Button>
-                </Link>
-              </Grid>
-            </Grid>
           </Form>
         )}
       </Formik>
-    </Container>
+      <Box mb={1} p={5}>
+        <Typography
+          align="center"
+          variant="h6"
+          style={{ lineHeight: 1.25 }}
+        >
+          Not yet registered?
+        </Typography>
+      </Box>
+      <Grid container  spacing={2} >
+        <Grid item xs={12}>
+          <Link to="/register">
+            <Button
+                variant="outlined"
+                size="large"
+                color="primary"
+                fullWidth
+                >
+                Register
+            </Button>
+          </Link>
+        </Grid>
+      </Grid>
+    </Container >
   );
 };
 

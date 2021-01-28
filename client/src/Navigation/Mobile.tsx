@@ -8,7 +8,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
 import MobileSwitch from './MobileSwitch';
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 
 const tabProps = (index: number) => {
   return {
@@ -19,9 +19,10 @@ const tabProps = (index: number) => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+  mobileContentBox: {
     flexGrow: 1,
     width: '100%',
+    height: '100%',
     backgroundColor: theme.palette.background.paper,
   },
   toolbarBuffer: theme.mixins.toolbar
@@ -38,8 +39,7 @@ const MobileHeader: React.FC = () => {
   };
 
   return (
-    <div className={classes.root}>
-
+    <Box className={classes.mobileContentBox}>
         <AppBar position="fixed">
           <Tabs
             value={value}
@@ -65,11 +65,8 @@ const MobileHeader: React.FC = () => {
             />
           </Tabs>
         </AppBar>
-        {/* <div className={classes.toolbarBuffer} /> */}
-        <Paper>
         <MobileSwitch />
-      </Paper>
-    </div>
+    </Box>
   );
 };
 

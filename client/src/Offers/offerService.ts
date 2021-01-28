@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { IOffer } from '../type';
+import { createHeaders } from '../utils/createHeaders';
 
 const baseUrl = 'http://localhost:3001/api/offers';
+
+const headers = createHeaders();
 
 const getAll = async (): Promise<IOffer[]> => {
   const response = await axios.get<IOffer[]>(baseUrl);
@@ -10,7 +12,7 @@ const getAll = async (): Promise<IOffer[]> => {
 };
 
 const createNew = async (content: Omit<IOffer, "id">): Promise<IOffer> => {
-  const response = await axios.post<IOffer>(baseUrl, content);
+  const response = await axios.post<IOffer>(baseUrl, content, headers);
   return response.data;
 };
 

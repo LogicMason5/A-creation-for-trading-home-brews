@@ -13,7 +13,7 @@ import Divider from '@material-ui/core/Divider';
 import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
-import { fetchOfferById } from '../Offers/offersSlice';
+import { fetchOfferById } from './offerSlice';
 import { setDrawerOpen } from '../Navigation/displaySlice';
 
 
@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme: Theme) =>
 interface MatchParams {
   id: string
 }
+
+
 
 const OfferDisplay: React.FC = () => {
 
@@ -72,7 +74,7 @@ const OfferDisplay: React.FC = () => {
 
   const handleLinkClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    window.open(`//${offer.recipeLink}`, `_blank`);
+    if (offer.recipeLink) window.open(`//${offer.recipeLink}`, `_blank`);
   };
 
 

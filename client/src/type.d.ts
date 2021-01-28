@@ -48,6 +48,7 @@ export interface LoginFormValues {
 export interface CurrentUser {
   id: string;
   token: string;
+  displayName: string;
 }
 
 export type OfferAction = OneOfferAction | IdOfferAction;

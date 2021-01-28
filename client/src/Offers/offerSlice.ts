@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IOffer } from '../type';
 import store, { AppThunk } from '../store';
-import offersService from './offersService';
+import offersService from './offerService';
 
 
 interface OffersState {
@@ -44,21 +44,23 @@ export default offersSlice.reducer;
 
 export const createOffer = (content: Omit<IOffer, "id" | "created" | "location" | "owner">): AppThunk => async dispatch => {
 
-  console.log('logging in createOffer');
+  try {
+    const location = store.getState().location.location;
+    const userId = store.getState().user.currentUser.id;
 
     const newOffer = {
       created: new Date().toISOString(),
-      location: store.getState().location.location,
-      owner: "FakeCurrentUser",
+      location: location,
+      owner: userId,
       ...content
     };
 
-    try {
-      const createdOffer = await offersService.createNew(newOffer);
-      dispatch(addOffer(createdOffer));
+
+    const createdOffer = await offersService.createNew(newOffer);
+    dispatch(addOffer(createdOffer));
     } catch (error) {
-      console.log(error);
-    }
+    console.log(error);
+  }
 
 };
 

@@ -20,8 +20,9 @@ This is a rough plan for the development of the app:
 -set up e2e testing
 
 ## front-end:
-- user creation and login
+- user creation, login, authentication for offer-actions
 - display offer
+- edit offer, delete offer
 
 ## back-end:
 - user management
@@ -34,4 +35,4 @@ This is a rough plan for the development of the app:
 - messaging
 
 ## back-end:
-- simple email sync with messaging
+- email to offer owners from fe

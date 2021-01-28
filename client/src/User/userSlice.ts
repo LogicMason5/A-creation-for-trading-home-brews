@@ -6,66 +6,62 @@ import userService from './userService';
 
 interface UserState {
   isLoggedIn: boolean,
-  currentUser?: CurrentUser
+  currentUser: CurrentUser
 }
 
 const initialState: UserState = {
   isLoggedIn: false,
-  currentUser: undefined
+  currentUser: {
+    id: '',
+    token: '',
+    displayName: ''
+  }
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCurrentUser(state, action: PayloadAction<CurrentUser>): void {
-        state.currentUser = action.payload;
-    },
-  }
+    setCurUser(state, action: PayloadAction<CurrentUser>): void {
+      state.currentUser = action.payload;
+      state.isLoggedIn = true;
+    }
+   }
 });
 
-export const { setCurrentUser } = userSlice.actions;
+export const { setCurUser } = userSlice.actions;
 
 export default userSlice.reducer;
 
-// export const createUser = async (content: RegisterFormValues): Promise<void> => {
 
-//   console.log(content.displayName);
-//   console.log('createUser called');
-
-//     try {
-//       console.log('in createUser try');
-//       const response = await userService.createNew(content);
-//       //deal with failed request
-//       const createdUser = response as CurrentUser; //this is only true if req is succesfull
-//       store.dispatch(setCurrentUser(createdUser));
-//     } catch (error) {
-//       console.log(error);
-//     }
-
-// };
-
-// export const login = (credentials: LoginFormValues ): AppThunk => async dispatch => {
+export const login = (credentials: LoginFormValues ): AppThunk => async dispatch => {
   
-//   try {
-//     const response = await userService.login(credentials);
-//     dispatch(loginSuccess(response));
-//   } catch (error) {
-//     dispatch(loginFail(response));
-//     console.log(error);
-//   }
+  try {
+    const response = await userService.login(credentials);
+    dispatch(setCurUser(response));
+    window.localStorage.setItem('curUser', JSON.stringify(response));
+    console.log('login sucess');
+    
+    //redirect and display login success
+  } catch (error) {
+    //display login fail to user with reason;
+    console.log(error);
+  }
 
-// };
+};
 
 export const createUser = (content: RegisterFormValues): AppThunk => async dispatch => {
 
     try {
       const response = await userService.createNew(content);
       //deal with failed request
-      const createdUser = response; //this is only true if req is succesfull
-      dispatch(setCurrentUser(createdUser));
+      dispatch(setCurUser(response));
     } catch (error) {
+      //display register fail to user with reason
       console.log(error);
     }
 
 };
+
+
+

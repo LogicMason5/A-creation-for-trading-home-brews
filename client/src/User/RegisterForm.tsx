@@ -3,12 +3,13 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Container, Typography, Grid, Button, Box } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
+import { Link } from 'react-router-dom';
 import * as yup from "yup";
 import Hidden from '@material-ui/core/Hidden';
 import { setDrawerOpen } from '../Navigation/displaySlice';
 import { createUser } from './userSlice';
 import { RegisterFormValues } from '../type';
-import { useAppDispatch } from '../store';
+import { useAsyncDispatch } from '../store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +37,7 @@ const RegisterForm: React.FC = () => {
 
   const classes = useStyles();
  
-  const dispatch = useAppDispatch();
+  const dispatch = useAsyncDispatch();
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
@@ -93,7 +94,7 @@ const RegisterForm: React.FC = () => {
                   size="small"
                   component={FormTextField}
                   fullWidth
-                  initHelperText="Email needs to be valid for you to receive messages about your offer. It is never shown to other users and is stored encrypted."
+                  initHelperText="Email needs to be valid for you to receive responses to your offer. It's kept private."
                 />
               </Grid>
               <Grid item xs={12}>
@@ -134,6 +135,29 @@ const RegisterForm: React.FC = () => {
           </Form>
         )}
       </Formik>
+      <Box mb={1} p={5}>
+        <Typography
+          align="center"
+          variant="h6"
+          style={{ lineHeight: 1.25 }}
+        >
+          Already registered?
+        </Typography>
+      </Box>
+      <Grid container  spacing={2} >
+        <Grid item xs={12}>
+          <Link to="/login">
+            <Button
+                variant="outlined"
+                size="large"
+                color="primary"
+                fullWidth
+                >
+                Sign in
+            </Button>
+          </Link>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
