@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IOffer } from '../type';
 import store, { AppThunk } from '../store';
 import offersService from './offerService';
+import { giveAlert } from '../Navigation/displaySlice';
 
 
 interface OffersState {
@@ -58,6 +59,7 @@ export const createOffer = (content: Omit<IOffer, "id" | "created" | "location" 
 
     const createdOffer = await offersService.createNew(newOffer);
     dispatch(addOffer(createdOffer));
+    giveAlert('success', 'Offer created!');
     } catch (error) {
     console.log(error);
   }

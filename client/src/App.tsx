@@ -8,6 +8,7 @@ import Mobile from './Navigation/Mobile';
 import Desktop from './Navigation/Desktop';
 import Map from './Map/Map';
 import { setCurUser } from './User/userSlice';
+import ShowAlert from './SharedComponents/ShowAlert';
 
 
 const libraries = ["places"] as unknown as undefined;
@@ -33,6 +34,8 @@ const App: React.FC = () => {
 
   return (
     <Box height="100%">
+      
+      <ShowAlert />
       <Hidden smDown>
         <Desktop />
         {isLoaded ? <Map /> : 'loading google maps'}

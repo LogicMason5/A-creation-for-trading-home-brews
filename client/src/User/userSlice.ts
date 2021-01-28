@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { giveAlert } from '../Navigation/displaySlice';
 import { AppThunk } from '../store';
 import { RegisterFormValues, CurrentUser, LoginFormValues } from '../type';
 import userService from './userService';
@@ -41,7 +42,7 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
     dispatch(setCurUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
     console.log('login sucess');
-    
+    dispatch(giveAlert('success', 'log in success'));
     //redirect and display login success
   } catch (error) {
     //display login fail to user with reason;

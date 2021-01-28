@@ -29,8 +29,6 @@ router.get('/:id', async function (req: Request, res: Response, next) {
 router.post('/', authentication.required , async function (req: Request, res: Response, next) {
 
   const user = await User.findById(req.body.owner).catch(next)
-
-
   if (!user) return res.sendStatus(401)
 
   const newOffer = new Offer(req.body)
@@ -46,20 +44,13 @@ router.post('/', authentication.required , async function (req: Request, res: Re
 // delete Offer
 router.delete('/:id', authentication.required, async function (req: Request, res: Response, next) {
 
-  console.log('req.body')
-  console.log(req.body)
-
-  // const user = await User.findById(req.body.authUser.toString()).catch(next)
   if (!req.body.authUser) return res.sendStatus(401)
-
-  console.log('here1')
 
   const offer = await Offer.findById(req.params.id).catch(next)
   if(!offer) return res.sendStatus(404)
 
   if (req.body.authUser.id.toString() === offer.owner.toString()) {
     await Offer.findByIdAndDelete(req.params.id).catch(next)
-    console.log('OFFER DELETED')
     return res.sendStatus(204)
   }
 
