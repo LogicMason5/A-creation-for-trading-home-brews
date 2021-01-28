@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose';
-import { IUserModel } from './models/userModel';
+import { IUserModel } from '../models/userModel';
 
 
 export interface ICoordinates  {

@@ -85,8 +85,6 @@ const CreateOfferForm: React.FC = () => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { location, ...newValues } = values;
           dispatch(createOffer(newValues));
-          console.log('in offer form');
-          console.log(newValues);
           formikHelpers.setSubmitting(false);
         }}
       >

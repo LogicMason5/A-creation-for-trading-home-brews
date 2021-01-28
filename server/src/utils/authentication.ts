@@ -38,8 +38,7 @@ const auth = {
     credentialsRequired: true,
     secret             : JWT_SECRET,
     getToken           : getTokenFromHeader,
-    userProperty       : 'payload',
-    // @ts-ignore
+    userProperty       : 'body.authUser',
     algorithms         : ['HS256']
   }),
 
@@ -47,7 +46,7 @@ const auth = {
     credentialsRequired: false,
     secret             : JWT_SECRET,
     getToken           : getTokenFromHeader,
-    userProperty       : 'payload',
+    userProperty       : 'body.authUser',
     algorithms         : ['HS256']
   })
 };

@@ -30,6 +30,7 @@ router.post('/', authentication.required , async function (req: Request, res: Re
 
   const user = await User.findById(req.body.owner).catch(next)
 
+
   if (!user) return res.sendStatus(401)
 
   const newOffer = new Offer(req.body)
@@ -42,23 +43,29 @@ router.post('/', authentication.required , async function (req: Request, res: Re
 
 
 
+// delete Offer
+router.delete('/:id', authentication.required, async function (req: Request, res: Response, next) {
 
-// // delete Offer
-// router.delete('/:Offer', authentication.required, function (req: Request, res: Response, next) {
-//   User.findById(req.payload.id).then(function (user) {
-//     if (!user) {
-//       return res.sendStatus(401);
-//     }
+  console.log('req.body')
+  console.log(req.body)
 
-//     if (req.Offer.author._id.toString() === req.payload.id.toString()) {
-//       return req.Offer.remove().then(function () {
-//         return res.sendStatus(204);
-//       });
-//     } else {
-//       return res.sendStatus(403);
-//     }
-//   }).catch(next);
-// });
+  // const user = await User.findById(req.body.authUser.toString()).catch(next)
+  if (!req.body.authUser) return res.sendStatus(401)
+
+  console.log('here1')
+
+  const offer = await Offer.findById(req.params.id).catch(next)
+  if(!offer) return res.sendStatus(404)
+
+  if (req.body.authUser.id.toString() === offer.owner.toString()) {
+    await Offer.findByIdAndDelete(req.params.id).catch(next)
+    console.log('OFFER DELETED')
+    return res.sendStatus(204)
+  }
+
+  return res.sendStatus(403);
+
+});
 
 // // Favorite an Offer
 // router.post('/:Offer/favorite', authentication.required, function (req: Request, res: Response, next) {

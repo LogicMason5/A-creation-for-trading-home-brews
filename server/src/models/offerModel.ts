@@ -1,5 +1,5 @@
 import { Document, Model, model, Schema, SchemaTypes } from 'mongoose';
-import { IOffer } from '../interfaces';
+import { IOffer } from '../types/interfaces';
 
 //NEEDS TO BE CLEANED UP TO BE CONSISTEND WITH USER
 

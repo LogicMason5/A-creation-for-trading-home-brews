@@ -1,5 +1,5 @@
 import { Document, Model, model, Schema } from 'mongoose';
-import { IUser } from '../interfaces';
+import { IUser } from '../types/interfaces';
 import * as jwt from 'jsonwebtoken';
 import * as crypto from 'crypto';
 import { JWT_SECRET } from "../utils/secrets";
