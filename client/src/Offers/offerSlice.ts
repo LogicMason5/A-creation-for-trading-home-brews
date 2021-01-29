@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import history from '../utils/history';
 import { IOffer } from '../type';
 import store, { AppThunk } from '../store';
 import offersService from './offerService';
-import { giveAlert } from '../Navigation/displaySlice';
-
+import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
 
 interface OffersState {
   offers: IOffer[]
@@ -29,7 +29,6 @@ const offersSlice = createSlice({
     addOffer(state, { payload }: PayloadAction<IOffer>): void {
         state.offers.push(payload);
     },
-    // getOffersStart: startLoading
     getOffersSuccess(state, { payload }: PayloadAction<IOffer[]>): void {
       state.offers = payload;
     },
@@ -47,19 +46,20 @@ export const createOffer = (content: Omit<IOffer, "id" | "created" | "location" 
 
   try {
     const location = store.getState().location.location;
-    const userId = store.getState().user.currentUser.id;
 
     const newOffer = {
       created: new Date().toISOString(),
       location: location,
-      owner: userId,
       ...content
     };
 
-
     const createdOffer = await offersService.createNew(newOffer);
+    
     dispatch(addOffer(createdOffer));
-    giveAlert('success', 'Offer created!');
+    dispatch(giveAlert('success', `Offer for ${createdOffer.beerName} created!` ));
+    dispatch(setDrawerOpen(false));
+    history.push('/');
+
     } catch (error) {
     console.log(error);
   }

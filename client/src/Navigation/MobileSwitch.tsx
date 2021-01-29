@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router";
 import Map from '../Map/Map';
 import CreateOfferForm from '../Offers/CreateOfferForm';
 import OfferDisplay from '../Offers/OfferDisplay';

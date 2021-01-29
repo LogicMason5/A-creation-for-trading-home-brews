@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
+import {  Router } from 'react-router-dom';
+import history from './utils/history';
 import { Provider } from 'react-redux';
 import store from './store';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,14 +9,12 @@ import App from './App';
 
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
-      <Router >
+      <Router history={history}>
         <CssBaseline />
         <App />
       </Router>
-   </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 
