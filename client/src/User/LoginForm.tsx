@@ -24,7 +24,7 @@ const validationSchema = yup.object().shape({
     .email("Please provide a valid email"),
   password: yup.string()
     .required("A password is required")
-    .min(8, "Password is too short, should be 8 characters minimum.")
+    .min(8, "Password is too short, it should be 8 characters minimum.")
     .matches(/(?=.*[0-9])/, "Password must contain a number to be valid.")
 });
 
@@ -40,9 +40,6 @@ const LoginForm: React.FC = () => {
 
   return (
     <Container >
-      <Hidden mdUp>
-        <div className={classes.toolbarBuffer} />
-      </Hidden>
       <Box mb={3} p={2}>
         <Typography
           align="center"

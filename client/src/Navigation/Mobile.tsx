@@ -65,6 +65,7 @@ const MobileHeader: React.FC = () => {
             />
           </Tabs>
         </AppBar>
+        <div className={classes.toolbarBuffer} />
         <MobileSwitch />
     </Box>
   );

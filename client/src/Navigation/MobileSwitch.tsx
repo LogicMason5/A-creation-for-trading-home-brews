@@ -8,15 +8,12 @@ import { RootState } from '../rootReducer';
 import RegisterForm from '../User/RegisterForm';
 import LoginForm from '../User/LoginForm';
 import MyAccount from '../User/MyAccount';
-import AccountMenu from '../User/AccountMenu';
       
 const MobileSwitch: React.FC = () => {
 
   const isLoaded = useSelector(
     (state: RootState) => state.display.mapsLoaded
   );
-
-  if (!isLoaded) return null;
 
   return (
       <Switch>
