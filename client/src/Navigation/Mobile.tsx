@@ -60,7 +60,7 @@ const MobileHeader: React.FC = () => {
             />
             <Tab icon={<AccountCircle />}
               aria-label="user-"
-              to="/register"
+              to="/my-account"
               {...tabProps(2)}
             />
           </Tabs>

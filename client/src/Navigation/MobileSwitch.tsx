@@ -7,6 +7,8 @@ import OfferDisplay from '../Offers/OfferDisplay';
 import { RootState } from '../rootReducer';
 import RegisterForm from '../User/RegisterForm';
 import LoginForm from '../User/LoginForm';
+import MyAccount from '../User/MyAccount';
+import AccountMenu from '../User/AccountMenu';
       
 const MobileSwitch: React.FC = () => {
 
@@ -22,6 +24,7 @@ const MobileSwitch: React.FC = () => {
         <Route path="/offers/:id" render={() => <OfferDisplay />} />
         <Route path="/register" render={() => <RegisterForm />} />
         <Route path="/login" render={() => <LoginForm />} />
+        <Route path="/my-account" render={() => <MyAccount />} />
         <Route path="/" render={() => <Map />} />
       </Switch>
   );

@@ -6,6 +6,7 @@ import OfferDisplay from '../Offers/OfferDisplay';
 import { RootState } from '../rootReducer';
 import RegisterForm from '../User/RegisterForm';
 import LoginForm from '../User/LoginForm';
+import MyAccount from '../User/MyAccount';
 
 
 
@@ -21,10 +22,9 @@ const MainSwitch: React.FC = () => {
     <Switch>
       <Route path="/create-offer" render={() =>  isLoaded ? <CreateOfferForm /> : <div>Loading maps...</div>} />
       <Route path="/offers/:id" render={() => <OfferDisplay />} />
-      {/* <Route path="/offers/:id" component={OfferDisplay} /> */}
       <Route path="/register" render={() => <RegisterForm />} />
-      {/* <Route path="/register" component={RegisterForm} /> */}
       <Route path="/login" render={() => <LoginForm />} />
+      <Route path="/my-account" render={() => <MyAccount />} />
     </Switch>
   );
 }; 

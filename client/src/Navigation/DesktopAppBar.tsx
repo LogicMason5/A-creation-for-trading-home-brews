@@ -123,7 +123,7 @@ const DesktopAppBar: React.FC = () => {
           edge="end"
           color="inherit"
           component={Link}
-          to="/register"
+          to="/my-account"
           onClick={handleDrawerOpen}
         >
           <AccountCircle />

@@ -23,7 +23,6 @@ const Map: React.FC = () => {
     (state: RootState) => state.offers.offers
   );
 
-    //add dispatch and offers to 2nd argument later
   useEffect(() => {
     dispatch(fetchOffers());
   }, [dispatch]);
