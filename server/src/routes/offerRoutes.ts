@@ -5,7 +5,7 @@ import User from '../models/userModel';
 
 const router: Router = Router();
 
-
+//get all offers (public info)
 router.get('/', async function (req: Request, res: Response, next) {
   
   const offers = await Offer.find({}).catch(next)
@@ -15,7 +15,7 @@ router.get('/', async function (req: Request, res: Response, next) {
 });
 
 
-
+//get offer public details by id
 router.get('/:id', async function (req: Request, res: Response, next) {
 
   const offer = await Offer.findById(req.params.id).catch(next)
@@ -25,13 +25,13 @@ router.get('/:id', async function (req: Request, res: Response, next) {
 });
 
 
-
+//post new offer
 router.post('/', authentication.required , async function (req: Request, res: Response, next) {
 
-  const user = await User.findById(req.body.owner).catch(next)
+  const user = await User.findById(req.body.authUser.id).catch(next)
   if (!user) return res.sendStatus(401)
 
-  const newOffer = new Offer(req.body)
+  const newOffer = new Offer({...req.body, owner: req.body.authUser.id})
 
   const savedOffer = await newOffer.save().catch(next)
 

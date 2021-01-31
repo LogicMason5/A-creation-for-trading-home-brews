@@ -1,23 +1,21 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+// import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Button, Box } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import { Link } from 'react-router-dom';
 import * as yup from "yup";
-import Hidden from '@material-ui/core/Hidden';
 import { setDrawerOpen } from '../Navigation/displaySlice';
 import { login } from './userSlice';
 import { LoginFormValues } from '../type';
 import { useAsyncDispatch } from '../store';
 import Container from '@material-ui/core/Container';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbarBuffer: theme.mixins.toolbar,
-  }),
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//   }),
 
-);
+// );
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Please provide a valid email")
@@ -30,7 +28,7 @@ const validationSchema = yup.object().shape({
 
 const LoginForm: React.FC = () => {
 
-  const classes = useStyles();
+  // const classes = useStyles();
  
   const dispatch = useAsyncDispatch();
 

@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
+import { Link } from 'react-router-dom'
+import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { AccountBox, ExitToApp, LocalOffer } from '@material-ui/icons';
-import {  Grid, Container } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
+import { AccountBox, LocalOffer } from '@material-ui/icons';
+import { Button, Grid, Container } from '@material-ui/core';
 import { useAsyncDispatch } from '../store';
-import { setDrawerOpen } from '../Navigation/displaySlice';
-import { logout } from './userSlice';
+import { setDrawerOpen } from './displaySlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,11 +36,6 @@ const AccountMenu: React.FC = () => {
     dispatch(setDrawerOpen(true));
   }, [dispatch]);
 
-  const handleLogoutClick = () => {
-    
-    dispatch(logout());
-  };
-
 
   return (
     <Container >
@@ -63,16 +58,22 @@ const AccountMenu: React.FC = () => {
                 </ListItemIcon>
                 <ListItemText primary="Account details" />
               </ListItem>
-              <Divider />
-              <ListItem button onClick={handleLogoutClick}>
-                <ListItemIcon>
-                  <ExitToApp />
-                </ListItemIcon>
-                <ListItemText primary="Log out" />
-              </ListItem>
             </List>
           </Grid>
           <Divider />
+          <Grid item className={classes.grow}/>
+          <div className={classes.grow}></div>
+          <Grid item xs={12} >
+            <Button
+              type="submit"
+              variant="outlined"
+              size="large"
+              color="primary"
+              fullWidth
+            >
+              Logout
+            </Button>
+          </Grid>
         </div>
       </Grid>
     </Container>

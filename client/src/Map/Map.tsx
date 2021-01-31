@@ -22,6 +22,9 @@ const Map: React.FC = () => {
   const offers = useSelector(
     (state: RootState) => state.offers.offers
   );
+  
+    
+
 
   useEffect(() => {
     dispatch(fetchOffers());

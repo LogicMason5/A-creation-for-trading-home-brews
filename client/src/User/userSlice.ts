@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { giveAlert } from '../Navigation/displaySlice';
+import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
 import { AppThunk } from '../store';
 import { RegisterFormValues, CurrentUser, LoginFormValues } from '../type';
 import userService from './userService';
+import history from '../utils/history';
 
 interface UserState {
   isLoggedIn: boolean,
@@ -23,14 +26,18 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCurUser(state, action: PayloadAction<CurrentUser>): void {
+    setLoggedUser(state, action: PayloadAction<CurrentUser>): void {
       state.currentUser = action.payload;
       state.isLoggedIn = true;
+    },
+    removeLoggedUser(state): void {
+      state.isLoggedIn = false;
+      state.currentUser = initialState.currentUser;
     }
    }
 });
 
-export const { setCurUser } = userSlice.actions;
+export const { setLoggedUser, removeLoggedUser } = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -39,29 +46,39 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
   
   try {
     const response = await userService.login(credentials);
-    dispatch(setCurUser(response));
+    dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
-    console.log('login sucess');
     dispatch(giveAlert('success', 'log in success'));
-    //redirect and display login success
+    dispatch(setDrawerOpen(false));
+    history.push('/');
   } catch (error) {
-    //display login fail to user with reason;
-    console.log(error);
+    dispatch(giveAlert('error',`Login failed: ${JSON.stringify(error.response.data.message)}`));
   }
-
 };
+
+export const logout = (): AppThunk => dispatch => {
+  dispatch(removeLoggedUser());
+  window.localStorage.removeItem('curUser');
+  dispatch(giveAlert('success', 'You have logged out.'));
+  dispatch(setDrawerOpen(false));
+  history.push('/');
+};
+
 
 export const createUser = (content: RegisterFormValues): AppThunk => async dispatch => {
 
     try {
       const response = await userService.createNew(content);
-      //deal with failed request
-      dispatch(setCurUser(response));
+      dispatch(setLoggedUser(response));
+      window.localStorage.setItem('curUser', JSON.stringify(response));
+      dispatch(giveAlert('success', `User created. Welcome ${response.displayName}`));
+      dispatch(setDrawerOpen(false));
+      history.push('/');
     } catch (error) {
-      //display register fail to user with reason
-      console.log(error);
+      console.log(error.response.data);
+      dispatch(giveAlert('error',`Failed to create user: ${JSON.stringify(error.response.data.message)}`));
     }
-
+    
 };
 
 

@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux';
 import { Switch, Route } from "react-router-dom";
 import CreateOfferForm from '../Offers/CreateOfferForm';
 import OfferDisplay from '../Offers/OfferDisplay';
+import Map from '../Map/Map';
 import { RootState } from '../rootReducer';
 import RegisterForm from '../User/RegisterForm';
 import LoginForm from '../User/LoginForm';
 import MyAccount from '../User/MyAccount';
+import Hidden from '@material-ui/core/Hidden';
 
 
 
@@ -25,6 +27,9 @@ const MainSwitch: React.FC = () => {
       <Route path="/register" render={() => <RegisterForm />} />
       <Route path="/login" render={() => <LoginForm />} />
       <Route path="/my-account" render={() => <MyAccount />} />
+      <Hidden mdUp>
+        <Route path="/" render={() => isLoaded ? <Map /> : <div>Loading maps...</div>} />
+      </Hidden>
     </Switch>
   );
 }; 

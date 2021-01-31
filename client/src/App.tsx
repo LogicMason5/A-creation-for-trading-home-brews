@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
-import Hidden from '@material-ui/core/Hidden';
 import Box from '@material-ui/core/Box';
 import { setMapsLoaded } from './Navigation/displaySlice';
 import { useDispatch } from 'react-redux';
-import Mobile from './Navigation/Mobile';
-import Desktop from './Navigation/Desktop';
-import Map from './Map/Map';
-import { setCurUser } from './User/userSlice';
+import MainDisplay from './Navigation/MainDisplay';
+import { setLoggedUser } from './User/userSlice';
 import ShowAlert from './SharedComponents/ShowAlert';
 
 
@@ -28,21 +25,14 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const curUser = window.localStorage.getItem('curUser');
-    if (curUser) dispatch(setCurUser(JSON.parse(curUser)));
+    if (curUser) dispatch(setLoggedUser(JSON.parse(curUser)));
   },[dispatch]);
 
 
   return (
     <Box height="100%">
-      
       <ShowAlert />
-      <Hidden smDown>
-        <Desktop />
-        {isLoaded ? <Map /> : 'loading google maps'}
-      </Hidden>
-      <Hidden mdUp>
-        <Mobile />
-      </Hidden>
+      <MainDisplay />
     </Box >
   );
 };

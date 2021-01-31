@@ -3,11 +3,13 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import MainSwitch from './MainSwitch';
+import Map from '../Map/Map';
 import Close from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { setDrawerOpen } from './displaySlice';
-import DesktopAppBar from './DesktopAppBar';
+import AppBar from './AppBar';
+import Hidden from '@material-ui/core/Hidden';
 
 
 const drawerWidth = 400;
@@ -30,10 +32,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   drawerPaper: {
     width: drawerWidth,
   },
-  drawerBuffer: theme.mixins.toolbar,
+  appBarBuffer: theme.mixins.toolbar,
 }));
 
-const Desktop: React.FC = () => {
+const MainDisplay: React.FC = () => {
 
   const classes = useStyles();
 
@@ -43,33 +45,44 @@ const Desktop: React.FC = () => {
     (state: RootState) => state.display.drawerOpen
   );
 
+  const isLoaded = useSelector(
+    (state: RootState) => state.display.mapsLoaded
+  );
+
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));
   };
 
   return (
     <div>
-      <DesktopAppBar />
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerBuffer}/>
+      <AppBar />
+      <div className={classes.appBarBuffer}/>
+      <Hidden mdUp>
         <MainSwitch />
-        <div className={classes.grow} />
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            <Close style={{ fontSize: 60 }} />
-          </IconButton>
-        </div>
-      </Drawer>
+      </Hidden>
+      <Hidden smDown>
+        {isLoaded ? <Map /> : <div>loading google maps</div>}
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.appBarBuffer}/>
+          <MainSwitch />
+          <div className={classes.grow} />
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              <Close style={{ fontSize: 60 }} />
+            </IconButton>
+          </div>
+        </Drawer>
+      </Hidden>
     </div>
   );
 };
 
-export default Desktop;
+export default MainDisplay;

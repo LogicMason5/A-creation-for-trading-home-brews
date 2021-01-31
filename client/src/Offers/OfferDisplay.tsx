@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Hidden from '@material-ui/core/Hidden';
-import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import { useRouteMatch } from 'react-router-dom';
@@ -15,11 +12,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOfferById } from './offerSlice';
 import { setDrawerOpen } from '../Navigation/displaySlice';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    displayOfferContainer: {
+      height: '100%',
       maxWidth: 1000,
     },
     media: {
@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.shortest,
       }),
     },
-    toolbarBuffer: theme.mixins.toolbar,
   }),
 );
 
@@ -79,14 +78,16 @@ const OfferDisplay: React.FC = () => {
 
 
   return (
-    <Paper className={classes.root}>
-      <Hidden mdUp>
-        <div className={classes.toolbarBuffer} />
-      </Hidden>
-      <CardHeader
-        title={offer.beerName}
-      />
-      <Divider />
+    <Container className={classes.displayOfferContainer}>
+      <Box mb={3} p={2}>
+        <Typography
+          align="center"
+          variant="h6"
+          style={{ lineHeight: 1.25 }}
+        >
+          {offer.beerName}
+        </Typography>
+      </Box>
       <CardMedia
         className={classes.media}
         image={'https://images.ctfassets.net/sz2xpiwl6od9/ViVjIh4AALgAXfA2/86ce8853610527d1438c72220bc13533/bb19ca64bcd7dba6922d8a0fac623ff81fed831f_sours-primer.jpg?w=1600&fm=webp'}
@@ -151,7 +152,7 @@ const OfferDisplay: React.FC = () => {
         Message the brewer
       </Button>
       </CardActions>
-    </Paper>
+    </Container>
   );
 };
 

@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
 import { useDispatch } from 'react-redux';
 import { setDrawerOpen } from './displaySlice';
+import { Hidden } from '@material-ui/core';
+import { Menu } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -32,11 +34,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
+    
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
+      marginRight: theme.spacing(2),
       width: 'auto',
     },
   },
@@ -92,9 +95,11 @@ const DesktopAppBar: React.FC = () => {
       >
         <img src={black} alt="homeButton" height="40px" />
       </IconButton>
+      <Hidden smDown>
         <Typography variant="h6" noWrap>
           Brew Swap
         </Typography>
+      </Hidden>
       <div className={classes.search}>
         <div className={classes.searchIcon}>
           <SearchIcon />
@@ -108,27 +113,40 @@ const DesktopAppBar: React.FC = () => {
           inputProps={{ 'aria-label': 'search' }}
         />
       </div>
-      <div className={classes.grow} />
-      <div>
+      <Hidden xsDown>
+        <div className={classes.grow} />
+        <div>
+          <IconButton
+            aria-label="create-offer"
+            color="inherit"
+            component={Link}
+            to="/create-offer"
+            onClick={handleDrawerOpen}
+          >
+            <AddLocation />
+          </IconButton>
+          <IconButton
+            edge="end"
+            color="inherit"
+            component={Link}
+            to="/my-account"
+            onClick={handleDrawerOpen}
+          >
+            <AccountCircle />
+          </IconButton>
+        </div>
+      </Hidden>
+      <Hidden smUp>
         <IconButton
-          aria-label="create-offer"
-          color="inherit"
-          component={Link}
-          to="/create-offer"
-          onClick={handleDrawerOpen}
-        >
-          <AddLocation />
-        </IconButton>
-        <IconButton
-          edge="end"
-          color="inherit"
-          component={Link}
-          to="/my-account"
-          onClick={handleDrawerOpen}
-        >
-          <AccountCircle />
-        </IconButton>
-      </div>
+            aria-label="create-offer"
+            color="inherit"
+            component={Link}
+            to="/mobile-menu"
+            onClick={handleDrawerOpen}
+          >
+            <Menu />
+          </IconButton>
+      </Hidden>
     </Toolbar>
   </AppBar>
   );
