@@ -48,7 +48,7 @@ const AccountMenu: React.FC = () => {
         <div className={classes.accountMenuRoot}>
           <Grid item xs={12}>
             <List component="nav" aria-label="account menu list">
-              <Link to="/placeholder" style={{ textDecoration: 'none' }}>
+              <Link to="/my-offers" style={{ textDecoration: 'none' }}>
                 <ListItem button>
                   <ListItemIcon>
                     <LocalOffer />

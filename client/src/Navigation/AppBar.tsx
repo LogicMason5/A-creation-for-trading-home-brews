@@ -97,7 +97,7 @@ const DesktopAppBar: React.FC = () => {
       </IconButton>
       <Hidden smDown>
         <Typography variant="h6" noWrap>
-          Brew Swap
+          Homerew Swap
         </Typography>
       </Hidden>
       <div className={classes.search}>

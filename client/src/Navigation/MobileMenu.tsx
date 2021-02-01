@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import { Link } from 'react-router-dom'
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
+import { Link } from 'react-router-dom';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import Hidden from '@material-ui/core/Hidden';
 import { AccountBox, LocalOffer } from '@material-ui/icons';
 import { Button, Grid, Container } from '@material-ui/core';
 import { useAsyncDispatch } from '../store';

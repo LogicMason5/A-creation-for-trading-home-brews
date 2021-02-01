@@ -9,6 +9,8 @@ import RegisterForm from '../User/RegisterForm';
 import LoginForm from '../User/LoginForm';
 import MyAccount from '../User/MyAccount';
 import Hidden from '@material-ui/core/Hidden';
+import MobileMenu from './MobileMenu';
+import MyOffersList from '../Offers/MyOffersList';
 
 
 
@@ -27,6 +29,8 @@ const MainSwitch: React.FC = () => {
       <Route path="/register" render={() => <RegisterForm />} />
       <Route path="/login" render={() => <LoginForm />} />
       <Route path="/my-account" render={() => <MyAccount />} />
+      <Route path="/mobile-menu" render={() => <MobileMenu />} />
+      <Route path="/my-offers" render={() => <MyOffersList />} />
       <Hidden mdUp>
         <Route path="/" render={() => isLoaded ? <Map /> : <div>Loading maps...</div>} />
       </Hidden>

@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 import BeerMarker from './BeerMarker';
 import { mapStyles } from './mapStyles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
-import { fetchOffers } from '../Offers/offerSlice';
+import { fetchActiveOffers } from '../Offers/offerSlice';
+import { useAsyncDispatch } from '../store';
 
 const mapContainerStyles = {        
   height: "100vh",
@@ -13,7 +14,7 @@ const mapContainerStyles = {
 
 const Map: React.FC = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAsyncDispatch();
 
   const center = useSelector(
     (state: RootState) => state.location.location
@@ -27,7 +28,7 @@ const Map: React.FC = () => {
 
 
   useEffect(() => {
-    dispatch(fetchOffers());
+    dispatch(fetchActiveOffers());
   }, [dispatch]);
 
   //TSEKKAA  https://react-google-maps-api-docs.netlify.app/#googlemap

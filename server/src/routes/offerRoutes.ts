@@ -58,6 +58,21 @@ router.delete('/:id', authentication.required, async function (req: Request, res
 
 });
 
+//get logged in users own offers
+router.get('/my-offers', authentication.required, async function (req: Request, res: Response, next) {
+
+  console.log('received my-offers request')
+
+  if (!req.body.authUser) return res.sendStatus(401)
+
+  console.log('auth done')
+  
+  const myOffers = await Offer.find({owner: req.body.authUser.id})
+
+  res.json(myOffers); //change this to some to publicJSON or so
+
+});
+
 // // Favorite an Offer
 // router.post('/:Offer/favorite', authentication.required, function (req: Request, res: Response, next) {
 //   const OfferId = req.Offer._id;

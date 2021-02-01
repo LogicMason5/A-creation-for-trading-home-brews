@@ -52,14 +52,6 @@ export interface IUserDocument extends IUser, Document {
 export interface IUserModel extends Model<IUserDocument> {
   token?: string;
   offers: [Schema.Types.ObjectId];
-
-
-  // toProfileJSONFor(user: IUserModel): any;
-  // isFollowing(id: string): boolean;
-  // follow(id: string): Promise<IUser>;
-  // unfollow(id: string): Promise<IUser>;
-  // favorite(id: string): Promise<IUser>;
-  // unfavorite(id: string): Promise<IUser>;
 }
 
 UserSchema.plugin(mongooseUniqueValidator, {message: 'is already taken.'});
@@ -100,44 +92,6 @@ UserSchema.methods.toProfileJSONFor = function (user: IUserModel) {
 
   };
 };
-
-// UserSchema.methods.favorite = function (id: string) {
-//   if (this.favorites.indexOf(id) === -1) {
-//     this.favorites.push(id);
-//   }
-
-//   return this.save();
-// };
-
-// UserSchema.methods.unfavorite = function (id: string) {
-//   this.favorites.remove(id);
-//   return this.save();
-// };
-
-// UserSchema.methods.isFavorite = function (id: string) {
-//   return this.favorites.some(function (favoriteId: string) {
-//     return favoriteId.toString() === id.toString();
-//   });
-// };
-
-// UserSchema.methods.follow = function (id: string) {
-//   if (this.following.indexOf(id) === -1) {
-//     this.following.push(id);
-//   }
-
-//   return this.save();
-// };
-
-// UserSchema.methods.unfollow = function (id: string) {
-//   this.following.remove(id);
-//   return this.save();
-// };
-
-// UserSchema.methods.isFollowing = function (id: string) {
-//   return this.following.some(function (followId: string) {
-//     return followId.toString() === id.toString();
-//   });
-// };
 
 
 export default model<IUserDocument, IUserModel>("User", UserSchema)

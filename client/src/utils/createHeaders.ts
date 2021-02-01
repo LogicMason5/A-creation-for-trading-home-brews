@@ -6,7 +6,7 @@ import { AxiosRequestConfig } from "axios";
 // import { CurrentUser } from "../type";
 
 
-export const createHeaders = (): AxiosRequestConfig => {
+export const createAuthHeaders = (): AxiosRequestConfig => {
 
   const loggedUser = window.localStorage.getItem('curUser');
   const loggedUserObject = loggedUser ? JSON.parse(loggedUser) : {token: { token: ''}};

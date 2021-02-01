@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { IOffer } from '../type';
-import { createHeaders } from '../utils/createHeaders';
+import { createAuthHeaders } from '../utils/createHeaders';
 
 const baseUrl = 'http://localhost:3001/api/offers';
 
-const headers = createHeaders();
+const headers = createAuthHeaders();
 
-const getAll = async (): Promise<IOffer[]> => {
+const getAllActive = async (): Promise<IOffer[]> => {
   const response = await axios.get<IOffer[]>(baseUrl);
   return response.data;
 };
@@ -27,6 +27,11 @@ const getById = async (id: string): Promise<IOffer> => {
   return response.data;
 };
 
-const offersService = { getAll, createNew, getById };
+const getMyOffers = async (): Promise<IOffer[]> => {
+  const response = await axios.get<IOffer[]>(`${baseUrl}/my-offers`, headers);
+  return response.data;
+};
+
+const offersService = { getAllActive, createNew, getById, getMyOffers };
 
 export default offersService;
