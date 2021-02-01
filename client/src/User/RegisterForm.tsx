@@ -59,10 +59,10 @@ const RegisterForm: React.FC = () => {
       </Box>
       <Formik
         initialValues={{
-          displayName: "",
-          email: "",
-          password: "",
-          passwordConfirm: ""
+          displayName: "Tester",
+          email: "kiiikii@tyy.ftta",
+          password: "asdasd123",
+          passwordConfirm: "asdasd123"
         }}
         validationSchema={validationSchema}
         onSubmit={(

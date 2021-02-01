@@ -41,7 +41,6 @@ export const { setLoggedUser, removeLoggedUser } = userSlice.actions;
 
 export default userSlice.reducer;
 
-
 export const login = (credentials: LoginFormValues ): AppThunk => async dispatch => {
   
   try {
@@ -75,8 +74,8 @@ export const createUser = (content: RegisterFormValues): AppThunk => async dispa
       dispatch(setDrawerOpen(false));
       history.push('/');
     } catch (error) {
-      console.log(error.response.data);
-      dispatch(giveAlert('error',`Failed to create user: ${JSON.stringify(error.response.data.message)}`));
+      console.log(JSON.stringify(error.response.data.errors));
+      dispatch(giveAlert('error',`Failed to create user: ${JSON.stringify(Object.keys(error.response.data.errors)[0])} is already taken`));
     }
     
 };
