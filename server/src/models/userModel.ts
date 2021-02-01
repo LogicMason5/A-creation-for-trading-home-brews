@@ -1,5 +1,5 @@
-import { Document, Model, model, Schema } from 'mongoose';
-import { IUser } from '../types/interfaces';
+import { Document, Model, model, ObjectId, Schema } from 'mongoose';
+import { IOffer, IUser } from '../types/interfaces';
 import * as jwt from 'jsonwebtoken';
 import * as crypto from 'crypto';
 import { JWT_SECRET } from "../utils/secrets";
@@ -45,8 +45,6 @@ export interface IUserDocument extends IUser, Document {
   generateJWT(): string;
   toAuthJSON(): any;
   setPassword(password: string): void;
-  validPassword(password: string): boolean;
-  // offers?: Offer["_id"]
 }
 
 export interface IUserModel extends Model<IUserDocument> {
@@ -77,6 +75,7 @@ UserSchema.methods.generateJWT = function (): string {
     exp     : exp.getTime() / 1000,
   }, JWT_SECRET);
 };
+
 
 UserSchema.methods.toAuthJSON = function (): any {
   return {

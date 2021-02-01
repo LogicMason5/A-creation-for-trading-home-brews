@@ -2,6 +2,9 @@ import { Request, Response, Router } from 'express';
 import { authentication } from '../utils/authentication';
 import Offer, { IOfferModel } from '../models/offerModel';
 import User from '../models/userModel';
+import mongooseUniqueValidator from 'mongoose-unique-validator';
+const mongoose = require('mongoose');
+
 
 const router: Router = Router();
 
@@ -16,13 +19,7 @@ router.get('/', async function (req: Request, res: Response, next) {
 
 
 //get offer public details by id
-router.get('/:id', async function (req: Request, res: Response, next) {
 
-  const offer = await Offer.findById(req.params.id).catch(next)
-
-  res.json(offer.toJSON())
-
-});
 
 
 //post new offer
@@ -59,17 +56,25 @@ router.delete('/:id', authentication.required, async function (req: Request, res
 });
 
 //get logged in users own offers
-router.get('/my-offers', authentication.required, async function (req: Request, res: Response, next) {
+router.get('/my-offers', authentication.required,  async function (req: Request, res: Response, next) {
 
   console.log('received my-offers request')
 
   if (!req.body.authUser) return res.sendStatus(401)
 
-  console.log('auth done')
-  
-  const myOffers = await Offer.find({owner: req.body.authUser.id})
+  console.log(req.body.authUser.id)
+
+  const myOffers = await Offer.find({owner: req.body.authUser.id}).catch(next)
 
   res.json(myOffers); //change this to some to publicJSON or so
+
+});
+
+router.get('/:id', async function (req: Request, res: Response, next) {
+
+  const offer = await Offer.findById(req.params.id).catch(next)
+
+  res.json(offer.toJSON())
 
 });
 

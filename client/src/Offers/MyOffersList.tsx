@@ -22,14 +22,9 @@ const MyOffersList: React.FC = () => {
   }, [dispatch]); 
 
   return (
-    // myOffers ?
-    // (<div>
-    // {myOffers[0].beerName}
-    // </div>)
-    // :
-    (<div>
-    no offers  
-    </div>)
+    <div>
+      
+    </div>
   );
 
 };

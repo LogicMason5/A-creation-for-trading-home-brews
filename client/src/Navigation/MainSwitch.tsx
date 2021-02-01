@@ -20,8 +20,6 @@ const MainSwitch: React.FC = () => {
     (state: RootState) => state.display.mapsLoaded
   );
 
-  if (!isLoaded) return null;
-
   return (
     <Switch>
       <Route path="/create-offer" render={() =>  isLoaded ? <CreateOfferForm /> : <div>Loading maps...</div>} />

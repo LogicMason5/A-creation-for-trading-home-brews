@@ -52,7 +52,7 @@ const CreateOfferForm: React.FC = () => {
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
-}, [dispatch]);
+}, [dispatch, isLoaded]);
 
   return (
     <Container className={classes.formContainer}>
