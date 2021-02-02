@@ -5,7 +5,7 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import { Link } from 'react-router-dom';
 import * as yup from "yup";
-import { setDrawerOpen } from '../Navigation/displaySlice';
+import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import { login } from './userSlice';
 import { LoginFormValues } from '../type';
 import { useAsyncDispatch } from '../store';

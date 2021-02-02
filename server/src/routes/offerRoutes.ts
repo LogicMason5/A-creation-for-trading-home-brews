@@ -58,15 +58,11 @@ router.delete('/:id', authentication.required, async function (req: Request, res
 //get logged in users own offers
 router.get('/my-offers', authentication.required,  async function (req: Request, res: Response, next) {
 
-  console.log('received my-offers request')
-
   if (!req.body.authUser) return res.sendStatus(401)
-
-  console.log(req.body.authUser.id)
 
   const myOffers = await Offer.find({owner: req.body.authUser.id}).catch(next)
 
-  res.json(myOffers); //change this to some to publicJSON or so
+  res.json(myOffers);
 
 });
 

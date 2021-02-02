@@ -11,7 +11,7 @@ import FormSlider from '../SharedComponents/FormSlider';
 import { createOffer } from './offerSlice';
 import { RootState } from '../rootReducer';
 import { useSelector } from 'react-redux';
-import { setDrawerOpen } from '../Navigation/displaySlice';
+import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import { useAsyncDispatch } from '../store';
 
 interface FormValues {

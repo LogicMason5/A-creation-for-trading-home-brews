@@ -6,7 +6,7 @@ import FormTextField from "../SharedComponents/FormTextField";
 import { Link } from 'react-router-dom';
 import * as yup from "yup";
 import Hidden from '@material-ui/core/Hidden';
-import { setDrawerOpen } from '../Navigation/displaySlice';
+import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import { createUser } from './userSlice';
 import { RegisterFormValues } from '../type';
 import { useAsyncDispatch } from '../store';

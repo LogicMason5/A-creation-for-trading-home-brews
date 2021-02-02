@@ -11,7 +11,7 @@ import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
 import { useDispatch } from 'react-redux';
-import { setDrawerOpen } from './displaySlice';
+import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import { Hidden } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 

@@ -6,6 +6,7 @@ interface DisplayState {
   drawerOpen: boolean;
   mapsLoaded: boolean;
   alertState: AlertState;
+  dialogState: DialogState;
 }
 
 interface AlertState {
@@ -13,6 +14,16 @@ interface AlertState {
   alertType: Color;
   alertMessage: string;
 }
+
+interface DialogState {
+  dialogOpen: boolean;
+  dialogMessage: string;
+}
+
+const initialDialogState: DialogState = {
+  dialogOpen: false,
+  dialogMessage: ''
+};
 
 const initialAlertState: AlertState = {
   snackbarOpen: false,
@@ -23,7 +34,8 @@ const initialAlertState: AlertState = {
 const initialState: DisplayState = {
   drawerOpen: false,
   mapsLoaded: false,
-  alertState: initialAlertState
+  alertState: initialAlertState,
+  dialogState: initialDialogState,
 };
 
 const displaySlice = createSlice({
@@ -42,13 +54,20 @@ const displaySlice = createSlice({
         snackbarOpen: true
       };
     },
+    setDialog(state, action: PayloadAction<string>) {
+      state.dialogState.dialogOpen = true;
+      state.dialogState.dialogMessage = action.payload;
+    },
     closeAlert(state) {
       state.alertState.snackbarOpen = false;
+    },
+    closeDialog(state) {
+      state.dialogState.dialogOpen = false;
     }
   } 
 });
 
-export const { setDrawerOpen, setMapsLoaded, setAlert, closeAlert } = displaySlice.actions;
+export const { setDrawerOpen, setMapsLoaded, setAlert, setDialog, closeAlert, closeDialog } = displaySlice.actions;
 
 export default displaySlice.reducer;
 
@@ -58,6 +77,8 @@ export const giveAlert = (type: Color, message: string): AppThunk => dispatch =>
     alertMessage: message
   }));
 };
+
+
 
 
 

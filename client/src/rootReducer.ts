@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 import locationReducer from './Map/locationSlice';
 import offersReducer from './Offers/offerSlice';
-import displayReducer from './Navigation/displaySlice';
+import displayReducer from './SharedComponents/displaySlice';
 import userReducer from './User/userSlice';
 
 const rootReducer = combineReducers({

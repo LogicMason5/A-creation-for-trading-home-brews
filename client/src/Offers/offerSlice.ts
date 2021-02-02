@@ -4,7 +4,7 @@ import history from '../utils/history';
 import { IOffer } from '../type';
 import store, { AppThunk } from '../store';
 import offersService from './offerService';
-import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
+import { giveAlert, setDrawerOpen } from '../SharedComponents/displaySlice';
 
 interface OffersState {
   offers: IOffer[];
@@ -31,7 +31,7 @@ const offersSlice = createSlice({
       state.offers = payload;
     },
     fetchMyOffersSuccess(state, { payload }: PayloadAction<IOffer[]>): void {
-      state.offers = payload;
+      state.myOffers = payload;
     },
     fetchOfferByIdSuccess(state, { payload }: PayloadAction<IOffer>): void {
       state.displayedOffer = payload;
@@ -70,7 +70,6 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
 export const fetchMyOffers = (): AppThunk => async dispatch => {
   try {
     const myOffers = await offersService.getMyOffers();
-    console.log(myOffers);  
     dispatch(fetchMyOffersSuccess(myOffers)); // need new action for this
   } catch (error) {
     console.log(error);
@@ -80,7 +79,6 @@ export const fetchMyOffers = (): AppThunk => async dispatch => {
 export const fetchActiveOffers = (): AppThunk => async dispatch => {
   try {
     const offers = await offersService.getAllActive();
-    console.log(offers);  
     dispatch(fetchActiveOffersSuccess(offers));
   } catch (error) {
     console.log(error);

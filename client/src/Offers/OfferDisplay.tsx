@@ -11,7 +11,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOfferById } from './offerSlice';
-import { setDrawerOpen } from '../Navigation/displaySlice';
+import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 

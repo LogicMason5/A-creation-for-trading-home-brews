@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import { AccountBox, ExitToApp, LocalOffer } from '@material-ui/icons';
 import {  Grid, Container } from '@material-ui/core';
 import { useAsyncDispatch } from '../store';
-import { setDrawerOpen } from '../Navigation/displaySlice';
+import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import { logout } from './userSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
