@@ -10,12 +10,14 @@ interface OffersState {
   offers: IOffer[];
   myOffers: IOffer[];
   displayedOffer: IOffer | null;
+  chosenOfferId: string;
 }
 
 const initialOffersState: OffersState = {
   offers: [],
   myOffers: [],
-  displayedOffer: null
+  displayedOffer: null,
+  chosenOfferId: ''
 };
 
 
@@ -35,11 +37,17 @@ const offersSlice = createSlice({
     },
     fetchOfferByIdSuccess(state, { payload }: PayloadAction<IOffer>): void {
       state.displayedOffer = payload;
+    },
+    setChosenOffer(state, { payload }: PayloadAction<string>) {
+      state.chosenOfferId = payload;
+    },
+    removeChosenOffer(state) {
+      state.chosenOfferId = 'undefined';
     }
   }
 });
 
-export const { addOffer, fetchActiveOffersSuccess, fetchOfferByIdSuccess, fetchMyOffersSuccess } = offersSlice.actions;
+export const { addOffer, fetchActiveOffersSuccess, fetchOfferByIdSuccess, fetchMyOffersSuccess, setChosenOffer, removeChosenOffer } = offersSlice.actions;
 
 export default offersSlice.reducer;
 
@@ -62,6 +70,20 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
     history.push('/');
 
     } catch (error) {
+    console.log(error);
+  }
+
+};
+
+export const deleteChosenOffer = (): AppThunk => async dispatch => {
+
+  const id = store.getState().offers.chosenOfferId;
+
+  try {
+    const response = await offersService.deleteById(id);
+    console.log(response);
+    dispatch(giveAlert('success', 'Offer successfully deleted.'));
+  } catch (error) {
     console.log(error);
   }
 

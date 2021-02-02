@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Color } from "@material-ui/lab/Alert";
 import { AppThunk } from '../store';
+import { IOffer } from '../type';
 
 interface DisplayState {
   drawerOpen: boolean;
@@ -76,6 +77,10 @@ export const giveAlert = (type: Color, message: string): AppThunk => dispatch =>
     alertType: type,
     alertMessage: message
   }));
+};
+
+export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
+  dispatch(setDialog(`Delete offer for ${offer.beerName} permanently?`));
 };
 
 

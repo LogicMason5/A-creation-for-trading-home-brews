@@ -8,6 +8,8 @@ import { IOffer } from '../type';
 import Divider from '@material-ui/core/Divider';
 import { DeleteForever, Edit, FileCopy } from '@material-ui/icons';
 import { useAsyncDispatch } from '../store';
+import { confirmDeletion } from '../SharedComponents/displaySlice';
+import { setChosenOffer } from './offerSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +43,8 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
   const dispatch = useAsyncDispatch();
 
   const onDeleteClick = () => {
-    dispatch()
+    dispatch(setChosenOffer(offer.id));
+    dispatch(confirmDeletion(offer));
   };
 
   return (

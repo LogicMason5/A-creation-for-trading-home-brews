@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from '../rootReducer';
 import { closeDialog } from './displaySlice';
+import { removeChosenOffer, deleteChosenOffer } from '../Offers/offerSlice';
 
 
 
@@ -17,12 +18,15 @@ const ConfirmDialog: React.FC = () => {
   
   const { dialogOpen, dialogMessage } = useSelector((state: RootState) => state.display.dialogState);
 
-  const handleNo = () => {
+  function handleNo() {
     dispatch(closeDialog());
-  };
+    dispatch(removeChosenOffer());
+  }
 
   const handleYes = () => {
-    console.log('yes');
+    dispatch(closeDialog());
+    dispatch(deleteChosenOffer());
+    dispatch(removeChosenOffer());
   };
 
   return (
