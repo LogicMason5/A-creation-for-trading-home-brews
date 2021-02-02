@@ -71,6 +71,7 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
 
     } catch (error) {
     console.log(error);
+    dispatch(giveAlert('error', 'Failed to the create the offer.'));
   }
 
 };
@@ -83,9 +84,12 @@ export const deleteChosenOffer = (): AppThunk => async dispatch => {
     const response = await offersService.deleteById(id);
     console.log(response);
     dispatch(giveAlert('success', 'Offer successfully deleted.'));
+
   } catch (error) {
     console.log(error);
+    dispatch(giveAlert('error', 'Failed to delete the offer.'));
   }
+  
 
 };
 
@@ -103,6 +107,7 @@ export const fetchActiveOffers = (): AppThunk => async dispatch => {
     const offers = await offersService.getAllActive();
     dispatch(fetchActiveOffersSuccess(offers));
   } catch (error) {
+    dispatch(giveAlert('error', 'Failed to load active offers. Please reload the page.'));
     console.log(error);
   }
 };
@@ -112,6 +117,7 @@ export const fetchOfferById = (id: string): AppThunk => async dispatch => {
     const offer = await offersService.getById(id);
     dispatch(fetchOfferByIdSuccess(offer));
   } catch (error) {
+    dispatch(giveAlert('error', 'Failed to load the offer. Please reload the page.'));
     console.log(error);
   }
 };
