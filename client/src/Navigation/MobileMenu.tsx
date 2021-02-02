@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import { AccountBox, LocalOffer } from '@material-ui/icons';
-import { Button, Grid, Container } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import { useAsyncDispatch } from '../store';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../rootReducer';
+import IsLoggedItems from './IsLoggedItems';
+import NotLoggedItems from './NotLoggedItems';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,14 +19,19 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       display: 'flex',
     },
+    listLink: {
+      textDecoration: 'none'
+    }
   }),
 );
 
-const AccountMenu: React.FC = () => {
+const MobileMenu: React.FC = () => {
 
   const classes = useStyles();
 
   const dispatch = useAsyncDispatch();
+
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
@@ -37,46 +39,17 @@ const AccountMenu: React.FC = () => {
 
 
   return (
-    <Container >
+    <Container className={classes.accountMenuRoot}>
       <Grid container>
-        <div className={classes.accountMenuRoot}>
-          <Grid item xs={12}>
-            <List component="nav" aria-label="account menu list">
-              <Link to="/placeholder" style={{ textDecoration: 'none' }}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <LocalOffer />
-                  </ListItemIcon>
-                  <ListItemText primary="My Offers" />
-                </ListItem>
-              </Link>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon>
-                  <AccountBox />
-                </ListItemIcon>
-                <ListItemText primary="Account details" />
-              </ListItem>
-            </List>
-          </Grid>
-          <Divider />
-          <Grid item className={classes.grow}/>
-          <div className={classes.grow}></div>
-          <Grid item xs={12} >
-            <Button
-              type="submit"
-              variant="outlined"
-              size="large"
-              color="primary"
-              fullWidth
-            >
-              Logout
-            </Button>
-          </Grid>
-        </div>
+        {isLoggedIn
+        ? 
+        <IsLoggedItems />
+        :
+        <NotLoggedItems />  
+      }
       </Grid>
     </Container>
   );
 };
 
-export default AccountMenu;
+export default MobileMenu;

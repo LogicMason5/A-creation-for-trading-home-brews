@@ -53,6 +53,7 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
   } catch (error) {
     dispatch(giveAlert('error',`Login failed: ${JSON.stringify(error.response.data.message)}`));
   }
+  
 };
 
 export const logout = (): AppThunk => dispatch => {
