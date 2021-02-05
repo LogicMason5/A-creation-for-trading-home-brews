@@ -14,6 +14,8 @@ import { fetchOfferById } from './offerSlice';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import CountDown from '../SharedComponents/CountDown';
+import { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -76,6 +78,13 @@ const OfferDisplay: React.FC = () => {
     if (offer.recipeLink) window.open(`//${offer.recipeLink}`, `_blank`);
   };
 
+  const countDownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
+    return (
+      <div>
+       {props.days} days, {props.hours} hours and {props.minutes} minutes
+      </div>
+    );
+  };
 
   return (
     <Container className={classes.displayOfferContainer}>
@@ -138,7 +147,10 @@ const OfferDisplay: React.FC = () => {
           Offer expires in:
         </Typography>
         <Typography  color="textPrimary" component="p"> 
-          time created {offer.created}
+          <CountDown 
+            created={offer.created}
+            renderer={countDownFormatter}
+          />
         </Typography>
       </div>
       </CardContent>

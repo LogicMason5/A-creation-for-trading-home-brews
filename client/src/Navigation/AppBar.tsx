@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import { Hidden } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
-import history from '../utils/history';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

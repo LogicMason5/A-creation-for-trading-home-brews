@@ -138,7 +138,7 @@ export const copySelectedOffer = (): void => {
 
   const id = store.getState().offers.selectedOffer.id;
 
-  history.push(`/offers/copy/${id}`);
+  history.push(`/my-offers/copy/${id}`);
 
 };
 

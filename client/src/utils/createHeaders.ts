@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { AxiosRequestConfig } from "axios";
-// import { CurrentUser } from "../type";
 
+import { AxiosRequestConfig } from "axios";
 
 export const createAuthHeaders = (): AxiosRequestConfig => {
 

@@ -107,7 +107,7 @@ export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
 export const confirmCopy = (offer: IOffer): AppThunk => dispatch => {
   dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
-    dialogTitle: `Create a copy of ${offer.beerName} as a new Offer?`,
+    dialogTitle: `Create a copy of the OFfer for ${offer.beerName}`,
     dialogText: 'You will be redirected to edit the details of the new Offer.'
   }));
   dispatch(setDialogType('copy'));

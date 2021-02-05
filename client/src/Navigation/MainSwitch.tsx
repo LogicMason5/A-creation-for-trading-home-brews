@@ -25,8 +25,8 @@ const MainSwitch: React.FC = () => {
     
     <Switch>
       <Route path="/create-offer" render={() =>  isLoaded ? <CreateOffer /> : <div>Loading maps...</div>} />
-      <Route path="/offers/edit/:id" render={() => <EditOffer />} />
-      <Route path="/offers/copy/:id" render={() => <CopyOffer />} />
+      <Route path="/my-offers/edit/:id" render={() => <EditOffer />} />
+      <Route path="/my-offers/copy/:id" render={() => <CopyOffer />} />
       <Route path="/offers/:id" render={() => <OfferDisplay />} />
       <Route path="/register" render={() => <RegisterForm />} />
       <Route path="/login" render={() => <LoginForm />} />

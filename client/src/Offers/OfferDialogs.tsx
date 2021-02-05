@@ -27,7 +27,6 @@ const DeleteOfferDialog: React.FC = () => {
         copySelectedOffer();
         break;
     }
-    
   };
 
   return (

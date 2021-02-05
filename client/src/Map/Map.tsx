@@ -8,7 +8,7 @@ import { fetchActiveOffers } from '../Offers/offerSlice';
 import { useAsyncDispatch } from '../store';
 
 const mapContainerStyles = {        
-  height: "100vh",
+  height: "92.5vh",
   width: "100%",
 };
 

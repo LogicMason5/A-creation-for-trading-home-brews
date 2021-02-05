@@ -3,6 +3,16 @@ export interface Coordinates  {
   lng: number;
 }
 
+export interface IPubOffer {
+  beerName: string;
+  description: string;
+  location: Coordinates;
+  recipeLink?: string;
+  created: string;
+  owner: string;
+  id: string;
+}
+
 export interface IOffer {
   beerName: string;
   description: string;

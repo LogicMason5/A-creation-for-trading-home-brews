@@ -11,6 +11,9 @@ import { useAsyncDispatch } from '../store';
 import { confirmDeletion, confirmCopy } from '../SharedComponents/displaySlice';
 import { setSelectedOffer } from './offerSlice';
 import { useHistory } from 'react-router-dom';
+import CountDown from '../SharedComponents/CountDown';
+import { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
+import Grid from '@material-ui/core/Grid';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,16 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flex: '1 0 auto',
     },
-    controls: {
+    icons: {
       display: 'flex',
       alignItems: 'center',
       paddingLeft: theme.spacing(1),
       paddingBottom: theme.spacing(1),
-    },
-    playIcon: {
-      height: 38,
-      width: 38,
-    },
+    }
   }),
 );
 
@@ -53,38 +52,49 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
 
   const handleEditClick = () => {
     dispatch(setSelectedOffer(offer));
-    history.push(`/offers/edit/${offer.id}`);
+    history.push(`/my-offers/edit/${offer.id}`);
   };
 
   const handleCopyClick = () => {
     dispatch(confirmCopy(offer));
   };
 
-  return (
-    <Card className={classes.ListCardRoot}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {offer.beerName}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {offer.created}
-          </Typography>
-        </CardContent>
-        <div className={classes.controls}>
-          <IconButton aria-label="editOffer" onClick={handleEditClick}>
-            <Edit />
-          </IconButton>
-          <IconButton aria-label="copyOffer" onClick={handleCopyClick}>
-            <FileCopy />
-          </IconButton>
-          <IconButton aria-label="deleteOffer" onClick={handleDeleteClick}>
-            <DeleteForever />
-          </IconButton>
-        </div>
+  const countdownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
+    return (
+      <div>
+      Expires in {props.days} days, {props.hours} hours and {props.minutes} minutes
       </div>
-      <Divider />
-    </Card>
+    );
+  };
+
+  return (
+    <Grid item xs={12}>
+      <Card className={classes.ListCardRoot}>
+        <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <Typography component="h5" variant="h5">
+              {offer.beerName}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              <CountDown
+                created={offer.created} renderer={countdownFormatter}/>
+            </Typography>
+          </CardContent>
+          <div className={classes.icons}>
+            <IconButton aria-label="editOffer" onClick={handleEditClick}>
+              <Edit />
+            </IconButton>
+            <IconButton aria-label="copyOffer" onClick={handleCopyClick}>
+              <FileCopy />
+            </IconButton>
+            <IconButton aria-label="deleteOffer" onClick={handleDeleteClick}>
+              <DeleteForever />
+            </IconButton>
+          </div>
+        </div>
+        <Divider />
+      </Card>
+    </Grid>
 
   );
 };
