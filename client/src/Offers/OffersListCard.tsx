@@ -8,8 +8,7 @@ import { IOffer } from '../type';
 import Divider from '@material-ui/core/Divider';
 import { DeleteForever, Edit, FileCopy } from '@material-ui/icons';
 import { useAsyncDispatch } from '../store';
-import { confirmDeletion } from '../SharedComponents/displaySlice';
-import { setChosenOffer } from './offerSlice';
+import { confirmDeletion, confirmCopy } from '../SharedComponents/displaySlice';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,9 +41,16 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
 
   const dispatch = useAsyncDispatch();
 
-  const onDeleteClick = () => {
-    dispatch(setChosenOffer(offer.id));
+  const handleDeleteClick = () => {
     dispatch(confirmDeletion(offer));
+  };
+
+  const handleEditClick = () => {
+    console.log('placeholder print for handle edit');
+  };
+
+  const handleCopyClick = () => {
+    dispatch(confirmCopy(offer));
   };
 
   return (
@@ -59,13 +65,13 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
           </Typography>
         </CardContent>
         <div className={classes.controls}>
-          <IconButton aria-label="previous">
+          <IconButton aria-label="editOffer" onClick={handleEditClick}>
             <Edit />
           </IconButton>
-          <IconButton aria-label="play/pause">
+          <IconButton aria-label="copyOffer" onClick={handleCopyClick}>
             <FileCopy />
           </IconButton>
-          <IconButton aria-label="delete" onClick={onDeleteClick}>
+          <IconButton aria-label="deleteOffer" onClick={handleDeleteClick}>
             <DeleteForever />
           </IconButton>
         </div>

@@ -3,7 +3,6 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Container, Typography, Grid, Button, Box } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
-import { Link } from 'react-router-dom';
 import * as yup from "yup";
 import Hidden from '@material-ui/core/Hidden';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
@@ -33,7 +32,7 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
-const RegisterForm: React.FC = () => {
+const EditAccount: React.FC = () => {
 
   const classes = useStyles();
  
@@ -54,15 +53,15 @@ const RegisterForm: React.FC = () => {
           variant="h6"
           style={{ lineHeight: 1.25 }}
         >
-          Register a new brewer
+          Update account
         </Typography>
       </Box>
       <Formik
         initialValues={{
-          displayName: "",
-          email: "",
-          password: "",
-          passwordConfirm: ""
+          displayName: "Tester",
+          email: "kiiikii@tyy.ftta",
+          password: "asdasd123",
+          passwordConfirm: "asdasd123"
         }}
         validationSchema={validationSchema}
         onSubmit={(
@@ -85,16 +84,6 @@ const RegisterForm: React.FC = () => {
                   component={FormTextField}
                   fullWidth
                   initHelperText="This name will be visible to other users"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="email"
-                  label="Email"
-                  size="small"
-                  component={FormTextField}
-                  fullWidth
-                  initHelperText="Email needs to be valid for you to receive responses to your offer. It's kept private."
                 />
               </Grid>
               <Grid item xs={12}>
@@ -128,38 +117,15 @@ const RegisterForm: React.FC = () => {
                   disabled={formikProps.isSubmitting}
                   fullWidth
                 >
-                  Submit
+                  Save updates
                 </Button>
               </Grid>
             </Grid>
           </Form>
         )}
       </Formik>
-      <Box mb={1} p={5}>
-        <Typography
-          align="center"
-          variant="h6"
-          style={{ lineHeight: 1.25 }}
-        >
-          Already registered?
-        </Typography>
-      </Box>
-      <Grid container  spacing={2} >
-        <Grid item xs={12}>
-          <Link to="/login">
-            <Button
-                variant="outlined"
-                size="large"
-                color="primary"
-                fullWidth
-                >
-                Sign in
-            </Button>
-          </Link>
-        </Grid>
-      </Grid>
     </Container>
   );
 };
 
-export default RegisterForm;
+export default EditAccount;

@@ -47,13 +47,13 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
     const response = await userService.login(credentials);
     dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
-    dispatch(giveAlert('success', 'log in success'));
+    dispatch(giveAlert('success', `Login succesfull. Welcome ${response.displayName}!` ));
     dispatch(setDrawerOpen(false));
     history.push('/');
   } catch (error) {
     dispatch(giveAlert('error',`Login failed: ${JSON.stringify(error.response.data.message)}`));
   }
-  
+
 };
 
 export const logout = (): AppThunk => dispatch => {

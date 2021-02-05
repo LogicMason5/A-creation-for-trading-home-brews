@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import MainDisplay from './Navigation/MainDisplay';
 import { setLoggedUser } from './User/userSlice';
 import ShowAlert from './SharedComponents/ShowAlert';
-import ConfirmDialog from './SharedComponents/ConfirmDialog';
+import DeleteOfferDialog from './Offers/OfferDialogs';
 
 
 const libraries = ["places"] as unknown as undefined;
@@ -31,8 +31,8 @@ const App: React.FC = () => {
 
 
   return (
-    <Box height="100%">
-      <ConfirmDialog />
+    <Box>
+      <DeleteOfferDialog />
       <ShowAlert />
       <MainDisplay />
     </Box >

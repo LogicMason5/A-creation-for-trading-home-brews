@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { Redirect } from 'react-router-dom';
-import AccountMenu from './AccountMenu';
+import AccountMenu from './DesktopMenu';
 
 
 

@@ -5,44 +5,47 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from '../rootReducer';
-import { closeDialog } from './displaySlice';
-import { deleteChosenOffer } from '../Offers/offerSlice';
 
 
+interface DialogProps {
+  dialogTitle: string;
+  dialogText: string;
+  onYes: () => void;
+  onNo: () => void;
+}
 
-const ConfirmDialog: React.FC = () => {
+const ConfirmDialog: React.FC<DialogProps> = props => {
 
-  const dispatch = useDispatch();
+  const { dialogTitle, dialogText, onYes, onNo } = props;
   
-  const { dialogOpen, dialogMessage } = useSelector((state: RootState) => state.display.dialogState);
+  const { dialogOpen } = useSelector((state: RootState) => state.display.dialogState);
 
-  const handleClose = () => {
-    dispatch(closeDialog());
+  const handleNo = () => {
+    onNo();
   };
 
   const handleYes = () => {
-    dispatch(closeDialog());
-    dispatch(deleteChosenOffer());
+    onYes();
   };
 
   return (
     <div>
       <Dialog
         open={dialogOpen}
-        onClose={handleClose}
+        onClose={handleNo}
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-description"
       >
-        <DialogTitle id="confirm-dialog-title">{dialogMessage}</DialogTitle>
+        <DialogTitle id="confirm-dialog-title">{dialogTitle}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            This will be permanent.
+            {dialogText}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleNo} color="primary">
             Cancel
           </Button>
           <Button onClick={handleYes} color="primary" autoFocus>

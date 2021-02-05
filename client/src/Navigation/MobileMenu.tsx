@@ -41,12 +41,13 @@ const MobileMenu: React.FC = () => {
   return (
     <Container className={classes.accountMenuRoot}>
       <Grid container>
-        {isLoggedIn
+        {
+        isLoggedIn
         ? 
         <IsLoggedItems />
         :
         <NotLoggedItems />  
-      }
+        }
       </Grid>
     </Container>
   );

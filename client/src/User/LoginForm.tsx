@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Button, Box } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
@@ -11,11 +10,6 @@ import { LoginFormValues } from '../type';
 import { useAsyncDispatch } from '../store';
 import Container from '@material-ui/core/Container';
 
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//   }),
-
-// );
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Please provide a valid email")
@@ -26,9 +20,9 @@ const validationSchema = yup.object().shape({
     .matches(/(?=.*[0-9])/, "Password must contain a number to be valid.")
 });
 
-const LoginForm: React.FC = () => {
 
-  // const classes = useStyles();
+
+const LoginForm: React.FC = () => {
  
   const dispatch = useAsyncDispatch();
 
@@ -57,7 +51,6 @@ const LoginForm: React.FC = () => {
           values: LoginFormValues,
           formikHelpers: FormikHelpers<LoginFormValues>
         ) => {
-          console.log(values);
           dispatch(login(values));
           formikHelpers.setSubmitting(false);
         }}

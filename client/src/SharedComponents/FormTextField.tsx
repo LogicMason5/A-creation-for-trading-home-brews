@@ -4,6 +4,7 @@ import { FieldProps, getIn } from 'formik';
 import { TextFieldProps, TextField } from '@material-ui/core';
 
 const FormTextField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
+  
   const isTouched = getIn(props.form.touched, props.field.name);
   const errorMessage = getIn(props.form.errors, props.field.name);
 

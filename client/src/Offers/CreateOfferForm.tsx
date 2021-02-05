@@ -6,7 +6,6 @@ import FormTextField from "../SharedComponents/FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
 import LocationField from '../SharedComponents/LocationField';
-import Hidden from '@material-ui/core/Hidden';
 import FormSlider from '../SharedComponents/FormSlider';
 import { createOffer } from './offerSlice';
 import { RootState } from '../rootReducer';
@@ -56,9 +55,6 @@ const CreateOfferForm: React.FC = () => {
 
   return (
     <Container className={classes.formContainer}>
-      <Hidden mdUp>
-        <div className={classes.toolbarBuffer} />
-      </Hidden>
       <Box mb={3} p={2}>
         <Typography
           align="center"
@@ -108,7 +104,7 @@ const CreateOfferForm: React.FC = () => {
                   size="small"
                   component={FormTextField}
                   fullWidth
-                  initHelperText="Users can filter based on this description"
+                  initHelperText="The level of detail is up to you"
                   multiline={true}
                   rows="6"
                 />

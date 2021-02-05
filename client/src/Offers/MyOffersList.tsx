@@ -9,10 +9,6 @@ import Typography from '@material-ui/core/Typography';
 
 
 
-
-
-
-
 const MyOffersList: React.FC = () => {
 
   const dispatch = useAsyncDispatch();
@@ -37,7 +33,7 @@ const MyOffersList: React.FC = () => {
       :
       <Typography
         align="center"
-        variant="h6"
+        variant="h4"
         style={{ lineHeight: 1.25 }}
         >
         No offers found

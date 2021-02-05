@@ -8,7 +8,7 @@ import Map from '../Map/Map';
 import { RootState } from '../rootReducer';
 import RegisterForm from '../User/RegisterForm';
 import LoginForm from '../User/LoginForm';
-import MyAccount from '../User/MyAccount';
+import MyAccount from './MyAccount';
 import MobileMenu from './MobileMenu';
 import MyOffersList from '../Offers/MyOffersList';
 

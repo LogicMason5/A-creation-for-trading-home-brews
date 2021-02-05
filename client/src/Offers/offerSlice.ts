@@ -10,14 +10,14 @@ interface OffersState {
   offers: IOffer[];
   myOffers: IOffer[];
   displayedOffer: IOffer | null;
-  chosenOfferId: string;
+  selectedOfferId: string;
 }
 
 const initialOffersState: OffersState = {
   offers: [],
   myOffers: [],
   displayedOffer: null,
-  chosenOfferId: ''
+  selectedOfferId: ''
 };
 
 
@@ -38,16 +38,23 @@ const offersSlice = createSlice({
     fetchOfferByIdSuccess(state, { payload }: PayloadAction<IOffer>): void {
       state.displayedOffer = payload;
     },
-    setChosenOffer(state, { payload }: PayloadAction<string>) {
-      state.chosenOfferId = payload;
+    setSelectedOffer(state, { payload }: PayloadAction<string>) {
+      state.selectedOfferId = payload;
     },
-    removeChosenOffer(state) {
-      state.chosenOfferId = 'undefined';
+    removeSelectedOffer(state) {
+      state.selectedOfferId = 'undefined';
     }
   }
 });
 
-export const { addOffer, fetchActiveOffersSuccess, fetchOfferByIdSuccess, fetchMyOffersSuccess, setChosenOffer, removeChosenOffer } = offersSlice.actions;
+export const { 
+  addOffer,
+  fetchActiveOffersSuccess,
+  fetchOfferByIdSuccess,
+  fetchMyOffersSuccess,
+  setSelectedOffer,
+  removeSelectedOffer
+} = offersSlice.actions;
 
 export default offersSlice.reducer;
 
@@ -76,9 +83,9 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
 
 };
 
-export const deleteChosenOffer = (): AppThunk => async dispatch => {
+export const deleteSelectedOffer = (): AppThunk => async dispatch => {
 
-  const id = store.getState().offers.chosenOfferId;
+  const id = store.getState().offers.selectedOfferId;
 
   try {
     const response = await offersService.deleteById(id);
@@ -89,7 +96,6 @@ export const deleteChosenOffer = (): AppThunk => async dispatch => {
     console.log(error);
     dispatch(giveAlert('error', 'Failed to delete the offer.'));
   }
-  
 
 };
 
