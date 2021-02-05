@@ -134,6 +134,14 @@ export const deleteSelectedOffer = (): AppThunk => async dispatch => {
 
 };
 
+export const copySelectedOffer = (): void => {
+
+  const id = store.getState().offers.selectedOffer.id;
+
+  history.push(`/offers/copy/${id}`);
+
+};
+
 export const fetchMyOffers = (): AppThunk => async dispatch => {
   try {
     const myOffers = await offersService.getMyOffers();

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from '../rootReducer';
 import { closeDialog } from '../SharedComponents/displaySlice';
-import { deleteSelectedOffer } from './offerSlice';
+import { deleteSelectedOffer, copySelectedOffer } from './offerSlice';
 import ConfirmDialog from '../SharedComponents/ConfirmDialog';
 
 
@@ -24,7 +24,7 @@ const DeleteOfferDialog: React.FC = () => {
         dispatch(deleteSelectedOffer());
         break;
       case 'copy':
-        console.log('test');
+        copySelectedOffer();
         break;
     }
     

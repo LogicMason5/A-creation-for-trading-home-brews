@@ -12,6 +12,7 @@ import MyAccount from './MyAccount';
 import MobileMenu from './MobileMenu';
 import MyOffersList from '../Offers/MyOffersList';
 import EditOffer from '../Offers/EditOffer';
+import CopyOffer from '../Offers/CopyOffer';
 
 
 const MainSwitch: React.FC = () => {
@@ -25,6 +26,7 @@ const MainSwitch: React.FC = () => {
     <Switch>
       <Route path="/create-offer" render={() =>  isLoaded ? <CreateOffer /> : <div>Loading maps...</div>} />
       <Route path="/offers/edit/:id" render={() => <EditOffer />} />
+      <Route path="/offers/copy/:id" render={() => <CopyOffer />} />
       <Route path="/offers/:id" render={() => <OfferDisplay />} />
       <Route path="/register" render={() => <RegisterForm />} />
       <Route path="/login" render={() => <LoginForm />} />

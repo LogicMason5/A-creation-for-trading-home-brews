@@ -1,13 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { OfferFormValues } from '../type';
 import EditOfferForm from './OfferForm';
-import { updateSelectedOffer } from './offerSlice';
+import { createOffer } from './offerSlice';
+import { useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 
 
 
-const CreateOffer: React.FC = () => {
+const CopyOffer: React.FC = () => {
 
   const selectedOffer = useSelector(
     (state: RootState) => state.offers.selectedOffer
@@ -23,8 +23,8 @@ const CreateOffer: React.FC = () => {
   };
 
   return (
-    <EditOfferForm initValues={copiedOfferValues} actionOnSubmit={updateSelectedOffer}/>
+    <EditOfferForm initValues={copiedOfferValues} actionOnSubmit={createOffer}/>
   );
 };
 
-export default CreateOffer;
+export default CopyOffer;
