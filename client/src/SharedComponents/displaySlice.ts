@@ -96,7 +96,7 @@ export const giveAlert = (type: Color, message: string): AppThunk => dispatch =>
 };
 
 export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
-  dispatch(setSelectedOffer(offer.id));
+  dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
     dialogTitle: `Delete offer for ${offer.beerName} ?`,
     dialogText: 'This action will be permanent.',
@@ -105,7 +105,7 @@ export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
 };
 
 export const confirmCopy = (offer: IOffer): AppThunk => dispatch => {
-  dispatch(setSelectedOffer(offer.id));
+  dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
     dialogTitle: `Create a copy of ${offer.beerName} as a new Offer?`,
     dialogText: 'You will be redirected to edit the details of the new Offer.'

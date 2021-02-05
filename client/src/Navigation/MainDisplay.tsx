@@ -10,6 +10,7 @@ import { RootState } from '../rootReducer';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import AppBar from './AppBar';
 import Hidden from '@material-ui/core/Hidden';
+import history from '../utils/history';
 
 
 const drawerWidth = 400;
@@ -51,6 +52,7 @@ const MainDisplay: React.FC = () => {
 
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));
+    history.push('/');
   };
 
   return (

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useAsyncDispatch } from '../store';
 import { fetchMyOffers } from './offerSlice';
 import { RootState } from '../rootReducer';
-import OffersListCard from './OffersListCard';
+import OffersListCard from './MyOffersListCard';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
 import Typography from '@material-ui/core/Typography';
 
@@ -19,7 +19,7 @@ const MyOffersList: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchMyOffers());
-  }, [dispatch, myOffers]); 
+  }, [dispatch]); 
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
@@ -36,7 +36,7 @@ const MyOffersList: React.FC = () => {
         variant="h4"
         style={{ lineHeight: 1.25 }}
         >
-        No offers found
+        Loading your offers...
       </Typography>}
     </div>
   );

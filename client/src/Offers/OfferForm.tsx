@@ -7,19 +7,15 @@ import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
 import LocationField from '../SharedComponents/LocationField';
 import FormSlider from '../SharedComponents/FormSlider';
-import { createOffer } from './offerSlice';
 import { RootState } from '../rootReducer';
 import { useSelector } from 'react-redux';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
-import { useAsyncDispatch } from '../store';
+import { AppThunk, useAsyncDispatch } from '../store';
+import { OfferFormValues } from '../type';
 
-interface FormValues {
-  beerName: string;
-  description: string;
-  packageSize: string;
-  amount: number;
-  location: string;
-  recipeLink: string;
+interface OfferFormProps {
+  initValues: OfferFormValues;
+  actionOnSubmit: (formValues: Omit<OfferFormValues, "location">) => AppThunk;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,7 +35,9 @@ const validationSchema = yup.object().shape({
 });
 
 
-const CreateOfferForm: React.FC = () => {
+const EditOfferForm: React.FC<OfferFormProps> = props => {
+
+  const { initValues, actionOnSubmit } = props;
 
   const classes = useStyles();
  
@@ -65,26 +63,19 @@ const CreateOfferForm: React.FC = () => {
         </Typography>
       </Box>
       <Formik
-        initialValues={{
-          beerName: "",
-          description: "",
-          packageSize: "",
-          amount: 2,
-          location: "",
-          recipeLink: ""
-        }}
+        initialValues={initValues}
         validationSchema={validationSchema}
         onSubmit={(
-          values: FormValues,
-          formikHelpers: FormikHelpers<FormValues>
+          values: OfferFormValues,
+          formikHelpers: FormikHelpers<OfferFormValues>
         ) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { location, ...newValues } = values;
-          dispatch(createOffer(newValues));
+          dispatch(actionOnSubmit(newValues));
           formikHelpers.setSubmitting(false);
         }}
       >
-        {(formikProps: FormikProps<FormValues>) => (
+        {(formikProps: FormikProps<OfferFormValues>) => (
           <Form noValidate autoComplete="off">
             <Grid container spacing={2} >
               <Grid item xs={12}>
@@ -178,4 +169,4 @@ const CreateOfferForm: React.FC = () => {
   );
 };
 
-export default CreateOfferForm;
+export default EditOfferForm;

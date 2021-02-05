@@ -9,6 +9,9 @@ import Divider from '@material-ui/core/Divider';
 import { DeleteForever, Edit, FileCopy } from '@material-ui/icons';
 import { useAsyncDispatch } from '../store';
 import { confirmDeletion, confirmCopy } from '../SharedComponents/displaySlice';
+import { setSelectedOffer } from './offerSlice';
+import { useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,16 +40,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
+
   const classes = useStyles();
 
   const dispatch = useAsyncDispatch();
+
+  const history = useHistory();
 
   const handleDeleteClick = () => {
     dispatch(confirmDeletion(offer));
   };
 
   const handleEditClick = () => {
-    console.log('placeholder print for handle edit');
+    dispatch(setSelectedOffer(offer));
+    history.push(`/offers/edit/${offer.id}`);
   };
 
   const handleCopyClick = () => {

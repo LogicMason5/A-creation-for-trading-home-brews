@@ -8,7 +8,7 @@ import { RootState } from '../rootReducer';
 
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  alertWindow: {
     width: "100%",
     "& > * + *": {
       marginTop: theme.spacing(2)
@@ -24,7 +24,7 @@ const ShowAlert:React.FC = () => {
 
   const { snackbarOpen, alertType, alertMessage  } = useSelector((state: RootState) => state.display.alertState);
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleClose = (_event?: React.SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -32,7 +32,7 @@ const ShowAlert:React.FC = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.alertWindow}>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

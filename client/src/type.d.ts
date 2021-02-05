@@ -15,6 +15,15 @@ export interface IOffer {
   id: string;
 }
 
+export interface OfferFormValues {
+  beerName: string;
+  description: string;
+  packageSize: string;
+  amount: number;
+  location: string;
+  recipeLink: string;
+}
+
 export interface OffersState {
   offers: IOffer[]
 }

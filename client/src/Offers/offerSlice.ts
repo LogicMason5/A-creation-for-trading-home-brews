@@ -10,14 +10,23 @@ interface OffersState {
   offers: IOffer[];
   myOffers: IOffer[];
   displayedOffer: IOffer | null;
-  selectedOfferId: string;
+  selectedOffer: IOffer;
 }
+
+const emptyOffer: IOffer = {
+    beerName: '',
+    description: '',
+    location: {lat: 0.0, lng: 0.0},
+    created: '',
+    owner: '',
+    id: ''
+};
 
 const initialOffersState: OffersState = {
   offers: [],
   myOffers: [],
   displayedOffer: null,
-  selectedOfferId: ''
+  selectedOffer: emptyOffer
 };
 
 
@@ -38,11 +47,11 @@ const offersSlice = createSlice({
     fetchOfferByIdSuccess(state, { payload }: PayloadAction<IOffer>): void {
       state.displayedOffer = payload;
     },
-    setSelectedOffer(state, { payload }: PayloadAction<string>) {
-      state.selectedOfferId = payload;
+    setSelectedOffer(state, { payload }: PayloadAction<IOffer>) {
+      state.selectedOffer = payload;
     },
     removeSelectedOffer(state) {
-      state.selectedOfferId = 'undefined';
+      state.selectedOffer = emptyOffer;
     }
   }
 });
@@ -83,14 +92,41 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
 
 };
 
-export const deleteSelectedOffer = (): AppThunk => async dispatch => {
+export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" | "location" | "owner">): AppThunk => async dispatch => {
 
-  const id = store.getState().offers.selectedOfferId;
+  const state = store.getState();
+
+  const id = state.offers.selectedOffer.id;
+  const location = state.location.location;
+  const owner = state.user.currentUser.id;
+
+  const newOffer = {
+    created: new Date().toISOString(),
+    location: location,
+    id: id,
+    owner: owner,
+    ...formContent
+  };
 
   try {
-    const response = await offersService.deleteById(id);
-    console.log(response);
-    dispatch(giveAlert('success', 'Offer successfully deleted.'));
+    const updatedOffer = await offersService.updateById(id, newOffer);
+    dispatch(giveAlert('success', `Offer for ${updatedOffer.beerName} updated.`));
+    history.push(`/offers/${updatedOffer.id}`);
+    console.log(updatedOffer); 
+  } catch (error) {
+    console.log(error);
+    dispatch(giveAlert('error', 'Failed to update the offer.'));
+  }
+
+};
+
+export const deleteSelectedOffer = (): AppThunk => async dispatch => {
+
+  const id = store.getState().offers.selectedOffer.id;
+
+  try {
+    await offersService.deleteById(id);
+    dispatch(giveAlert('success', 'Offer deleted.'));
 
   } catch (error) {
     console.log(error);

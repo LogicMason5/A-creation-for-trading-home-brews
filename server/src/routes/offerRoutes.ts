@@ -74,6 +74,30 @@ router.get('/:id', async function (req: Request, res: Response, next) {
 
 });
 
+//update offer by id
+router.put('/:id', authentication.required, async function (req: Request, res: Response, next) {
+
+  if (!req.body.authUser) return res.sendStatus(401)
+
+  // console.log(req.body)
+
+  const offer = await Offer.findById(req.params.id).catch(next)
+  if(!offer) return res.sendStatus(404)
+
+  if (req.body.authUser.id.toString() === offer.owner.toString()) {
+
+    const {authUser, ...offerData} = req.body;
+
+    console.log('here')
+
+    const updatedOffer = await Offer.findByIdAndUpdate(req.body.id, offerData, { new: true }).catch(next)
+    res.json(updatedOffer.toJSON())
+  }
+
+  return res.sendStatus(403);
+
+})
+
 // // Favorite an Offer
 // router.post('/:Offer/favorite', authentication.required, function (req: Request, res: Response, next) {
 //   const OfferId = req.Offer._id;

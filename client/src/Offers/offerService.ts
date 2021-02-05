@@ -16,11 +16,11 @@ const createNew = async (content: Omit<IOffer, "id" | "owner">): Promise<IOffer>
   return response.data;
 };
 
-// const update = async (id: string, newObject: Offer) => {
+const updateById = async (id: string, updatedOffer: IOffer): Promise<IOffer> => {
 
-//   const response = await axios.put(`${ baseUrl }/${id}`, newObject);
-//   return response.data;
-// };
+  const response = await axios.put<IOffer>(`${ baseUrl }/${id}`, updatedOffer, headers);
+  return response.data;
+};
 
 const deleteById = async (id: string): Promise<Response> => {
   const response = await axios.delete<Response>(`${ baseUrl }/${id}`, headers);
@@ -37,6 +37,6 @@ const getMyOffers = async (): Promise<IOffer[]> => {
   return response.data;
 };
 
-const offersService = { getAllActive, createNew, getById, getMyOffers, deleteById };
+const offersService = { getAllActive, createNew, getById, getMyOffers, deleteById, updateById };
 
 export default offersService;
