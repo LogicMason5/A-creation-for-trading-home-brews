@@ -30,7 +30,6 @@ const initialOffersState: OffersState = {
 };
 
 
-
 const offersSlice = createSlice({
   name: 'offers',
   initialState: initialOffersState,
