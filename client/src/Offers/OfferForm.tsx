@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Container, Typography, Grid, Button, Box, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
@@ -14,13 +14,13 @@ import { AppThunk, useAsyncDispatch } from '../store';
 import { OfferFormValues } from '../type';
 
 interface OfferFormProps {
+  formTitle: string;
   initValues: OfferFormValues;
   actionOnSubmit: (formValues: Omit<OfferFormValues, "location">) => AppThunk;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    toolbarBuffer: theme.mixins.toolbar,
     formContainer: {
       height: '100%'
     },
@@ -37,7 +37,7 @@ const validationSchema = yup.object().shape({
 
 const EditOfferForm: React.FC<OfferFormProps> = props => {
 
-  const { initValues, actionOnSubmit } = props;
+  const { formTitle, initValues, actionOnSubmit } = props;
 
   const classes = useStyles();
  
@@ -49,7 +49,10 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
-}, [dispatch, isLoaded]);
+    return () => {
+      dispatch(setDrawerOpen(false));
+    };
+}, [dispatch]);
 
   return (
     <Container className={classes.formContainer}>
@@ -59,7 +62,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
           variant="h6"
           style={{ lineHeight: 1.25 }}
         >
-          Create an offer
+          {formTitle}
         </Typography>
       </Box>
       <Formik

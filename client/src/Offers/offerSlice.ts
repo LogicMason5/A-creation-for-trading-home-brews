@@ -9,7 +9,7 @@ import { giveAlert, setDrawerOpen } from '../SharedComponents/displaySlice';
 interface OffersState {
   offers: IOffer[];
   myOffers: IOffer[];
-  displayedOffer: IOffer | null;
+  displayedOffer: IOffer;
   selectedOffer: IOffer;
 }
 
@@ -18,14 +18,14 @@ const emptyOffer: IOffer = {
     description: '',
     location: {lat: 0.0, lng: 0.0},
     created: '',
-    owner: '',
+    ownerId: '',
     id: ''
 };
 
 const initialOffersState: OffersState = {
   offers: [],
   myOffers: [],
-  displayedOffer: null,
+  displayedOffer: emptyOffer,
   selectedOffer: emptyOffer
 };
 
@@ -66,7 +66,7 @@ export const {
 
 export default offersSlice.reducer;
 
-export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "location" | "owner">): AppThunk => async dispatch => {
+export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "location" | "ownerId">): AppThunk => async dispatch => {
 
   try {
     const location = store.getState().location.location;
@@ -91,7 +91,7 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
 
 };
 
-export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" | "location" | "owner">): AppThunk => async dispatch => {
+export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" | "location" | "ownerId">): AppThunk => async dispatch => {
 
   const state = store.getState();
 
@@ -103,7 +103,7 @@ export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" |
     created: new Date().toISOString(),
     location: location,
     id: id,
-    owner: owner,
+    ownerId: owner,
     ...formContent
   };
 
@@ -111,7 +111,6 @@ export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" |
     const updatedOffer = await offersService.updateById(id, newOffer);
     dispatch(giveAlert('success', `Offer for ${updatedOffer.beerName} updated.`));
     history.push(`/offers/${updatedOffer.id}`);
-    console.log(updatedOffer); 
   } catch (error) {
     console.log(error);
     dispatch(giveAlert('error', 'Failed to update the offer.'));

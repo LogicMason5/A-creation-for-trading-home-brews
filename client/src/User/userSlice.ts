@@ -3,10 +3,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { giveAlert, setDrawerOpen } from '../SharedComponents/displaySlice';
-import { AppThunk } from '../store';
-import { RegisterFormValues, CurrentUser, LoginFormValues } from '../type';
+import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues } from '../type';
 import userService from './userService';
 import history from '../utils/history';
+import store, { AppThunk } from '../store';
+
 
 interface UserState {
   isLoggedIn: boolean,
@@ -79,6 +80,25 @@ export const createUser = (content: RegisterFormValues): AppThunk => async dispa
       dispatch(giveAlert('error',`Failed to create user: ${JSON.stringify(Object.keys(error.response.data.errors)[0])} is already taken`));
     }
     
+};
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const messageBrewer = (formContent: MessageFormValues): AppThunk => async _dispatch => {
+
+  const { beerName, ownerId } = store.getState().offers.displayedOffer;
+
+  const message = {
+    recipient: ownerId,
+    beerName: beerName,
+    ...formContent
+  };
+  
+  try {
+    console.log(message);
+    
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 

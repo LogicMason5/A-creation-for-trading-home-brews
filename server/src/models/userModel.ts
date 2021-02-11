@@ -5,9 +5,7 @@ import * as crypto from 'crypto';
 import { JWT_SECRET } from "../utils/secrets";
 import mongooseUniqueValidator = require("mongoose-unique-validator");
 
-// Type '(string | RegExp)[]' is not assignable to type 
-// '{ (regexp: string | RegExp): RegExpMatchArray; (matcher: { [Symbol.match](string: string): RegExpMatchArray; }): RegExpMatchArray; }'.
-//   Type '(string | RegExp)[]' provides no match for the signature '(regexp: string | RegExp): RegExpMatchArray'.ts(2322)
+
 
 const UserSchema = new Schema<IUserDocument, IUserModel>({
   username : {

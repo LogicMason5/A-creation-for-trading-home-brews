@@ -2,20 +2,19 @@ import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOfferById } from './offerSlice';
-import { setDrawerOpen } from '../SharedComponents/displaySlice';
+import { setDrawerOpen, setShowMessageForm } from '../SharedComponents/displaySlice';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import CountDown from '../SharedComponents/CountDown';
 import { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
+import MessageForm from './MessageForm';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,6 +57,8 @@ const OfferDisplay: React.FC = () => {
     (state: RootState) => state.offers.displayedOffer
   );
 
+
+
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferById(id.toString()));
@@ -66,6 +67,10 @@ const OfferDisplay: React.FC = () => {
 
   useEffect(() => {
       dispatch(setDrawerOpen(true));
+      dispatch(setShowMessageForm(false));
+      return () => {
+        dispatch(setDrawerOpen(false));
+      };
   }, [dispatch]);
 
 
@@ -154,16 +159,7 @@ const OfferDisplay: React.FC = () => {
         </Typography>
       </div>
       </CardContent>
-      <CardActions>
-      <Button
-        variant="outlined"
-        size="large"
-        color="primary"
-        fullWidth
-      >
-        Message the brewer
-      </Button>
-      </CardActions>
+      <MessageForm />
     </Container>
   );
 };

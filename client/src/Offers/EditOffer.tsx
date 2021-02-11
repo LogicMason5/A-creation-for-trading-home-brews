@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { OfferFormValues } from '../type';
-import EditOfferForm from './OfferForm';
+import OfferForm from './OfferForm';
 import { updateSelectedOffer } from './offerSlice';
 import { RootState } from '../rootReducer';
 
@@ -23,7 +23,11 @@ const CreateOffer: React.FC = () => {
   };
 
   return (
-    <EditOfferForm initValues={copiedOfferValues} actionOnSubmit={updateSelectedOffer}/>
+    <OfferForm 
+      formTitle={`Editing offer for ${selectedOffer.beerName}`}
+      initValues={copiedOfferValues}
+      actionOnSubmit={updateSelectedOffer}
+    />
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { OfferFormValues } from '../type';
-import EditOfferForm from './OfferForm';
+import OfferForm from './OfferForm';
 import { createOffer } from './offerSlice';
 
 
@@ -16,7 +16,7 @@ const CreateOffer: React.FC = () => {
   };
 
   return (
-    <EditOfferForm initValues={newOfferValues} actionOnSubmit={createOffer}/>
+    <OfferForm formTitle="Create a new offer" initValues={newOfferValues} actionOnSubmit={createOffer}/>
   );
 };
 

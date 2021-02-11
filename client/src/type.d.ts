@@ -9,7 +9,8 @@ export interface IPubOffer {
   location: Coordinates;
   recipeLink?: string;
   created: string;
-  owner: string;
+  ownerId: string;
+  ownerDisplayName: string
   id: string;
 }
 
@@ -21,8 +22,8 @@ export interface IOffer {
   location: Coordinates;
   recipeLink?: string;
   created: string;
-  owner: string;
   id: string;
+  ownerId: string;
 }
 
 export interface OfferFormValues {
@@ -32,6 +33,11 @@ export interface OfferFormValues {
   amount: number;
   location: string;
   recipeLink: string;
+}
+
+export interface MessageFormValues {
+  contactDetails: string;
+  message: string;
 }
 
 export interface OffersState {

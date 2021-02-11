@@ -36,3 +36,15 @@ This is a rough plan for the development of the app:
 
 ## back-end:
 - email to offer owners from fe
+
+## todo for release 1
+- send email be
+- send email fe
+- upload picture fe
+- edit account details fe
+- edit account defail be
+- FAQ fe
+- theme
+- form titles
+- offer active boolean fe
+- load only active offers from db

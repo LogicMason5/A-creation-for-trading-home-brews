@@ -8,7 +8,7 @@ import Close from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { setDrawerOpen } from '../SharedComponents/displaySlice';
-import AppBar from './AppBar';
+import AppBar from './MainAppBar';
 import Hidden from '@material-ui/core/Hidden';
 import history from '../utils/history';
 

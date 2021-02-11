@@ -6,6 +6,7 @@ import { setSelectedOffer } from '../Offers/offerSlice';
 
 interface DisplayState {
   drawerOpen: boolean;
+  showMessageForm: boolean;
   mapsLoaded: boolean;
   alertState: AlertState;
   dialogState: DialogState;
@@ -47,6 +48,7 @@ const initialAlertState: AlertState = {
 
 const initialState: DisplayState = {
   drawerOpen: false,
+  showMessageForm: false,
   mapsLoaded: false,
   alertState: initialAlertState,
   dialogState: initialDialogState,
@@ -58,6 +60,9 @@ const displaySlice = createSlice({
   reducers: {
     setDrawerOpen(state, action:PayloadAction<boolean>) {
       state.drawerOpen = action.payload;
+    },
+    setShowMessageForm(state, action:PayloadAction<boolean>) {
+      state.showMessageForm = action.payload;
     },
     setMapsLoaded(state, action:PayloadAction<boolean>) {
       state.mapsLoaded = action.payload;
@@ -84,7 +89,16 @@ const displaySlice = createSlice({
   } 
 });
 
-export const { setDrawerOpen, setMapsLoaded, setAlert, setDialog, closeAlert, closeDialog, setDialogType } = displaySlice.actions;
+export const {
+  setDrawerOpen,
+  setShowMessageForm,
+  setMapsLoaded,
+  setAlert,
+  setDialog,
+  closeAlert,
+  closeDialog,
+  setDialogType 
+} = displaySlice.actions;
 
 export default displaySlice.reducer;
 
@@ -107,7 +121,7 @@ export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
 export const confirmCopy = (offer: IOffer): AppThunk => dispatch => {
   dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
-    dialogTitle: `Create a copy of the OFfer for ${offer.beerName}`,
+    dialogTitle: `Create a copy of the offer for ${offer.beerName}?`,
     dialogText: 'You will be redirected to edit the details of the new Offer.'
   }));
   dispatch(setDialogType('copy'));

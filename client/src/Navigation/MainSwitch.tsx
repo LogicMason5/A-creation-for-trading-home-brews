@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route } from "react-router-dom";

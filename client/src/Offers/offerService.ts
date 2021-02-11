@@ -11,7 +11,7 @@ const getAllActive = async (): Promise<IOffer[]> => {
   return response.data;
 };
 
-const createNew = async (content: Omit<IOffer, "id" | "owner">): Promise<IOffer> => {
+const createNew = async (content: Omit<IOffer, "id" | "ownerId">): Promise<IOffer> => {
   const response = await axios.post<IOffer>(baseUrl, content, headers);
   return response.data;
 };
