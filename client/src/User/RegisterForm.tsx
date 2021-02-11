@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const validationSchema = yup.object().shape({
   displayName: yup.string()
     .required("A display name is required")
-    .min(4, "Min length is 4 characters"),
+    .min(4, "Min length is 4 characters")
+    .matches(/^[a-zA-Z0-9]+$/, "Username can contain letters and numbers only."),
   email: yup.string().required("Please provide a valid email")
     .email("Please provide a valid email"),
   password: yup.string()

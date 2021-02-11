@@ -147,6 +147,7 @@ export const fetchMyOffers = (): AppThunk => async dispatch => {
     const myOffers = await offersService.getMyOffers();
     dispatch(fetchMyOffersSuccess(myOffers)); // need new action for this
   } catch (error) {
+    dispatch(giveAlert('error', 'Failed to load your offers. Please reload the page or relog to try again.'));
     console.log(error);
   }
 };

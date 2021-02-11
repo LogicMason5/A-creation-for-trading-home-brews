@@ -61,9 +61,9 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
 
   const countdownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
     return (
-      <div>
+      <span>
       Expires in {props.days} days, {props.hours} hours and {props.minutes} minutes
-      </div>
+      </span>
     );
   };
 

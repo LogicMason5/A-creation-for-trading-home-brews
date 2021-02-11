@@ -1,11 +1,13 @@
-import { Document, Model, model, ObjectId, Schema } from 'mongoose';
-import { IOffer, IUser } from '../types/interfaces';
+import { Document, Model, model, Schema } from 'mongoose';
+import { IUser } from '../types/interfaces';
 import * as jwt from 'jsonwebtoken';
 import * as crypto from 'crypto';
 import { JWT_SECRET } from "../utils/secrets";
 import mongooseUniqueValidator = require("mongoose-unique-validator");
 
-
+// Type '(string | RegExp)[]' is not assignable to type 
+// '{ (regexp: string | RegExp): RegExpMatchArray; (matcher: { [Symbol.match](string: string): RegExpMatchArray; }): RegExpMatchArray; }'.
+//   Type '(string | RegExp)[]' provides no match for the signature '(regexp: string | RegExp): RegExpMatchArray'.ts(2322)
 
 const UserSchema = new Schema<IUserDocument, IUserModel>({
   username : {
@@ -13,7 +15,7 @@ const UserSchema = new Schema<IUserDocument, IUserModel>({
     lowercase: true,
     unique   : true,
     required : [true, "can't be blank"],
-    // match    : [/^[a-zA-Z0-9]+$/, 'is invalid'],
+    match    : /^[a-zA-Z0-9]+$/,
     index    : true
   },
   email    : {
@@ -21,7 +23,7 @@ const UserSchema = new Schema<IUserDocument, IUserModel>({
     lowercase: true,
     unique   : true,
     required : [true, "can't be blank"],
-    // match    : [/\S+@\S+\.\S+/, 'is invalid'],
+    match    : /\S+@\S+\.\S+/,
     index    : true
   },
   offers: [     
@@ -82,13 +84,6 @@ UserSchema.methods.toAuthJSON = function (): any {
     displayName: this.username,
     token: this.generateJWT(),
     id: this.id    
-  };
-};
-
-UserSchema.methods.toProfileJSONFor = function (user: IUserModel) {
-  return {
-    username : this.username,
-
   };
 };
 

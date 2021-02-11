@@ -80,9 +80,9 @@ const OfferDisplay: React.FC = () => {
 
   const countDownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
     return (
-      <div>
-       {props.days} days, {props.hours} hours and {props.minutes} minutes
-      </div>
+      <span>
+        {props.days} days, {props.hours} hours and {props.minutes} minutes
+      </span>
     );
   };
 

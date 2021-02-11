@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import User from '../models/userModel';
 import passport from 'passport';
-import { authentication } from "../utils/authentication";
 
 const router: Router = Router();
 

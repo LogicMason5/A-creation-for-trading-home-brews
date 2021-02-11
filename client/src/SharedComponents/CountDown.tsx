@@ -13,12 +13,12 @@ const CountDown: React.FC<CountDownProps> = props => {
   const expiration = Date.parse(created) + (14 * 24 * 60 * 60 * 1000);
 
   return (
-    <div>
+    <span>
       <Countdown
         date={expiration}
         renderer={renderer}
       />
-    </div>
+    </span>
   );
 };
 
