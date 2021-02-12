@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route } from "react-router-dom";
-import CreateOffer from '../Offers/CreateOffer';
+import CreateOffer from '../Offers/OfferForms/CreateOffer';
 import OfferDisplay from '../Offers/OfferDisplay';
 import Map from '../Map/Map';
 import { RootState } from '../rootReducer';
@@ -10,8 +10,8 @@ import LoginForm from '../User/LoginForm';
 import MyAccount from './MyAccount';
 import MobileMenu from './MobileMenu';
 import MyOffersList from '../Offers/MyOffersList/MyOffersList';
-import EditOffer from '../Offers/EditOffer';
-import CopyOffer from '../Offers/CopyOffer';
+import EditOffer from '../Offers/OfferForms/EditOffer';
+import CopyOffer from '../Offers/OfferForms/CopyOffer';
 
 
 const MainSwitch: React.FC = () => {

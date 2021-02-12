@@ -44,6 +44,7 @@ const useSwitchStyles = makeStyles((theme: Theme) =>
       transition: theme.transitions.create(['background-color', 'border']),
     },
     focusVisible: {},
+    checked: {}
   })
 );
 

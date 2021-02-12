@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Switch, { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
 
 
@@ -29,6 +29,7 @@ const ToggleSwitch: React.FC<CustomSwitchProps> = props => {
         switchBase: switchStyles.switchBase,
         thumb: switchStyles.thumb,
         track: switchStyles.track,
+        checked: switchStyles.checked
       }}
     />
   );

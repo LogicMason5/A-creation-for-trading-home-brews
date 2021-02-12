@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Container, Typography, Grid, Button, Box, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
-import FormTextField from "../SharedComponents/FormTextField";
+import FormTextField from "../../SharedComponents/FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
 import * as yup from "yup";
-import LocationField from '../SharedComponents/LocationField';
-import FormSlider from '../SharedComponents/FormSlider';
-import { RootState } from '../rootReducer';
+import LocationField from '../../SharedComponents/LocationField';
+import FormSlider from '../../SharedComponents/FormSlider';
+import { RootState } from '../../rootReducer';
 import { useSelector } from 'react-redux';
-import { setDrawerOpen } from '../SharedComponents/displaySlice';
-import { AppThunk, useAsyncDispatch } from '../store';
-import { OfferFormValues } from '../type';
+import { setDrawerOpen } from '../../SharedComponents/displaySlice';
+import { AppThunk, useAsyncDispatch } from '../../store';
+import { OfferFormValues } from '../../type';
+import TitleBox from '../../SharedComponents/TitleBox';
 
 interface OfferFormProps {
   formTitle: string;
@@ -56,15 +57,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
 
   return (
     <Container className={classes.formContainer}>
-      <Box mb={3} p={2}>
-        <Typography
-          align="center"
-          variant="h6"
-          style={{ lineHeight: 1.25 }}
-        >
-          {formTitle}
-        </Typography>
-      </Box>
+      <TitleBox title={formTitle}/>
       <Formik
         initialValues={initValues}
         validationSchema={validationSchema}

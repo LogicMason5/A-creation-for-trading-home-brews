@@ -1,7 +1,7 @@
 import React from 'react';
-import { OfferFormValues } from '../type';
+import { OfferFormValues } from '../../type';
 import OfferForm from './OfferForm';
-import { createOffer } from './offerSlice';
+import { createOffer } from '../offerSlice';
 
 
 const CreateOffer: React.FC = () => {
