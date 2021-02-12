@@ -23,6 +23,7 @@ export interface IOffer {
   recipeLink?: string;
   created: string;
   id: string;
+  active: boolean;
   ownerId: string;
 }
 
@@ -46,16 +47,6 @@ export interface OffersState {
 export type LocationAction = {
   type: string;
   data: LatLng;
-};
-
-type OneOfferAction = {
-  type: string;
-  data: Offer;
-};
-
-type IdOfferAction = {
-  type: string;
-  data: string;
 };
 
 export interface RegisterFormValues {

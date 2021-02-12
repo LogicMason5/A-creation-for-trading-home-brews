@@ -24,6 +24,7 @@ router.get('/', async function (req: Request, res: Response, next) {
 router.post('/', authentication.required , async function (req: Request, res: Response, next) {
 
   const user = await User.findById(req.body.authUser.id).catch(next)
+  
   if (!user) return res.sendStatus(401)
 
   const newOffer = new Offer({...req.body, owner: req.body.authUser.id})
@@ -58,7 +59,7 @@ router.get('/my-offers', authentication.required,  async function (req: Request,
 
   if (!req.body.authUser) return res.sendStatus(401)
 
-  const myOffers = await Offer.find({owner: req.body.authUser.id}).catch(next)
+  const myOffers = await Offer.find({ owner: req.body.authUser.id }).catch(next)
 
   res.json(myOffers);
 

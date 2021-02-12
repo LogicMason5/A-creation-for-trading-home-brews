@@ -1,7 +1,7 @@
 import { Document, Model, model, Schema } from 'mongoose';
 import { IOffer } from '../types/interfaces';
 
-//NEEDS TO BE CLEANED UP TO BE CONSISTEND WITH USER
+
 
 const OfferSchema =  new Schema<IOfferDocument, IOfferModel>({
   beerName: { type: String, required: true },
@@ -14,6 +14,7 @@ const OfferSchema =  new Schema<IOfferDocument, IOfferModel>({
   },
   recipeLink: { type: String },
   created: { type: String, required: true },
+  active: { type: Boolean },
   id: { type: Schema.Types.ObjectId },
   owner: {
     type: Schema.Types.ObjectId,
@@ -35,6 +36,7 @@ OfferSchema.methods.toJSON = function (): any {
     beerName: this.beerName,
     description: this.description,
     packageSize: this.packageSize,
+    active: this.active,
     amount: this.amount,
     location: this.location,
     recipeLink: this.recipeLink,

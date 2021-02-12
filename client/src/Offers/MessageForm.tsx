@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { setShowMessageForm } from '../SharedComponents/displaySlice';
@@ -10,24 +9,14 @@ import FormTextField from '../SharedComponents/FormTextField';
 import { MessageFormValues } from '../type';
 import { messageBrewer } from '../User/userSlice';
 
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    formContainer: {
-      height: '100%'
-    },
-  }),
-);
-
 const validationSchema = yup.object().shape({
   contactDetails: yup.string().required("Contact details are required for the brewer to respond to you.").min(6).max(300),
   message: yup.string().required("Required").min(6).max(2000),
 });
 
 
-const MessageForm: React.FC = () => {
 
-  const classes = useStyles();
+const MessageForm: React.FC = () => {
 
   const dispatch = useDispatch();
 

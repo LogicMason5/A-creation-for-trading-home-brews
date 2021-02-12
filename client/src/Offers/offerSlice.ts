@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import history from '../utils/history';
-import { IOffer } from '../type';
+import { IOffer, OfferFormValues } from '../type';
 import store, { AppThunk } from '../store';
 import offersService from './offerService';
 import { giveAlert, setDrawerOpen } from '../SharedComponents/displaySlice';
@@ -19,7 +19,8 @@ const emptyOffer: IOffer = {
     location: {lat: 0.0, lng: 0.0},
     created: '',
     ownerId: '',
-    id: ''
+    id: '',
+    active: false
 };
 
 const initialOffersState: OffersState = {
@@ -51,6 +52,9 @@ const offersSlice = createSlice({
     },
     removeSelectedOffer(state) {
       state.selectedOffer = emptyOffer;
+    },
+    updateMyOffer(state, { payload }: PayloadAction<IOffer>) {
+      state.myOffers.map(o => o.id === payload.id ? payload : o);
     }
   }
 });
@@ -61,12 +65,13 @@ export const {
   fetchOfferByIdSuccess,
   fetchMyOffersSuccess,
   setSelectedOffer,
-  removeSelectedOffer
+  removeSelectedOffer,
+  updateMyOffer
 } = offersSlice.actions;
 
 export default offersSlice.reducer;
 
-export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "location" | "ownerId">): AppThunk => async dispatch => {
+export const createOffer = (formContent: Omit<OfferFormValues, "location">): AppThunk => async dispatch => {
 
   try {
     const location = store.getState().location.location;
@@ -74,7 +79,8 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
     const newOffer = {
       created: new Date().toISOString(),
       location: location,
-      ...formContent
+      ...formContent,
+      active: true
     };
 
     const createdOffer = await offersService.createNew(newOffer);
@@ -91,11 +97,11 @@ export const createOffer = (formContent: Omit<IOffer, "id" | "created" | "locati
 
 };
 
-export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" | "location" | "ownerId">): AppThunk => async dispatch => {
+export const updateSelectedOffer = (formContent: Omit<OfferFormValues, "location">): AppThunk => async dispatch => {
 
   const state = store.getState();
 
-  const id = state.offers.selectedOffer.id;
+  const { id, active }  = state.offers.selectedOffer;
   const location = state.location.location;
   const owner = state.user.currentUser.id;
 
@@ -104,6 +110,7 @@ export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" |
     location: location,
     id: id,
     ownerId: owner,
+    active: active,
     ...formContent
   };
 
@@ -111,6 +118,31 @@ export const updateSelectedOffer = (formContent: Omit<IOffer, "id" | "created" |
     const updatedOffer = await offersService.updateById(id, newOffer);
     dispatch(giveAlert('success', `Offer for ${updatedOffer.beerName} updated.`));
     history.push(`/offers/${updatedOffer.id}`);
+  } catch (error) {
+    console.log(error);
+    dispatch(giveAlert('error', 'Failed to update the offer.'));
+  }
+
+};
+
+export const toggleActiveStatus = (offer: IOffer, setTo: boolean): AppThunk => async dispatch => {
+  
+  const newOffer = {
+    ...offer,
+    active: setTo,
+    created: new Date().toISOString()
+  };
+
+  try {
+    const updatedOffer = await offersService.updateById(newOffer.id, newOffer);
+    dispatch(
+      updatedOffer.active 
+      ?
+      giveAlert('success', `Offer for ${updatedOffer.beerName} activated.`)
+      :
+      giveAlert('info', `Offer for ${updatedOffer.beerName} deactivated.`)
+    );
+    dispatch(updateMyOffer(updatedOffer));
   } catch (error) {
     console.log(error);
     dispatch(giveAlert('error', 'Failed to update the offer.'));
@@ -144,7 +176,7 @@ export const copySelectedOffer = (): void => {
 export const fetchMyOffers = (): AppThunk => async dispatch => {
   try {
     const myOffers = await offersService.getMyOffers();
-    dispatch(fetchMyOffersSuccess(myOffers)); // need new action for this
+    dispatch(fetchMyOffersSuccess(myOffers));
   } catch (error) {
     dispatch(giveAlert('error', 'Failed to load your offers. Please reload the page or relog to try again.'));
     console.log(error);

@@ -9,7 +9,7 @@ import RegisterForm from '../User/RegisterForm';
 import LoginForm from '../User/LoginForm';
 import MyAccount from './MyAccount';
 import MobileMenu from './MobileMenu';
-import MyOffersList from '../Offers/MyOffersList';
+import MyOffersList from '../Offers/MyOffersList/MyOffersList';
 import EditOffer from '../Offers/EditOffer';
 import CopyOffer from '../Offers/CopyOffer';
 

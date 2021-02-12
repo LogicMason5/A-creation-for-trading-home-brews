@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import { useAsyncDispatch } from '../store';
-import { fetchMyOffers } from './offerSlice';
-import { RootState } from '../rootReducer';
+import { useAsyncDispatch } from '../../store';
+import { fetchMyOffers } from '../offerSlice';
+import { RootState } from '../../rootReducer';
 import OffersListCard from './MyOffersListCard';
-import { setDrawerOpen } from '../SharedComponents/displaySlice';
+import { setDrawerOpen } from '../../SharedComponents/displaySlice';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
@@ -42,7 +42,7 @@ const MyOffersList: React.FC = () => {
       spacing={4}
       justify="center"
       className={classes.myOffersListContainer}>
-        {myOffers.length > 1
+        {myOffers.length > 0
         ?
         myOffers.map(o => <OffersListCard key={o.id} offer={o}  />)
         :

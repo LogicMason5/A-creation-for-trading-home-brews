@@ -4,21 +4,22 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { IOffer } from '../type';
+import { IOffer } from '../../type';
 import Divider from '@material-ui/core/Divider';
 import { DeleteForever, Edit, FileCopy } from '@material-ui/icons';
-import { useAsyncDispatch } from '../store';
-import { confirmDeletion, confirmCopy } from '../SharedComponents/displaySlice';
-import { setSelectedOffer } from './offerSlice';
+import { useAsyncDispatch } from '../../store';
+import { confirmDeletion, confirmCopy } from '../../SharedComponents/displaySlice';
+import { setSelectedOffer } from '../offerSlice';
 import { useHistory } from 'react-router-dom';
-import CountDown from '../SharedComponents/CountDown';
+import CountDown from '../../SharedComponents/CountDown';
 import { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
 import Grid from '@material-ui/core/Grid';
+import IsActiveSwitch from './IsActiveSwitch';
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    ListCardRoot: {
+    listCardRoot: {
       display: 'flex',
       border: 1
     },
@@ -34,7 +35,11 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       paddingLeft: theme.spacing(1),
       paddingBottom: theme.spacing(1),
-    }
+    },
+    grow: {
+      flexGrow: 1,
+      display: 'flex',
+    },
   }),
 );
 
@@ -69,7 +74,7 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
 
   return (
     <Grid item xs={12}>
-      <Card className={classes.ListCardRoot}>
+      <Card className={classes.listCardRoot}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">
@@ -90,6 +95,8 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
             <IconButton aria-label="deleteOffer" onClick={handleDeleteClick}>
               <DeleteForever />
             </IconButton>
+            <div className={classes.grow}></div>
+            <IsActiveSwitch offer={offer} />
           </div>
         </div>
         <Divider />

@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongoose';
+import { IOfferModel } from '../models/offerModel';
 import { IUserModel } from '../models/userModel';
 
 
@@ -10,8 +11,7 @@ export interface ICoordinates  {
 export interface IUser {
   email: string;
   username: string;
-  // offers: Offer[]; //fix this to refer to the offer Model
-  // users: User[]; //debugging, remove this
+  offers: IOfferModel[];
 }
 
 export interface IOffer {
@@ -21,6 +21,7 @@ export interface IOffer {
   amount?: number;
   location: ICoordinates;
   recipeLink?: string;
+  active: boolean;
   created: string;
   owner: IUserModel;
 }
