@@ -3,17 +3,6 @@ export interface Coordinates  {
   lng: number;
 }
 
-export interface IPubOffer {
-  beerName: string;
-  description: string;
-  location: Coordinates;
-  recipeLink?: string;
-  created: string;
-  ownerId: string;
-  ownerDisplayName: string
-  id: string;
-}
-
 export interface IOffer {
   beerName: string;
   description: string;
@@ -24,7 +13,14 @@ export interface IOffer {
   created: string;
   id: string;
   active: boolean;
-  ownerId: string;
+  owner: string;
+}
+
+export interface IOfferToDisplay extends IOffer {
+  owner: {
+    _id: string;
+    username: string;
+  }
 }
 
 export interface OfferFormValues {

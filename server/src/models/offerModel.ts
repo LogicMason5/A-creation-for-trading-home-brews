@@ -23,15 +23,26 @@ const OfferSchema =  new Schema<IOfferDocument, IOfferModel>({
   });
 
 export interface IOfferDocument extends IOffer, Document {
-  toJSON(): any;
-
+  toListJSON(): any;
+  toDisplayJson(): any
 }
 
 export interface IOfferModel extends Model<IOfferDocument> {
   owner: Schema.Types.ObjectId;
 }
 
-OfferSchema.methods.toJSON = function (): any {
+OfferSchema.methods.toListJSON = function (): any {
+  return {
+    beerName: this.beerName,
+    description: this.description,
+    active: this.active,
+    location: this.location,
+    created: this.created,
+    id: this._id.toString()
+  }
+}
+
+OfferSchema.methods.toDisplayJSON = function (): any {
   return {
     beerName: this.beerName,
     description: this.description,
@@ -41,7 +52,8 @@ OfferSchema.methods.toJSON = function (): any {
     location: this.location,
     recipeLink: this.recipeLink,
     created: this.created,
-    id: this._id.toString()
+    id: this._id.toString(),
+    owner: this.owner
   }
 }
 

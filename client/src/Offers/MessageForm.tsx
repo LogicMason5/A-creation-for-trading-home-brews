@@ -11,13 +11,6 @@ import { messageBrewer } from '../User/userSlice';
 import TitleBox from '../SharedComponents/TitleBox';
 
 
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     formContainer: {
-//       height: '100%'
-//     },
-//   }),
-// );
 
 const validationSchema = yup.object().shape({
   contactDetails: yup.string().required("Contact details are required for the brewer to respond to you.").min(6).max(300),
@@ -28,8 +21,6 @@ const validationSchema = yup.object().shape({
 
 const MessageForm: React.FC = () => {
 
-  // const classes = useStyles();
-
   const dispatch = useDispatch();
 
   const showMessageForm = useSelector(
@@ -37,7 +28,6 @@ const MessageForm: React.FC = () => {
   );
 
   const handleMessageButton = () => {
-    console.log('setting');
     dispatch(setShowMessageForm(true));
   };
 

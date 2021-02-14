@@ -11,12 +11,9 @@ router.get('/', async function (req: Request, res: Response, next) {
   
   const offers = await Offer.find({}).catch(next)
 
-  res.json(offers.map((offers: { toJSON: () => any; }) => offers.toJSON())); //change this to some to publicJSON or so
+  res.json(offers.map((offers: { toListJSON: () => any; }) => offers.toListJSON())); //change this to some to publicJSON or so
 
 });
-
-
-//get offer public details by id
 
 
 
@@ -65,11 +62,13 @@ router.get('/my-offers', authentication.required,  async function (req: Request,
 
 });
 
+
+//get detailed public info
 router.get('/:id', async function (req: Request, res: Response, next) {
 
-  const offer = await Offer.findById(req.params.id).catch(next)
+  const offer = await Offer.findById(req.params.id).populate('owner', { username: 1 }).catch(next)
 
-  res.json(offer.toJSON())
+  res.json(offer.toDisplayJSON())
 
 });
 

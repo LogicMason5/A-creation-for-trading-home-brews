@@ -85,10 +85,10 @@ export const createUser = (content: RegisterFormValues): AppThunk => async dispa
 // eslint-disable-next-line @typescript-eslint/require-await
 export const messageBrewer = (formContent: MessageFormValues): AppThunk => async _dispatch => {
 
-  const { beerName, ownerId } = store.getState().offers.displayedOffer;
+  const { beerName, owner } = store.getState().offers.displayedOffer;
 
   const message = {
-    recipient: ownerId,
+    recipient: owner,
     beerName: beerName,
     ...formContent
   };

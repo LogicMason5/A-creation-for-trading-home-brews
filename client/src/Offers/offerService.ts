@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IOffer } from '../type';
+import { IOffer, IOfferToDisplay } from '../type';
 import { createAuthHeaders } from '../utils/createHeaders';
 
 const baseUrl = 'http://localhost:3001/api/offers';
@@ -11,7 +11,7 @@ const getAllActive = async (): Promise<IOffer[]> => {
   return response.data;
 };
 
-const createNew = async (content: Omit<IOffer, "id" | "ownerId">): Promise<IOffer> => {
+const createNew = async (content: Omit<IOffer, "id" | "owner">): Promise<IOffer> => {
   const response = await axios.post<IOffer>(baseUrl, content, headers);
   return response.data;
 };
@@ -27,8 +27,8 @@ const deleteById = async (id: string): Promise<Response> => {
   return response.data;
 };
 
-const getById = async (id: string): Promise<IOffer> => {
-  const response = await axios.get<IOffer>(`${ baseUrl }/${id}`);
+const getById = async (id: string): Promise<IOfferToDisplay> => {
+  const response = await axios.get<IOfferToDisplay>(`${ baseUrl }/${id}`);
   return response.data;
 };
 

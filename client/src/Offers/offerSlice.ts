@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import history from '../utils/history';
-import { IOffer, OfferFormValues } from '../type';
+import { IOffer, IOfferToDisplay, OfferFormValues } from '../type';
 import store, { AppThunk } from '../store';
 import offersService from './offerService';
 import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
@@ -9,16 +9,16 @@ import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
 interface OffersState {
   offers: IOffer[];
   myOffers: IOffer[];
-  displayedOffer: IOffer;
+  displayedOffer: IOfferToDisplay;
   selectedOffer: IOffer;
 }
 
 const emptyOffer: IOffer = {
     beerName: '',
     description: '',
-    location: {lat: 0.0, lng: 0.0},
+    location: { lat: 0.0, lng: 0.0 },
     created: '',
-    ownerId: '',
+    owner: '',
     id: '',
     active: false
 };
@@ -26,7 +26,13 @@ const emptyOffer: IOffer = {
 const initialOffersState: OffersState = {
   offers: [],
   myOffers: [],
-  displayedOffer: emptyOffer,
+  displayedOffer: {
+    ...emptyOffer,
+    owner: {
+      _id: '',
+      username: ''
+    }
+  },
   selectedOffer: emptyOffer
 };
 
@@ -44,7 +50,7 @@ const offersSlice = createSlice({
     fetchMyOffersSuccess(state, { payload }: PayloadAction<IOffer[]>): void {
       state.myOffers = payload;
     },
-    fetchOfferByIdSuccess(state, { payload }: PayloadAction<IOffer>): void {
+    fetchOfferByIdSuccess(state, { payload }: PayloadAction<IOfferToDisplay>): void {
       state.displayedOffer = payload;
     },
     setSelectedOffer(state, { payload }: PayloadAction<IOffer>) {
@@ -74,6 +80,7 @@ export default offersSlice.reducer;
 export const createOffer = (formContent: Omit<OfferFormValues, "location">): AppThunk => async dispatch => {
 
   try {
+
     const location = store.getState().location.location;
 
     const newOffer = {
@@ -109,7 +116,7 @@ export const updateSelectedOffer = (formContent: Omit<OfferFormValues, "location
     created: new Date().toISOString(),
     location: location,
     id: id,
-    ownerId: owner,
+    owner: owner,
     active: active,
     ...formContent
   };

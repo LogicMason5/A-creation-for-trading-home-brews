@@ -67,7 +67,7 @@ const ContentDrawer: React.FC = () => {
         <div className={classes.appBarBuffer}/>
         <MainSwitch />
         <div className={classes.grow} />
-        <div className={classes.appBarBuffer} style={{ minHeight: 60 }}/>
+        <div className={classes.appBarBuffer} style={{ minHeight: 90 }}/>
         <div style={{ height: 90 }} >
           <IconButton onClick={handleDrawerClose}>
             <Close style={{ fontSize: 60 }} />

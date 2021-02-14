@@ -158,6 +158,12 @@ const OfferDisplay: React.FC = () => {
           />
         </Typography>
       </div>
+      <Typography color="textSecondary" component="p">
+          Brewer:
+      </Typography>
+      <Typography color="textPrimary" component="p">
+          {offer.owner.username}
+      </Typography>
       </CardContent>
       <MessageForm />
     </Container>
