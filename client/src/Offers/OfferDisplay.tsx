@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Divider from '@material-ui/core/Divider';
+import { CardMedia, CardContent, Typography, Link, Divider, Box, Container }from '@material-ui/core';
 import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOfferById } from './offerSlice';
 import { setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import CountDown from '../SharedComponents/CountDown';
 import { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
 import MessageForm from './MessageForm';
@@ -21,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     displayOfferContainer: {
       height: '100%',
-      // maxWidth: 1000,
     },
     media: {
       height: 0,
@@ -56,8 +49,6 @@ const OfferDisplay: React.FC = () => {
   const offer = useSelector(
     (state: RootState) => state.offers.displayedOffer
   );
-
-
 
   useEffect(() => {
     if (id) {

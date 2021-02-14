@@ -4,14 +4,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import AddLocation from '@material-ui/icons/AddLocation';
 import { Link } from 'react-router-dom';
 import black from '../assets/black.png';
 import { useDispatch } from 'react-redux';
 import { setDrawerOpen } from './displaySlice';
 import { Hidden } from '@material-ui/core';
-import { Menu } from '@material-ui/icons';
+import { Help, AccountCircle, AddLocation, Menu } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -90,6 +88,15 @@ const MainAppBar: React.FC = () => {
             onClick={handleDrawerOpen}
           >
             <AddLocation />
+          </IconButton>
+          <IconButton
+            aria-label="faq"
+            color="inherit"
+            component={Link}
+            to="/FAQ"
+            onClick={handleDrawerOpen}
+          >
+            <Help />
           </IconButton>
           <IconButton
             edge="end"

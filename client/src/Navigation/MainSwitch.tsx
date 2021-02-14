@@ -12,6 +12,7 @@ import MobileMenu from './MobileMenu';
 import MyOffersList from '../Offers/MyOffersList/MyOffersList';
 import EditOffer from '../Offers/OfferForms/EditOffer';
 import CopyOffer from '../Offers/OfferForms/CopyOffer';
+import FAQ from './FAQ';
 
 
 const MainSwitch: React.FC = () => {
@@ -32,6 +33,7 @@ const MainSwitch: React.FC = () => {
       <Route path="/my-account" render={() => <MyAccount />} />
       <Route path="/mobile-menu" render={() => <MobileMenu />} />
       <Route path="/my-offers" render={() => <MyOffersList />} />
+      <Route path="/FAQ" render={() => <FAQ />} />
       <Route path="/" render={() => isLoaded ? <Map /> : <div>Loading maps...</div>} />
     </Switch>
 

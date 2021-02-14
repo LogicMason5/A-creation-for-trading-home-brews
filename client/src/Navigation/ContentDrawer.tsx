@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
@@ -32,6 +32,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       width: drawerWidth + 150
     },
   },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'left',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-start',
+  },
   appBarBuffer: theme.mixins.toolbar,
 }));
 
@@ -43,7 +50,7 @@ const ContentDrawer: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { mapsLoaded, drawerOpen } = useSelector(
+  const { mapsLoaded, drawerOpen, showMessageForm } = useSelector(
     (state: RootState) => state.display
   );
 
@@ -66,11 +73,10 @@ const ContentDrawer: React.FC = () => {
       >
         <div className={classes.appBarBuffer}/>
         <MainSwitch />
-        <div className={classes.grow} />
-        <div className={classes.appBarBuffer} style={{ minHeight: 90 }}/>
-        <div style={{ height: 90 }} >
+        <div style={{ minHeight: showMessageForm ? 190 : 40 }}/>
+        <div>
           <IconButton onClick={handleDrawerClose}>
-            <Close style={{ fontSize: 60 }} />
+            <Close style={{ fontSize: 40 }} />
           </IconButton>
         </div>
       </Drawer>

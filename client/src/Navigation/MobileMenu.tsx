@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import IsLoggedItems from './IsLoggedItems';
 import NotLoggedItems from './NotLoggedItems';
+import AlwaysShowItems from './AlwaysShowItems';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,6 +49,7 @@ const MobileMenu: React.FC = () => {
         :
         <NotLoggedItems />  
         }
+        <AlwaysShowItems />
       </Grid>
     </Container>
   );

@@ -36,65 +36,68 @@ const MessageForm: React.FC = () => {
   return (
     showMessageForm
     ?
-    <Container>
-      <TitleBox title="Message the brewer" />
-      <Formik
-      initialValues={{
-        contactDetails: '',
-        message: ''
-      }}
-      validationSchema={validationSchema}
-      onSubmit={(
-        values: MessageFormValues,
-        formikHelpers: FormikHelpers<MessageFormValues>
-      ) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        dispatch(messageBrewer(values));
-        formikHelpers.setSubmitting(false);
-      }}
-    >
-      {(formikProps: FormikProps<MessageFormValues>) => (
-        <Form noValidate autoComplete="off">
-          <Grid container spacing={2} >
-            <Grid item xs={12}>
-              <Field
-                name="contactDetails"
-                label="How can the brewer get back to you?"
-                size="small"
-                component={FormTextField}
-                fullWidth
-                initHelperText="Leave email/phone/link. This info is not stored by the app."
-              />
+    <div>
+      <Container>
+        <TitleBox title="Message the brewer" />
+        <Formik
+        initialValues={{
+          contactDetails: '',
+          message: ''
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(
+          values: MessageFormValues,
+          formikHelpers: FormikHelpers<MessageFormValues>
+        ) => {
+          dispatch(messageBrewer(values));
+          formikHelpers.setSubmitting(false);
+        }}
+      >
+        {(formikProps: FormikProps<MessageFormValues>) => (
+          <Form noValidate autoComplete="off">
+            <Grid container spacing={2} >
+              <Grid item xs={12}>
+                <Field
+                  name="contactDetails"
+                  label="How can the brewer get back to you?"
+                  size="small"
+                  component={FormTextField}
+                  fullWidth
+                  initHelperText="Leave email/phone/link. This info is not stored by the app."
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  name="message"
+                  label="Your message to the brewer"
+                  size="small"
+                  component={FormTextField}
+                  fullWidth
+                  initHelperText="Your message to the brewer"
+                  multiline={true}
+                  rows="8"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  size="large"
+                  color="primary"
+                  disabled={formikProps.isSubmitting}
+                  fullWidth
+                >
+                  Send
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Field
-                name="message"
-                label="Your message to the brewer"
-                size="small"
-                component={FormTextField}
-                fullWidth
-                initHelperText="Your message to the brewer"
-                multiline={true}
-                rows="6"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="outlined"
-                size="large"
-                color="primary"
-                disabled={formikProps.isSubmitting}
-                fullWidth
-              >
-                Send
-              </Button>
-            </Grid>
-          </Grid>
-        </Form>
-      )}
-    </Formik>
-  </Container>
+          </Form>
+        )}
+      </Formik>
+    </Container>
+    {/* <div style={{ minHeight: 80 }} /> */}
+
+  </div>
   :
   <Button
     onClick={handleMessageButton}
