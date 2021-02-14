@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import { AccountBox, ExitToApp, LocalOffer } from '@material-ui/icons';
 import { Container } from '@material-ui/core';
 import { useAsyncDispatch } from '../store';
-import { setDrawerOpen } from '../SharedComponents/displaySlice';
+import { setDrawerOpen } from './displaySlice';
 import { logout } from '../User/userSlice';
 import MenuListItem from '../SharedComponents/MenuListItem';
 

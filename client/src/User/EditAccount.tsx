@@ -5,7 +5,7 @@ import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import * as yup from "yup";
 import Hidden from '@material-ui/core/Hidden';
-import { setDrawerOpen } from '../SharedComponents/displaySlice';
+import { setDrawerOpen } from '../Navigation/displaySlice';
 import { createUser } from './userSlice';
 import { RegisterFormValues } from '../type';
 import { useAsyncDispatch } from '../store';

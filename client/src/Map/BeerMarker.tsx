@@ -3,7 +3,7 @@ import black from '../assets/black.png';
 import { Marker } from '@react-google-maps/api';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDrawerOpen } from '../SharedComponents/displaySlice';
+import { setDrawerOpen } from '../Navigation/displaySlice';
 import { RootState } from '../rootReducer';
 
 

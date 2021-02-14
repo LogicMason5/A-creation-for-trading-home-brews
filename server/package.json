@@ -16,6 +16,7 @@
   "author": "juuso",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
     "assert-never": "^1.2.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.4",

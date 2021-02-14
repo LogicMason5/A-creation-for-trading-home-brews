@@ -23,7 +23,12 @@ const CopyOffer: React.FC = () => {
   };
 
   return (
-    <EditOfferForm formTitle={`Creating a new offer from a copy of ${selectedOffer.beerName}`} initValues={copiedOfferValues} actionOnSubmit={createOffer}/>
+    <EditOfferForm
+      formTitle={`Creating a new offer from a copy of ${selectedOffer.beerName}`}
+      initValues={copiedOfferValues}
+      actionOnSubmit={createOffer}
+      buttonText="save as new"
+    />
   );
 };
 

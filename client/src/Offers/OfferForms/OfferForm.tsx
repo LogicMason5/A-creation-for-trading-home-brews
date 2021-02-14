@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Container, Typography, Grid, Button, Box, FormLabel } from "@material-ui/core";
+import { Container, Grid, Button, FormLabel } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../../SharedComponents/FormTextField";
 import { RadioGroup } from "material-ui-formik-components";
@@ -9,7 +9,7 @@ import LocationField from '../../SharedComponents/LocationField';
 import FormSlider from '../../SharedComponents/FormSlider';
 import { RootState } from '../../rootReducer';
 import { useSelector } from 'react-redux';
-import { setDrawerOpen } from '../../SharedComponents/displaySlice';
+import { setDrawerOpen } from '../../Navigation/displaySlice';
 import { AppThunk, useAsyncDispatch } from '../../store';
 import { OfferFormValues } from '../../type';
 import TitleBox from '../../SharedComponents/TitleBox';
@@ -18,6 +18,7 @@ interface OfferFormProps {
   formTitle: string;
   initValues: OfferFormValues;
   actionOnSubmit: (formValues: Omit<OfferFormValues, "location">) => AppThunk;
+  buttonText: string;
 }
 
 const useStyles = makeStyles(() =>
@@ -26,7 +27,6 @@ const useStyles = makeStyles(() =>
       height: '100%'
     },
   }),
-
 );
 
 const validationSchema = yup.object().shape({
@@ -38,7 +38,7 @@ const validationSchema = yup.object().shape({
 
 const EditOfferForm: React.FC<OfferFormProps> = props => {
 
-  const { formTitle, initValues, actionOnSubmit } = props;
+  const { formTitle, initValues, actionOnSubmit, buttonText } = props;
 
   const classes = useStyles();
  
@@ -154,7 +154,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
                   disabled={formikProps.isSubmitting}
                   fullWidth
                 >
-                  Submit
+                  {buttonText}
                 </Button>
               </Grid>
             </Grid>

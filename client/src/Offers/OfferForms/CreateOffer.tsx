@@ -16,7 +16,12 @@ const CreateOffer: React.FC = () => {
   };
 
   return (
-    <OfferForm formTitle="Create a new offer" initValues={newOfferValues} actionOnSubmit={createOffer}/>
+    <OfferForm
+      formTitle="Create a new offer"
+      initValues={newOfferValues}
+      actionOnSubmit={createOffer}
+      buttonText="create the offer"
+    />
   );
 };
 

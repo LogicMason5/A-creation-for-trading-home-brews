@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from '../rootReducer';
-import { closeDialog } from '../SharedComponents/displaySlice';
+import { closeDialog } from '../Navigation/displaySlice';
 import { deleteSelectedOffer, copySelectedOffer } from './offerSlice';
 import ConfirmDialog from '../SharedComponents/ConfirmDialog';
 

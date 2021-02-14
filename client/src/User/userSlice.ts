@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { giveAlert, setDrawerOpen } from '../SharedComponents/displaySlice';
+import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
 import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues } from '../type';
 import userService from './userService';
 import history from '../utils/history';

@@ -46,6 +46,22 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
     })(req, res, next);
   
   });
+
+  router.post('/message', (req: Request, res: Response, next: NextFunction) => {
+
+    const user = new User();
+  
+    user.username = req.body.displayName;
+    user.email    = req.body.email;
+    user.setPassword(req.body.password);
+
+    return user.save()
+      .then(() => {
+        return res.json(user.toAuthJSON());
+      })
+      .catch(next);
+  
+  });
   
   
   export const UserRoutes: Router = router;

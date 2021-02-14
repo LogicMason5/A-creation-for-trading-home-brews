@@ -113,7 +113,7 @@ export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
   dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
     dialogTitle: `Delete offer for ${offer.beerName} ?`,
-    dialogText: 'This action will be permanent.',
+    dialogText: 'You can use the active switch to deactivate it instead.',
   }));
   dispatch(setDialogType('delete'));
 };

@@ -1,14 +1,23 @@
 import React from 'react';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Container } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
-import { setShowMessageForm } from '../SharedComponents/displaySlice';
+import { setShowMessageForm } from '../Navigation/displaySlice';
 import * as yup from "yup";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from '../SharedComponents/FormTextField';
 import { MessageFormValues } from '../type';
 import { messageBrewer } from '../User/userSlice';
 import TitleBox from '../SharedComponents/TitleBox';
+
+
+// const useStyles = makeStyles(() =>
+//   createStyles({
+//     formContainer: {
+//       height: '100%'
+//     },
+//   }),
+// );
 
 const validationSchema = yup.object().shape({
   contactDetails: yup.string().required("Contact details are required for the brewer to respond to you.").min(6).max(300),
@@ -18,6 +27,8 @@ const validationSchema = yup.object().shape({
 
 
 const MessageForm: React.FC = () => {
+
+  // const classes = useStyles();
 
   const dispatch = useDispatch();
 
@@ -31,10 +42,11 @@ const MessageForm: React.FC = () => {
   };
 
 
+  
   return (
     showMessageForm
     ?
-    <div>
+    <Container>
       <TitleBox title="Message the brewer" />
       <Formik
       initialValues={{
@@ -71,7 +83,7 @@ const MessageForm: React.FC = () => {
                 size="small"
                 component={FormTextField}
                 fullWidth
-                initHelperText="The level of detail is up to you"
+                initHelperText="Your message to the brewer"
                 multiline={true}
                 rows="6"
               />
@@ -92,7 +104,7 @@ const MessageForm: React.FC = () => {
         </Form>
       )}
     </Formik>
-  </div>
+  </Container>
   :
   <Button
     onClick={handleMessageButton}
@@ -103,9 +115,7 @@ const MessageForm: React.FC = () => {
     >
     Message the brewer
   </Button>
-
   );
-
 };
 
 export default MessageForm;

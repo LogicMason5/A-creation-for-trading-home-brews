@@ -8,7 +8,7 @@ import { IOffer } from '../../type';
 import Divider from '@material-ui/core/Divider';
 import { DeleteForever, Edit, FileCopy } from '@material-ui/icons';
 import { useAsyncDispatch } from '../../store';
-import { confirmDeletion, confirmCopy } from '../../SharedComponents/displaySlice';
+import { confirmDeletion, confirmCopy } from '../../Navigation/displaySlice';
 import { setSelectedOffer } from '../offerSlice';
 import { useHistory } from 'react-router-dom';
 import CountDown from '../../SharedComponents/CountDown';

@@ -9,7 +9,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchOfferById } from './offerSlice';
-import { setDrawerOpen, setShowMessageForm } from '../SharedComponents/displaySlice';
+import { setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import CountDown from '../SharedComponents/CountDown';
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     displayOfferContainer: {
       height: '100%',
-      maxWidth: 1000,
+      // maxWidth: 1000,
     },
     media: {
       height: 0,

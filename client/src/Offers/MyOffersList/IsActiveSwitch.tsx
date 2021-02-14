@@ -11,7 +11,7 @@ import { IOffer } from '../../type';
 const useSwitchStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: 45,
+      width: 40,
       height: 26,
       padding: 1,
       margin: theme.spacing(1),

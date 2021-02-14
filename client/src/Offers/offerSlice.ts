@@ -4,7 +4,7 @@ import history from '../utils/history';
 import { IOffer, OfferFormValues } from '../type';
 import store, { AppThunk } from '../store';
 import offersService from './offerService';
-import { giveAlert, setDrawerOpen } from '../SharedComponents/displaySlice';
+import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
 
 interface OffersState {
   offers: IOffer[];

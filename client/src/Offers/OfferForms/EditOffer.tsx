@@ -27,6 +27,7 @@ const CreateOffer: React.FC = () => {
       formTitle={`Editing offer for ${selectedOffer.beerName}`}
       initValues={copiedOfferValues}
       actionOnSubmit={updateSelectedOffer}
+      buttonText="save"
     />
   );
 };
