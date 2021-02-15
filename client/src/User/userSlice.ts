@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
+import { giveAlert, setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
 import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues } from '../type';
 import userService from './userService';
 import history from '../utils/history';
@@ -65,6 +65,8 @@ export const logout = (): AppThunk => dispatch => {
   history.push('/');
 };
 
+//validate token on init
+
 
 export const createUser = (content: RegisterFormValues): AppThunk => async dispatch => {
 
@@ -77,28 +79,32 @@ export const createUser = (content: RegisterFormValues): AppThunk => async dispa
       history.push('/');
     } catch (error) {
       console.log(JSON.stringify(error.response.data.errors));
-      dispatch(giveAlert('error',`Failed to create user: ${JSON.stringify(Object.keys(error.response.data.errors)[0])} is already taken`));
+      dispatch(giveAlert('error',`Failed to create user. ${JSON.stringify(Object.keys(error.response.data.errors)[0])} is already taken`));
     }
     
 };
 
-// eslint-disable-next-line @typescript-eslint/require-await
-export const messageBrewer = (formContent: MessageFormValues): AppThunk => async _dispatch => {
+export const messageBrewer = (formContent: MessageFormValues): AppThunk => async dispatch => {
 
   const { beerName, owner } = store.getState().offers.displayedOffer;
 
   const message = {
-    recipient: owner,
+    brewer: owner.username,
+    recipient: owner._id,
     beerName: beerName,
     ...formContent
   };
   
   try {
     console.log(message);
-    
+    const response = await userService.sendMessage(message);
+    dispatch(giveAlert('success', `Message sent to ${response.brewer}`));
   } catch (error) {
     console.log(error);
+    dispatch(giveAlert('error',`Failed to deliver your message: ${JSON.stringify(error.response.data.message)}`)); 
   }
+
+  dispatch(setShowMessageForm(false));
 };
 
 

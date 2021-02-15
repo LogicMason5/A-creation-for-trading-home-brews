@@ -23,6 +23,8 @@ export interface IOfferToDisplay extends IOffer {
   }
 }
 
+
+
 export interface OfferFormValues {
   beerName: string;
   description: string;
@@ -35,6 +37,12 @@ export interface OfferFormValues {
 export interface MessageFormValues {
   contactDetails: string;
   message: string;
+}
+
+export interface IMessage extends MessageFormValues {
+  brewer: string;
+  recipient: string;
+  beerName: string;
 }
 
 export interface OffersState {

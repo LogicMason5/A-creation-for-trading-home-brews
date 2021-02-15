@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { CardMedia, CardContent, Typography, Link, Divider, Box, Container }from '@material-ui/core';
 import { useRouteMatch } from 'react-router-dom';

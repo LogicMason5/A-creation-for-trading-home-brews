@@ -6,11 +6,6 @@
     "auditLog": "C:\\Users\\juuso\\homebrew-swap\\server\\logs\\.3e9cdc239b0ef661cfb014a40b4f61a339a96c8d-audit.json",
     "files": [
         {
-            "date": 1612179255410,
-            "name": "C:\\Users\\juuso\\homebrew-swap\\server\\logs\\2021-02-01.log",
-            "hash": "f30f981e9313c00f2461e0be1e47052e"
-        },
-        {
             "date": 1612276686420,
             "name": "C:\\Users\\juuso\\homebrew-swap\\server\\logs\\2021-02-02.log",
             "hash": "2ce0106f77c5f5f8f3b01e990f26ad8c"
@@ -39,6 +34,11 @@
             "date": 1613304699189,
             "name": "C:\\Users\\juuso\\homebrew-swap\\server\\logs\\2021-02-14.log",
             "hash": "ff4a9a8045cf311d85e3248557c1dd4d"
+        },
+        {
+            "date": 1613405496748,
+            "name": "C:\\Users\\juuso\\homebrew-swap\\server\\logs\\2021-02-15.log",
+            "hash": "301a33915101528ce29d001f508ad5e0"
         }
     ]
 }
