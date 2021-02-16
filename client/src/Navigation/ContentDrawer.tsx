@@ -73,6 +73,7 @@ const ContentDrawer: React.FC = () => {
       >
         <div className={classes.appBarBuffer}/>
         <MainSwitch />
+        <div className={classes.grow} />
         <div style={{ minHeight: showMessageForm ? 190 : 40 }}/>
         <div>
           <IconButton onClick={handleDrawerClose}>
