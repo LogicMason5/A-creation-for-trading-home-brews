@@ -24,7 +24,7 @@ const OfferSchema =  new Schema<IOfferDocument, IOfferModel>({
 
 export interface IOfferDocument extends IOffer, Document {
   toListJSON(): any;
-  toDisplayJson(): any
+  toDisplayJSON(): any;
 }
 
 export interface IOfferModel extends Model<IOfferDocument> {

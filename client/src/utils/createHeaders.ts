@@ -11,7 +11,6 @@ export const createAuthHeaders = (): AxiosRequestConfig => {
   const loggedUserObject = loggedUser ? JSON.parse(loggedUser) : {token: { token: ''}};
   const token = loggedUserObject.token;
 
-
   return {
       headers: {
         Authorization: `Token ${token}`

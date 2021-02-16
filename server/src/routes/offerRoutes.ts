@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { authentication } from '../utils/authentication';
-import Offer from '../models/offerModel';
+import Offer, { IOfferModel } from '../models/offerModel';
 import User from '../models/userModel';
 
 
@@ -28,7 +28,7 @@ router.post('/', authentication.required , async function (req: Request, res: Re
 
   const savedOffer = await newOffer.save().catch(next)
 
-  if (savedOffer) return res.json(savedOffer.toJSON())
+  if (savedOffer) return res.json(savedOffer.toListJSON())
 
 });
 
@@ -58,7 +58,7 @@ router.get('/my-offers', authentication.required,  async function (req: Request,
 
   const myOffers = await Offer.find({ owner: req.body.authUser.id }).catch(next)
 
-  res.json(myOffers);
+  res.json(myOffers.map((o: { toDisplayJSON: () => IOfferModel; }) => o.toDisplayJSON()));
 
 });
 

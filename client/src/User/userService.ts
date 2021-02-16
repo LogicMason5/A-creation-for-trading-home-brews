@@ -3,8 +3,6 @@ import { RegisterFormValues, CurrentUser, LoginFormValues, IMessage } from '../t
 
 const baseUrl = 'http://localhost:3001/api/user';
 
-
-
 const createNew = async (content: RegisterFormValues) : Promise<CurrentUser> => {
   const response = await axios.post<CurrentUser>(`${baseUrl}/register`, content);
   return response.data;
@@ -16,12 +14,9 @@ const login = async (credentials: LoginFormValues): Promise<CurrentUser> => {
 };
 
 const sendMessage = async (content: IMessage) : Promise<IMessage> => {
-  const response = await axios.post<IMessage>(`${baseUrl}/register`, content);
+  const response = await axios.post<IMessage>(`${baseUrl}/message`, content);
   return response.data;
 };
-
-//validate token
-
 
 const offersService = { createNew, login, sendMessage };
 

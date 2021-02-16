@@ -94,6 +94,6 @@ const FAQList: React.FC = () => {
       </Accordion>
     </div>
   );
-}
+};
 
 export default FAQList;
