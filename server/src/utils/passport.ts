@@ -1,5 +1,5 @@
 import passport from 'passport';
-import User from '../models/userModel';
+import { User } from '../models/userModel';
 import passportLocal from 'passport-local';
 
 

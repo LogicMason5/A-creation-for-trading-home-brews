@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongoose';
 import { IOfferModel } from '../models/offerModel';
-import { IUserModel } from '../models/userModel';
+import IUserModel from '../models/userModel';
 
 
 export interface ICoordinates  {

@@ -8,7 +8,8 @@ import { AxiosRequestConfig } from "axios";
 export const createAuthHeaders = (): AxiosRequestConfig => {
 
   const loggedUser = window.localStorage.getItem('curUser');
-  const loggedUserObject = loggedUser ? JSON.parse(loggedUser) : {token: { token: ''}};
+  console.log(loggedUser);
+  const loggedUserObject = loggedUser ? JSON.parse(loggedUser) : {token: { token: 'noTokenFoundFromLocalStorage'}};
   const token = loggedUserObject.token;
 
   return {

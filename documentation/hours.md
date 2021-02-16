@@ -17,9 +17,14 @@
 |18.01.2021|5| integrated slider and radio group to formik with custom components
 |19.02.2021|9| started node back end with ts, supports adding offers and getting all offers now
 |19.01.2021|9| refactored map to use real data from db
-|20.02.2021|4| started display offers page
-|20.02.2021|4| custom parsing and ts validation in back end
+|20.01.2021|4| started display offers page
+|20.01.2021|4| custom parsing and ts validation in back end
 
+
+
+
+
+|16.02.2021|5| debugging auth
 
 |TOTAL|0| |	|
 

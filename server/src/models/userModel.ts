@@ -6,8 +6,15 @@ import { JWT_SECRET } from "../utils/secrets";
 import mongooseUniqueValidator = require("mongoose-unique-validator");
 
 
+export default interface IUserModel extends IUser, Document {
+  salt: string;
+  hash: string;
+  generateJWT(): string;
+  toAuthJSON(): any;
+  setPassword(password: string): void;
+}
 
-const UserSchema = new Schema<IUserDocument, IUserModel>({
+const UserSchema = new Schema<IUserModel>({
   username : {
     type     : Schema.Types.String,
     lowercase: true,
@@ -39,18 +46,12 @@ const UserSchema = new Schema<IUserDocument, IUserModel>({
 }, {timestamps: true});
 
 
-export interface IUserDocument extends IUser, Document {
-  hash: string;
-  salt: string;
-  generateJWT(): string;
-  toAuthJSON(): any;
-  setPassword(password: string): void;
-}
 
-export interface IUserModel extends Model<IUserDocument> {
-  token?: string;
-  offers: [Schema.Types.ObjectId];
-}
+
+// export interface IUserModel extends Model<IUserDocument> {
+//   token?: string;
+//   offers: [Schema.Types.ObjectId];
+// }
 
 UserSchema.plugin(mongooseUniqueValidator, {message: 'is already taken.'});
 
@@ -69,6 +70,10 @@ UserSchema.methods.generateJWT = function (): string {
   const exp   = new Date(today);
   exp.setDate(today.getDate() + 60);
 
+  console.log('in generateJWT')
+  console.log(this._id)
+  console.log(this.username)
+
   return jwt.sign({
     id      : this._id,
     username: this.username,
@@ -81,9 +86,9 @@ UserSchema.methods.toAuthJSON = function (): any {
   return {
     displayName: this.username,
     token: this.generateJWT(),
-    id: this.id    
+    id: this._id    
   };
 };
 
 
-export default model<IUserDocument, IUserModel>("User", UserSchema)
+export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);

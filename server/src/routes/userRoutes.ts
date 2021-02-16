@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import User from '../models/userModel';
+import { User } from '../models/userModel';
 import passport from 'passport';
 
 const router: Router = Router();
@@ -13,10 +13,10 @@ router.post('/register', (req: Request, res: Response, next: NextFunction) => {
     user.setPassword(req.body.password);
 
     return user.save()
-      .then(() => {
-        return res.json(user.toAuthJSON());
-      })
-      .catch(next);
+    .then(() => {
+      return res.json(user.toAuthJSON());
+    })
+    .catch(next);
   
   });
 
@@ -37,7 +37,10 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
       }
   
       if (user) {
-        user.token = user.generateJWT();
+        // user.token = user.generateJWT();
+        // console.log('usertoken in login before to auth')
+        // console.log(user)
+        // console.log(user)
         return res.json(user.toAuthJSON());
   
       } else {
