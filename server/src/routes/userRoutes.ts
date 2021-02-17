@@ -60,7 +60,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
     const msg = {
       to: user.email, // Change to your recipient
-      from: 'homebrewswap@gmail.com', // Change to your verified sender
+      from: 'noreply@homebrewswap.app', // Change to your verified sender
       subject: 'Sending with SendGrid is Fun',
       text: 'and easy to do anywhere, even with Node.js',
       html: '<strong>and easy to do anywhere, even with Node.js</strong>',
@@ -69,7 +69,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
     sgMail
       .send(msg)
       .then(() => {
-        console.log('msg sent')
+        return res.json({ message: 'success' })
       })
       .catch(next)
   
