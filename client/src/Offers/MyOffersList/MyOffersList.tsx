@@ -6,9 +6,10 @@ import { fetchMyOffers } from '../offerSlice';
 import { RootState } from '../../rootReducer';
 import OffersListCard from './MyOffersListCard';
 import { setDrawerOpen } from '../../Navigation/displaySlice';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import TitleBox from '../../SharedComponents/TitleBox';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,6 +35,9 @@ const MyOffersList: React.FC = () => {
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
+    return () => {
+      dispatch(setDrawerOpen(false));
+    };
   }, [dispatch]);
 
   return (
@@ -47,13 +51,14 @@ const MyOffersList: React.FC = () => {
           ?
           myOffers.map(o => <OffersListCard key={o.id} offer={o}  />)
           :
-          <Typography
-            align="center"
-            variant="h4"
-            style={{ lineHeight: 1.25 }}
-            >
-            No offers found. Create one a new offer?
-          </Typography>}
+          <div>
+            <TitleBox title="No offers found."/>
+            <Link to="/create-offer">
+              <TitleBox title="create a new offer?" />
+            </Link>
+          </div>
+          }
+
       </Grid>
     </Container>
   );

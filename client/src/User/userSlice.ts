@@ -101,7 +101,7 @@ export const messageBrewer = (formContent: MessageFormValues): AppThunk => async
     dispatch(giveAlert('success', `Message sent to ${message.brewer}`));
   } catch (error) {
     console.log(error);
-    dispatch(giveAlert('error',`Failed to deliver your message: ${JSON.stringify(error.response.data.message)}`)); 
+    dispatch(giveAlert('error',`Failed to deliver your message.`)); 
   }
 
   dispatch(setShowMessageForm(false));

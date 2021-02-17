@@ -3,7 +3,7 @@ import history from '../utils/history';
 import { IOffer, IOfferToDisplay, OfferFormValues } from '../type';
 import store, { AppThunk } from '../store';
 import offersService from './offerService';
-import { giveAlert, setDrawerOpen } from '../Navigation/displaySlice';
+import { giveAlert } from '../Navigation/displaySlice';
 
 interface OffersState {
   offers: IOffer[];
@@ -13,13 +13,13 @@ interface OffersState {
 }
 
 const emptyOffer: IOffer = {
-    beerName: '',
-    description: '',
-    location: { lat: 0.0, lng: 0.0 },
-    created: '',
-    owner: '',
-    id: '',
-    active: false
+  beerName: '',
+  description: '',
+  location: { lat: 0.0, lng: 0.0 },
+  created: '',
+  owner: '',
+  id: '',
+  active: false
 };
 
 const initialOffersState: OffersState = {
@@ -34,6 +34,7 @@ const initialOffersState: OffersState = {
   },
   selectedOffer: emptyOffer
 };
+
 
 
 const offersSlice = createSlice({
@@ -59,7 +60,10 @@ const offersSlice = createSlice({
       state.selectedOffer = emptyOffer;
     },
     updateMyOffer(state, { payload }: PayloadAction<IOffer>) {
-      state.myOffers.map(o => o.id === payload.id ? payload : o);
+      state.myOffers = state.myOffers.map(o => o.id === payload.id ? payload : o);
+    },
+    removeFromMyOffers(state, { payload }: PayloadAction<string>) {
+      state.myOffers = state.myOffers.filter(o => o.id !== payload);
     }
   }
 });
@@ -71,29 +75,29 @@ export const {
   fetchMyOffersSuccess,
   setSelectedOffer,
   removeSelectedOffer,
-  updateMyOffer
+  updateMyOffer,
+  removeFromMyOffers
 } = offersSlice.actions;
 
 export default offersSlice.reducer;
 
 export const createOffer = (formContent: Omit<OfferFormValues, "location">): AppThunk => async dispatch => {
 
+  const location = store.getState().location.location;
+
+  const newOffer = {
+    created: new Date().toISOString(),
+    location: location,
+    ...formContent,
+    active: true
+  };
+
   try {
-
-    const location = store.getState().location.location;
-
-    const newOffer = {
-      created: new Date().toISOString(),
-      location: location,
-      ...formContent,
-      active: true
-    };
 
     const createdOffer = await offersService.createNew(newOffer);
     
     dispatch(addOffer(createdOffer));
     dispatch(giveAlert('success', `Offer for ${createdOffer.beerName} created!` ));
-    dispatch(setDrawerOpen(false));
     history.push('/');
 
     } catch (error) {
@@ -123,7 +127,8 @@ export const updateSelectedOffer = (formContent: Omit<OfferFormValues, "location
   try {
     const updatedOffer = await offersService.updateById(id, newOffer);
     dispatch(giveAlert('success', `Offer for ${updatedOffer.beerName} updated.`));
-    history.push(`/offers/${updatedOffer.id}`);
+    history.push('/my-offers');
+
   } catch (error) {
     console.log(error);
     dispatch(giveAlert('error', 'Failed to update the offer.'));
@@ -162,8 +167,8 @@ export const deleteSelectedOffer = (): AppThunk => async dispatch => {
 
   try {
     await offersService.deleteById(id);
+    dispatch(removeFromMyOffers(id));
     dispatch(giveAlert('success', 'Offer deleted.'));
-
   } catch (error) {
     console.log(error);
     dispatch(giveAlert('error', 'Failed to delete the offer.'));
@@ -180,32 +185,38 @@ export const copySelectedOffer = (): void => {
 };
 
 export const fetchMyOffers = (): AppThunk => async dispatch => {
+
   try {
     const myOffers = await offersService.getMyOffers();
     dispatch(fetchMyOffersSuccess(myOffers));
   } catch (error) {
-    dispatch(giveAlert('error', 'Failed to load your offers. Please reload the page or relog to try again.'));
     console.log(error);
+    dispatch(giveAlert('error', 'Failed to load your offers. Please reload the page or relog to try again.'));
   }
+
 };
 
 export const fetchActiveOffers = (): AppThunk => async dispatch => {
+
   try {
     const offers = await offersService.getAllActive();
     dispatch(fetchActiveOffersSuccess(offers));
   } catch (error) {
-    dispatch(giveAlert('error', 'Failed to load active offers. Please reload the page.'));
     console.log(error);
+    dispatch(giveAlert('error', 'Failed to load active offers. Please reload the page.'));
   }
+
 };
 
 export const fetchOfferById = (id: string): AppThunk => async dispatch => {
+
   try {
     const offer = await offersService.getById(id);
     dispatch(fetchOfferByIdSuccess(offer));
   } catch (error) {
-    dispatch(giveAlert('error', 'Failed to load the offer. Please reload the page.'));
     console.log(error);
+    dispatch(giveAlert('error', 'Failed to load the offer. Please reload the page.'));
   }
+
 };
 

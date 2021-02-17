@@ -23,7 +23,7 @@ const OfferSchema =  new Schema<IOfferModel>({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  });
+  }, {timestamps: true});
 
 // export interface IOfferDocument extends IOffer, Document {
 //   toListJSON(): any;

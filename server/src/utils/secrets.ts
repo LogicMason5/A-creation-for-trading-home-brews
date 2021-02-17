@@ -10,6 +10,7 @@ export const APP_PORT       = _.defaultTo(parseInt(process.env.APP_PORT), 3000);
 export const LOG_DIRECTORY  = _.defaultTo(process.env.LOG_DIRECTORY, path.resolve('logs'));
 export const JWT_SECRET     = _.defaultTo(process.env.JWT_SECRET, "secret");
 export const SESSION_SECRET = _.defaultTo(process.env.SESSION_SECRET, "secret");
+export const SENDGRID_KEY   = _.defaultTo(process.env.SG_EMAIL_SENDKEY, "secret");
 export const DB             = {
   USER    : _.defaultTo(process.env.DB_USER, "root"),
   PASSWORD: _.defaultTo(process.env.DB_USER_PWD, "secret"),

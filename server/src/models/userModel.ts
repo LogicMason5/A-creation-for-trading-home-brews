@@ -64,10 +64,6 @@ UserSchema.methods.generateJWT = function (): string {
   const exp   = new Date(today);
   exp.setDate(today.getDate() + 60);
 
-  console.log('in generateJWT')
-  console.log(this._id)
-  console.log(this.username)
-
   return jwt.sign({
     id      : this._id,
     username: this.username,
