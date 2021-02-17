@@ -5,6 +5,9 @@ import { JWT_SECRET } from "./secrets";
 
 function getTokenFromHeader(req: Request): string | null {
 
+  console.log('printing req.header in getTokenFromHeader')
+  console.log(req.headers)
+
   const headerAuth: string | string[] = req.headers.authorization;
 
   if (headerAuth !== undefined && headerAuth !== null) {

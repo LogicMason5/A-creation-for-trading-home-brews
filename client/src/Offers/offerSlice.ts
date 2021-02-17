@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import history from '../utils/history';
 import { IOffer, IOfferToDisplay, OfferFormValues } from '../type';
