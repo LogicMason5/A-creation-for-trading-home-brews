@@ -1,9 +1,12 @@
 import { Document, Model, model, Schema } from 'mongoose';
 import { IOffer } from '../types/interfaces';
 
+export default interface IOfferModel extends IOffer, Document {
+  toListJSON(): any;
+  toDisplayJSON(): any;
+}
 
-
-const OfferSchema =  new Schema<IOfferDocument, IOfferModel>({
+const OfferSchema =  new Schema<IOfferModel>({
   beerName: { type: String, required: true },
   description: { type: String, required: true },
   packageSize: { type: String },
@@ -22,14 +25,14 @@ const OfferSchema =  new Schema<IOfferDocument, IOfferModel>({
   },
   });
 
-export interface IOfferDocument extends IOffer, Document {
-  toListJSON(): any;
-  toDisplayJSON(): any;
-}
+// export interface IOfferDocument extends IOffer, Document {
+//   toListJSON(): any;
+//   toDisplayJSON(): any;
+// }
 
-export interface IOfferModel extends Model<IOfferDocument> {
-  owner: Schema.Types.ObjectId;
-}
+// export interface IOfferModel extends Model<IOfferDocument> {
+//   owner: Schema.Types.ObjectId;
+// }
 
 OfferSchema.methods.toListJSON = function (): any {
   return {
@@ -59,4 +62,4 @@ OfferSchema.methods.toDisplayJSON = function (): any {
 
 
 
-export default model<IOfferDocument, IOfferModel>('Offer', OfferSchema);
+export const Offer: Model<IOfferModel> = model<IOfferModel>('Offer', OfferSchema);

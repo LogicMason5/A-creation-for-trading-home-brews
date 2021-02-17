@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { authentication } from '../utils/authentication';
-import Offer, { IOfferModel } from '../models/offerModel';
+import IOfferModel, { Offer } from '../models/offerModel';
 import { User } from '../models/userModel';
 
 
@@ -19,9 +19,6 @@ router.get('/', async function (req: Request, res: Response, next) {
 
 //post new offer
 router.post('/', authentication.required , async function (req: Request, res: Response, next) {
-
-  console.log('here')
-  console.log(req.body)
 
   const user = await User.findById(req.body.authUser.id).catch(next)
 
@@ -58,9 +55,6 @@ router.delete('/:id', authentication.required, async function (req: Request, res
 router.get('/my-offers', authentication.required,  async function (req: Request, res: Response, next) {
 
   if (!req.body.authUser) return res.sendStatus(401)
-
-  console.log('printing reqbody')
-  console.log(req.body)
 
   const myOffers = await Offer.find({ owner: req.body.authUser.id }).catch(next)
 

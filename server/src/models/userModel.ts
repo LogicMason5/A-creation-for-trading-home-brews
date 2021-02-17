@@ -47,12 +47,6 @@ const UserSchema = new Schema<IUserModel>({
 
 
 
-
-// export interface IUserModel extends Model<IUserDocument> {
-//   token?: string;
-//   offers: [Schema.Types.ObjectId];
-// }
-
 UserSchema.plugin(mongooseUniqueValidator, {message: 'is already taken.'});
 
 UserSchema.methods.validPassword = function (password: string): boolean {
