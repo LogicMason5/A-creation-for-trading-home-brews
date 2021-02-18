@@ -17,7 +17,6 @@ export default interface IUserModel extends IUser, Document {
 const UserSchema = new Schema<IUserModel>({
   username : {
     type     : Schema.Types.String,
-    lowercase: true,
     unique   : true,
     required : [true, "can't be blank"],
     match    : /^[a-zA-Z0-9]+$/,

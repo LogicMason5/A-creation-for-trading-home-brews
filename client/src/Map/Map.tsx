@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { fetchActiveOffers } from '../Offers/offerSlice';
 import { useAsyncDispatch } from '../store';
+import LocateButton from './LocateButton';
+
 
 const mapContainerStyles = {        
   height: "92.5vh",
@@ -48,6 +50,10 @@ const Map: React.FC = () => {
     
   // }, []);
 
+  const handleLocateClick = () => {
+    console.log('moi');
+  };
+
   const mapOptions = {
     disableDefaultUI: true,
     styles: mapStyles as google.maps.MapTypeStyle[]
@@ -69,7 +75,7 @@ const Map: React.FC = () => {
             );
           })
         }
-
+        <LocateButton onClick={handleLocateClick}/>
 
       </GoogleMap>
   );

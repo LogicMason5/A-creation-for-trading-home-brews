@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import { List, ListItem, Typography, ListItemText, ListItemIcon } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 const Accordion = withStyles({
   root: {
@@ -50,7 +50,7 @@ const FAQList: React.FC = () => {
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+  const handleChange = (panel: string) => (_event: React.ChangeEvent<{}>, newExpanded: boolean) => {
     setExpanded(newExpanded ? panel : false);
   };
 
@@ -62,7 +62,8 @@ const FAQList: React.FC = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            This is a hobbyist creation for trading homebrews of any kind.
+            This is a hobbyist creation for trading homebrews of any kind. You can create offers, view active offers by other brewers on the map
+            and send a message to the brewer to start a conversation about trading.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -104,14 +105,9 @@ const FAQList: React.FC = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            The app will only collect and store data actually necessary for the functionality offered to users. 
+            The app will only collect and store data actually necessary for the functionality offered to users. Emails are never exposed to other users.
+            Location data is only stored about offers, not users. Messages about offers are not saved by the app. No tracking functionality is used in emails.
           </Typography>
-          <Typography>
-          Heres a few key principles followed:
-          </Typography>
-          <List>
-
-          </List>
         </AccordionDetails>
       </Accordion>
     </div>
