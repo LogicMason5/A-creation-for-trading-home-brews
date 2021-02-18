@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose';
-import { IOfferModel } from '../models/offerModel';
+import IOfferModel from '../models/offerModel';
 import IUserModel from '../models/userModel';
 
 
@@ -24,4 +24,5 @@ export interface IOffer {
   active: boolean;
   created: string;
   owner: IUserModel;
+  updatedAt: string;
 }

@@ -7,15 +7,14 @@ import { setDrawerOpen } from '../Navigation/displaySlice';
 import { RootState } from '../rootReducer';
 
 
+interface OfferMarkerProps {
+  name: string;
+  position: google.maps.LatLngLiteral;
+  id: string
+}
 
+const OfferMarker: React.FC<OfferMarkerProps> =  ({ name, position, id }) => {
 
-
-
-
-
-const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral, id: string }> =  ({ name, position, id }) => {
-
-  
   const history = useHistory();
 
   const isLoaded = useSelector(
@@ -56,4 +55,4 @@ const BeerMarker: React.FC<{ name: string, position: google.maps.LatLngLiteral, 
   );
 };
 
-  export default BeerMarker;
+  export default OfferMarker;

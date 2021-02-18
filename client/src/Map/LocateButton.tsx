@@ -1,26 +1,48 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import MyLocation from '@material-ui/icons/MyLocation';
+import { useGoogleMap } from '@react-google-maps/api';
+import { Coordinates } from '../type';
 
-interface LocateButtonProps {
-  onClick: () => void;
-}
+
+
 
 const useStyles = makeStyles((theme) => ({
   locateButton: {
     position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
+    bottom: theme.spacing(2.5),
+    right: theme.spacing(1.5),
   },
 }));
 
-const LocateButton: React.FC<LocateButtonProps> = ({ onClick }) => {
+const LocateButton: React.FC = () => {
 
   const classes = useStyles();
 
+  const map = useGoogleMap();
+
+  const panTo = useCallback((coords: Coordinates) => {
+    map?.panTo(coords);
+    map?.setZoom(14);
+  },[map]);
+
+  const handleClick = () => {
+    navigator.geolocation.getCurrentPosition(
+      //success function
+      (position) => { 
+        panTo({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      },
+      //fail function
+      () => null 
+    );
+  };
+
   return (
-      <Fab color="primary" size="medium" className={classes.locateButton} onClick={onClick}>
+      <Fab color="primary" size="medium" className={classes.locateButton} onClick={handleClick}>
         <MyLocation fontSize="large"/>
       </Fab>
   );

@@ -49,7 +49,6 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
     dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
     dispatch(giveAlert('success', `Login succesfull. Welcome ${response.displayName}!` ));
-    dispatch(setDrawerOpen(false));
     history.push('/');
   } catch (error) {
     dispatch(giveAlert('error',`Login failed: ${JSON.stringify(error.response.data.message)}`));
@@ -90,7 +89,7 @@ export const messageBrewer = (formContent: MessageFormValues): AppThunk => async
 
   const message = {
     brewer: owner.username,
-    recipient: owner._id,
+    recipient: owner.id,
     beerName: beerName,
     ...formContent
   };

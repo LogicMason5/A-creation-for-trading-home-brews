@@ -6,7 +6,7 @@ import offersService from './offerService';
 import { giveAlert } from '../Navigation/displaySlice';
 
 interface OffersState {
-  offers: IOffer[];
+  activeOffers: IOffer[];
   myOffers: IOffer[];
   displayedOffer: IOfferToDisplay;
   selectedOffer: IOffer;
@@ -23,12 +23,12 @@ const emptyOffer: IOffer = {
 };
 
 const initialOffersState: OffersState = {
-  offers: [],
+  activeOffers: [],
   myOffers: [],
   displayedOffer: {
     ...emptyOffer,
     owner: {
-      _id: '',
+      id: '',
       username: ''
     }
   },
@@ -42,10 +42,10 @@ const offersSlice = createSlice({
   initialState: initialOffersState,
   reducers: {
     addOffer(state, { payload }: PayloadAction<IOffer>): void {
-        state.offers.push(payload);
+        state.activeOffers.push(payload);
     },
     fetchActiveOffersSuccess(state, { payload }: PayloadAction<IOffer[]>): void {
-      state.offers = payload;
+      state.activeOffers = payload;
     },
     fetchMyOffersSuccess(state, { payload }: PayloadAction<IOffer[]>): void {
       state.myOffers = payload;
@@ -116,7 +116,6 @@ export const updateSelectedOffer = (formContent: Omit<OfferFormValues, "location
   const owner = state.user.currentUser.id;
 
   const newOffer = {
-    created: new Date().toISOString(),
     location: location,
     id: id,
     owner: owner,
@@ -141,7 +140,6 @@ export const toggleActiveStatus = (offer: IOffer, setTo: boolean): AppThunk => a
   const newOffer = {
     ...offer,
     active: setTo,
-    created: new Date().toISOString()
   };
 
   try {

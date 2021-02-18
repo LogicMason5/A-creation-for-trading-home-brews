@@ -28,6 +28,9 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
+    return () => {
+      dispatch(setDrawerOpen(false));
+    };
   }, [dispatch]);
 
   return (

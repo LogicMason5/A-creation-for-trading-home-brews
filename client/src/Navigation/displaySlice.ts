@@ -112,7 +112,7 @@ export const giveAlert = (type: Color, message: string): AppThunk => dispatch =>
 export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
   dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
-    dialogTitle: `Delete offer for ${offer.beerName} ?`,
+    dialogTitle: `Delete offer for ${offer.beerName}?`,
     dialogText: 'You can use the active switch to deactivate it instead.',
   }));
   dispatch(setDialogType('delete'));

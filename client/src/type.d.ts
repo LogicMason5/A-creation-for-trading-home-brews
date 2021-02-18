@@ -18,12 +18,10 @@ export interface IOffer {
 
 export interface IOfferToDisplay extends IOffer {
   owner: {
-    _id: string;
+    id: string;
     username: string;
   }
 }
-
-
 
 export interface OfferFormValues {
   beerName: string;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
-import BeerMarker from './BeerMarker';
+import OfferMarker from './OfferMarker';
 import { mapStyles } from './mapStyles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
@@ -23,36 +23,12 @@ const Map: React.FC = () => {
   );
 
   const offers = useSelector(
-    (state: RootState) => state.offers.offers
+    (state: RootState) => state.offers.activeOffers
   );
-  
-    
-
 
   useEffect(() => {
     dispatch(fetchActiveOffers());
   }, [dispatch]);
-
-  //TSEKKAA  https://react-google-maps-api-docs.netlify.app/#googlemap
-  //refen sijaan voi käyttää suoraan useGoogleMap()
-
-  const mapRef = React.useRef();
-
-  const onMapLoad = React.useCallback((map) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    mapRef.current = map;
-  }, []);
-
-  // const panTo = React.useCallback(({ lat, lng }) => {
-    
-  //     mapRef.current.panTo({ lat, lng });
-  //     mapRef.current.setZoom(13);
-    
-  // }, []);
-
-  const handleLocateClick = () => {
-    console.log('moi');
-  };
 
   const mapOptions = {
     disableDefaultUI: true,
@@ -63,20 +39,19 @@ const Map: React.FC = () => {
 
       <GoogleMap           
         mapContainerStyle={mapContainerStyles}
-        zoom={13}
+        zoom={11}
         center={center}
         options={mapOptions}
-        onLoad={onMapLoad}
+        // onLoad={onMapLoad}
         >
         {
           offers.map(o => {
             return (
-                <BeerMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
+                <OfferMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
             );
           })
         }
-        <LocateButton onClick={handleLocateClick}/>
-
+        <LocateButton />
       </GoogleMap>
   );
 };

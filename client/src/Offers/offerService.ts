@@ -9,13 +9,13 @@ const getAllActive = async (): Promise<IOffer[]> => {
   return response.data;
 };
 
-const createNew = async (content: Omit<IOffer, "id" | "owner">): Promise<IOffer> => {
+const createNew = async (content: Omit<IOffer, "id" | "owner" | "created">): Promise<IOffer> => {
   const headers = createAuthHeaders();
   const response = await axios.post<IOffer>(baseUrl, content, headers);
   return response.data;
 };
 
-const updateById = async (id: string, updatedOffer: IOffer): Promise<IOffer> => {
+const updateById = async (id: string, updatedOffer: Omit<IOffer, "created">): Promise<IOffer> => {
   const headers = createAuthHeaders();
   const response = await axios.put<IOffer>(`${ baseUrl }/${id}`, updatedOffer, headers);
   return response.data;

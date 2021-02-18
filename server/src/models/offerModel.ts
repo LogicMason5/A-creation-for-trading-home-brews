@@ -16,7 +16,7 @@ const OfferSchema =  new Schema<IOfferModel>({
     lng: { type: Number, required: true }
   },
   recipeLink: { type: String },
-  created: { type: String, required: true },
+  updatedAt: { type: Date },
   active: { type: Boolean },
   id: { type: Schema.Types.ObjectId },
   owner: {
@@ -25,22 +25,13 @@ const OfferSchema =  new Schema<IOfferModel>({
   },
   }, {timestamps: true});
 
-// export interface IOfferDocument extends IOffer, Document {
-//   toListJSON(): any;
-//   toDisplayJSON(): any;
-// }
-
-// export interface IOfferModel extends Model<IOfferDocument> {
-//   owner: Schema.Types.ObjectId;
-// }
-
 OfferSchema.methods.toListJSON = function (): any {
   return {
     beerName: this.beerName,
     description: this.description,
     active: this.active,
     location: this.location,
-    created: this.created,
+    created: this.updatedAt.toString(),
     id: this._id.toString()
   }
 }
@@ -54,7 +45,7 @@ OfferSchema.methods.toDisplayJSON = function (): any {
     amount: this.amount,
     location: this.location,
     recipeLink: this.recipeLink,
-    created: this.created,
+    created: this.updatedAt.toString(),
     id: this._id.toString(),
     owner: this.owner
   }
