@@ -1,4 +1,0 @@
-DELETE http://localhost:3001/api/offers/6012992e3b9b901854e95c06 HTTP/1.1
-content-type: application/json
-Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTE3MjU5ODYwMjQ5MjI5MDEyZjU5ZSIsInVzZXJuYW1lIjoidGVzdGVyIiwiZXhwIjoxNjE3MDAyNjk1LjM0MywiaWF0IjoxNjExODIyMjk1fQ.qdmFdQUBVfCFfvxX0IBzzpZ8CiF4BhxdtJvMVsea9jU
-

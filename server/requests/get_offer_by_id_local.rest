@@ -1,3 +1,0 @@
-GET http://localhost:3001/api/offers/6013c211db0b873c489a80ad HTTP/1.1
-content-type: application/json
-

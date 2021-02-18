@@ -1,3 +1,0 @@
-GET http://localhost:3001/api/offers/my-offers HTTP/1.1
-content-type: application/json
-Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTgzMDNiNWQyYmYwMmNhMDYyMGI3MCIsInVzZXJuYW1lIjoidGVzdGVyd2VhZSIsImV4cCI6MTYxNzM3ODM0OC4wNjIsImlhdCI6MTYxMjE5Nzk0OH0.PlS-LTy-hNtLRJLqgSVLqNNg86739zEeB-ka0N5u1No
