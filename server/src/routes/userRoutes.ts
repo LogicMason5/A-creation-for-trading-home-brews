@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { User } from '../models/userModel';
-import { SENDGRID_KEY } from "../utils/secrets";
-
 import passport from 'passport';
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(SENDGRID_KEY)
+import { SENDGRID_KEY } from "../utils/secrets";
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(SENDGRID_KEY);
+
 
 const router: Router = Router();
 
@@ -52,26 +52,23 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
   router.post('/message', async (req: Request, res: Response, next: NextFunction) => {
 
-    console.log(req.body);
-
+    const message = req.body;
     const user = await User.findById(req.body.recipient);
 
-    console.log(user.email)
-
     const msg = {
-      to: user.email, // Change to your recipient
-      from: 'noreply@homebrewswap.app', // Change to your verified sender
-      subject: 'Sending with SendGrid is Fun',
-      text: 'and easy to do anywhere, even with Node.js',
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    }
+      to: user.email,
+      from: 'noreply@homebrewswap.app',
+      templateId: 'd-2eb440b5ecd34d3783575e69b2610256',
+      dynamicTemplateData: {
+        beerName: message.beerName,
+        message: message.message,
+        contactDetails: message.contactDetails,
+        brewer: user.username
+      },
+    };
 
-    sgMail
-      .send(msg)
-      .then(() => {
-        return res.json({ message: 'success' })
-      })
-      .catch(next)
+    const emailResponse = await sgMail.send(msg)
+    return res.json(emailResponse);
   
   });
   
