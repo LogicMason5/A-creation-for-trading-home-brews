@@ -9,6 +9,7 @@ import { login } from './userSlice';
 import { LoginFormValues } from '../type';
 import { useAsyncDispatch } from '../store';
 import Container from '@material-ui/core/Container';
+import TitleBox from '../SharedComponents/TitleBox';
 
 
 const validationSchema = yup.object().shape({
@@ -35,15 +36,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <Container >
-      <Box mb={3} p={2}>
-        <Typography
-          align="center"
-          variant="h6"
-          style={{ lineHeight: 1.25 }}
-        >
-          Login
-        </Typography>
-      </Box>
+      <TitleBox title="login"/>
       <Formik
         initialValues={{
           email: "",

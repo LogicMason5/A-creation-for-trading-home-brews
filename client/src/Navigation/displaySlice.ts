@@ -10,6 +10,7 @@ interface DisplayState {
   mapsLoaded: boolean;
   alertState: AlertState;
   dialogState: DialogState;
+  offerUploadUrl: string;
 }
 
 interface AlertState {
@@ -52,6 +53,7 @@ const initialState: DisplayState = {
   mapsLoaded: false,
   alertState: initialAlertState,
   dialogState: initialDialogState,
+  offerUploadUrl: '',
 };
 
 const displaySlice = createSlice({
@@ -85,6 +87,9 @@ const displaySlice = createSlice({
     },
     closeDialog(state) {
       state.dialogState.dialogOpen = false;
+    },
+    setOfferUploadUrl(state, action: PayloadAction<string>) {
+      state.offerUploadUrl = action.payload;
     }
   } 
 });
@@ -97,7 +102,8 @@ export const {
   setDialog,
   closeAlert,
   closeDialog,
-  setDialogType 
+  setDialogType,
+  setOfferUploadUrl,
 } = displaySlice.actions;
 
 export default displaySlice.reducer;

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express';
+require('express-async-errors');
 import { User } from '../models/userModel';
 import passport from 'passport';
 import { SENDGRID_KEY } from "../utils/secrets";

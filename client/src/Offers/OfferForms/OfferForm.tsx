@@ -13,6 +13,8 @@ import { setDrawerOpen } from '../../Navigation/displaySlice';
 import { AppThunk, useAsyncDispatch } from '../../store';
 import { OfferFormValues } from '../../type';
 import TitleBox from '../../SharedComponents/TitleBox';
+import ImageUploader from '../../SharedComponents/ImageUploader';
+import ImageDisplay from '../../SharedComponents/ImageDisplay';
 
 interface OfferFormProps {
   formTitle: string;
@@ -134,6 +136,12 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
                 :
                 'loading maps'
                 }
+              </Grid>
+              <Grid item xs={12}>
+                <ImageUploader />
+              </Grid>
+              <Grid item xs={12}>
+                <ImageDisplay />
               </Grid>
               <Grid item xs={12}>
                 <Field

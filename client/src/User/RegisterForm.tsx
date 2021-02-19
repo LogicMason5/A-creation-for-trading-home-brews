@@ -42,7 +42,10 @@ const RegisterForm: React.FC = () => {
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
-}, [dispatch]);
+    return () => {
+      dispatch(setDrawerOpen(false));
+    };
+  }, [dispatch]);
 
   return (
     <Container fixed>
@@ -70,7 +73,6 @@ const RegisterForm: React.FC = () => {
           values: RegisterFormValues,
           formikHelpers: FormikHelpers<RegisterFormValues>
         ) => {
-          console.log(values);
           dispatch(createUser(values));
           formikHelpers.setSubmitting(false);
         }}

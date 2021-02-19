@@ -11,7 +11,7 @@ import { Coordinates } from '../type';
 const useStyles = makeStyles((theme) => ({
   locateButton: {
     position: 'fixed',
-    bottom: theme.spacing(2.5),
+    bottom: theme.spacing(3.5),
     right: theme.spacing(1.5),
   },
 }));
@@ -24,7 +24,7 @@ const LocateButton: React.FC = () => {
 
   const panTo = useCallback((coords: Coordinates) => {
     map?.panTo(coords);
-    map?.setZoom(14);
+    map?.setZoom(12);
   },[map]);
 
   const handleClick = () => {

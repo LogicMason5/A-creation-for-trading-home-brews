@@ -14,6 +14,7 @@ export interface IOffer {
   id: string;
   active: boolean;
   owner: string;
+  imgUrl?: string;
 }
 
 export interface IOfferToDisplay extends IOffer {

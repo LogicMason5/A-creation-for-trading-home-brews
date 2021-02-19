@@ -7,14 +7,13 @@ import { RootState } from '../rootReducer';
 import { fetchActiveOffers } from '../Offers/offerSlice';
 import { useAsyncDispatch } from '../store';
 import LocateButton from './LocateButton';
+import { useTheme } from '@material-ui/core';
 
 
-const mapContainerStyles = {        
-  height: "92.5vh",
-  width: "100%",
-};
 
 const Map: React.FC = () => {
+
+  const theme = useTheme();
 
   const dispatch = useAsyncDispatch();
 
@@ -30,13 +29,19 @@ const Map: React.FC = () => {
     dispatch(fetchActiveOffers());
   }, [dispatch]);
 
+  const appBarHeight = theme ? theme.mixins.toolbar.minHeight as number : 56;
+
+  const mapContainerStyles = {
+    height: `${window.innerHeight-appBarHeight-8}px`,
+    width: "100%"
+};
+
   const mapOptions = {
     disableDefaultUI: true,
     styles: mapStyles as google.maps.MapTypeStyle[]
   };
 
   return (
-
       <GoogleMap           
         mapContainerStyle={mapContainerStyles}
         zoom={11}
