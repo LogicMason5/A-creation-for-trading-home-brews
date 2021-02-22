@@ -11,18 +11,10 @@ import AlwaysShowItems from './AlwaysShowItems';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    accountMenuRoot: {
+    mobileMenuRoot: {
       width: '100%',
       backgroundColor: theme.palette.background.paper,
     },
-    toolbarBuffer: theme.mixins.toolbar,
-    grow: {
-      flexGrow: 1,
-      display: 'flex',
-    },
-    listLink: {
-      textDecoration: 'none'
-    }
   }),
 );
 
@@ -40,7 +32,7 @@ const MobileMenu: React.FC = () => {
 
 
   return (
-    <Container className={classes.accountMenuRoot}>
+    <Container className={classes.mobileMenuRoot}>
       <Grid container>
         {
         isLoggedIn

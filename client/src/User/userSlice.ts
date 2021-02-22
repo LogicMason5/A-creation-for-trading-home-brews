@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { giveAlert, setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
-import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues } from '../type';
+import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues, ResetPwFormValues } from '../type';
 import userService from './userService';
 import history from '../utils/history';
 import store, { AppThunk } from '../store';
@@ -50,6 +50,19 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
     history.push('/');
   } catch (error) {
     dispatch(giveAlert('error',`Login failed: ${JSON.stringify(error.response.data.message)}`));
+  }
+
+};
+
+export const resetPw = (email: ResetPwFormValues): AppThunk => async dispatch => {
+  
+  try {
+    const response = await userService.resetPw(email);
+    console.log(response);
+    dispatch(giveAlert('success', `Password reset email sent to ${email.email}.` ));
+    history.push('/login');
+  } catch (error) {
+    dispatch(giveAlert('error',`Failed to reset password: ${JSON.stringify(error.response.data.message)}`));
   }
 
 };

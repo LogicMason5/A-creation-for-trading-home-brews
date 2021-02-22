@@ -72,6 +72,20 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
     return res.json(emailResponse);
   
   });
+
+  router.post('/resetpw', (req: Request, res: Response, next: NextFunction) => {
+
+    console.log(req.body);
+
+    if (!req.body.email) {
+      return res.status(422).json({errors: {email: "Can't be blank"}});
+    }
+
+    const user = User.find({ email: req.body.email });
+    console.log(user);
+
+  
+  });
   
   
   export const UserRoutes: Router = router;

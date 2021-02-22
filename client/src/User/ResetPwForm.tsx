@@ -1,56 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid, Button } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import * as yup from "yup";
-import { setDrawerOpen } from '../Navigation/displaySlice';
-import { login } from './userSlice';
-import { LoginFormValues } from '../type';
+import { resetPw } from './userSlice';
 import { useAsyncDispatch } from '../store';
 import Container from '@material-ui/core/Container';
 import TitleBox from '../SharedComponents/TitleBox';
+import { ResetPwFormValues } from '../type';
 
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Please provide a valid email")
-    .email("Please provide a valid email"),
-  password: yup.string()
-    .required("A password is required")
-    .min(8, "Password is too short, it should be 8 characters minimum.")
-    .matches(/(?=.*[0-9])/, "Password must contain a number to be valid.")
+    .email("Please provide a valid email")
 });
 
 
 
-const LoginForm: React.FC = () => {
+const ResetPwForm: React.FC = () => {
+
+  const [showResetForm, setShowResetForm] = useState(true);
+
+  const handleClick = () => setShowResetForm(false);
  
   const dispatch = useAsyncDispatch();
 
-  useEffect(() => {
-    dispatch(setDrawerOpen(true));
-    return () => {
-      dispatch(setDrawerOpen(false));
-    };
-  }, [dispatch]);
 
   return (
     <Container >
-      <TitleBox title="Login"/>
+      <TitleBox title="Forgot password?"/>
+      {showResetForm ? 
+      <Button
+        onClick={handleClick}
+        variant="outlined"
+        size="large"
+        color="primary"
+        fullWidth
+      >
+        Reset password
+      </Button>
+      :
       <Formik
         initialValues={{
           email: "",
-          password: "",
         }}
         validationSchema={validationSchema}
         onSubmit={(
-          values: LoginFormValues,
-          formikHelpers: FormikHelpers<LoginFormValues>
+          values: ResetPwFormValues,
+          formikHelpers: FormikHelpers<ResetPwFormValues>
         ) => {
-          dispatch(login(values));
+          dispatch(resetPw(values));
           formikHelpers.setSubmitting(false);
         }}
       >
-        {(formikProps: FormikProps<LoginFormValues>) => (
+        {(formikProps: FormikProps<ResetPwFormValues>) => (
           <Form noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -60,18 +63,7 @@ const LoginForm: React.FC = () => {
                   size="small"
                   component={FormTextField}
                   fullWidth
-                  initHelperText="Email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  type="password"
-                  name="password"
-                  label="Password"
-                  size="small"
-                  component={FormTextField}
-                  fullWidth
-                  initHelperText="8 characters with a number required"
+                  initHelperText="Email to reset password"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -83,16 +75,16 @@ const LoginForm: React.FC = () => {
                   disabled={formikProps.isSubmitting}
                   fullWidth
                 >
-                  login
+                  send password reset
                 </Button>
               </Grid>
             </Grid>
           </Form>
         )}
       </Formik>
-
+      }
     </Container >
   );
 };
 
-export default LoginForm;
+export default ResetPwForm;

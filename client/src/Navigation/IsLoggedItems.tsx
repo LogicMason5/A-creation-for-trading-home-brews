@@ -15,14 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       backgroundColor: theme.palette.background.paper,
     },
-    toolbarBuffer: theme.mixins.toolbar,
-    grow: {
-      flexGrow: 1,
-      display: 'flex',
-    },
-    listText: {
-      color: theme.palette.text.primary,
-    }
   }),
 );
 

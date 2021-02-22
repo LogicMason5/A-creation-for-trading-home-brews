@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RegisterFormValues, CurrentUser, LoginFormValues, IMessage } from '../type';
+import { RegisterFormValues, CurrentUser, LoginFormValues, IMessage, ResetPwFormValues } from '../type';
 
 const baseUrl = 'http://localhost:3001/api/user';
 
@@ -13,11 +13,16 @@ const login = async (credentials: LoginFormValues): Promise<CurrentUser> => {
   return response.data;
 };
 
+const resetPw = async (email: ResetPwFormValues): Promise<string> => {
+  const response = await axios.post<string>(`${baseUrl}/resetpw`, email);
+  return response.data;
+};
+
 const sendMessage = async (content: IMessage) : Promise<IMessage> => {
   const response = await axios.post<IMessage>(`${baseUrl}/message`, content);
   return response.data;
 };
 
-const offersService = { createNew, login, sendMessage };
+const offersService = { createNew, login, sendMessage, resetPw };
 
 export default offersService;

@@ -13,10 +13,6 @@ const DeleteOfferDialog: React.FC = () => {
   
   const { dialogContent, dialogType } = useSelector((state: RootState) => state.display.dialogState);
 
-  const handleClose = () => {
-    dispatch(closeDialog());
-  };
-
   const handleYes = () => {
     dispatch(closeDialog());
     switch(dialogType) {
@@ -34,7 +30,6 @@ const DeleteOfferDialog: React.FC = () => {
       dialogTitle={dialogContent.dialogTitle}
       dialogText={dialogContent.dialogText}
       onYes={handleYes}
-      onNo={handleClose}
     />
   );
 };

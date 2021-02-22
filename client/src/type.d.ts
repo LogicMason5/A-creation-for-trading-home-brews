@@ -64,6 +64,10 @@ export interface LoginFormValues {
   password: string;
 }
 
+export interface ResetPwFormValues {
+  email: string;
+}
+
 export interface CurrentUser {
   id: string;
   token: string;
