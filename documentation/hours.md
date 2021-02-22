@@ -46,8 +46,5 @@
 |18.02.2021|3| html template for email
 |18.02.2021|3| programmatic map panning, locate me button to map,
 |19.02.2021|7| upload images with cloudinary widget, store images to cloudinary, show images in display offer
-
-
-
-|TOTAL|187
+|TOTAL|187| ---
 
