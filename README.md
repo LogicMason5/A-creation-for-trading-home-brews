@@ -28,8 +28,5 @@ Not deployed yet.
 
 [here](./documentation/hours.md)
 
-# development plan
-
-[here](./documentation/development_plan.md)
 
 
