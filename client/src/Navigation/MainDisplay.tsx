@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MainSwitch from './MainSwitch';
 import AppBar from './MainAppBar';
 import Hidden from '@material-ui/core/Hidden';
-import ContentDrawer from './ContentDrawer';
+import SwitchInDrawer from './SwitchInDrawer';
 
 
 
@@ -27,7 +27,7 @@ const MainDisplay: React.FC = () => {
         <MainSwitch />
       </Hidden>
       <Hidden smDown >
-        <ContentDrawer />
+        <SwitchInDrawer />
       </Hidden>
     </div>
   );

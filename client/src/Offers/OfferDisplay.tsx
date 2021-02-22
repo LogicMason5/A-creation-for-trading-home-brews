@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { CardContent, Typography, Link, Divider, Container }from '@material-ui/core';
+import { CardContent, Typography, Link, Divider, Container, CircularProgress }from '@material-ui/core';
 import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
@@ -57,15 +57,16 @@ const OfferDisplay: React.FC = () => {
 
   useEffect(() => {
       dispatch(setDrawerOpen(true));
-      dispatch(setShowMessageForm(false));
+      // dispatch(setShowMessageForm(false));
       return () => {
         dispatch(setDrawerOpen(false));
+        dispatch(setShowMessageForm(false));
       };
-  }, [dispatch]);
+  }, [dispatch, id]);
 
 
   if (!offer) return (
-    <div>loading offer...</div>
+    <CircularProgress />
   );
 
   const handleLinkClick = (event: React.MouseEvent) => {

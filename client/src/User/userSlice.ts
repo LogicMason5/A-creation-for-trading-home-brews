@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { giveAlert, setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
 import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues } from '../type';

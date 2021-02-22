@@ -75,3 +75,10 @@ export type OfferAction = OneOfferAction | IdOfferAction;
 export type LocationDispatch = (args: LocationAction) => LocationAction;
 
 export type OfferDispatch = (args: OfferAction) => OfferAction;
+
+declare module '*.svg' {
+  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  export default content;
+}
+
+declare module 'googlemaps';

@@ -4,6 +4,11 @@ import { AppThunk } from '../store';
 import { IOffer } from '../type';
 import { setSelectedOffer } from '../Offers/offerSlice';
 
+interface Size {
+  width: number;
+  height: number;
+}
+
 interface DisplayState {
   drawerOpen: boolean;
   showMessageForm: boolean;
@@ -11,6 +16,7 @@ interface DisplayState {
   alertState: AlertState;
   dialogState: DialogState;
   offerUploadUrl: string;
+  switchSize: Size;
 }
 
 interface AlertState {
@@ -54,6 +60,10 @@ const initialState: DisplayState = {
   alertState: initialAlertState,
   dialogState: initialDialogState,
   offerUploadUrl: '',
+  switchSize: {
+    width: 0,
+    height: 0
+  }
 };
 
 const displaySlice = createSlice({
@@ -90,7 +100,11 @@ const displaySlice = createSlice({
     },
     setOfferUploadUrl(state, action: PayloadAction<string>) {
       state.offerUploadUrl = action.payload;
+    },
+    setSwitchSize(state, action: PayloadAction<Size>) {
+      state.switchSize = action.payload;
     }
+
   } 
 });
 
@@ -104,6 +118,7 @@ export const {
   closeDialog,
   setDialogType,
   setOfferUploadUrl,
+  setSwitchSize,
 } = displaySlice.actions;
 
 export default displaySlice.reducer;

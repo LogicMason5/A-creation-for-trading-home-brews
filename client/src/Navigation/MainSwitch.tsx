@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route } from "react-router-dom";
 import CreateOffer from '../Offers/OfferForms/CreateOffer';
@@ -13,6 +13,7 @@ import MyOffersList from '../Offers/MyOffersList/MyOffersList';
 import EditOffer from '../Offers/OfferForms/EditOffer';
 import CopyOffer from '../Offers/OfferForms/CopyOffer';
 import FAQ from './FAQ';
+import { CircularProgress } from '@material-ui/core';
 
 
 const MainSwitch: React.FC = () => {
@@ -21,21 +22,24 @@ const MainSwitch: React.FC = () => {
     (state: RootState) => state.display.mapsLoaded
   );
 
+  const ref = useRef(null); // this fixed drawer re-rendering, why?
+
   return (
-    
-    <Switch>
-      <Route path="/create-offer" render={() =>  isLoaded ? <CreateOffer /> : <div>Loading maps...</div>} />
-      <Route path="/my-offers/edit/:id" render={() => <EditOffer />} />
-      <Route path="/my-offers/copy/:id" render={() => <CopyOffer />} />
-      <Route path="/offers/:id" render={() => <OfferDisplay />} />
-      <Route path="/register" render={() => <RegisterForm />} />
-      <Route path="/login" render={() => <LoginForm />} />
-      <Route path="/my-account" render={() => <MyAccount />} />
-      <Route path="/mobile-menu" render={() => <MobileMenu />} />
-      <Route path="/my-offers" render={() => <MyOffersList />} />
-      <Route path="/FAQ" render={() => <FAQ />} />
-      <Route path="/" render={() => isLoaded ? <Map /> : <div>Loading maps...</div>} />
-    </Switch>
+    <div ref={ref}>
+      <Switch >
+        <Route path="/create-offer" render={() =>  isLoaded ? <CreateOffer /> : <CircularProgress />} />
+        <Route path="/my-offers/edit/:id" render={() => <EditOffer />} />
+        <Route path="/my-offers/copy/:id" render={() => <CopyOffer />} />
+        <Route path="/offers/:id" render={() => <OfferDisplay />} />
+        <Route path="/register" render={() => <RegisterForm />} />
+        <Route path="/login" render={() => <LoginForm />} />
+        <Route path="/my-account" render={() => <MyAccount />} />
+        <Route path="/mobile-menu" render={() => <MobileMenu />} />
+        <Route path="/my-offers" render={() => <MyOffersList />} />
+        <Route path="/FAQ" render={() => <FAQ />} />
+        <Route path="/" render={() => isLoaded ? <Map /> : <CircularProgress />} />
+      </Switch>
+    </div>
 
   );
 }; 

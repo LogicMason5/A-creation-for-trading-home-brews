@@ -9,10 +9,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../rootReducer';
 import { setDrawerOpen } from './displaySlice';
 import history from '../utils/history';
-
+import { CircularProgress } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+  grow: {
+    flexGrow: 1,
+    display: 'flex',
+  },
   drawer: {
     width: 400,
     flexShrink: 0,
@@ -26,20 +30,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       width: 550
     },
   },
-  drawerHeader: {
-    position: 'fixed',
-    bottom: 0,
-    alignItems: 'left',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
-  },
   appBarBuffer: theme.mixins.toolbar,
 }));
 
 
 
-const ContentDrawer: React.FC = () => {
+const SwitchInDrawer: React.FC = () => {
 
   const classes = useStyles();
 
@@ -56,7 +52,7 @@ const ContentDrawer: React.FC = () => {
 
   return (
     <div>
-      {mapsLoaded ? <Map /> : <div>loading google maps</div>}
+      {mapsLoaded ? <Map /> : <CircularProgress />}
       <div>
         <Drawer
           className={classes.drawer}
@@ -69,7 +65,7 @@ const ContentDrawer: React.FC = () => {
         >
           <div className={classes.appBarBuffer}/>
           <MainSwitch />
-          <div className={classes.appBarBuffer}/>
+          <div className={classes.grow} />
           <div className={classes.appBarBuffer}>
             <IconButton onClick={handleDrawerClose}>
               <Close style={{ fontSize: 40 }} />
@@ -83,4 +79,4 @@ const ContentDrawer: React.FC = () => {
 
 
 
-export default ContentDrawer;
+export default SwitchInDrawer;
