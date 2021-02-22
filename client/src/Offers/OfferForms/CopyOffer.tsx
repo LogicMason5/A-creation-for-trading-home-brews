@@ -2,12 +2,15 @@ import React from 'react';
 import { OfferFormValues } from '../../type';
 import EditOfferForm from './OfferForm';
 import { createOffer } from '../offerSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../rootReducer';
+import { setOfferUploadUrl } from '../../Navigation/displaySlice';
 
 
 
 const CopyOffer: React.FC = () => {
+
+  const dispatch = useDispatch();
 
   const selectedOffer = useSelector(
     (state: RootState) => state.offers.selectedOffer
@@ -21,6 +24,10 @@ const CopyOffer: React.FC = () => {
     location: '',
     recipeLink: selectedOffer.recipeLink ? selectedOffer.recipeLink : ''
   };
+
+  if (selectedOffer.imgUrl) {
+    dispatch(setOfferUploadUrl(selectedOffer.imgUrl));
+  }
 
   return (
     <EditOfferForm

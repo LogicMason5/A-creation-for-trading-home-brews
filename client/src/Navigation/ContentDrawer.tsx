@@ -12,28 +12,23 @@ import history from '../utils/history';
 
 
 
-const drawerWidth = 400;
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  grow: {
-    flexGrow: 1,
-    display: 'flex',
-  },
   drawer: {
-    width: drawerWidth,
+    width: 400,
     flexShrink: 0,
     [theme.breakpoints.up('lg')]: {
-      width: drawerWidth + 150
+      width: 550
     },
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: 400,
     [theme.breakpoints.up('lg')]: {
-      width: drawerWidth + 150
+      width: 550
     },
   },
   drawerHeader: {
-    display: 'flex',
+    position: 'fixed',
+    bottom: 0,
     alignItems: 'left',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
@@ -50,7 +45,7 @@ const ContentDrawer: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { mapsLoaded, drawerOpen, showMessageForm } = useSelector(
+  const { mapsLoaded, drawerOpen } = useSelector(
     (state: RootState) => state.display
   );
 
@@ -62,25 +57,26 @@ const ContentDrawer: React.FC = () => {
   return (
     <div>
       {mapsLoaded ? <Map /> : <div>loading google maps</div>}
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={drawerOpen}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.appBarBuffer}/>
-        <MainSwitch />
-        <div className={classes.grow} />
-        <div style={{ minHeight: showMessageForm ? 190 : 40 }}/>
-        <div>
-          <IconButton onClick={handleDrawerClose}>
-            <Close style={{ fontSize: 40 }} />
-          </IconButton>
-        </div>
-      </Drawer>
+      <div>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={drawerOpen}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.appBarBuffer}/>
+          <MainSwitch />
+          <div className={classes.appBarBuffer}/>
+          <div className={classes.appBarBuffer}>
+            <IconButton onClick={handleDrawerClose}>
+              <Close style={{ fontSize: 40 }} />
+            </IconButton>
+          </div>
+        </Drawer>
+      </div>
     </div>
   );
 };

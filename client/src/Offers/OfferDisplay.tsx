@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { CardMedia, CardContent, Typography, Link, Divider, Box, Container }from '@material-ui/core';
+import { CardContent, Typography, Link, Divider, Container }from '@material-ui/core';
 import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
@@ -9,16 +9,15 @@ import { setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
 import CountDown from '../SharedComponents/CountDown';
 import { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
 import MessageForm from './MessageForm';
+import ImageDisplay from '../SharedComponents/ImageDisplay';
+import TitleBox from '../SharedComponents/TitleBox';
+import DisplayTextItem from '../SharedComponents/DisplayTextItem';
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     displayOfferContainer: {
       height: '100%',
-    },
-    media: {
-      height: 0,
-      paddingTop: '100%', // 1:1
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -84,77 +83,53 @@ const OfferDisplay: React.FC = () => {
 
   return (
     <Container className={classes.displayOfferContainer}>
-      <Box mb={3} p={2}>
-        <Typography
-          align="center"
-          variant="h6"
-          style={{ lineHeight: 1.25 }}
-        >
-          {offer.beerName}
-        </Typography>
-      </Box>
-      <CardMedia
-        className={classes.media}
-        image={'https://images.ctfassets.net/sz2xpiwl6od9/ViVjIh4AALgAXfA2/86ce8853610527d1438c72220bc13533/bb19ca64bcd7dba6922d8a0fac623ff81fed831f_sours-primer.jpg?w=1600&fm=webp'}
-        title="placeholder image"
-      />
+      <TitleBox title={offer.beerName} />
+      <ImageDisplay url={offer.imgUrl} />
       <Divider />
       <CardContent>
-      <Typography color="textSecondary" component="p">
-          Description:
-      </Typography>
-      <Typography color="textPrimary" component="p">
-          {offer.description}
-      </Typography>
-      {offer.amount ?
-      <div> 
-        <Typography color="textSecondary" component="p">
-            Amount offered:
-        </Typography>
-        <Typography color="textPrimary" component="p">
-            {offer.amount}
-        </Typography>
-      </div>
-      : null}
-      {offer.packageSize ?
-      <div> 
-        <Typography color="textSecondary" component="p">
-            Package size:
-        </Typography>
-        <Typography color="textPrimary" component="p">
-            {offer.packageSize}
-        </Typography>
-      </div>
-      :
-      null
-      }
-      {offer.recipeLink ?
-      <div> 
-        <Typography color="textSecondary" component="p">
-            Url to recipe/brewing notes:
-        </Typography>
-        <Link href={offer.recipeLink} onClick={handleLinkClick} component="p">
-            {offer.recipeLink}
-        </Link>
-      </div>
-      : null}
-      <div> 
-        <Typography color="textSecondary" component="p">
-          Offer expires in:
-        </Typography>
-        <Typography  color="textPrimary" component="p"> 
-          <CountDown 
-            created={offer.created}
-            renderer={countDownFormatter}
-          />
-        </Typography>
-      </div>
-      <Typography color="textSecondary" component="p">
-          Brewer:
-      </Typography>
-      <Typography color="textPrimary" component="p">
-          {offer.owner.username}
-      </Typography>
+        <DisplayTextItem 
+          title="Description:"
+          content={offer.description}
+        />
+        {offer.amount ?
+        <DisplayTextItem
+          title="Amount offered:"
+          content={offer.amount.toString()}
+        />
+        : null}
+        {offer.packageSize ?
+        <DisplayTextItem 
+          title="Package size:"
+          content={offer.packageSize.toString()}
+        />
+        :
+        null
+        }
+        {offer.recipeLink ?
+        <div> 
+          <Typography color="textSecondary" component="p">
+              Url to recipe/brewing notes:
+          </Typography>
+          <Link href={offer.recipeLink} onClick={handleLinkClick} component="p">
+              {offer.recipeLink}
+          </Link>
+        </div>
+        : null}
+        <div> 
+          <Typography color="textSecondary" component="p">
+            Offer expires in:
+          </Typography>
+          <Typography  color="textPrimary" component="p"> 
+            <CountDown 
+              created={offer.created}
+              renderer={countDownFormatter}
+            />
+          </Typography>
+        </div>
+        <DisplayTextItem 
+          title="Brewer:"
+          content={offer.owner.username}
+        />
       </CardContent>
       <MessageForm />
     </Container>

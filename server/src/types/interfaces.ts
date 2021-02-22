@@ -21,6 +21,7 @@ export interface IOffer {
   amount?: number;
   location: ICoordinates;
   recipeLink?: string;
+  imageUrl?: string;
   active: boolean;
   created: string;
   owner: IUserModel;

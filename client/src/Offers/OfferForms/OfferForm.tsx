@@ -50,6 +50,10 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
     (state: RootState) => state.display.mapsLoaded
   );
 
+  const imgUrl = useSelector(
+    (state: RootState) => state.display.offerUploadUrl
+  );
+
   useEffect(() => {
     dispatch(setDrawerOpen(true));
     return () => {
@@ -141,7 +145,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
                 <ImageUploader />
               </Grid>
               <Grid item xs={12}>
-                <ImageDisplay />
+                <ImageDisplay url={imgUrl}/>
               </Grid>
               <Grid item xs={12}>
                 <Field

@@ -84,10 +84,12 @@ export default offersSlice.reducer;
 export const createOffer = (formContent: Omit<OfferFormValues, "location">): AppThunk => async dispatch => {
 
   const location = store.getState().location.location;
+  const imageUrl = store.getState().display.offerUploadUrl;
 
   const newOffer = {
     created: new Date().toISOString(),
     location: location,
+    imageUrl: imageUrl,
     ...formContent,
     active: true
   };

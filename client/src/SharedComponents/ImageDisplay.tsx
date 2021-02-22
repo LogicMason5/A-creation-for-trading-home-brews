@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
-import { RootState } from '../rootReducer';
 import { Card, CardMedia } from '@material-ui/core';
-import { Image } from '@material-ui/icons';
+
+interface ImageDisplayProps {
+  url: string | undefined;
+}
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -14,28 +15,21 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-
-
-const ImageDisplay: React.FC = () => {
+const ImageDisplay: React.FC<ImageDisplayProps> = ({ url }) => {
 
   const classes = useStyles();
-
-  const url = useSelector(
-    (state: RootState) => state.display.offerUploadUrl
-  );
-
 
   return (
     url
     ?
     <Card>
-          <CardMedia
-            image={url}
-            className={classes.media}
-          />
+      <CardMedia
+        image={url}
+        className={classes.media}
+      />
     </Card>
     :
-    <Image />
+    null
   );
 };
 

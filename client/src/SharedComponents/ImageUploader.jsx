@@ -18,6 +18,8 @@ const ImageUploader = () => {
   const widget = window.cloudinary.createUploadWidget({
     cloudName: "www-homebrewswap-app",
     uploadPreset: "n9czjyqn",
+    sources: ["local", "camera","url", "facebook", "instagram", "google_drive"],
+    multiple: false,
     cropping: true,
     showSkipCropButton: false,
     cropping_aspect_ratio: 1,
@@ -26,7 +28,6 @@ const ImageUploader = () => {
     },
     (error, result) => {
       if (!error && result && result.event === "success") {
-        console.log('Done! Here is the image info: ', result.info);
         dispatch(setOfferUploadUrl(result.info.secure_url));
       } 
   });
