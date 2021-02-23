@@ -13,8 +13,9 @@ import TitleBox from '../../SharedComponents/TitleBox';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    myOffersListContainer: {
-      justify: "center"
+    root: {
+      justify: "center",
+      paddingTop: 15
     },
   }),
 );
@@ -41,7 +42,7 @@ const MyOffersList: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Container className={classes.myOffersListContainer}>
+    <Container className={classes.root}>
       <Grid 
         container
         spacing={2}

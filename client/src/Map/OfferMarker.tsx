@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDrawerOpen } from '../Navigation/displaySlice';
 import { RootState } from '../rootReducer';
+import { CircularProgress } from '@material-ui/core';
 
 
 interface OfferMarkerProps {
@@ -23,13 +24,12 @@ const OfferMarker: React.FC<OfferMarkerProps> =  ({ name, position, id }) => {
 
   const dispatch = useDispatch();
 
-  if (!isLoaded) return null;
+  if (!isLoaded) return <CircularProgress />;
 
   const label: google.maps.MarkerLabel = {
     text: name,
-    fontSize: "24px",
+    fontSize: "20px",
     fontWeight: "bold",
-    // color: "red"
   };
 
   const icon = {

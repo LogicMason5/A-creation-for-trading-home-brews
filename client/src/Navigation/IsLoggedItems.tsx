@@ -1,8 +1,6 @@
 import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import { AccountBox, AddLocation, ExitToApp, LocalOffer } from '@material-ui/icons';
-import { Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { logout } from '../User/userSlice';
 import MenuListItem from '../SharedComponents/MenuListItem';
@@ -11,7 +9,7 @@ import MenuListItem from '../SharedComponents/MenuListItem';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    accountMenuRoot: {
+    root: {
       width: '100%',
       backgroundColor: theme.palette.background.paper,
     },
@@ -29,32 +27,28 @@ const IsLoggedOptions: React.FC = () => {
   };
 
   return (
-        <div className={classes.accountMenuRoot}>
-          <Grid item >
-            <List component="nav" aria-label="account menu list">
-              <MenuListItem
-                itemText="Create an offer"
-                linkTo="/create-offer"
-                icon={<AddLocation />}
-              />
-              <MenuListItem
-                itemText="My Offers"
-                linkTo="/my-offers"
-                icon={<LocalOffer />}
-              />
-              <MenuListItem
-                itemText="Edit account"
-                linkTo="/edit-account"
-                icon={<AccountBox />}
-              />
-              <MenuListItem
-                itemText="Log out"
-                linkTo="/login"
-                onClick={handleLogout}
-                icon={<ExitToApp />}
-              />
-            </List>
-          </Grid>
+        <div className={classes.root}>
+          <MenuListItem
+            itemText="Create an offer"
+            linkTo="/create-offer"
+            icon={<AddLocation />}
+          />
+          <MenuListItem
+            itemText="My Offers"
+            linkTo="/my-offers"
+            icon={<LocalOffer />}
+          />
+          <MenuListItem
+            itemText="Edit account"
+            linkTo="/edit-account"
+            icon={<AccountBox />}
+          />
+          <MenuListItem
+            itemText="Log out"
+            linkTo="/login"
+            onClick={handleLogout}
+            icon={<ExitToApp />}
+          />
         </div>
   );
 };

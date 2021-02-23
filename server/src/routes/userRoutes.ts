@@ -73,17 +73,38 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
   
   });
 
-  router.post('/resetpw', (req: Request, res: Response, next: NextFunction) => {
-
-    console.log(req.body);
+  router.post('/resetpw', async (req: Request, res: Response, next: NextFunction) => {
 
     if (!req.body.email) {
-      return res.status(422).json({errors: {email: "Can't be blank"}});
+      return res.status(422).json({ errors: { email: "not found" } });
     }
 
-    const user = User.find({ email: req.body.email });
-    console.log(user);
+    const user = await User.findOne({ email: req.body.email });
 
+    if (!user) return res.sendStatus(404).json({ errors: { user: "not found" } })
+
+    const token = user.getResetToken();
+
+    console.log(token)
+
+    const msg = {
+      to: user.email,
+      from: 'noreply@homebrewswap.app',
+      templateId: 'd-f181b99cf4cc48158830db768b550b15',
+      dynamicTemplateData: {
+        userId: user.id,
+        token: token,
+        brewer: user.username
+      },
+    };
+
+    const emailResponse = await sgMail.send(msg);
+
+    return res.json(emailResponse);
+
+    // const resetToken = user.toAuthJSON();
+
+    // console.log(resetToken);
   
   });
   

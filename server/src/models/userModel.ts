@@ -10,7 +10,9 @@ export default interface IUserModel extends IUser, Document {
   salt: string;
   hash: string;
   generateJWT(): string;
+  generateResetJWT(): string;
   toAuthJSON(): any;
+  getResetToken(): any;
   setPassword(password: string): void;
 }
 
@@ -70,12 +72,31 @@ UserSchema.methods.generateJWT = function (): string {
   }, JWT_SECRET);
 };
 
+UserSchema.methods.generateResetJWT = function (): string {
+  console.log('in genresjwt')
+  const today = new Date();
+  const exp   = new Date(today);
+  exp.setDate(today.getDate());
+
+  return jwt.sign({
+    id      : this._id,
+    username: this.username,
+    exp     : exp.getTime() / 1000 + 1000 * 60 * 15, // 15 mins duration
+  }, JWT_SECRET);
+};
+
 
 UserSchema.methods.toAuthJSON = function (): any {
   return {
     displayName: this.username,
     token: this.generateJWT(),
     id: this._id    
+  };
+};
+
+UserSchema.methods.getResetToken = function (): any {
+  return {
+    token: this.generateResetJWT(),
   };
 };
 

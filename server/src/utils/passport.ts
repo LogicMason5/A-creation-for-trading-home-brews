@@ -15,7 +15,7 @@ passport.use(new LocalStrategy({
 
     User
       .findOne({email})
-      .then((user: { validPassword: (arg0: string) => any; }) => {
+      .then((user: { validPassword: (pw: string) => any; }) => {
         if (!user) {
           return done(null, false, {message: 'Incorrect email.'});
         }
