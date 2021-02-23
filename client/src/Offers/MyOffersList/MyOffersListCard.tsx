@@ -80,10 +80,17 @@ const OffersListCard: React.FC<{ offer: IOffer }> = ({ offer }) => {
             <Typography component="h5" variant="h5">
               {offer.beerName}
             </Typography>
+            {offer.active
+            ? 
             <Typography variant="subtitle1" color="textSecondary">
               <CountDown
                 created={offer.created} renderer={countdownFormatter}/>
             </Typography>
+            :
+            <Typography variant="subtitle1" color="textSecondary">
+              Offer is inactive
+            </Typography> 
+            }
           </CardContent>
           <div className={classes.icons}>
             <IconButton aria-label="editOffer" onClick={handleEditClick}>

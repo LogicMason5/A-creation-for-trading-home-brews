@@ -46,7 +46,7 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
     const response = await userService.login(credentials);
     dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
-    dispatch(giveAlert('success', `Login succesfull. Welcome ${response.displayName}!` ));
+    dispatch(giveAlert('success', `Welcome ${response.displayName}!` ));
     history.push('/');
   } catch (error) {
     dispatch(giveAlert('error',`Login failed: ${JSON.stringify(error.response.data.message)}`));
@@ -84,7 +84,7 @@ export const createUser = (content: RegisterFormValues): AppThunk => async dispa
       const response = await userService.createNew(content);
       dispatch(setLoggedUser(response));
       window.localStorage.setItem('curUser', JSON.stringify(response));
-      dispatch(giveAlert('success', `User created. Welcome ${response.displayName}`));
+      dispatch(giveAlert('success', `Welcome ${response.displayName}`));
       dispatch(setDrawerOpen(false));
       history.push('/');
     } catch (error) {

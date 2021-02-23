@@ -47,5 +47,6 @@
 |18.02.2021|3| programmatic map panning, locate me button to map,
 |19.02.2021|7| upload images with cloudinary widget, store images to cloudinary, show images in display offer
 |22.02.2021|6| fixed drawer rendering, password reset email front-end
+|22.02.2021|1| started mui theme
 |TOTAL|187| ---
 
