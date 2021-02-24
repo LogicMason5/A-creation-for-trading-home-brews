@@ -48,7 +48,8 @@ const auth = {
     getToken           : getTokenFromHeader,
     userProperty       : 'body.authUser',
     algorithms         : ['HS256']
-  })
+  }),
+
 };
 
 export const authentication = auth;

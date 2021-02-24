@@ -67,21 +67,17 @@ UserSchema.methods.generateJWT = function (): string {
 
   return jwt.sign({
     id      : this._id,
-    username: this.username,
+    username : this.username, 
     exp     : exp.getTime() / 1000,
   }, JWT_SECRET);
 };
 
 UserSchema.methods.generateResetJWT = function (): string {
-  console.log('in genresjwt')
-  const today = new Date();
-  const exp   = new Date(today);
-  exp.setDate(today.getDate());
 
   return jwt.sign({
     id      : this._id,
-    username: this.username,
-    exp     : exp.getTime() / 1000 + 1000 * 60 * 15, // 15 mins duration
+    hash    : this.hash, //using hash to generate single use token
+    exp     : Math.floor(Date.now() / 1000) + (60 * 15), // 15 mins duration
   }, JWT_SECRET);
 };
 

@@ -2,7 +2,10 @@ import { NextFunction, Request, Response, Router } from 'express';
 require('express-async-errors');
 import { User } from '../models/userModel';
 import passport from 'passport';
-import { SENDGRID_KEY } from "../utils/secrets";
+import { authentication } from '../utils/authentication';
+import { JWT_SECRET, SENDGRID_KEY } from "../utils/secrets";
+import jwt from 'express-jwt';
+import { ClientRequest } from 'http';
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(SENDGRID_KEY);
 
@@ -73,7 +76,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
   
   });
 
-  router.post('/resetpw', async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/reqpwreset', async (req: Request, res: Response, next: NextFunction) => {
 
     if (!req.body.email) {
       return res.status(422).json({ errors: { email: "not found" } });
@@ -85,15 +88,12 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
     const token = user.getResetToken();
 
-    console.log(token)
-
     const msg = {
       to: user.email,
       from: 'noreply@homebrewswap.app',
       templateId: 'd-f181b99cf4cc48158830db768b550b15',
       dynamicTemplateData: {
-        userId: user.id,
-        token: token,
+        token: token.token,
         brewer: user.username
       },
     };
@@ -101,11 +101,38 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
     const emailResponse = await sgMail.send(msg);
 
     return res.json(emailResponse);
-
-    // const resetToken = user.toAuthJSON();
-
-    // console.log(resetToken);
   
+  });
+
+  router.post('/pwreset', authentication.required, async (req: Request, res: Response, next: NextFunction) => {
+
+    const id = req.body.authUser.id;
+
+    const user  = await User.findOne({ _id: id });
+
+    if (!user) return res.sendStatus(401)
+
+    if (req.body.authUser.hash !== user.hash) {
+      return res.status(401).json({ errors: { token: "invalid or expired" }})
+    }
+
+    user.setPassword(req.body.password)
+
+    const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true })
+
+    const msg = {
+      to: updatedUser.email,
+      from: 'noreply@homebrewswap.app',
+      templateId: 'd-11c10b8b0e3f4e5abf466ee978379d83',
+      dynamicTemplateData: {
+        brewer: updatedUser.username
+      },
+    };
+
+    await sgMail.send(msg)
+
+    return res.json(user.toAuthJSON());
+
   });
   
   
