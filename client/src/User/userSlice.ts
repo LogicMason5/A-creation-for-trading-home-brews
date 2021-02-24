@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { giveAlert, setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
-import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues, ResetPwFormValues } from '../type';
+import { RegisterFormValues, MessageFormValues, CurrentUser, LoginFormValues, ReqResetPwFormValues, ResetPwFormValues } from '../type';
 import userService from './userService';
 import history from '../utils/history';
 import store, { AppThunk } from '../store';
@@ -54,15 +54,30 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
 
 };
 
-export const resetPw = (email: ResetPwFormValues): AppThunk => async dispatch => {
+export const reqResetPw = (email: ReqResetPwFormValues): AppThunk => async dispatch => {
   
   try {
-    const response = await userService.resetPw(email);
+    const response = await userService.reqResetPw(email);
     console.log(response);
     dispatch(giveAlert('success', `Password reset email sent to ${email.email}.` ));
     history.push('/login');
   } catch (error) {
-    dispatch(giveAlert('error',`Failed to reset password: ${JSON.stringify(error.response.data.message)}`));
+    console.log(error);
+    dispatch(giveAlert('error',`Failed to send reset email: ${JSON.stringify(error.response.data.message)}`));
+  }
+
+};
+
+export const resetPw = (formContent: ResetPwFormValues, token: string): AppThunk => async dispatch => {
+  
+  try {
+    const response = await userService.resetPw(formContent, token);
+    dispatch(setLoggedUser(response));
+    window.localStorage.setItem('curUser', JSON.stringify(response));
+    dispatch(giveAlert('success', `Welcome ${response.displayName}! Email confirmation about password reset sent.` ));
+    history.push('/');
+  } catch (error) {
+    dispatch(giveAlert('error',`Failed to reset password: ${JSON.stringify(error.response.data)}`));
   }
 
 };

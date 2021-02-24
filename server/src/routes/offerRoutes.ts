@@ -8,7 +8,7 @@ import { User } from '../models/userModel';
 const router: Router = Router();
 
 //get all offers (public info)
-router.get('/', async function (req: Request, res: Response, next) {
+router.get('/', async  (req: Request, res: Response, next) => {
   
   const offers = await Offer.find({})
 
@@ -19,7 +19,7 @@ router.get('/', async function (req: Request, res: Response, next) {
 
 
 //post new offer
-router.post('/', authentication.required , async function (req: Request, res: Response, next) {
+router.post('/', authentication.required , async  (req: Request, res: Response, next) => {
 
   const user = await User.findById(req.body.authUser.id)
 
@@ -36,7 +36,7 @@ router.post('/', authentication.required , async function (req: Request, res: Re
 
 
 // delete Offer
-router.delete('/:id', authentication.required, async function (req: Request, res: Response, next) {
+router.delete('/:id', authentication.required, async (req: Request, res: Response, next) => {
 
   if (!req.body.authUser) return res.sendStatus(401)
 
@@ -53,7 +53,7 @@ router.delete('/:id', authentication.required, async function (req: Request, res
 });
 
 //get logged in users own offers
-router.get('/my-offers', authentication.required,  async function (req: Request, res: Response, next) {
+router.get('/my-offers', authentication.required,  async (req: Request, res: Response, next) => {
 
   if (!req.body.authUser) return res.sendStatus(401)
 
@@ -65,7 +65,7 @@ router.get('/my-offers', authentication.required,  async function (req: Request,
 
 
 //get detailed public info
-router.get('/:id', async function (req: Request, res: Response, next) {
+router.get('/:id', async (req: Request, res: Response, next) => {
 
   const offer = await Offer.findById(req.params.id).populate('owner', { username: 1 })
 
@@ -74,7 +74,7 @@ router.get('/:id', async function (req: Request, res: Response, next) {
 });
 
 //update offer by id
-router.put('/:id', authentication.required, async function (req: Request, res: Response, next) {
+router.put('/:id', authentication.required, async (req: Request, res: Response, next) => {
 
   if (!req.body.authUser) return res.sendStatus(401)
 

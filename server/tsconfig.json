@@ -6,7 +6,8 @@
       "noImplicitAny": true,
       "moduleResolution": "node",
       "sourceMap": true,
-      "outDir": "dist",
+      "skipLibCheck": true,
+      "outDir": "./dist",
       "baseUrl": ".",
       "paths": {
           "*": [
@@ -16,6 +17,9 @@
       }
   },
   "include": [
-      "src/**/*"
-  ]
+      "src/**/*.ts"
+  ],
+  "exclude" : [
+    "node_modules"
+]
 }

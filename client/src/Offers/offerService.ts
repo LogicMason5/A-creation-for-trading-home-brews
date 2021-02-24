@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { IOffer, IOfferToDisplay } from '../type';
 import { createAuthHeaders } from '../utils/createHeaders';
+import url from '../utils/url';
 
-const baseUrl = 'http://localhost:3001/api/offers';
+const baseUrl = `${url}/api/offers`;
 
 const getAllActive = async (): Promise<IOffer[]> => {
   const response = await axios.get<IOffer[]>(baseUrl);

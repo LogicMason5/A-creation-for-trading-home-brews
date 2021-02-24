@@ -19,7 +19,7 @@ import ImageDisplay from '../../SharedComponents/ImageDisplay';
 interface OfferFormProps {
   formTitle: string;
   initValues: OfferFormValues;
-  actionOnSubmit: (formValues: Omit<OfferFormValues, "location">) => AppThunk;
+  actionOnSubmit: (formValues: OfferFormValues) => AppThunk;
   buttonText: string;
 }
 
@@ -71,9 +71,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
           values: OfferFormValues,
           formikHelpers: FormikHelpers<OfferFormValues>
         ) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { location, ...newValues } = values;
-          dispatch(actionOnSubmit(newValues));
+          dispatch(actionOnSubmit(values));
           formikHelpers.setSubmitting(false);
         }}
       >

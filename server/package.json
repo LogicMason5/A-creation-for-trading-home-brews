@@ -2,20 +2,22 @@
   "name": "server",
   "version": "1.0.0",
   "description": "hobby",
-  "main": "./src/index.js",
+  "main": "./build/index.js",
   "scripts": {
     "test": "test",
-    "tsc": "tsc",
+    "build-ts": "tsc -b",
+    "postinstall": "npm run build-ts",
     "dev": "ts-node-dev ./src/index.ts",
-    "lint": "eslint --ext .ts .",
-    "start": "node build/index.js"
+    "start": "node dist/index.js",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "keywords": [
-    "fso"
+    "beer"
   ],
   "author": "juuso",
   "license": "MIT",
   "dependencies": {
+    "typescript": "^3.9.7",
     "@sendgrid/mail": "^7.4.2",
     "assert-never": "^1.2.1",
     "bcrypt": "^5.0.0",

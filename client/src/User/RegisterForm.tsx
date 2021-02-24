@@ -10,6 +10,7 @@ import { setDrawerOpen } from '../Navigation/displaySlice';
 import { createUser } from './userSlice';
 import { RegisterFormValues } from '../type';
 import { useAsyncDispatch } from '../store';
+import TitleBox from '../SharedComponents/TitleBox';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,15 +53,7 @@ const RegisterForm: React.FC = () => {
       <Hidden mdUp>
         <div className={classes.toolbarBuffer} />
       </Hidden>
-      <Box mb={3} p={2}>
-        <Typography
-          align="center"
-          variant="h6"
-          style={{ lineHeight: 1.25 }}
-        >
-          Register a new brewer
-        </Typography>
-      </Box>
+      <TitleBox title="Register a new brewer" />
       <Formik
         initialValues={{
           displayName: "",

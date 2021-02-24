@@ -8,7 +8,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FieldProps } from 'formik';
 import FormTextField from './FormTextField';
 import { useDispatch } from 'react-redux';
-import { setLocation } from '../Map/locationSlice';
+import { setCoordinates } from '../Map/locationSlice';
 
 const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
 
@@ -35,7 +35,7 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
         setValue(description, false);
         const results = await getGeocode({ address: description });
         const { lat, lng } = await getLatLng(results[0]);
-        dispatch(setLocation({ lat, lng }));
+        dispatch(setCoordinates({ lat: lat, lng: lng }));
       } catch (error) {
         console.log("error: ", error);
       }
@@ -44,6 +44,7 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
   };
 
   const renderSuggestion = (option: google.maps.places.AutocompletePrediction) => {
+    
     const matches = option.structured_formatting.main_text_matched_substrings;
     const parts = parse(
       option.structured_formatting.main_text,

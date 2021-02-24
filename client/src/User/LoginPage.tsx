@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import TitleBox from '../SharedComponents/TitleBox';
 import LoginForm from './LoginForm';
-import ResetPwForm from './ResetPwForm';
+import ReqResetPwForm from './ReqResetPwForm';
 
 
 
@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
   return (
     <div>
       <LoginForm />
-      <ResetPwForm />
+      <ReqResetPwForm />
       <Container className={classes.toBottom}>
         <TitleBox title="Not yet registered?"/>
         <Link to="/register">

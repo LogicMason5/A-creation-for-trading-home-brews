@@ -3,11 +3,11 @@ import { Grid, Button } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
 import FormTextField from "../SharedComponents/FormTextField";
 import * as yup from "yup";
-import { resetPw } from './userSlice';
+import { reqResetPw } from './userSlice';
 import { useAsyncDispatch } from '../store';
 import Container from '@material-ui/core/Container';
 import TitleBox from '../SharedComponents/TitleBox';
-import { ResetPwFormValues } from '../type';
+import { ReqResetPwFormValues } from '../type';
 
 
 const validationSchema = yup.object().shape({
@@ -17,7 +17,7 @@ const validationSchema = yup.object().shape({
 
 
 
-const ResetPwForm: React.FC = () => {
+const ReqResetPwForm: React.FC = () => {
 
   const [showResetForm, setShowResetForm] = useState(true);
 
@@ -42,18 +42,18 @@ const ResetPwForm: React.FC = () => {
       :
       <Formik
         initialValues={{
-          email: "",
+          email: "juuso.vesanto2@gmail.com",
         }}
         validationSchema={validationSchema}
         onSubmit={(
-          values: ResetPwFormValues,
-          formikHelpers: FormikHelpers<ResetPwFormValues>
+          values: ReqResetPwFormValues,
+          formikHelpers: FormikHelpers<ReqResetPwFormValues>
         ) => {
-          dispatch(resetPw(values));
+          dispatch(reqResetPw(values));
           formikHelpers.setSubmitting(false);
         }}
       >
-        {(formikProps: FormikProps<ResetPwFormValues>) => (
+        {(formikProps: FormikProps<ReqResetPwFormValues>) => (
           <Form noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -87,4 +87,4 @@ const ResetPwForm: React.FC = () => {
   );
 };
 
-export default ResetPwForm;
+export default ReqResetPwForm;

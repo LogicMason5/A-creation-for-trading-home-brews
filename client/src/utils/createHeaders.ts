@@ -17,3 +17,13 @@ export const createAuthHeaders = (): AxiosRequestConfig => {
       }
   };
 };
+
+
+
+export const createHeadersFromToken = (token: string): AxiosRequestConfig => {
+  return {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  };
+};

@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "homepage": "https://www.homebrewswap.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -35,7 +36,7 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "react-scripts start . --history-api-fallback",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
 import logger from "./utils/logger";
-import { DB } from "./utils/secrets";
-
-// Build the connection string
-const dbURI = process.env.DEV_MONGODB_URI; //fix this later to build from .env params
+import { DB_URI } from './utils/secrets';
 
 const options = {
   useNewUrlParser   : true,
@@ -18,11 +15,11 @@ const options = {
   socketTimeoutMS   : 45000, // Close sockets after 45 seconds of inactivity
 };
 
-logger.debug(dbURI);
+logger.debug(DB_URI);
 
 // Create the database connection
 mongoose
-  .connect(dbURI, options)
+  .connect(DB_URI, options)
   .then(() => {
     logger.info('Mongoose connection taken');
   })
@@ -31,10 +28,11 @@ mongoose
     logger.error(e);
   });
 
+  
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', () => {
-  logger.info('Mongoose default connection open to ' + dbURI);
+  logger.info('Mongoose default connection open to ' + DB_URI);
 });
 
 // If the connection throws an error

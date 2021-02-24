@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { RegisterFormValues, CurrentUser, LoginFormValues, IMessage, ResetPwFormValues } from '../type';
+import { RegisterFormValues, CurrentUser, LoginFormValues, IMessage, ReqResetPwFormValues, ResetPwFormValues } from '../type';
+import { createHeadersFromToken }from '../utils/createHeaders';
+import url from '../utils/url';
 
-const baseUrl = 'http://localhost:3001/api/user';
+const baseUrl = `${url}/api/offers`;
 
 const createNew = async (content: RegisterFormValues) : Promise<CurrentUser> => {
   const response = await axios.post<CurrentUser>(`${baseUrl}/register`, content);
@@ -13,8 +15,14 @@ const login = async (credentials: LoginFormValues): Promise<CurrentUser> => {
   return response.data;
 };
 
-const resetPw = async (email: ResetPwFormValues): Promise<string> => {
-  const response = await axios.post<string>(`${baseUrl}/resetpw`, email);
+const reqResetPw = async (email: ReqResetPwFormValues): Promise<string> => {
+  const response = await axios.post<string>(`${baseUrl}/reqpwreset`, email);
+  return response.data;
+};
+
+const resetPw = async (newPw: ResetPwFormValues, token: string): Promise<CurrentUser> => {
+  const headers = createHeadersFromToken(token);
+  const response = await axios.post<CurrentUser>(`${baseUrl}/pwreset`, newPw, headers);
   return response.data;
 };
 
@@ -23,6 +31,6 @@ const sendMessage = async (content: IMessage) : Promise<IMessage> => {
   return response.data;
 };
 
-const offersService = { createNew, login, sendMessage, resetPw };
+const offersService = { createNew, login, sendMessage, reqResetPw, resetPw };
 
 export default offersService;

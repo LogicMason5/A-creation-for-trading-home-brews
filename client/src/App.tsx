@@ -35,7 +35,7 @@ const App: React.FC = () => {
       <DeleteOfferDialog />
       <ShowAlert />
       <MainDisplay />
-    </Box >
+    </Box>
   );
 };
 

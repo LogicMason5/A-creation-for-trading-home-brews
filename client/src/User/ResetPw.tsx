@@ -1,28 +1,16 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Container,Grid, Button } from "@material-ui/core";
+import { Container, Grid, Button } from "@material-ui/core";
 import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
+import { useRouteMatch } from 'react-router-dom';
 import FormTextField from "../SharedComponents/FormTextField";
 import * as yup from "yup";
-import Hidden from '@material-ui/core/Hidden';
 import { setDrawerOpen } from '../Navigation/displaySlice';
-import { createUser } from './userSlice';
-import { RegisterFormValues } from '../type';
+import { resetPw } from './userSlice';
+import { ResetPwFormValues } from '../type';
 import { useAsyncDispatch } from '../store';
 import TitleBox from '../SharedComponents/TitleBox';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbarBuffer: theme.mixins.toolbar,
-  }),
-);
-
 const validationSchema = yup.object().shape({
-  displayName: yup.string()
-    .required("A display name is required")
-    .min(4, "Min length is 4 characters"),
-  email: yup.string().required("Please provide a valid email")
-    .email("Please provide a valid email"),
   password: yup.string()
     .required("A password is required")
     .min(8, "Password is too short,should be 8 characters minimum.")
@@ -33,57 +21,50 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
-const EditAccount: React.FC = () => {
+interface MatchParams {
+  token: string
+}
 
-  const classes = useStyles();
+const ResetPw: React.FC = () => {
  
   const dispatch = useAsyncDispatch();
 
+  const match = useRouteMatch<MatchParams>('/resetpw/:token');
+
+  const tempToken = match ? match.params.token : '';
+
   useEffect(() => {
     dispatch(setDrawerOpen(true));
-}, [dispatch]);
+    return () => {
+      dispatch(setDrawerOpen(false));
+    };
+  }, [dispatch]);
 
   return (
     <Container fixed>
-      <Hidden mdUp>
-        <div className={classes.toolbarBuffer} />
-      </Hidden>
-      <TitleBox title="Update account" />
+      <TitleBox title="Reset password"/>
       <Formik
         initialValues={{
-          displayName: "Tester",
-          email: "kiiikii@tyy.ftta",
-          password: "asdasd123",
-          passwordConfirm: "asdasd123"
+          password: "",
+          passwordConfirm: ""
         }}
         validationSchema={validationSchema}
         onSubmit={(
-          values: RegisterFormValues,
-          formikHelpers: FormikHelpers<RegisterFormValues>
+          values: ResetPwFormValues,
+          formikHelpers: FormikHelpers<ResetPwFormValues>
         ) => {
-          console.log(values);
-          dispatch(createUser(values));
+          dispatch(resetPw(values, tempToken));
           formikHelpers.setSubmitting(false);
         }}
       >
-        {(formikProps: FormikProps<RegisterFormValues>) => (
+        {(formikProps: FormikProps<ResetPwFormValues>) => (
           <Form noValidate autoComplete="off">
             <Grid container spacing={2} >
               <Grid item xs={12}>
                 <Field
-                  name="displayName"
-                  label="Public username"
-                  size="small"
-                  component={FormTextField}
-                  fullWidth
-                  initHelperText="This name will be visible to other users"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
                   type="password"
                   name="password"
-                  label="Password"
+                  label="New password"
                   size="small"
                   component={FormTextField}
                   fullWidth
@@ -94,7 +75,7 @@ const EditAccount: React.FC = () => {
                 <Field
                   type="password"
                   name="passwordConfirm"
-                  label="Confirm password"
+                  label="Confirm new password"
                   size="small"
                   component={FormTextField}
                   fullWidth
@@ -110,7 +91,7 @@ const EditAccount: React.FC = () => {
                   disabled={formikProps.isSubmitting}
                   fullWidth
                 >
-                  Save updates
+                  Submit
                 </Button>
               </Grid>
             </Grid>
@@ -121,4 +102,4 @@ const EditAccount: React.FC = () => {
   );
 };
 
-export default EditAccount;
+export default ResetPw;

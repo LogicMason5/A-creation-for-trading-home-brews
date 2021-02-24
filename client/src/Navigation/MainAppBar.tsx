@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles} from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,8 +13,6 @@ import { Help, AccountCircle, AddLocation, Menu } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-
-
   grow: {
     flexGrow: 1,
     display: 'flex',
@@ -22,24 +20,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   appBar: {
     position: 'fixed',
     zIndex: theme.zIndex.drawer + 1,
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '20ch',
   },
 }));
 
@@ -50,10 +30,6 @@ const MainAppBar: React.FC = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-
-  const handleDrawerOpen = (): void => {
-    dispatch(setDrawerOpen(true));
-  };
 
   const handleDrawerClose = (): void => {
     dispatch(setDrawerOpen(false));
@@ -74,7 +50,7 @@ const MainAppBar: React.FC = () => {
       >
         <img src={black} alt="homeButton" height="40px" />
       </IconButton>
-        <Typography variant="h6" noWrap>
+        <Typography variant='h5' noWrap>
           Homebrew Swap
         </Typography>
         <Hidden xsDown>
@@ -85,7 +61,6 @@ const MainAppBar: React.FC = () => {
             color="inherit"
             component={Link}
             to="/create-offer"
-            onClick={handleDrawerOpen}
           >
             <AddLocation />
           </IconButton>
@@ -94,7 +69,6 @@ const MainAppBar: React.FC = () => {
             color="inherit"
             component={Link}
             to="/FAQ"
-            onClick={handleDrawerOpen}
           >
             <Help />
           </IconButton>
@@ -103,7 +77,6 @@ const MainAppBar: React.FC = () => {
             color="inherit"
             component={Link}
             to="/my-account"
-            onClick={handleDrawerOpen}
           >
             <AccountCircle />
           </IconButton>
@@ -116,10 +89,9 @@ const MainAppBar: React.FC = () => {
             color="inherit"
             component={Link}
             to="/mobile-menu"
-            onClick={handleDrawerOpen}
           >
             <Menu />
-          </IconButton>
+        </IconButton>
       </Hidden>
     </Toolbar>
   </AppBar>

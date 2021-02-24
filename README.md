@@ -20,9 +20,9 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 
 [Google Maps](https://developers.google.com/maps/documentation/javascript/overview), [Sendgrid](https://sendgrid.com/docs/api-reference/), [Cloudinary](https://cloudinary.com/documentation/image_upload_api_reference)
 
-# Deployed here:
+# Deployed:
 
-Not deployed yet.
+[homebrewswap.app](https://www.homebrewswap.app)
 
 # hours
 

@@ -14,6 +14,7 @@ import CopyOffer from '../Offers/OfferForms/CopyOffer';
 import FAQ from './FAQ';
 import { CircularProgress } from '@material-ui/core';
 import LoginPage from '../User/LoginPage';
+import ResetPw from '../User/ResetPw';
 
 
 const MainSwitch: React.FC = () => {
@@ -33,6 +34,7 @@ const MainSwitch: React.FC = () => {
         <Route path="/offers/:id" render={() => <OfferDisplay />} />
         <Route path="/register" render={() => <RegisterForm />} />
         <Route path="/login" render={() => <LoginPage />} />
+        <Route path="/resetpw/:token" render={() => <ResetPw />} />
         <Route path="/my-account" render={() => <MyAccount />} />
         <Route path="/mobile-menu" render={() => <MobileMenu />} />
         <Route path="/my-offers" render={() => <MyOffersList />} />

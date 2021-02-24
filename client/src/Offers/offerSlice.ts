@@ -15,7 +15,7 @@ interface OffersState {
 const emptyOffer: IOffer = {
   beerName: '',
   description: '',
-  location: { lat: 0.0, lng: 0.0 },
+  location: { lat: 0.0, lng: 0.0, asText: '' },
   created: '',
   owner: '',
   id: '',
@@ -81,16 +81,19 @@ export const {
 
 export default offersSlice.reducer;
 
-export const createOffer = (formContent: Omit<OfferFormValues, "location">): AppThunk => async dispatch => {
+export const createOffer = (formContent: OfferFormValues): AppThunk => async dispatch => {
 
-  const location = store.getState().location.location;
+  const coords = store.getState().location.location;
   const imageUrl = store.getState().display.offerUploadUrl;
 
   const newOffer = {
-    created: new Date().toISOString(),
-    location: location,
-    imageUrl: imageUrl,
     ...formContent,
+    created: new Date().toISOString(),
+    location: {
+      ...coords,
+      asText: formContent.location
+    },
+    imageUrl: imageUrl,
     active: true
   };
 
@@ -109,20 +112,24 @@ export const createOffer = (formContent: Omit<OfferFormValues, "location">): App
 
 };
 
-export const updateSelectedOffer = (formContent: Omit<OfferFormValues, "location">): AppThunk => async dispatch => {
+export const updateSelectedOffer = (formContent: OfferFormValues): AppThunk => async dispatch => {
 
   const state = store.getState();
 
-  const { id, active }  = state.offers.selectedOffer;
-  const location = state.location.location;
-  const owner = state.user.currentUser.id;
+  const { id, active, owner }  = state.offers.selectedOffer;
+
+  const location = {
+    lat: state.location.location.lat,
+    lng: state.location.location.lng,
+    asText: formContent.location
+  };
 
   const newOffer = {
+    ...formContent,
     location: location,
     id: id,
     owner: owner,
     active: active,
-    ...formContent
   };
 
   try {

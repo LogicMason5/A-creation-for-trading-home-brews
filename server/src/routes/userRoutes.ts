@@ -3,16 +3,14 @@ require('express-async-errors');
 import { User } from '../models/userModel';
 import passport from 'passport';
 import { authentication } from '../utils/authentication';
-import { JWT_SECRET, SENDGRID_KEY } from "../utils/secrets";
-import jwt from 'express-jwt';
-import { ClientRequest } from 'http';
+import { SENDGRID_KEY } from "../utils/secrets";
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(SENDGRID_KEY);
 
 
 const router: Router = Router();
 
-router.post('/register', (req: Request, res: Response, next: NextFunction) => {
+router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
 
     const user = new User();
   
@@ -20,12 +18,10 @@ router.post('/register', (req: Request, res: Response, next: NextFunction) => {
     user.email    = req.body.email;
     user.setPassword(req.body.password);
 
-    return user.save()
-    .then(() => {
-      return res.json(user.toAuthJSON());
-    })
-    .catch(next);
-  
+    const savedUser = await user.save()
+
+    return res.json(savedUser.toAuthJSON());
+
   });
 
 

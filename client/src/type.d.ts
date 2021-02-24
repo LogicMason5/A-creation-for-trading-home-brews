@@ -1,6 +1,11 @@
-export interface Coordinates  {
+
+export interface Coordinates {
   lat: number;
   lng: number;
+}
+
+export interface Location extends Coordinates {
+  asText: string;
 }
 
 export interface IOffer {
@@ -8,7 +13,7 @@ export interface IOffer {
   description: string;
   packageSize?: string;
   amount?: number;
-  location: Coordinates;
+  location: Location;
   recipeLink?: string;
   created: string;
   id: string;
@@ -64,8 +69,13 @@ export interface LoginFormValues {
   password: string;
 }
 
-export interface ResetPwFormValues {
+export interface ReqResetPwFormValues {
   email: string;
+}
+
+export interface ResetPwFormValues {
+  password: string;
+  passwordConfirm: string;
 }
 
 export interface CurrentUser {
