@@ -16,6 +16,9 @@ const options = {
 };
 
 logger.debug(DB_URI);
+console.log(DB_URI);
+console.log(process.env.NODE_ENV)
+// console.log(process.env)
 
 // Create the database connection
 mongoose

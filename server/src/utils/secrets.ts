@@ -12,9 +12,10 @@ export const SESSION_SECRET = _.defaultTo(process.env.SESSION_SECRET, "secret");
 export const SENDGRID_KEY   = _.defaultTo(process.env.SG_EMAIL_SENDKEY, "secret");
 
 const env = () => {
+
+  if (process.env.TS_NODE_DEV) return process.env.DEV_MONGODB_URI;
+
   switch (process.env.NODE_ENV) {
-    case('dev'):
-      return process.env.DEV_MONGODB_URI;
     case('production'):
       return process.env.MONGODB_URI;
     case('test'):
