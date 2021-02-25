@@ -49,5 +49,10 @@
 |22.02.2021|6| fixed drawer rendering, password reset email front-end
 |23.02.2021|1| started mui theme
 |24.02.2021|6| password reset back end with email and temporary token with passport.js and sendgrid
+|24.02.2021|3| deployment and related issues
+|25.02.2021|3| debugging mongoose requesting with date, fixed getting active offers
+|25.02.2021|3| refactored countdown logic to countdown component, visual fixes
+
+
 |TOTAL|187| ---
 

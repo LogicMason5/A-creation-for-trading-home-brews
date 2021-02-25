@@ -32,11 +32,14 @@ const userSlice = createSlice({
     removeLoggedUser(state): void {
       state.isLoggedIn = false;
       state.currentUser = initialState.currentUser;
-    }
+    },
+    setLoggedIn(state, action: PayloadAction<boolean>): void {
+      state.isLoggedIn = action.payload;
+    },
    }
 });
 
-export const { setLoggedUser, removeLoggedUser } = userSlice.actions;
+export const { setLoggedUser, removeLoggedUser, setLoggedIn } = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -57,8 +60,7 @@ export const login = (credentials: LoginFormValues ): AppThunk => async dispatch
 export const reqResetPw = (email: ReqResetPwFormValues): AppThunk => async dispatch => {
   
   try {
-    const response = await userService.reqResetPw(email);
-    console.log(response);
+    await userService.reqResetPw(email);
     dispatch(giveAlert('success', `Password reset email sent to ${email.email}.` ));
     history.push('/login');
   } catch (error) {
@@ -90,7 +92,24 @@ export const logout = (): AppThunk => dispatch => {
   history.push('/');
 };
 
-//validate token on init
+export const initUser = (): AppThunk => async dispatch => {
+
+  const initStoredUser = window.localStorage.getItem('curUser');
+    
+  if (!initStoredUser) return;
+
+  try {
+    const tokenStatus = await userService.checkCurrentToken();
+    dispatch(setLoggedIn(tokenStatus.checked));
+    if (!tokenStatus.checked) window.localStorage.removeItem('curUser');
+  } catch (error) {
+    console.log(error);
+    dispatch(removeLoggedUser());
+    window.localStorage.removeItem('curUser');
+  }
+  
+
+};
 
 
 export const createUser = (content: RegisterFormValues): AppThunk => async dispatch => {

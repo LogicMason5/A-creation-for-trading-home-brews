@@ -7,7 +7,7 @@ import {
   ReqResetPwFormValues,
   ResetPwFormValues
 } from '../type';
-import { createHeadersFromToken } from '../utils/createHeaders';
+import { createAuthHeaders, createHeadersFromToken } from '../utils/createHeaders';
 import url from '../utils/url';
 
 const baseUrl = `${url}/api/user`;
@@ -38,6 +38,12 @@ const sendMessage = async (content: IMessage): Promise<IMessage> => {
   return response.data;
 };
 
-const offersService = { createNew, login, sendMessage, reqResetPw, resetPw };
+const checkCurrentToken = async (): Promise<{ checked: boolean }> => {
+  const headers = createAuthHeaders();
+  const response = await axios.get<{ checked: boolean }>(`${baseUrl}/checktoken`, headers);
+  return response.data;
+};
 
-export default offersService;
+const userService = { createNew, login, sendMessage, reqResetPw, resetPw, checkCurrentToken };
+
+export default userService;

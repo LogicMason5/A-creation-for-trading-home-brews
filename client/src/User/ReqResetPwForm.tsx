@@ -42,7 +42,7 @@ const ReqResetPwForm: React.FC = () => {
       :
       <Formik
         initialValues={{
-          email: "juuso.vesanto2@gmail.com",
+          email: "",
         }}
         validationSchema={validationSchema}
         onSubmit={(

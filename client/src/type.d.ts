@@ -84,8 +84,6 @@ export interface CurrentUser {
   displayName: string;
 }
 
-export type OfferAction = OneOfferAction | IdOfferAction;
-
 export type LocationDispatch = (args: LocationAction) => LocationAction;
 
 export type OfferDispatch = (args: OfferAction) => OfferAction;

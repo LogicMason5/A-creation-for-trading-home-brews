@@ -130,6 +130,15 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
     return res.json(user.toAuthJSON());
 
   });
+
+  router.get('/checktoken', authentication.optional, async (req: Request, res: Response, next: NextFunction) => {
+
+    if (req.body.authUser) return res.json({ checked: true });
+
+    return res.json({ checked: false });
+
+
+  })
   
   
   export const UserRoutes: Router = router;
