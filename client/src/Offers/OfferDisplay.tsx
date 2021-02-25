@@ -7,7 +7,6 @@ import { RootState } from '../rootReducer';
 import { fetchOfferById } from './offerSlice';
 import { setDrawerOpen, setShowMessageForm } from '../Navigation/displaySlice';
 import CountDown from '../SharedComponents/CountDown';
-import { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
 import MessageForm from './MessageForm';
 import ImageDisplay from '../SharedComponents/ImageDisplay';
 import TitleBox from '../SharedComponents/TitleBox';
@@ -29,10 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface MatchParams {
-  id: string
-}
-
 
 
 const OfferDisplay: React.FC = () => {
@@ -41,7 +36,7 @@ const OfferDisplay: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const match = useRouteMatch<MatchParams>('/offers/:id');
+  const match = useRouteMatch<{ id: string }>('/offers/:id');
 
   const id = match?.params.id;
 
@@ -57,7 +52,6 @@ const OfferDisplay: React.FC = () => {
 
   useEffect(() => {
       dispatch(setDrawerOpen(true));
-      // dispatch(setShowMessageForm(false));
       return () => {
         dispatch(setDrawerOpen(false));
         dispatch(setShowMessageForm(false));
@@ -72,14 +66,6 @@ const OfferDisplay: React.FC = () => {
   const handleLinkClick = (event: React.MouseEvent) => {
     event.preventDefault();
     if (offer.recipeLink) window.open(`//${offer.recipeLink}`, `_blank`);
-  };
-
-  const countDownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
-    return (
-      <span>
-        {props.days} days, {props.hours} hours and {props.minutes} minutes
-      </span>
-    );
   };
 
   return (
@@ -123,7 +109,7 @@ const OfferDisplay: React.FC = () => {
           <Typography  color="textPrimary" component="p"> 
             <CountDown 
               created={offer.created}
-              renderer={countDownFormatter}
+              accuracy="minute"
             />
           </Typography>
         </div>

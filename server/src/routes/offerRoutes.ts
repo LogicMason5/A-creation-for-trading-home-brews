@@ -7,12 +7,19 @@ import { User } from '../models/userModel';
 
 const router: Router = Router();
 
-//get all offers (public info)
+//get all active offers (public info)
 router.get('/', async  (req: Request, res: Response, next) => {
   
-  const offers = await Offer.find({})
+  const date = new Date();
 
-  res.json(offers.map((offers: { toListJSON: () => any; }) => offers.toListJSON())); //change this to some to publicJSON or so
+  date.setDate(date.getDate() - 14)
+
+  const offers = await Offer.find({ 
+    updatedAt: { $gte: date.toISOString() }, 
+    active: true,
+  });
+
+  res.json(offers.map((offer: IOfferModel) => offer.toListJSON())); //change this to some to publicJSON or so
 
 });
 
@@ -59,7 +66,7 @@ router.get('/my-offers', authentication.required,  async (req: Request, res: Res
 
   const myOffers = await Offer.find({ owner: req.body.authUser.id })
 
-  res.json(myOffers.map((o: { toDisplayJSON: () => IOfferModel; }) => o.toDisplayJSON()));
+  res.json(myOffers.map((offer: IOfferModel) => offer.toDisplayJSON()));
 
 });
 
@@ -86,7 +93,8 @@ router.put('/:id', authentication.required, async (req: Request, res: Response, 
     const {authUser, ...offerData} = req.body;
 
     const updatedOffer = await Offer.findByIdAndUpdate(req.body.id, offerData, { new: true })
-    res.json(updatedOffer.toJSON())
+
+    res.json(updatedOffer.toDisplayJSON())
   }
 
 })

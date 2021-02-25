@@ -1,22 +1,34 @@
 import React from 'react';
-import Countdown, { CountdownRendererFn } from 'react-countdown';
+import Countdown, { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
 
-interface CountDownProps {
+interface ExpCountDownProps {
   created: string;
-  renderer: CountdownRendererFn;
+  accuracy: "hour" | "minute" | "second";
 }
 
 
-const CountDown: React.FC<CountDownProps> = props => {
+const CountDown: React.FC<ExpCountDownProps> = ({ created, accuracy }) => {
 
-  const { created, renderer } = props;
+
+  const countdownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
+
+    switch (accuracy) {
+      case ('minute'):
+        return (
+          <span>
+          Expires in {props.days} days, {props.hours} hours and {props.minutes} minutes
+          </span>
+        );
+    }
+  };
+
   const expiration = Date.parse(created) + (14 * 24 * 60 * 60 * 1000);
 
   return (
     <span>
       <Countdown
         date={expiration}
-        renderer={renderer}
+        renderer={countdownFormatter}
       />
     </span>
   );

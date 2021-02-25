@@ -50,7 +50,7 @@ const MyOffersList: React.FC = () => {
       >
           {myOffers.length > 0
           ?
-          myOffers.map(o => <OffersListCard key={o.id} offer={o}  />)
+          myOffers.map(o => <OffersListCard key={o.id} initOffer={o}  />)
           :
           <div>
             <TitleBox title="No offers found."/>

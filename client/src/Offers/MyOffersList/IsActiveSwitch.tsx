@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { toggleActiveStatus } from '../offerSlice';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ToggleSwitch from '../../SharedComponents/ToggleSwitch';
-import { useAsyncDispatch } from '../../store';
-import { IOffer } from '../../type';
 
 
 
@@ -13,7 +10,7 @@ const useSwitchStyles = makeStyles((theme: Theme) =>
     root: {
       width: 40,
       height: 26,
-      padding: 1,
+      padding: 2,
       margin: theme.spacing(1),
     },
     switchBase: {
@@ -48,18 +45,14 @@ const useSwitchStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const IsActiveSwitch: React.FC<{ offer: IOffer }> = ({ offer }) => {
+interface IsActiveSwitchProps {
+  toggle: () => void;
+  checked: boolean;
+}
+
+const IsActiveSwitch: React.FC<IsActiveSwitchProps> = ({ toggle, checked }) => {
 
   const switchClasses = useSwitchStyles();
-
-  const dispatch = useAsyncDispatch();
-
-  const [checked, setChecked] = useState(offer.active);
-
-  const toggleActive = () => {
-    setChecked(!checked);
-    dispatch(toggleActiveStatus(offer, !checked));
-  };
 
   return (
       <FormControlLabel
@@ -67,7 +60,7 @@ const IsActiveSwitch: React.FC<{ offer: IOffer }> = ({ offer }) => {
           <ToggleSwitch
             name="checked"
             switchStyles={switchClasses}
-            handleToggle={toggleActive}
+            handleToggle={toggle}
             checked={checked}
           />}
         label={checked ? "active" : "inactive"}

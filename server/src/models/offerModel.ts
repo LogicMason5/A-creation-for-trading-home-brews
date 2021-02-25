@@ -1,3 +1,4 @@
+import { Timestamp } from 'mongodb';
 import { Document, Model, model, Schema } from 'mongoose';
 import { IOffer } from '../types/interfaces';
 

@@ -1,11 +1,18 @@
 import axios from 'axios';
-import { RegisterFormValues, CurrentUser, LoginFormValues, IMessage, ReqResetPwFormValues, ResetPwFormValues } from '../type';
-import { createHeadersFromToken }from '../utils/createHeaders';
+import {
+  RegisterFormValues,
+  CurrentUser,
+  LoginFormValues,
+  IMessage,
+  ReqResetPwFormValues,
+  ResetPwFormValues
+} from '../type';
+import { createHeadersFromToken } from '../utils/createHeaders';
 import url from '../utils/url';
 
-const baseUrl = `${url}/api/offers`;
+const baseUrl = `${url}/api/user`;
 
-const createNew = async (content: RegisterFormValues) : Promise<CurrentUser> => {
+const createNew = async (content: RegisterFormValues): Promise<CurrentUser> => {
   const response = await axios.post<CurrentUser>(`${baseUrl}/register`, content);
   return response.data;
 };
@@ -26,7 +33,7 @@ const resetPw = async (newPw: ResetPwFormValues, token: string): Promise<Current
   return response.data;
 };
 
-const sendMessage = async (content: IMessage) : Promise<IMessage> => {
+const sendMessage = async (content: IMessage): Promise<IMessage> => {
   const response = await axios.post<IMessage>(`${baseUrl}/message`, content);
   return response.data;
 };
