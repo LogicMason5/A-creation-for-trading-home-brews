@@ -1,4 +1,6 @@
-![icon](https://github.com/JuusoVe/homebrew-swap/blob/main/client/public/black.png) # homebrew-swap ![icon](https://github.com/JuusoVe/homebrew-swap/blob/main/client/public/black.png)
+# homebrew-swap
+
+![icon](/client/public/black.png)
 
 This is a hobbyist project for trading homebrews (the malt+yeast kind, not the penguin-kind).
 
@@ -8,9 +10,9 @@ This is a hobbyist project for trading homebrews (the malt+yeast kind, not the p
 
 ### User management
 
-- register + login
-- reset password
-- change account details
+- Register + login
+- Reset password
+- Change account details
 
 ### Offers for users without registered account
 
