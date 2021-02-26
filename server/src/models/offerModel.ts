@@ -1,10 +1,9 @@
-import { Timestamp } from 'mongodb';
 import { Document, Model, model, Schema } from 'mongoose';
 import { IOffer } from '../types/interfaces';
 
 export default interface IOfferModel extends IOffer, Document {
   toListJSON(): any;
-  toDisplayJSON(): any;
+  toDisplayJSON(): IOffer;
 }
 
 const OfferSchema =  new Schema<IOfferModel>({
@@ -36,8 +35,8 @@ OfferSchema.methods.toListJSON = function (): any {
     location: this.location,
     created: this.updatedAt.toString(),
     id: this._id.toString()
-  }
-}
+  };
+};
 
 OfferSchema.methods.toDisplayJSON = function (): any {
   return {
@@ -52,8 +51,8 @@ OfferSchema.methods.toDisplayJSON = function (): any {
     created: this.updatedAt.toString(),
     id: this._id.toString(),
     owner: this.owner
-  }
-}
+  };
+};
 
 
 

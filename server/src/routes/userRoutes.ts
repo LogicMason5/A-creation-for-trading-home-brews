@@ -4,13 +4,14 @@ import { User } from '../models/userModel';
 import passport from 'passport';
 import { authentication } from '../utils/authentication';
 import { SENDGRID_KEY } from "../utils/secrets";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(SENDGRID_KEY);
 
 
 const router: Router = Router();
 
-router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/register', async (req: Request, res: Response, _next: NextFunction) => {
 
     const user = new User();
   
@@ -18,7 +19,7 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
     user.email    = req.body.email;
     user.setPassword(req.body.password);
 
-    const savedUser = await user.save()
+    const savedUser = await user.save();
 
     return res.json(savedUser.toAuthJSON());
 
@@ -50,7 +51,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
   
   });
 
-  router.post('/message', async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/message', async (req: Request, res: Response, _next: NextFunction) => {
 
     const message = req.body;
     const user = await User.findById(req.body.recipient);
@@ -67,12 +68,12 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
       },
     };
 
-    const emailResponse = await sgMail.send(msg)
+    const emailResponse = await sgMail.send(msg);
     return res.json(emailResponse);
   
   });
 
-  router.post('/reqpwreset', async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/reqpwreset', async (req: Request, res: Response, _next: NextFunction) => {
 
     if (!req.body.email) {
       return res.status(422).json({ errors: { email: "not found" } });
@@ -80,7 +81,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
     const user = await User.findOne({ email: req.body.email });
 
-    if (!user) return res.sendStatus(404).json({ errors: { user: "not found" } })
+    if (!user) return res.sendStatus(404).json({ errors: { user: "not found" } });
 
     const token = user.getResetToken();
 
@@ -100,21 +101,21 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
   
   });
 
-  router.post('/pwreset', authentication.required, async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/pwreset', authentication.required, async (req: Request, res: Response, _next: NextFunction) => {
 
     const id = req.body.authUser.id;
 
     const user  = await User.findOne({ _id: id });
 
-    if (!user) return res.sendStatus(401)
+    if (!user) return res.sendStatus(401);
 
     if (req.body.authUser.hash !== user.hash) {
-      return res.status(401).json({ errors: { token: "invalid or expired" }})
+      return res.status(401).json({ errors: { token: "invalid or expired" }});
     }
 
-    user.setPassword(req.body.password)
+    user.setPassword(req.body.password);
 
-    const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true })
+    const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true });
 
     const msg = {
       to: updatedUser.email,
@@ -125,27 +126,27 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
       },
     };
 
-    await sgMail.send(msg)
+    await sgMail.send(msg);
 
     return res.json(user.toAuthJSON());
 
   });
 
-  router.post('/changepw', authentication.required, async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/changepw', authentication.required, async (req: Request, res: Response, _next: NextFunction) => {
 
     const id = req.body.authUser.id;
 
     const user  = await User.findOne({ _id: id });
 
-    if (!user) return res.sendStatus(401)
+    if (!user) return res.sendStatus(401);
 
-    const pwCheck = user.validPassword(req.body.oldPassword)
+    const pwCheck = user.validPassword(req.body.oldPassword);
 
-    if(!pwCheck) return res.status(401).json({ message: "old password did not match" })
+    if(!pwCheck) return res.status(401).json({ message: "old password did not match" });
 
-    user.setPassword(req.body.newPassword)
+    user.setPassword(req.body.newPassword);
 
-    const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true })
+    const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true });
 
     const msg = {
       to: updatedUser.email,
@@ -156,20 +157,20 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
       },
     };
 
-    await sgMail.send(msg)
+    await sgMail.send(msg);
 
     return res.json(user.toAuthJSON());
 
   });
 
-  router.get('/checktoken', authentication.optional, async (req: Request, res: Response, next: NextFunction) => {
+  router.get('/checktoken', authentication.optional, async (req: Request, res: Response, _next: NextFunction) => {
 
     if (req.body.authUser) return res.json({ checked: true });
 
     return res.json({ checked: false });
 
 
-  })
+  });
   
   
   export const UserRoutes: Router = router;

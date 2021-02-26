@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Request } from 'express';
 const jwt =  require('express-jwt');
 import { JWT_SECRET } from "./secrets";

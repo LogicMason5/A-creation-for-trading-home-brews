@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import { ENVIRONMENT, LOG_DIRECTORY } from "./secrets";
 
-let dir = LOG_DIRECTORY;
+const dir = LOG_DIRECTORY;
 
 // create directory if it is not present
 if (!fs.existsSync(dir)) {

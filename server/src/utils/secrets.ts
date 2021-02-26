@@ -21,6 +21,6 @@ const env = () => {
     case('test'):
       return process.env.TEST_MONGODB_URI;
   }
-}
+};
 
 export const DB_URI = env();

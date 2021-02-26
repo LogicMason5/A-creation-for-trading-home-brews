@@ -6,16 +6,17 @@ import { loadErrorHandlers } from './utils/errorHandler';
 import session from 'express-session';
 import helmet from "helmet";
 import compression from "compression";
-import { SESSION_SECRET } from "./utils/secrets"; //these are fucked atm
+import { SESSION_SECRET } from "./utils/secrets";
 import './db'; // initialize database
-import './utils/passport'
-const cors = require('cors')
+import './utils/passport';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const cors = require('cors');
 
 
 
 const app: Application = express();
 
-app.use(cors())
+app.use(cors());
 app.use(helmet());
 app.use(compression());
 app.use(bodyParser.json());

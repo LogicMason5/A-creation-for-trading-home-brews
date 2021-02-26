@@ -2,10 +2,10 @@ import { Application, Request, Response } from 'express';
 import { IS_PRODUCTION } from "./secrets";
 import logger from "./logger";
 
-export function loadErrorHandlers(app: Application) {
+export function loadErrorHandlers(app: Application): any {
 
   // catch 404 errors and forward to error handler
-  app.use((req, res, next) => {
+  app.use((_req, _res, next) => {
 
     interface BetterError extends Error {
       status?: number;
@@ -16,7 +16,7 @@ export function loadErrorHandlers(app: Application) {
     next(err);
   });
 
-  app.use((err: any, req: Request, res: Response, next: any) => {
+  app.use((err: any, _req: Request, res: Response, _next: any) => {
 
     if (err.name === 'ValidationError') {
       return res.status(422).json({
