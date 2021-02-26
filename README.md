@@ -1,6 +1,29 @@
-# homebrew-swap
+![icon](https://github.com/JuusoVe/homebrew-swap/blob/main/client/public/black.png) # homebrew-swap ![icon](https://github.com/JuusoVe/homebrew-swap/blob/main/client/public/black.png)
 
-This is a hobbyist project for trading home brews. Active offers for trades are displayed on the map on home page. Registered users can create and edit these offers.
+This is a hobbyist project for trading homebrews (the malt+yeast kind, not the penguin-kind).
+
+## Features
+
+*updated 26.02.2021*
+
+### User management
+
+- register + login
+- reset password
+- change account details
+
+### Offers for users without registered account
+
+- View active offers on the map
+- Offer details view 
+- Send a message to the brewer
+
+### Offers for registered users
+
+- Create offer with location picker, image upload and other normal form functionality
+- View my offers with active toggle, copy and edit options
+- Receive emails about offers to provided email
+
 
 # Stack summary
 
@@ -23,6 +46,9 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 # Deployed:
 
 [homebrewswap.app](https://www.homebrewswap.app)
+
+Back-end deployed to [Heroku](www.heroku.com)
+Front-end deployed to [Bluehost](www.bluehost.com)
 
 # hours
 
