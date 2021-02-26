@@ -49,8 +49,7 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 
 [homebrewswap.app](https://www.homebrewswap.app)
 
-Back-end deployed to [Heroku](www.heroku.com)
-Front-end deployed to [Bluehost](www.bluehost.com)
+Back-end deployed to [Heroku](https://www.heroku.com). Front-end deployed to [Bluehost](https://www.bluehost.com).
 
 # hours
 
