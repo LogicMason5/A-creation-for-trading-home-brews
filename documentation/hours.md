@@ -53,7 +53,8 @@
 |25.02.2021|3| debugging mongoose requesting with date, fixed getting active offers
 |25.02.2021|3| refactored countdown logic to countdown component, visual fixes
 |25.02.2021|3| fixed image uploading, nasty render order bug with a bad state dispatch in a component
+|26.02.2021|3| linting fixes, readme update
+|TOTAL|215| ---
 
-
-|TOTAL|187| ---
+updated 26.2.2021
 
