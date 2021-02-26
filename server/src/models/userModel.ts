@@ -12,7 +12,7 @@ export default interface IUserModel extends IUser, Document {
   generateJWT(): string;
   generateResetJWT(): string;
   toAuthJSON(): any;
-  getResetToken(): string;
+  getResetToken(): { token: string };
   setPassword(password: string): void;
   validPassword(password: string): boolean;
 }

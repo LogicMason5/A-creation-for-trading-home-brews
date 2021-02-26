@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
       <ReqResetPwForm />
       <Container className={classes.toBottom}>
         <TitleBox title="Not yet registered?" />
-        <Link to="/register">
+        <Link to="/register" style={{ textDecoration: 'none' }}>
           <Button
             variant="outlined"
             size="large"
