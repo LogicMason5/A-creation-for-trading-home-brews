@@ -1,19 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { OfferFormValues } from '../../type';
 import OfferForm from './OfferForm';
 import { updateSelectedOffer } from '../offerSlice';
 import { RootState } from '../../rootReducer';
-import { setOfferUploadUrl } from '../../Navigation/displaySlice';
-
-
+import { setOfferUploadUrl } from '../../Display/displaySlice';
 
 const CreateOffer: React.FC = () => {
-
   const dispatch = useDispatch();
 
   const selectedOffer = useSelector(
-    (state: RootState) => state.offers.selectedOffer
+    (state: RootState) => state.offers.selectedOffer,
   );
 
   const copiedOfferValues: OfferFormValues = {
@@ -22,15 +19,16 @@ const CreateOffer: React.FC = () => {
     packageSize: selectedOffer.packageSize ? selectedOffer.packageSize : '',
     amount: selectedOffer.amount ? selectedOffer.amount : 2,
     location: '',
-    recipeLink: selectedOffer.recipeLink ? selectedOffer.recipeLink : ''
+    recipeLink: selectedOffer.recipeLink ? selectedOffer.recipeLink : '',
   };
 
-  if (selectedOffer.imgUrl) {
+  useEffect(() => {
     dispatch(setOfferUploadUrl(selectedOffer.imgUrl));
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <OfferForm 
+    <OfferForm
       formTitle={`Editing offer for ${selectedOffer.beerName}`}
       initValues={copiedOfferValues}
       actionOnSubmit={updateSelectedOffer}

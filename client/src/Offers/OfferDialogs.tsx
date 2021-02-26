@@ -1,26 +1,27 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
-import { closeDialog } from '../Navigation/displaySlice';
+import { closeDialog } from '../Display/displaySlice';
 import { deleteSelectedOffer, copySelectedOffer } from './offerSlice';
 import ConfirmDialog from '../SharedComponents/ConfirmDialog';
 
-
-
 const DeleteOfferDialog: React.FC = () => {
-
   const dispatch = useDispatch();
-  
-  const { dialogContent, dialogType } = useSelector((state: RootState) => state.display.dialogState);
+
+  const { dialogContent, dialogType } = useSelector(
+    (state: RootState) => state.display.dialogState,
+  );
 
   const handleYes = () => {
     dispatch(closeDialog());
-    switch(dialogType) {
+    switch (dialogType) {
       case 'delete':
         dispatch(deleteSelectedOffer());
         break;
       case 'copy':
-        copySelectedOffer();
+        dispatch(copySelectedOffer());
+        break;
+      default:
         break;
     }
   };

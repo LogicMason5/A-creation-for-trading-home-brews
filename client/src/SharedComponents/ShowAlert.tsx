@@ -1,31 +1,31 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core/styles";
-import { closeAlert  } from "../Navigation/displaySlice";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
+import { closeAlert } from '../Display/displaySlice';
 import { RootState } from '../rootReducer';
 
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   alertWindow: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2)
-    }
-  }
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
 }));
 
 const ShowAlert:React.FC = () => {
-
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  const { snackbarOpen, alertType, alertMessage  } = useSelector((state: RootState) => state.display.alertState);
+  const { snackbarOpen, alertType, alertMessage } = useSelector(
+    (state: RootState) => state.display.alertState,
+  );
 
   const handleClose = (_event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     dispatch(closeAlert());

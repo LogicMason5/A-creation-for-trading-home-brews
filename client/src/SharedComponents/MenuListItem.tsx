@@ -6,27 +6,25 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 
-
 interface MenuListItemProps {
   itemText: string;
   linkTo: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon: any; 
+  icon: any;
   onClick?: () => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    listText: {
-      color: theme.palette.text.primary,
-    }
-  }),
-);
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  listText: {
+    color: theme.palette.text.primary,
+  },
+}));
 
-const MenuListItem: React.FC<MenuListItemProps> = props => {
-
+const MenuListItem: React.FC<MenuListItemProps> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { itemText, linkTo, icon, onClick } = props;
+  const {
+    itemText, linkTo, icon, onClick,
+  } = props;
 
   const classes = useStyles();
 
@@ -37,7 +35,7 @@ const MenuListItem: React.FC<MenuListItemProps> = props => {
           <ListItemIcon>
             {icon}
           </ListItemIcon>
-          <ListItemText primary={itemText} className={classes.listText}/>
+          <ListItemText primary={itemText} className={classes.listText} />
         </ListItem>
       </Link>
       <Divider />

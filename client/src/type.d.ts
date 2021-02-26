@@ -1,4 +1,3 @@
-
 export interface Coordinates {
   lat: number;
   lng: number;
@@ -19,7 +18,7 @@ export interface IOffer {
   id: string;
   active: boolean;
   owner: string;
-  imgUrl?: string;
+  imgUrl: string;
 }
 
 export interface IOfferToDisplay extends IOffer {
@@ -78,15 +77,17 @@ export interface ResetPwFormValues {
   passwordConfirm: string;
 }
 
+export interface ChangePwFormValues {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
+
 export interface CurrentUser {
   id: string;
   token: string;
   displayName: string;
 }
-
-export type LocationDispatch = (args: LocationAction) => LocationAction;
-
-export type OfferDispatch = (args: OfferAction) => OfferAction;
 
 declare module '*.svg' {
   const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;

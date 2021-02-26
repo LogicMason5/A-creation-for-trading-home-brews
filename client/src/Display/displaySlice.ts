@@ -1,5 +1,7 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Color } from "@material-ui/lab/Alert";
+import { Color } from '@material-ui/lab/Alert';
 import { AppThunk } from '../store';
 import { IOffer } from '../type';
 import { setSelectedOffer } from '../Offers/offerSlice';
@@ -38,19 +40,19 @@ interface DialogState {
 
 const initialDialogContent: DialogContent = {
   dialogTitle: '',
-  dialogText: ''
+  dialogText: '',
 };
 
 const initialDialogState: DialogState = {
   dialogOpen: false,
   dialogContent: initialDialogContent,
-  dialogType: 'delete'
+  dialogType: 'delete',
 };
 
 const initialAlertState: AlertState = {
   snackbarOpen: false,
   alertType: 'success',
-  alertMessage: ''
+  alertMessage: '',
 };
 
 const initialState: DisplayState = {
@@ -62,8 +64,8 @@ const initialState: DisplayState = {
   offerUploadUrl: '',
   switchSize: {
     width: 0,
-    height: 0
-  }
+    height: 0,
+  },
 };
 
 const displaySlice = createSlice({
@@ -82,7 +84,7 @@ const displaySlice = createSlice({
     setAlert(state, action: PayloadAction<Omit<AlertState, 'snackbarOpen'>>) {
       state.alertState = {
         ...action.payload,
-        snackbarOpen: true
+        snackbarOpen: true,
       };
     },
     setDialog(state, action: PayloadAction<DialogContent>) {
@@ -103,9 +105,9 @@ const displaySlice = createSlice({
     },
     setSwitchSize(state, action: PayloadAction<Size>) {
       state.switchSize = action.payload;
-    }
+    },
 
-  } 
+  },
 });
 
 export const {
@@ -123,14 +125,14 @@ export const {
 
 export default displaySlice.reducer;
 
-export const giveAlert = (type: Color, message: string): AppThunk => dispatch => {
+export const giveAlert = (type: Color, message: string): AppThunk => (dispatch) => {
   dispatch(setAlert({
     alertType: type,
-    alertMessage: message
+    alertMessage: message,
   }));
 };
 
-export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
+export const confirmDeletion = (offer: IOffer): AppThunk => (dispatch) => {
   dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
     dialogTitle: `Delete offer for ${offer.beerName}?`,
@@ -139,16 +141,11 @@ export const confirmDeletion = (offer: IOffer): AppThunk => dispatch => {
   dispatch(setDialogType('delete'));
 };
 
-export const confirmCopy = (offer: IOffer): AppThunk => dispatch => {
+export const confirmCopy = (offer: IOffer): AppThunk => (dispatch) => {
   dispatch(setSelectedOffer(offer));
   dispatch(setDialog({
     dialogTitle: `Create a copy of the offer for ${offer.beerName}?`,
-    dialogText: 'You will be redirected to edit the details of the new Offer.'
+    dialogText: 'You will be redirected to edit the details of the new Offer.',
   }));
   dispatch(setDialogType('copy'));
 };
-
-
-
-
-

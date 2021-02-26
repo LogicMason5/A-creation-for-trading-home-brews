@@ -6,22 +6,15 @@ interface DisplayTextItemProps {
   content: string,
 }
 
-
-
-const DisplayTextItem: React.FC<DisplayTextItemProps> = ({ title, content }) => {
-
-
-
-  return (
-    <div>
-      <Typography color="textSecondary" component="p">
-        {title}
-      </Typography>
-      <Typography color="textPrimary" component="p">
-        {content}
-      </Typography>
-    </div>
-  );
-};
+const DisplayTextItem: React.FC<DisplayTextItemProps> = ({ title, content }) => (
+  <div>
+    <Typography color="textSecondary" component="p">
+      {title}
+    </Typography>
+    <Typography color="textPrimary" component="p">
+      {content}
+    </Typography>
+  </div>
+);
 
 export default DisplayTextItem;

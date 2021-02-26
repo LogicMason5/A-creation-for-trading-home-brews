@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { Container, Grid, Button } from "@material-ui/core";
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
+import { Container, Grid, Button } from '@material-ui/core';
+import {
+  Formik, FormikHelpers, FormikProps, Form, Field,
+} from 'formik';
 import { useRouteMatch } from 'react-router-dom';
-import FormTextField from "../SharedComponents/FormTextField";
-import * as yup from "yup";
-import { setDrawerOpen } from '../Navigation/displaySlice';
+import * as yup from 'yup';
+import FormTextField from '../SharedComponents/FormTextField';
+import { setDrawerOpen } from '../Display/displaySlice';
 import { resetPw } from './userSlice';
 import { ResetPwFormValues } from '../type';
 import { useAsyncDispatch } from '../store';
@@ -12,13 +14,13 @@ import TitleBox from '../SharedComponents/TitleBox';
 
 const validationSchema = yup.object().shape({
   password: yup.string()
-    .required("A password is required")
-    .min(8, "Password is too short,should be 8 characters minimum.")
-    .matches(/(?=.*[0-9])/, "Password must contain a number."),
+    .required('A password is required')
+    .min(8, 'Password is too short,should be 8 characters minimum.')
+    .matches(/(?=.*[0-9])/, 'Password must contain a number.'),
   passwordConfirm: yup.string()
-    .required("Please confirm your password")
-    .min(8, "Password is too short,should be 8 characters minimum.")
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Please confirm your password')
+    .min(8, 'Password is too short,should be 8 characters minimum.')
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
 
 interface MatchParams {
@@ -26,7 +28,6 @@ interface MatchParams {
 }
 
 const ResetPw: React.FC = () => {
- 
   const dispatch = useAsyncDispatch();
 
   const match = useRouteMatch<MatchParams>('/resetpw/:token');
@@ -42,16 +43,16 @@ const ResetPw: React.FC = () => {
 
   return (
     <Container fixed>
-      <TitleBox title="Reset password"/>
+      <TitleBox title="Reset password" />
       <Formik
         initialValues={{
-          password: "",
-          passwordConfirm: ""
+          password: '',
+          passwordConfirm: '',
         }}
         validationSchema={validationSchema}
         onSubmit={(
           values: ResetPwFormValues,
-          formikHelpers: FormikHelpers<ResetPwFormValues>
+          formikHelpers: FormikHelpers<ResetPwFormValues>,
         ) => {
           dispatch(resetPw(values, tempToken));
           formikHelpers.setSubmitting(false);
@@ -59,7 +60,7 @@ const ResetPw: React.FC = () => {
       >
         {(formikProps: FormikProps<ResetPwFormValues>) => (
           <Form noValidate autoComplete="off">
-            <Grid container spacing={2} >
+            <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
                   type="password"

@@ -1,17 +1,18 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import Grid from '@material-ui/core/Grid';
 import { TextFieldProps } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import parse from 'autosuggest-highlight/parse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FieldProps } from 'formik';
-import FormTextField from './FormTextField';
 import { useDispatch } from 'react-redux';
+import FormTextField from './FormTextField';
 import { setCoordinates } from '../Map/locationSlice';
 
-const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = props => {
-
+// eslint-disable-next-line max-len
+const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = (props) => {
   const dispatch = useDispatch();
 
   const {
@@ -27,24 +28,22 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
   });
 
   const handleSelect = async (newValue: google.maps.places.AutocompletePrediction | null) => {
-
     if (newValue) {
-      const description = newValue.description;
+      const { description } = newValue;
 
       try {
         setValue(description, false);
         const results = await getGeocode({ address: description });
         const { lat, lng } = await getLatLng(results[0]);
-        dispatch(setCoordinates({ lat: lat, lng: lng }));
+        dispatch(setCoordinates({ lat, lng, asText: description }));
       } catch (error) {
-        console.log("error: ", error);
+        // eslint-disable-next-line no-console
+        console.log('error: ', error);
       }
     }
-
   };
 
   const renderSuggestion = (option: google.maps.places.AutocompletePrediction) => {
-    
     const matches = option.structured_formatting.main_text_matched_substrings;
     const parts = parse(
       option.structured_formatting.main_text,
@@ -55,6 +54,7 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
       <Grid container alignItems="center">
         <Grid item xs>
           {parts.map((part, index) => (
+            // eslint-disable-next-line react/no-array-index-key
             <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
               {part.text}
             </span>
@@ -75,15 +75,17 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
       autoComplete
       includeInputInList
       onChange={(_event: unknown, newValue: google.maps.places.AutocompletePrediction | null) => {
+        // eslint-disable-next-line no-void
         void handleSelect(newValue);
       }}
       onInputChange={(_event, newInputValue) => {
         setValue(newInputValue);
       }}
       renderInput={(params) => (
-        <FormTextField 
-        {...params}
-        {...props}/>
+        <FormTextField
+          {...params}
+          {...props}
+        />
       )}
       renderOption={renderSuggestion}
     />

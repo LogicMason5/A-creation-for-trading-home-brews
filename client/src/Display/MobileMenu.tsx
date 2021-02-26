@@ -1,25 +1,22 @@
 import React, { useEffect } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Container, List } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import { useAsyncDispatch } from '../store';
 import { setDrawerOpen } from './displaySlice';
-import { useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
 import IsLoggedItems from './IsLoggedItems';
 import NotLoggedItems from './NotLoggedItems';
 import AlwaysShowItems from './AlwaysShowItems';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    mobileMenuRoot: {
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
-    },
-  }),
-);
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  mobileMenuRoot: {
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 const MobileMenu: React.FC = () => {
-
   const classes = useStyles();
 
   const dispatch = useAsyncDispatch();
@@ -30,16 +27,13 @@ const MobileMenu: React.FC = () => {
     dispatch(setDrawerOpen(true));
   }, [dispatch]);
 
-
   return (
     <Container className={classes.mobileMenuRoot}>
       <List>
         {
         isLoggedIn
-        ? 
-        <IsLoggedItems />
-        :
-        <NotLoggedItems />  
+          ? <IsLoggedItems />
+          : <NotLoggedItems />
         }
         <AlwaysShowItems />
       </List>

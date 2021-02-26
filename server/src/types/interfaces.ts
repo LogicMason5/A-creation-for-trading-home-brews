@@ -1,9 +1,8 @@
-import { ObjectId } from 'mongoose';
 import IOfferModel from '../models/offerModel';
 import IUserModel from '../models/userModel';
 
-
-export interface ICoordinates  {
+export interface ILocation {
+  asText?: string
   lat: number;
   lng: number;
 }
@@ -19,9 +18,9 @@ export interface IOffer {
   description: string;
   packageSize?: string;
   amount?: number;
-  location: ICoordinates;
+  location: ILocation;
   recipeLink?: string;
-  imageUrl?: string;
+  imgUrl?: string;
   active: boolean;
   created: string;
   owner: IUserModel;

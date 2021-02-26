@@ -5,9 +5,6 @@ import MyLocation from '@material-ui/icons/MyLocation';
 import { useGoogleMap } from '@react-google-maps/api';
 import { Coordinates } from '../type';
 
-
-
-
 const useStyles = makeStyles((theme) => ({
   locateButton: {
     position: 'fixed',
@@ -17,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LocateButton: React.FC = () => {
-
   const classes = useStyles();
 
   const map = useGoogleMap();
@@ -25,26 +21,26 @@ const LocateButton: React.FC = () => {
   const panTo = useCallback((coords: Coordinates) => {
     map?.panTo(coords);
     map?.setZoom(12);
-  },[map]);
+  }, [map]);
 
   const handleClick = () => {
     navigator.geolocation.getCurrentPosition(
-      //success function
-      (position) => { 
+      // success function
+      (position) => {
         panTo({
           lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lng: position.coords.longitude,
         });
       },
-      //fail function
-      () => null 
+      // fail function
+      () => null,
     );
   };
 
   return (
-      <Fab color="primary" size="medium" className={classes.locateButton} onClick={handleClick}>
-        <MyLocation fontSize="large"/>
-      </Fab>
+    <Fab color="primary" size="medium" className={classes.locateButton} onClick={handleClick}>
+      <MyLocation fontSize="large" />
+    </Fab>
   );
 };
 

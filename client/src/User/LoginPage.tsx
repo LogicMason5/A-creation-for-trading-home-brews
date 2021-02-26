@@ -1,12 +1,10 @@
-import { makeStyles, createStyles} from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Button, Container } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import TitleBox from '../SharedComponents/TitleBox';
 import LoginForm from './LoginForm';
 import ReqResetPwForm from './ReqResetPwForm';
-
-
 
 const useStyles = makeStyles(() => createStyles({
   toBottom: {
@@ -15,10 +13,7 @@ const useStyles = makeStyles(() => createStyles({
   },
 }));
 
-
-
 const LoginPage: React.FC = () => {
-
   const classes = useStyles();
 
   return (
@@ -26,24 +21,20 @@ const LoginPage: React.FC = () => {
       <LoginForm />
       <ReqResetPwForm />
       <Container className={classes.toBottom}>
-        <TitleBox title="Not yet registered?"/>
+        <TitleBox title="Not yet registered?" />
         <Link to="/register">
           <Button
-              variant="outlined"
-              size="large"
-              color="primary"
-              fullWidth
-              >
-              Register
+            variant="outlined"
+            size="large"
+            color="primary"
+            fullWidth
+          >
+            Register
           </Button>
         </Link>
       </Container>
     </div>
   );
-
-
-
-
 };
 
 export default LoginPage;

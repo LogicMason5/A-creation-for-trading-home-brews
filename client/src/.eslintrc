@@ -1,9 +1,6 @@
 {
   "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "airbnb-typescript"
   ],
   "plugins": ["@typescript-eslint", "react"],
   "env": {
@@ -11,13 +8,15 @@
     "es6": true
   },
   "rules": {
-    "@typescript-eslint/semi": 1,
+    "@typescript-eslint/semi": ["error"],
+    "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-unused-vars": [
-        1, { "argsIgnorePattern": "^_" }
+        "error", { "argsIgnorePattern": "^_" }
     ],
     "@typescript-eslint/no-explicit-any": 1,
-    "no-case-declarations": 1,
-    "react/prop-types": 0
+    "no-case-declarations": 0,
+    "react/prop-types": 0,
+    "linebreak-style": ["error", "windows"]
   },
   "settings": {
     "react": {

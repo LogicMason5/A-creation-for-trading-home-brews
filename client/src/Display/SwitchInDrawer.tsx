@@ -2,15 +2,14 @@ import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
-import MainSwitch from './MainSwitch';
-import Map from '../Map/Map';
 import Close from '@material-ui/icons/Close';
 import { useSelector, useDispatch } from 'react-redux';
+import { CircularProgress } from '@material-ui/core';
+import MainSwitch from './MainSwitch';
+import Map from '../Map/Map';
 import { RootState } from '../rootReducer';
 import { setDrawerOpen } from './displaySlice';
 import history from '../utils/history';
-import { CircularProgress } from '@material-ui/core';
-
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   grow: {
@@ -21,28 +20,25 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: 400,
     flexShrink: 0,
     [theme.breakpoints.up('lg')]: {
-      width: 550
+      width: 550,
     },
   },
   drawerPaper: {
     width: 400,
     [theme.breakpoints.up('lg')]: {
-      width: 550
+      width: 550,
     },
   },
   appBarBuffer: theme.mixins.toolbar,
 }));
 
-
-
 const SwitchInDrawer: React.FC = () => {
-
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
   const { mapsLoaded, drawerOpen } = useSelector(
-    (state: RootState) => state.display
+    (state: RootState) => state.display,
   );
 
   const handleDrawerClose = (): void => {
@@ -63,7 +59,7 @@ const SwitchInDrawer: React.FC = () => {
             paper: classes.drawerPaper,
           }}
         >
-          <div className={classes.appBarBuffer}/>
+          <div className={classes.appBarBuffer} />
           <MainSwitch />
           <div className={classes.grow} />
           <div className={classes.appBarBuffer}>
@@ -76,7 +72,5 @@ const SwitchInDrawer: React.FC = () => {
     </div>
   );
 };
-
-
 
 export default SwitchInDrawer;

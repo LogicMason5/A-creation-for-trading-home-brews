@@ -5,10 +5,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../rootReducer';
-import { closeDialog } from '../Navigation/displaySlice';
-
+import { closeDialog } from '../Display/displaySlice';
 
 interface DialogProps {
   dialogTitle: string;
@@ -16,12 +15,11 @@ interface DialogProps {
   onYes: () => void;
 }
 
-const ConfirmDialog: React.FC<DialogProps> = props => {
-
+const ConfirmDialog: React.FC<DialogProps> = (props) => {
   const { dialogTitle, dialogText, onYes } = props;
 
   const dispatch = useDispatch();
-  
+
   const { dialogOpen } = useSelector((state: RootState) => state.display.dialogState);
 
   const handleNo = () => {

@@ -3,22 +3,32 @@ import Countdown, { CountdownRendererFn, CountdownRenderProps } from 'react-coun
 
 interface ExpCountDownProps {
   created: string;
-  accuracy: "hour" | "minute" | "second";
+  accuracy: 'hour' | 'minute' | 'second';
 }
 
-
 const CountDown: React.FC<ExpCountDownProps> = ({ created, accuracy }) => {
-
-
   const countdownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
+    const minuteFormat = (
+      <span>
+        Expires in
+        {' '}
+        {props.days}
+        {' '}
+        days,
+        {props.hours}
+        {' '}
+        hours and
+        {props.minutes}
+        {' '}
+        minutes
+      </span>
+    );
 
     switch (accuracy) {
       case ('minute'):
-        return (
-          <span>
-          Expires in {props.days} days, {props.hours} hours and {props.minutes} minutes
-          </span>
-        );
+        return minuteFormat;
+      default:
+        return minuteFormat;
     }
   };
 

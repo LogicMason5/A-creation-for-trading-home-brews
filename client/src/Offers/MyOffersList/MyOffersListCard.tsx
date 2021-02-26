@@ -1,44 +1,42 @@
 import React, { useState } from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, CardActions, IconButton, Typography, Divider, Grid } from '@material-ui/core';
-import { IOffer } from '../../type';
+import {
+  Card, CardContent, CardActions, IconButton, Typography, Divider, Grid,
+} from '@material-ui/core';
 import { DeleteForever, Edit, FileCopy } from '@material-ui/icons';
-import { useAsyncDispatch } from '../../store';
-import { confirmDeletion, confirmCopy } from '../../Navigation/displaySlice';
-import { setSelectedOffer, toggleActiveStatus } from '../offerSlice';
 import { useHistory } from 'react-router-dom';
+import { IOffer } from '../../type';
+import { useAsyncDispatch } from '../../store';
+import { confirmDeletion, confirmCopy } from '../../Display/displaySlice';
+import { setSelectedOffer, toggleActiveStatus } from '../offerSlice';
 import CountDown from '../../SharedComponents/CountDown';
 import IsActiveSwitch from './IsActiveSwitch';
 
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      border: 1
-    },
-    details: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    content: {
-      flex: '1 0 auto',
-    },
-    icons: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingLeft: theme.spacing(2),
-      paddingBottom: theme.spacing(1),
-    },
-    grow: {
-      flexGrow: 1,
-      display: 'flex',
-    },
-  }),
-);
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  root: {
+    display: 'flex',
+    border: 1,
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  content: {
+    flex: '1 0 auto',
+  },
+  icons: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+  },
+  grow: {
+    flexGrow: 1,
+    display: 'flex',
+  },
+}));
 
 const OffersListCard: React.FC<{ initOffer: IOffer }> = ({ initOffer }) => {
-
   const [offer, setCurOffer] = useState(initOffer);
 
   const classes = useStyles();
@@ -61,11 +59,9 @@ const OffersListCard: React.FC<{ initOffer: IOffer }> = ({ initOffer }) => {
   };
 
   const handleActiveToggle = () => {
-    setCurOffer({...offer, active: !offer.active});
+    setCurOffer({ ...offer, active: !offer.active });
     dispatch(toggleActiveStatus(offer, !offer.active));
   };
-
-
 
   return (
     <Grid item xs={12}>
@@ -76,17 +72,19 @@ const OffersListCard: React.FC<{ initOffer: IOffer }> = ({ initOffer }) => {
               {offer.beerName}
             </Typography>
             {offer.active
-            ? 
-            <Typography variant="subtitle1" color="textSecondary">
-              <CountDown
-                created={offer.created} accuracy="minute"
-              />
-            </Typography>
-            :
-            <Typography variant="subtitle1" color="textSecondary">
-              Offer is inactive
-            </Typography> 
-            }
+              ? (
+                <Typography variant="subtitle1" color="textSecondary">
+                  <CountDown
+                    created={offer.created}
+                    accuracy="minute"
+                  />
+                </Typography>
+              )
+              : (
+                <Typography variant="subtitle1" color="textSecondary">
+                  Offer is inactive
+                </Typography>
+              )}
           </CardContent>
           <CardActions>
             <div className={classes.icons}>
@@ -99,7 +97,7 @@ const OffersListCard: React.FC<{ initOffer: IOffer }> = ({ initOffer }) => {
               <IconButton aria-label="deleteOffer" onClick={handleDeleteClick}>
                 <DeleteForever />
               </IconButton>
-              <div className={classes.grow}></div>
+              <div className={classes.grow} />
               <IsActiveSwitch toggle={handleActiveToggle} checked={offer.active} />
             </div>
           </CardActions>

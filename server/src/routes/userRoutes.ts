@@ -131,6 +131,37 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
   });
 
+  router.post('/changepw', authentication.required, async (req: Request, res: Response, next: NextFunction) => {
+
+    const id = req.body.authUser.id;
+
+    const user  = await User.findOne({ _id: id });
+
+    if (!user) return res.sendStatus(401)
+
+    const pwCheck = user.validPassword(req.body.oldPassword)
+
+    if(!pwCheck) return res.status(401).json({ message: "old password did not match" })
+
+    user.setPassword(req.body.newPassword)
+
+    const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true })
+
+    const msg = {
+      to: updatedUser.email,
+      from: 'noreply@homebrewswap.app',
+      templateId: 'd-11c10b8b0e3f4e5abf466ee978379d83',
+      dynamicTemplateData: {
+        brewer: updatedUser.username
+      },
+    };
+
+    await sgMail.send(msg)
+
+    return res.json(user.toAuthJSON());
+
+  });
+
   router.get('/checktoken', authentication.optional, async (req: Request, res: Response, next: NextFunction) => {
 
     if (req.body.authUser) return res.json({ checked: true });

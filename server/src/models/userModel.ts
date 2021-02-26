@@ -14,6 +14,7 @@ export default interface IUserModel extends IUser, Document {
   toAuthJSON(): any;
   getResetToken(): any;
   setPassword(password: string): void;
+  validPassword(password: string): boolean;
 }
 
 const UserSchema = new Schema<IUserModel>({

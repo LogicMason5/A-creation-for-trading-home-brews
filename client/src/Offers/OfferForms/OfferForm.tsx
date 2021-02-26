@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Container, Grid, Button, FormLabel } from "@material-ui/core";
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
-import FormTextField from "../../SharedComponents/FormTextField";
-import { RadioGroup } from "material-ui-formik-components";
-import * as yup from "yup";
+import {
+  Container, Grid, Button, FormLabel,
+} from '@material-ui/core';
+import {
+  Formik, FormikHelpers, FormikProps, Form, Field,
+} from 'formik';
+import { RadioGroup } from 'material-ui-formik-components';
+import * as yup from 'yup';
+import { useSelector } from 'react-redux';
+import FormTextField from '../../SharedComponents/FormTextField';
 import LocationField from '../../SharedComponents/LocationField';
 import FormSlider from '../../SharedComponents/FormSlider';
 import { RootState } from '../../rootReducer';
-import { useSelector } from 'react-redux';
-import { setDrawerOpen } from '../../Navigation/displaySlice';
+import { setDrawerOpen } from '../../Display/displaySlice';
 import { AppThunk, useAsyncDispatch } from '../../store';
 import { OfferFormValues } from '../../type';
 import TitleBox from '../../SharedComponents/TitleBox';
@@ -23,35 +27,33 @@ interface OfferFormProps {
   buttonText: string;
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    formContainer: {
-      height: '100%'
-    },
-  }),
-);
+const useStyles = makeStyles(() => createStyles({
+  formContainer: {
+    height: '100%',
+  },
+}));
 
 const validationSchema = yup.object().shape({
-  beerName: yup.string().required("A name is required").min(3).max(40),
-  description: yup.string().required("Required").min(6).max(1200),
-  location: yup.string().required("A valid location is necessary to display the offer on the map")
+  beerName: yup.string().required('A name is required').min(3).max(40),
+  description: yup.string().required('Required').min(6).max(1200),
+  location: yup.string().required('A valid location is necessary to display the offer on the map'),
 });
 
-
-const EditOfferForm: React.FC<OfferFormProps> = props => {
-
-  const { formTitle, initValues, actionOnSubmit, buttonText } = props;
+const EditOfferForm: React.FC<OfferFormProps> = (props) => {
+  const {
+    formTitle, initValues, actionOnSubmit, buttonText,
+  } = props;
 
   const classes = useStyles();
- 
+
   const dispatch = useAsyncDispatch();
 
   const isLoaded = useSelector(
-    (state: RootState) => state.display.mapsLoaded
+    (state: RootState) => state.display.mapsLoaded,
   );
 
   const imgUrl = useSelector(
-    (state: RootState) => state.display.offerUploadUrl
+    (state: RootState) => state.display.offerUploadUrl,
   );
 
   useEffect(() => {
@@ -59,17 +61,17 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
     return () => {
       dispatch(setDrawerOpen(false));
     };
-}, [dispatch]);
+  }, [dispatch]);
 
   return (
     <Container className={classes.formContainer}>
-      <TitleBox title={formTitle}/>
+      <TitleBox title={formTitle} />
       <Formik
         initialValues={initValues}
         validationSchema={validationSchema}
         onSubmit={(
           values: OfferFormValues,
-          formikHelpers: FormikHelpers<OfferFormValues>
+          formikHelpers: FormikHelpers<OfferFormValues>,
         ) => {
           dispatch(actionOnSubmit(values));
           formikHelpers.setSubmitting(false);
@@ -77,7 +79,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
       >
         {(formikProps: FormikProps<OfferFormValues>) => (
           <Form noValidate autoComplete="off">
-            <Grid container spacing={2} >
+            <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
                   name="beerName"
@@ -96,7 +98,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
                   component={FormTextField}
                   fullWidth
                   initHelperText="The level of detail is up to you"
-                  multiline={true}
+                  multiline
                   rows="6"
                 />
               </Grid>
@@ -115,7 +117,7 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
               </Grid>
               <Grid item xs={12}>
                 <FormLabel>Amount</FormLabel>
-                <Field 
+                <Field
                   component={FormSlider}
                   name="amount"
                   defaultValue={2}
@@ -127,23 +129,23 @@ const EditOfferForm: React.FC<OfferFormProps> = props => {
                 />
               </Grid>
               <Grid item xs={12}>
-                {isLoaded ? 
-                <Field
-                  name="location"
-                  label="Trade location"
-                  component={LocationField}
-                  fullWidth
-                  initHelperText="Give a default location for the trade. Any public location will do."
-                />
-                :
-                'loading maps'
-                }
+                {isLoaded
+                  ? (
+                    <Field
+                      name="location"
+                      label="Trade location"
+                      component={LocationField}
+                      fullWidth
+                      initHelperText="Give a default location for the trade. Any public location will do."
+                    />
+                  )
+                  : 'loading maps'}
               </Grid>
               <Grid item xs={12}>
                 <ImageUploader />
               </Grid>
               <Grid item xs={12}>
-                <ImageDisplay url={imgUrl}/>
+                <ImageDisplay url={imgUrl} />
               </Grid>
               <Grid item xs={12}>
                 <Field

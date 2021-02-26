@@ -1,38 +1,35 @@
 import React, { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
+import { Container } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { useAsyncDispatch } from '../../store';
 import { fetchMyOffers } from '../offerSlice';
 import { RootState } from '../../rootReducer';
 import OffersListCard from './MyOffersListCard';
-import { setDrawerOpen } from '../../Navigation/displaySlice';
-import Grid from '@material-ui/core/Grid';
-import { Container } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { setDrawerOpen } from '../../Display/displaySlice';
 import TitleBox from '../../SharedComponents/TitleBox';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      justify: "center",
-      paddingTop: 15
-    },
-  }),
-);
+const useStyles = makeStyles(() => createStyles({
+  root: {
+    justify: 'center',
+    paddingTop: 15,
+  },
+}));
 
 const MyOffersList: React.FC = () => {
-
   const classes = useStyles();
 
   const dispatch = useAsyncDispatch();
 
   const myOffers = useSelector(
-    (state: RootState) => state.offers.myOffers
+    (state: RootState) => state.offers.myOffers,
   );
 
   useEffect(() => {
     dispatch(fetchMyOffers());
-  }, [dispatch]); 
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
@@ -43,27 +40,25 @@ const MyOffersList: React.FC = () => {
 
   return (
     <Container className={classes.root}>
-      <Grid 
+      <Grid
         container
         spacing={2}
         justify="center"
       >
-          {myOffers.length > 0
-          ?
-          myOffers.map(o => <OffersListCard key={o.id} initOffer={o}  />)
-          :
-          <div>
-            <TitleBox title="No offers found."/>
-            <Link to="/create-offer">
-              <TitleBox title="create a new offer?" />
-            </Link>
-          </div>
-          }
+        {myOffers.length > 0
+          ? myOffers.map((o) => <OffersListCard key={o.id} initOffer={o} />)
+          : (
+            <div>
+              <TitleBox title="No offers found." />
+              <Link to="/create-offer">
+                <TitleBox title="create a new offer?" />
+              </Link>
+            </div>
+          )}
 
       </Grid>
     </Container>
   );
-
 };
 
 export default MyOffersList;

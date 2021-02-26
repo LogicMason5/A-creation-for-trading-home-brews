@@ -1,27 +1,31 @@
 import React, { useEffect } from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Container, Grid, Button } from '@material-ui/core';
 import {
   Formik, FormikHelpers, FormikProps, Form, Field,
 } from 'formik';
 import * as yup from 'yup';
-import Container from '@material-ui/core/Container';
 import FormTextField from '../SharedComponents/FormTextField';
 import { setDrawerOpen } from '../Display/displaySlice';
-import { login } from './userSlice';
-import { LoginFormValues } from '../type';
+import { changePw } from './userSlice';
 import { useAsyncDispatch } from '../store';
-import TitleBox from '../SharedComponents/TitleBox';
+import { ChangePwFormValues } from '../type';
 
 const validationSchema = yup.object().shape({
-  email: yup.string().required('Please provide a valid email')
-    .email('Please provide a valid email'),
-  password: yup.string()
+  oldPassword: yup.string()
     .required('A password is required')
-    .min(8, 'Password is too short, it should be 8 characters minimum.')
-    .matches(/(?=.*[0-9])/, 'Password must contain a number to be valid.'),
+    .min(8, 'Password is too short,should be 8 characters minimum.')
+    .matches(/(?=.*[0-9])/, 'Password must contain a number.'),
+  newPassword: yup.string()
+    .required('A password is required')
+    .min(8, 'Password is too short,should be 8 characters minimum.')
+    .matches(/(?=.*[0-9])/, 'Password must contain a number.'),
+  newPasswordConfirm: yup.string()
+    .required('Please confirm your password')
+    .min(8, 'Password is too short, should be 8 characters minimum.')
+    .oneOf([yup.ref('newPassword'), null], 'Passwords must match'),
 });
 
-const LoginForm: React.FC = () => {
+const ChangePwForm: React.FC = () => {
   const dispatch = useAsyncDispatch();
 
   useEffect(() => {
@@ -32,44 +36,56 @@ const LoginForm: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Container>
-      <TitleBox title="Login" />
+    <Container fixed>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          oldPassword: '',
+          newPassword: '',
+          newPasswordConfirm: '',
         }}
         validationSchema={validationSchema}
         onSubmit={(
-          values: LoginFormValues,
-          formikHelpers: FormikHelpers<LoginFormValues>,
+          values: ChangePwFormValues,
+          formikHelpers: FormikHelpers<ChangePwFormValues>,
         ) => {
-          dispatch(login(values));
+          dispatch(changePw(values));
           formikHelpers.setSubmitting(false);
         }}
       >
-        {(formikProps: FormikProps<LoginFormValues>) => (
+        {(formikProps: FormikProps<ChangePwFormValues>) => (
           <Form noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
-                  name="email"
-                  label="Email"
+                  type="password"
+                  name="oldPassword"
+                  label="Old password"
                   size="small"
                   component={FormTextField}
                   fullWidth
-                  initHelperText="Email"
+                  initHelperText="8 characters with a number required"
                 />
               </Grid>
               <Grid item xs={12}>
                 <Field
                   type="password"
-                  name="password"
-                  label="Password"
+                  name="newPassword"
+                  label="New password"
                   size="small"
                   component={FormTextField}
                   fullWidth
                   initHelperText="8 characters with a number required"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  type="password"
+                  name="newPasswordConfirm"
+                  label="Confirm new password"
+                  size="small"
+                  component={FormTextField}
+                  fullWidth
+                  initHelperText=""
                 />
               </Grid>
               <Grid item xs={12}>
@@ -81,16 +97,15 @@ const LoginForm: React.FC = () => {
                   disabled={formikProps.isSubmitting}
                   fullWidth
                 >
-                  login
+                  Submit
                 </Button>
               </Grid>
             </Grid>
           </Form>
         )}
       </Formik>
-
     </Container>
   );
 };
 
-export default LoginForm;
+export default ChangePwForm;

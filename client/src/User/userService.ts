@@ -5,7 +5,8 @@ import {
   LoginFormValues,
   IMessage,
   ReqResetPwFormValues,
-  ResetPwFormValues
+  ResetPwFormValues,
+  ChangePwFormValues,
 } from '../type';
 import { createAuthHeaders, createHeadersFromToken } from '../utils/createHeaders';
 import url from '../utils/url';
@@ -33,6 +34,12 @@ const resetPw = async (newPw: ResetPwFormValues, token: string): Promise<Current
   return response.data;
 };
 
+const changePw = async (passwords: ChangePwFormValues): Promise<CurrentUser> => {
+  const headers = createAuthHeaders();
+  const response = await axios.post<CurrentUser>(`${baseUrl}/changepw`, passwords, headers);
+  return response.data;
+};
+
 const sendMessage = async (content: IMessage): Promise<IMessage> => {
   const response = await axios.post<IMessage>(`${baseUrl}/message`, content);
   return response.data;
@@ -44,6 +51,14 @@ const checkCurrentToken = async (): Promise<{ checked: boolean }> => {
   return response.data;
 };
 
-const userService = { createNew, login, sendMessage, reqResetPw, resetPw, checkCurrentToken };
+const userService = {
+  createNew,
+  login,
+  sendMessage,
+  reqResetPw,
+  resetPw,
+  changePw,
+  checkCurrentToken,
+};
 
 export default userService;

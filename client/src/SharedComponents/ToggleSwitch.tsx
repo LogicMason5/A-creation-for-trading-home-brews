@@ -1,7 +1,6 @@
 import React from 'react';
 import Switch, { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
 
-
 interface SwitchStyles extends Partial<Record<SwitchClassKey, string>> {
   focusVisible?: string;
 }
@@ -12,9 +11,7 @@ interface CustomSwitchProps extends SwitchProps {
   handleToggle: () => void;
 }
 
-
-const ToggleSwitch: React.FC<CustomSwitchProps> = props => {
-
+const ToggleSwitch: React.FC<CustomSwitchProps> = (props) => {
   const { checked, switchStyles, handleToggle } = props;
 
   return (
@@ -29,11 +26,10 @@ const ToggleSwitch: React.FC<CustomSwitchProps> = props => {
         switchBase: switchStyles.switchBase,
         thumb: switchStyles.thumb,
         track: switchStyles.track,
-        checked: switchStyles.checked
+        checked: switchStyles.checked,
       }}
     />
   );
-
 };
 
 export default ToggleSwitch;
