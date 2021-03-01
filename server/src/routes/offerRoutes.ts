@@ -3,7 +3,6 @@ import { authentication } from '../utils/authentication';
 require('express-async-errors');
 import IOfferModel, { Offer } from '../models/offerModel';
 import { User } from '../models/userModel';
-import { NextFunction } from 'express-serve-static-core';
 
 
 const router: Router = Router();
@@ -23,7 +22,7 @@ router.get('/', async  (_req: Request, res: Response) => {
 });
 
 //get logged in users own offers
-router.get('/my-offers', authentication.required,  async (req: Request, res: Response, _next: NextFunction) => {
+router.get('/my-offers', authentication.required,  async (req: Request, res: Response) => {
 
   if (!req.body.authUser) return res.sendStatus(401);
 
@@ -36,7 +35,7 @@ router.get('/my-offers', authentication.required,  async (req: Request, res: Res
 });
 
 //get detailed public info
-router.get('/:id', async (req: Request, res: Response, _next) => {
+router.get('/:id', async (req: Request, res: Response) => {
 
   const offer = await Offer.findById(req.params.id).populate('owner', { username: 1 });
 
@@ -80,7 +79,7 @@ router.delete('/:id', authentication.required, async (req: Request, res: Respons
 
 
 //update offer by id
-router.put('/:id', authentication.required, async (req: Request, res: Response, _next) => {
+router.put('/:id', authentication.required, async (req: Request, res: Response) => {
 
   if (!req.body.authUser) return res.sendStatus(401);
 

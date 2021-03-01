@@ -2,7 +2,7 @@
 
 ![icon](/client/public/black.png)
 
-This is a hobbyist project for trading homebrews (the malt+yeast kind, not the penguin-kind).
+This is a hobbyist project for trading homebrews (the malt+yeast kind, not the fruit-kind).
 
 ## Features
 
