@@ -1,21 +1,21 @@
+import { CircularProgress } from '@material-ui/core';
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
-import { CircularProgress } from '@material-ui/core';
-import CreateOffer from '../Offers/OfferForms/CreateOffer';
-import OfferDisplay from '../Offers/OfferDisplay';
+import { Route, Switch } from 'react-router-dom';
 import Map from '../Map/Map';
-import { RootState } from '../rootReducer';
-import RegisterForm from '../User/RegisterForm';
-import MyAccount from './MyAccount';
-import MobileMenu from './MobileMenu';
 import MyOffersList from '../Offers/MyOffersList/MyOffersList';
-import EditOffer from '../Offers/OfferForms/EditOffer';
+import OfferDisplay from '../Offers/OfferDisplay';
 import CopyOffer from '../Offers/OfferForms/CopyOffer';
-import FAQ from './FAQ';
-import LoginPage from '../User/LoginPage';
-import ResetPw from '../User/ResetPw';
+import CreateOffer from '../Offers/OfferForms/CreateOffer';
+import EditOffer from '../Offers/OfferForms/EditOffer';
+import { RootState } from '../rootReducer';
 import EditAccount from '../User/EditAccount';
+import LoginPage from '../User/LoginPage';
+import RegisterForm from '../User/RegisterForm';
+import ResetPw from '../User/ResetPw';
+import FAQ from './FAQ';
+import MobileMenu from './MobileMenu';
+import MyAccount from './MyAccount';
 
 const MainSwitch: React.FC = () => {
   const isLoaded = useSelector(
@@ -42,7 +42,6 @@ const MainSwitch: React.FC = () => {
         <Route path="/" render={() => (isLoaded ? <Map /> : <CircularProgress />)} />
       </Switch>
     </div>
-
   );
 };
 

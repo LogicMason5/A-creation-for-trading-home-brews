@@ -9,8 +9,7 @@ import compression from "compression";
 import { SESSION_SECRET } from "./utils/secrets";
 import './db'; // initialize database
 import './utils/passport';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const cors = require('cors');
+import cors from 'cors';
 
 
 

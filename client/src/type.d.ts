@@ -23,7 +23,7 @@ export interface IOffer {
 
 export interface IOfferToDisplay extends IOffer {
   owner: {
-    id: string;
+    _id: string;
     username: string;
   }
 }

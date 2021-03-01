@@ -18,6 +18,7 @@ const CountDown: React.FC<ExpCountDownProps> = ({ created, accuracy }) => {
         {props.hours}
         {' '}
         hours and
+        {' '}
         {props.minutes}
         {' '}
         minutes

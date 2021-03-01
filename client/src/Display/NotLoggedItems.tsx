@@ -35,6 +35,7 @@ const NotLoggedItems: React.FC = () => {
           <ListItemText primary="Register" />
         </ListItem>
       </Link>
+      <Divider />
     </div>
   );
 };

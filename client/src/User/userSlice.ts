@@ -142,13 +142,13 @@ export const messageBrewer = (formContent: MessageFormValues): AppThunk => async
 
   const message = {
     brewer: owner.username,
-    recipient: owner.id,
+    // eslint-disable-next-line no-underscore-dangle
+    recipient: owner._id,
     beerName,
     ...formContent,
   };
 
   try {
-    console.log(message);
     await userService.sendMessage(message);
     dispatch(giveAlert('success', `Message sent to ${message.brewer}`));
   } catch (error) {

@@ -33,7 +33,7 @@ const initialOffersState: OffersState = {
   displayedOffer: {
     ...emptyOffer,
     owner: {
-      id: '',
+      _id: '',
       username: '',
     },
   },
@@ -94,7 +94,6 @@ export const createOffer = (formContent: OfferFormValues): AppThunk => async (di
 
   const newOffer = {
     ...formContent,
-    created: new Date().toISOString(),
     location,
     imgUrl,
     active: true,

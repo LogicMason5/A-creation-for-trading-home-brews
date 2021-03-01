@@ -15,8 +15,6 @@ const options = {
   socketTimeoutMS   : 45000, // Close sockets after 45 seconds of inactivity
 };
 
-logger.debug(DB_URI);
-
 // Create the database connection
 mongoose
   .connect(DB_URI, options)
@@ -32,7 +30,7 @@ mongoose
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', () => {
-  logger.info('Mongoose default connection open to ' + DB_URI);
+  logger.info('Mongoose default connection open.');
 });
 
 // If the connection throws an error

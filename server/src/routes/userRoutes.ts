@@ -11,7 +11,9 @@ sgMail.setApiKey(SENDGRID_KEY);
 
 const router: Router = Router();
 
-router.post('/register', async (req: Request, res: Response, _next: NextFunction) => {
+//NO AUTH REQUIRED ROUTES
+
+router.post('/register', async (req: Request, res: Response) => {
 
     const user = new User();
   
@@ -51,9 +53,10 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
   
   });
 
-  router.post('/message', async (req: Request, res: Response, _next: NextFunction) => {
+  router.post('/message', async (req: Request, res: Response) => {
 
     const message = req.body;
+
     const user = await User.findById(req.body.recipient);
 
     const msg = {
@@ -73,7 +76,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
   
   });
 
-  router.post('/reqpwreset', async (req: Request, res: Response, _next: NextFunction) => {
+  router.post('/reqpwreset', async (req: Request, res: Response) => {
 
     if (!req.body.email) {
       return res.status(422).json({ errors: { email: "not found" } });
@@ -101,7 +104,20 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
   
   });
 
-  router.post('/pwreset', authentication.required, async (req: Request, res: Response, _next: NextFunction) => {
+  //AUTH OPTIONAL ROUTES
+
+  router.get('/checktoken', authentication.optional, async (req: Request, res: Response) => {
+
+    if (req.body.authUser) return res.json({ checked: true });
+
+    return res.json({ checked: false });
+
+
+  });
+
+  //AUTH REQUIRED ROUTES
+
+  router.post('/pwreset', authentication.required, async (req: Request, res: Response) => {
 
     const id = req.body.authUser.id;
 
@@ -132,7 +148,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
   });
 
-  router.post('/changepw', authentication.required, async (req: Request, res: Response, _next: NextFunction) => {
+  router.post('/changepw', authentication.required, async (req: Request, res: Response) => {
 
     const id = req.body.authUser.id;
 
@@ -163,14 +179,6 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
   });
 
-  router.get('/checktoken', authentication.optional, async (req: Request, res: Response, _next: NextFunction) => {
-
-    if (req.body.authUser) return res.json({ checked: true });
-
-    return res.json({ checked: false });
 
 
-  });
-  
-  
   export const UserRoutes: Router = router;
