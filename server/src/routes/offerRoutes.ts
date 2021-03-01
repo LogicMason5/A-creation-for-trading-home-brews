@@ -3,11 +3,10 @@ import { authentication } from '../utils/authentication';
 require('express-async-errors');
 import IOfferModel, { Offer } from '../models/offerModel';
 import { User } from '../models/userModel';
+import { NextFunction } from 'express-serve-static-core';
 
 
 const router: Router = Router();
-
-//NO AUTH REQUIRED
 
 //get all active offers (public info)
 router.get('/', async  (_req: Request, res: Response) => {
@@ -23,6 +22,19 @@ router.get('/', async  (_req: Request, res: Response) => {
   res.json(offers.map((offer: IOfferModel) => offer.toListJSON()));
 });
 
+//get logged in users own offers
+router.get('/my-offers', authentication.required,  async (req: Request, res: Response, _next: NextFunction) => {
+
+  if (!req.body.authUser) return res.sendStatus(401);
+
+  console.log('here');
+
+  const myOffers = await Offer.find({ owner: req.body.authUser.id });
+
+  res.json(myOffers.map((offer: IOfferModel) => offer.toDisplayJSON()));
+
+});
+
 //get detailed public info
 router.get('/:id', async (req: Request, res: Response, _next) => {
 
@@ -31,8 +43,6 @@ router.get('/:id', async (req: Request, res: Response, _next) => {
   res.json(offer.toDisplayJSON());
 
 });
-
-//AUTH REQUIRED
 
 //post new offer
 router.post('/', authentication.required , async  (req: Request, res: Response) => {
@@ -68,22 +78,9 @@ router.delete('/:id', authentication.required, async (req: Request, res: Respons
 
 });
 
-//get logged in users own offers
-router.get('/my-offers', authentication.required,  async (req: Request, res: Response) => {
-
-  if (!req.body.authUser) return res.sendStatus(401);
-
-  const myOffers = await Offer.find({ owner: req.body.authUser.id });
-
-  res.json(myOffers.map((offer: IOfferModel) => offer.toDisplayJSON()));
-
-});
-
-
-
 
 //update offer by id
-router.put('/:id', authentication.required, async (req: Request, res: Response) => {
+router.put('/:id', authentication.required, async (req: Request, res: Response, _next) => {
 
   if (!req.body.authUser) return res.sendStatus(401);
 
