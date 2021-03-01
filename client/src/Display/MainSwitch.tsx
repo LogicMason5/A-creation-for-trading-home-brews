@@ -17,7 +17,6 @@ import FAQ from './FAQ';
 import MobileMenu from './MobileMenu';
 import MyAccount from './MyAccount';
 import PrivacyPolicy from './PrivacyPolicy';
-// import PrivacyPolicy from './PrivacyPolicy';
 
 const MainSwitch: React.FC = () => {
   const isLoaded = useSelector(

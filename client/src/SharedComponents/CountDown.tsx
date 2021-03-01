@@ -8,20 +8,10 @@ interface ExpCountDownProps {
 
 const CountDown: React.FC<ExpCountDownProps> = ({ created, accuracy }) => {
   const countdownFormatter: CountdownRendererFn = (props: CountdownRenderProps) => {
+    const { days, hours, minutes } = props;
     const minuteFormat = (
       <span>
-        Expires in
-        {' '}
-        {props.days}
-        {' '}
-        days,
-        {props.hours}
-        {' '}
-        hours and
-        {' '}
-        {props.minutes}
-        {' '}
-        minutes
+        {`${days} days, ${hours} hours and ${minutes} minutes`}
       </span>
     );
 
