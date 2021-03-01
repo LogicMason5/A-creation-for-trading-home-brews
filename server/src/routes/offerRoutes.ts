@@ -7,8 +7,10 @@ import { User } from '../models/userModel';
 
 const router: Router = Router();
 
+//NO AUTH REQUIRED
+
 //get all active offers (public info)
-router.get('/', async  (_req: Request, res: Response, _next) => {
+router.get('/', async  (_req: Request, res: Response) => {
   
   const date = new Date();
 
@@ -18,15 +20,22 @@ router.get('/', async  (_req: Request, res: Response, _next) => {
     updatedAt: { $gte: date.toISOString() }, 
     active: true,
   });
-
   res.json(offers.map((offer: IOfferModel) => offer.toListJSON()));
+});
+
+//get detailed public info
+router.get('/:id', async (req: Request, res: Response, _next) => {
+
+  const offer = await Offer.findById(req.params.id).populate('owner', { username: 1 });
+
+  res.json(offer.toDisplayJSON());
 
 });
 
-
+//AUTH REQUIRED
 
 //post new offer
-router.post('/', authentication.required , async  (req: Request, res: Response, _next) => {
+router.post('/', authentication.required , async  (req: Request, res: Response) => {
 
   const user = await User.findById(req.body.authUser.id);
 
@@ -43,7 +52,7 @@ router.post('/', authentication.required , async  (req: Request, res: Response, 
 
 
 // delete Offer
-router.delete('/:id', authentication.required, async (req: Request, res: Response, _next) => {
+router.delete('/:id', authentication.required, async (req: Request, res: Response) => {
 
   if (!req.body.authUser) return res.sendStatus(401);
 
@@ -60,7 +69,7 @@ router.delete('/:id', authentication.required, async (req: Request, res: Respons
 });
 
 //get logged in users own offers
-router.get('/my-offers', authentication.required,  async (req: Request, res: Response, _next) => {
+router.get('/my-offers', authentication.required,  async (req: Request, res: Response) => {
 
   if (!req.body.authUser) return res.sendStatus(401);
 
@@ -71,17 +80,10 @@ router.get('/my-offers', authentication.required,  async (req: Request, res: Res
 });
 
 
-//get detailed public info
-router.get('/:id', async (req: Request, res: Response, _next) => {
 
-  const offer = await Offer.findById(req.params.id).populate('owner', { username: 1 });
-
-  res.json(offer.toDisplayJSON());
-
-});
 
 //update offer by id
-router.put('/:id', authentication.required, async (req: Request, res: Response, _next) => {
+router.put('/:id', authentication.required, async (req: Request, res: Response) => {
 
   if (!req.body.authUser) return res.sendStatus(401);
 

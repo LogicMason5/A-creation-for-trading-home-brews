@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import Countdown, { CountdownRendererFn, CountdownRenderProps } from 'react-countdown';
 
@@ -11,7 +12,7 @@ const CountDown: React.FC<ExpCountDownProps> = ({ created, accuracy }) => {
     const { days, hours, minutes } = props;
     const minuteFormat = (
       <span>
-        {`${days} days, ${hours} hours and ${minutes} minutes`}
+        {days} days, {hours} hours and {minutes} minutes.
       </span>
     );
 
