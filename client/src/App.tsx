@@ -8,6 +8,7 @@ import MainDisplay from './Display/MainDisplay';
 import ShowAlert from './SharedComponents/ShowAlert';
 import DeleteOfferDialog from './Offers/OfferDialogs';
 import { initUser } from './User/userSlice';
+import Cookies from './Display/Cookies';
 
 const libraries = ['places'] as Libraries;
 
@@ -32,6 +33,7 @@ const App: React.FC = () => {
       <DeleteOfferDialog />
       <ShowAlert />
       <MainDisplay />
+      <Cookies />
     </Box>
   );
 };

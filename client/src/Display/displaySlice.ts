@@ -106,7 +106,6 @@ const displaySlice = createSlice({
     setSwitchSize(state, action: PayloadAction<Size>) {
       state.switchSize = action.payload;
     },
-
   },
 });
 

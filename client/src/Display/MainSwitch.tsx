@@ -16,6 +16,8 @@ import ResetPw from '../User/ResetPw';
 import FAQ from './FAQ';
 import MobileMenu from './MobileMenu';
 import MyAccount from './MyAccount';
+import PrivacyPolicy from './PrivacyPolicy';
+// import PrivacyPolicy from './PrivacyPolicy';
 
 const MainSwitch: React.FC = () => {
   const isLoaded = useSelector(
@@ -39,7 +41,8 @@ const MainSwitch: React.FC = () => {
         <Route path="/mobile-menu" render={() => <MobileMenu />} />
         <Route path="/my-offers" render={() => <MyOffersList />} />
         <Route path="/FAQ" render={() => <FAQ />} />
-        <Route path="/" render={() => (isLoaded ? <Map /> : <CircularProgress />)} />
+        <Route path="/privacy" render={() => <PrivacyPolicy />} />
+        <Route exact path="/" render={() => (isLoaded ? <Map /> : <CircularProgress />)} />
       </Switch>
     </div>
   );

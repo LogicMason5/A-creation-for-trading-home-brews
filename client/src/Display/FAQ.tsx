@@ -5,6 +5,7 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import { Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setDrawerOpen } from './displaySlice';
 
 const Accordion = withStyles({
@@ -126,6 +127,7 @@ const FAQList: React.FC = () => {
             functionality offered to users. Emails are never exposed to other users.
             Location data is only stored about offers, not users. Messages about offers
             are not saved by the app. No tracking functionality is used in emails.
+            <Link to="/privacy"> Privacy Policy</Link>
           </Typography>
         </AccordionDetails>
       </Accordion>

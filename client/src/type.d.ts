@@ -95,3 +95,5 @@ declare module '*.svg' {
 }
 
 declare module 'googlemaps';
+
+declare module 'material-ui-cookie-consent';
