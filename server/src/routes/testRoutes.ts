@@ -1,4 +1,4 @@
-import { Request, response, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { Offer } from '../models/offerModel';
 import { User } from '../models/userModel';
 
@@ -10,7 +10,7 @@ router.post('/resetusers', async (_req: Request, res: Response) => {
 
   await User.deleteMany({});
   
-  response.status(204);
+  res.status(204).json({});
 
 });
 
@@ -20,7 +20,7 @@ router.post('/resetoffers', async (_req: Request, res: Response) => {
 
   await Offer.deleteMany({});
 
-  response.status(204);
+  res.status(204).json({});
 
 });
 
