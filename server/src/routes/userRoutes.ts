@@ -13,7 +13,7 @@ const router: Router = Router();
 
 //NO AUTH REQUIRED ROUTES
 
-router.post('/register', async (req: Request, res: Response) => {
+router.post('/register', async (req: Request, res: Response, _next: NextFunction) => {
 
     const user = new User();
   
@@ -117,7 +117,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
   //AUTH REQUIRED ROUTES
 
-  router.post('/pwreset', authentication.required, async (req: Request, res: Response) => {
+  router.post('/pwreset', authentication.required, async (req: Request, res: Response, _next: NextFunction) => {
 
     const id = req.body.authUser.id;
 

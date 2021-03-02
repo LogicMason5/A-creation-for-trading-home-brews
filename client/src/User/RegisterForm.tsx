@@ -76,6 +76,7 @@ const RegisterForm: React.FC = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
+                  id="userNameField"
                   name="displayName"
                   label="Public username"
                   size="small"
@@ -86,6 +87,7 @@ const RegisterForm: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="emailField"
                   name="email"
                   label="Email"
                   size="small"
@@ -96,6 +98,7 @@ const RegisterForm: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="pwField"
                   type="password"
                   name="password"
                   label="Password"
@@ -107,6 +110,7 @@ const RegisterForm: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="pwConfirmField"
                   type="password"
                   name="passwordConfirm"
                   label="Confirm password"
@@ -118,6 +122,7 @@ const RegisterForm: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button
+                  id="submitRegister"
                   type="submit"
                   variant="outlined"
                   size="large"
@@ -143,7 +148,7 @@ const RegisterForm: React.FC = () => {
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Link to="/login">
+          <Link to="/login" style={{ textDecoration: 'none' }}>
             <Button
               variant="outlined"
               size="large"

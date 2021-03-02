@@ -19,8 +19,10 @@ const MustBeLogged: React.FC<{ reason: string }> = ({ reason }) => {
 
   return (
     <Container>
-      <TitleBox title="Login required" />
-      <Grid container spacing={10}>
+      <Grid container spacing={6}>
+        <Grid item xs={12}>
+          <TitleBox title="Login required" />
+        </Grid>
         <Grid item xs={12}>
           <Typography>
             You must be logged in
@@ -40,7 +42,6 @@ const MustBeLogged: React.FC<{ reason: string }> = ({ reason }) => {
             </Button>
           </Link>
         </Grid>
-
         <Grid item xs={12}>
           <Link to="/register" style={{ textDecoration: 'none' }}>
             <Button
@@ -53,7 +54,6 @@ const MustBeLogged: React.FC<{ reason: string }> = ({ reason }) => {
             </Button>
           </Link>
         </Grid>
-
       </Grid>
     </Container>
   );

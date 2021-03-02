@@ -45,11 +45,9 @@ const Map: React.FC = () => {
       center={center}
       options={mapOptions}
     >
-      {
-          offers.map((o) => (
-            <OfferMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
-          ))
-        }
+      {offers ? offers.map((o) => (
+        <OfferMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
+      )) : null}
       <LocateButton />
     </GoogleMap>
   );

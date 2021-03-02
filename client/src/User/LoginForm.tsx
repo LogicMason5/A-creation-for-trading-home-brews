@@ -88,7 +88,6 @@ const LoginForm: React.FC = () => {
           </Form>
         )}
       </Formik>
-
     </Container>
   );
 };

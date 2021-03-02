@@ -20,6 +20,7 @@ mongoose
   .connect(DB_URI, options)
   .then(() => {
     logger.info('Mongoose connection taken');
+    logger.info(`NODE_ENV is ${process.env.NODE_ENV}`);
   })
   .catch((e) => {
     logger.info('Mongoose connection error');

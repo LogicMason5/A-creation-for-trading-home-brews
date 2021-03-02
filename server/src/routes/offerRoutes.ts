@@ -18,6 +18,7 @@ router.get('/', async  (_req: Request, res: Response) => {
     updatedAt: { $gte: date.toISOString() }, 
     active: true,
   });
+
   res.json(offers.map((offer: IOfferModel) => offer.toListJSON()));
 });
 
@@ -25,8 +26,6 @@ router.get('/', async  (_req: Request, res: Response) => {
 router.get('/my-offers', authentication.required,  async (req: Request, res: Response) => {
 
   if (!req.body.authUser) return res.sendStatus(401);
-
-  console.log('here');
 
   const myOffers = await Offer.find({ owner: req.body.authUser.id });
 
