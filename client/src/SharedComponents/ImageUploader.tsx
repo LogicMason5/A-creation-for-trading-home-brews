@@ -29,7 +29,7 @@ const ImageUploader = () => {
 
   return (
     <div id="photo-form-container">
-      <Button onClick={showWidget} variant="outlined" color="primary">
+      <Button onClick={showWidget} variant="outlined" color="primary" id="uploadImageButton">
         Upload an image
       </Button>
     </div>

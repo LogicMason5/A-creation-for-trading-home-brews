@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import {
-  Container, Grid, Button, FormLabel,
+  Container, Grid, Button, FormLabel, CircularProgress,
 } from '@material-ui/core';
 import {
   Formik, FormikHelpers, FormikProps, Form, Field,
@@ -82,6 +82,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
+                  id="beerName"
                   name="beerName"
                   label="What do you call it?"
                   size="small"
@@ -92,6 +93,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="descriptionField"
                   name="description"
                   label="A few words about your brew"
                   size="small"
@@ -139,7 +141,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
                       initHelperText="Give a default location for the trade. Any public location will do."
                     />
                   )
-                  : 'loading maps'}
+                  : <CircularProgress />}
               </Grid>
               <Grid item xs={12}>
                 <ImageUploader />
@@ -149,6 +151,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="recipeLink"
                   name="recipeLink"
                   label="Link to recipe/brewing notes"
                   size="small"
@@ -159,6 +162,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Button
+                  id="submitOfferButton"
                   type="submit"
                   variant="outlined"
                   size="large"

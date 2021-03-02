@@ -36,15 +36,24 @@ const login = {
   password: "salainen1"
 }
 
-Cypress.Commands.add("createTester", () => {
+Cypress.Commands.add('createTester', () => {
  cy.request('POST', 'http://localhost:3001/api/user/register', user)
 })
 
-Cypress.Commands.add("loginTester", () => {
+Cypress.Commands.add('loginTester', () => {
   cy.request('POST', 'http://localhost:3001/api/user/login', login).then((res) => {
     localStorage.setItem('curUser', JSON.stringify(res.body))
   })
-  
+})  
+
+Cypress.Commands.add('resetUsers', () => {
+  cy.request('POST', 'http://localhost:3001/api/test/resetusers')
 })
+
+Cypress.Commands.add('resetOffers', () => {
+  cy.request('POST', 'http://localhost:3001/api/test/resetoffers')
+})
+  
+
 
 
