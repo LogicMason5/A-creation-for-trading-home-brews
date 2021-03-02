@@ -85,7 +85,7 @@ UserSchema.methods.generateResetJWT = function (): string {
 
 UserSchema.methods.toAuthJSON = function (): any {
   return {
-    displayName: this.username,
+    username: this.username,
     token: this.generateJWT(),
     id: this._id    
   };

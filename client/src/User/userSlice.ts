@@ -27,7 +27,7 @@ const initialState: UserState = {
   currentUser: {
     id: '',
     token: '',
-    displayName: '',
+    username: '',
   },
 };
 
@@ -58,7 +58,7 @@ export const login = (credentials: LoginFormValues): AppThunk => async (dispatch
     const response = await userService.login(credentials);
     dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
-    dispatch(giveAlert('success', `Welcome ${response.displayName}!`));
+    dispatch(giveAlert('success', `Welcome ${response.username}!`));
     history.push('/');
   } catch (error) {
     dispatch(giveAlert('error', `Login failed: ${JSON.stringify(error.response.data.message)}`));
@@ -81,7 +81,7 @@ export const resetPw = (form: ResetPwFormValues, token: string): AppThunk => asy
     const response = await userService.resetPw(form, token);
     dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
-    dispatch(giveAlert('success', `Welcome ${response.displayName}! Email confirmation about password reset sent.`));
+    dispatch(giveAlert('success', `Welcome ${response.username}! Email confirmation about password reset sent.`));
     history.push('/');
   } catch (error) {
     dispatch(giveAlert('error', `Failed to reset password: ${JSON.stringify(error.response.data)}`));
@@ -93,7 +93,7 @@ export const changePw = (form: ChangePwFormValues): AppThunk => async (dispatch)
     const response = await userService.changePw(form);
     dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
-    dispatch(giveAlert('success', `Welcome ${response.displayName}! Email confirmation about password change sent.`));
+    dispatch(giveAlert('success', `Welcome ${response.username}! Email confirmation about password change sent.`));
   } catch (error) {
     dispatch(giveAlert('error', `Failed to change password: ${JSON.stringify(error.response.data)}`));
   }
@@ -128,7 +128,7 @@ export const createUser = (content: RegisterFormValues): AppThunk => async (disp
     const response = await userService.createNew(content);
     dispatch(setLoggedUser(response));
     window.localStorage.setItem('curUser', JSON.stringify(response));
-    dispatch(giveAlert('success', `Welcome ${response.displayName}`));
+    dispatch(giveAlert('success', `Welcome ${response.username}`));
     dispatch(setDrawerOpen(false));
     history.push('/');
   } catch (error) {

@@ -17,7 +17,7 @@ router.post('/register', async (req: Request, res: Response, _next: NextFunction
 
     const user = new User();
   
-    user.username = req.body.displayName;
+    user.username = req.body.username;
     user.email    = req.body.email;
     user.setPassword(req.body.password);
 

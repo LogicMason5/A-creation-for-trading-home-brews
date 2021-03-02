@@ -57,7 +57,7 @@ export type LocationAction = {
 };
 
 export interface RegisterFormValues {
-  displayName: string;
+  username: string;
   email: string;
   password: string;
   passwordConfirm: string;
@@ -86,7 +86,7 @@ export interface ChangePwFormValues {
 export interface CurrentUser {
   id: string;
   token: string;
-  displayName: string;
+  username: string;
 }
 
 declare module '*.svg' {

@@ -53,6 +53,7 @@ const LoginForm: React.FC = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
+                  id="loginEmailField"
                   name="email"
                   label="Email"
                   size="small"
@@ -63,6 +64,7 @@ const LoginForm: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="loginPwField"
                   type="password"
                   name="password"
                   label="Password"
@@ -74,6 +76,7 @@ const LoginForm: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button
+                  id="loginSubmitButton"
                   type="submit"
                   variant="outlined"
                   size="large"

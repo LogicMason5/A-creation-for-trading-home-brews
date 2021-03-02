@@ -1,13 +1,13 @@
 /* eslint-disable no-undef */
-describe('Register', function() {
-  beforeEach(function() {
+describe('Register', () => {
+  beforeEach(() => {
     cy.request('POST', 'http://localhost:3001/api/test/resetusers')
     cy.clearLocalStorage()
     cy.visit('http://localhost:3000/register')
   })
 
-  describe('empty db', function() {
-    it('form is showing', function() {
+  describe('empty db', () => {
+    it('form is showing', () => {
       cy.contains('Email')
       cy.contains('Sign in')
       cy.contains('Submit')
@@ -15,7 +15,7 @@ describe('Register', function() {
       cy.contains('Register a new brewer')
     })
   
-    it('fails locally with bad credentials', function() {
+    it('fails locally with bad credentials', () => {
       cy.get('#userNameField').type('tes')
       cy.get('#emailField').type('tes@tes')
       cy.get('#pwField').type('salainen')
@@ -27,7 +27,7 @@ describe('Register', function() {
       cy.contains('Passwords must match')
     })
   
-    it('succeeds with good credentials', function() {
+    it('succeeds with good credentials', () => {
       cy.get('#userNameField').type('tester')
       cy.get('#emailField').type('test@homebrewswap.app')
       cy.get('#pwField').type('salainen1')
@@ -37,12 +37,12 @@ describe('Register', function() {
     })
   })
 
-  describe('tester in db', function() {
-    beforeEach(function() {
+  describe('tester in db', () => {
+    beforeEach(() => {
       cy.createTester()
     })
 
-    it('fails with duplicate username', function() {
+    it('fails with duplicate username', () => {
       cy.get('#userNameField').type('tester')
       cy.get('#emailField').type('tester@testerrr.fo')
       cy.get('#pwField').type('salainen1')
@@ -52,7 +52,7 @@ describe('Register', function() {
 
     })
 
-    it('fails with duplicate email', function() {
+    it('fails with duplicate email', () => {
       cy.get('#userNameField').type('testersson')
       cy.get('#emailField').type('test@homebrewswap.app')
       cy.get('#pwField').type('salainen1')
@@ -60,6 +60,12 @@ describe('Register', function() {
       cy.get('#submitRegister').click()
       cy.contains('is already taken')
     })
+  })
+
+  it('sign in button works', () => {
+    cy.get('#signInLinkButton').click()
+    cy.contains('Forgot password?')
+    cy.url().should('include', '/login')
   })
 
 

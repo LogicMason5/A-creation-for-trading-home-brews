@@ -57,7 +57,7 @@ const RegisterForm: React.FC = () => {
       <TitleBox title="Register a new brewer" />
       <Formik
         initialValues={{
-          displayName: '',
+          username: '',
           email: '',
           password: '',
           passwordConfirm: '',
@@ -77,7 +77,7 @@ const RegisterForm: React.FC = () => {
               <Grid item xs={12}>
                 <Field
                   id="userNameField"
-                  name="displayName"
+                  name="username"
                   label="Public username"
                   size="small"
                   component={FormTextField}
@@ -150,6 +150,7 @@ const RegisterForm: React.FC = () => {
         <Grid item xs={12}>
           <Link to="/login" style={{ textDecoration: 'none' }}>
             <Button
+              id="signInLinkButton"
               variant="outlined"
               size="large"
               color="primary"
