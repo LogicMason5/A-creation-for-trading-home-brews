@@ -94,6 +94,13 @@ declare module '*.svg' {
   export default content;
 }
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  interface Window { cloudinary: any; }
+}
+
+window.MyNamespace = window.cloudinary || {};
+
 declare module 'googlemaps';
 
 declare module 'material-ui-cookie-consent';

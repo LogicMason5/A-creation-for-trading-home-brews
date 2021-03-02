@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
-/* eslint-disable no-use-before-define */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -23,7 +17,7 @@ const ImageUploader = () => {
     croppingShowDimensions: true,
     croppingValidateDimensions: true,
   },
-  (error, result) => {
+  (error: Error, result: { event: string; info: { secure_url: string; }; }) => {
     if (!error && result && result.event === 'success') {
       dispatch(setOfferUploadUrl(result.info.secure_url));
     }
