@@ -55,6 +55,7 @@ const MainAppBar: React.FC = () => {
           <div className={classes.grow} />
           <div>
             <IconButton
+              id="createOfferAppBarButton"
               aria-label="create-offer"
               color="inherit"
               component={Link}
@@ -63,6 +64,7 @@ const MainAppBar: React.FC = () => {
               <AddLocation />
             </IconButton>
             <IconButton
+              id="FAQAppBarButton"
               aria-label="faq"
               color="inherit"
               component={Link}
@@ -71,6 +73,7 @@ const MainAppBar: React.FC = () => {
               <Help />
             </IconButton>
             <IconButton
+              id="myAccountAppBarButton"
               edge="end"
               color="inherit"
               component={Link}

@@ -26,11 +26,25 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 const user = {
-  displayName: "tester",
+  username: "tester",
   password: "salainen1",
   email: "test@homebrewswap.app"
+}
+
+const login = {
+  email: "test@homebrewswap.app",
+  password: "salainen1"
 }
 
 Cypress.Commands.add("createTester", () => {
  cy.request('POST', 'http://localhost:3001/api/user/register', user)
 })
+
+Cypress.Commands.add("loginTester", () => {
+  cy.request('POST', 'http://localhost:3001/api/user/login', login).then((res) => {
+    localStorage.setItem('curUser', JSON.stringify(res.body))
+  })
+  
+})
+
+

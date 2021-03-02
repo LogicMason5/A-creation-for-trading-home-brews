@@ -4,8 +4,7 @@ import { User } from '../models/userModel';
 import passport from 'passport';
 import { authentication } from '../utils/authentication';
 import { SENDGRID_KEY } from "../utils/secrets";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const sgMail = require('@sendgrid/mail');
+import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(SENDGRID_KEY);
 
 
