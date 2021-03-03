@@ -6,7 +6,7 @@ This is a hobbyist project for trading homebrews (the malt+yeast kind, not the f
 
 ## Features
 
-*updated 26.02.2021*
+*updated 3.03.2021*
 
 ### User management
 
@@ -41,6 +41,10 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 
 [package.json](./server/package.json) for full details
 
+## Testing
+
+[Cypress](https://www.cypress.io/) for end-to-end
+
 ## APIs
 
 [Google Maps](https://developers.google.com/maps/documentation/javascript/overview), [Sendgrid](https://sendgrid.com/docs/api-reference/), [Cloudinary](https://cloudinary.com/documentation/image_upload_api_reference)
@@ -51,9 +55,6 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 
 Back-end deployed to [Heroku](https://www.heroku.com). Front-end deployed to [Bluehost](https://www.bluehost.com).
 
-# hours
-
-[here](./documentation/hours.md)
 
 
 
