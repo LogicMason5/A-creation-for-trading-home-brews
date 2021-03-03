@@ -26,7 +26,7 @@ const MainSwitch: React.FC = () => {
   const ref = useRef(null); // this fixed drawer re-rendering, why?
 
   return (
-    <div ref={ref}>
+    <div ref={ref} style={{ position: 'relative', flex: 2 }} id="mainSwitchContainer">
       <Switch>
         <Route path="/create-offer" render={() => (isLoaded ? <CreateOffer /> : <CircularProgress />)} />
         <Route path="/my-offers/edit/:id" render={() => <EditOffer />} />
@@ -41,7 +41,7 @@ const MainSwitch: React.FC = () => {
         <Route path="/my-offers" render={() => <MyOffersList />} />
         <Route path="/FAQ" render={() => <FAQ />} />
         <Route path="/privacy" render={() => <PrivacyPolicy />} />
-        <Route exact path="/" render={() => (isLoaded ? <Map /> : <CircularProgress />)} />
+        <Route path="/" render={() => (isLoaded ? <Map /> : <CircularProgress />)} />
       </Switch>
     </div>
   );

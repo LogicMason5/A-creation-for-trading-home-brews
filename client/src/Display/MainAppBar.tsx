@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
   },
   appBar: {
-    position: 'fixed',
+    position: 'relative',
     zIndex: theme.zIndex.drawer + 1,
+    flex: 0,
   },
 }));
 

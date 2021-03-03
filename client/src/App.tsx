@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
-import Box from '@material-ui/core/Box';
 import { useDispatch } from 'react-redux';
 import { Libraries } from '@react-google-maps/api/dist/utils/make-load-script-url';
 import { setMapsLoaded } from './Display/displaySlice';
 import MainDisplay from './Display/MainDisplay';
-import ShowAlert from './SharedComponents/ShowAlert';
-import DeleteOfferDialog from './Offers/OfferDialogs';
 import { initUser } from './User/userSlice';
-import Cookies from './Display/Cookies';
 
 const libraries = ['places'] as Libraries;
 
@@ -29,12 +25,7 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Box>
-      <DeleteOfferDialog />
-      <ShowAlert />
-      <MainDisplay />
-      <Cookies />
-    </Box>
+    <MainDisplay />
   );
 };
 

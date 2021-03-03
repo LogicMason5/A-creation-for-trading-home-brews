@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   appBarBuffer: theme.mixins.toolbar,
 }));
 
-const SwitchInDrawer: React.FC = () => {
+const DesktopSwitch: React.FC = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const SwitchInDrawer: React.FC = () => {
   };
 
   return (
-    <div>
+    <div id="desktopSwitchContainer" style={{ position: 'relative', flex: 2 }}>
       {mapsLoaded ? <Map /> : <CircularProgress />}
       <div>
         <Drawer
@@ -73,4 +73,4 @@ const SwitchInDrawer: React.FC = () => {
   );
 };
 
-export default SwitchInDrawer;
+export default DesktopSwitch;

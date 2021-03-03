@@ -77,7 +77,7 @@ UserSchema.methods.generateResetJWT = function (): string {
 
   return jwt.sign({
     id      : this._id,
-    hash    : this.hash, //using hash to generate single use token
+    hash    : this.hash, //using hash to generate a single use token
     exp     : Math.floor(Date.now() / 1000) + (60 * 15), // 15 mins duration
   }, JWT_SECRET);
 };

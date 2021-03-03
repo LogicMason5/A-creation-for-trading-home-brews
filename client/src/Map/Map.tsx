@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { CSSProperties, useEffect } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 import { useSelector } from 'react-redux';
-import { useTheme } from '@material-ui/core';
 import OfferMarker from './OfferMarker';
 import { mapStyles } from './mapStyles';
 import { RootState } from '../rootReducer';
@@ -10,8 +9,6 @@ import { useAsyncDispatch } from '../store';
 import LocateButton from './LocateButton';
 
 const Map: React.FC = () => {
-  const theme = useTheme();
-
   const dispatch = useAsyncDispatch();
 
   const center = useSelector(
@@ -26,10 +23,8 @@ const Map: React.FC = () => {
     dispatch(fetchActiveOffers());
   }, [dispatch]);
 
-  const appBarHeight = theme ? theme.mixins.toolbar.minHeight as number : 56;
-
-  const mapContainerStyles = {
-    height: `${window.innerHeight - appBarHeight - 8}px`,
+  const mapContainerStyles: CSSProperties = {
+    height: '100%',
     width: '100%',
   };
 

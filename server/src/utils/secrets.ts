@@ -11,7 +11,7 @@ export const JWT_SECRET     = _.defaultTo(process.env.JWT_SECRET, "secret");
 export const SESSION_SECRET = _.defaultTo(process.env.SESSION_SECRET, "secret");
 export const SENDGRID_KEY   = _.defaultTo(process.env.SG_EMAIL_SENDKEY, "secret");
 
-const env = () => {
+const getDB_URI = (): string => {
 
   if (process.env.TS_NODE_DEV) return process.env.DEV_MONGODB_URI;
 
@@ -21,6 +21,8 @@ const env = () => {
     case('test'):
       return process.env.TEST_MONGODB_URI;
   }
+
 };
 
-export const DB_URI = env();
+export const DB_URI = getDB_URI();
+
