@@ -5,7 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAsyncDispatch } from '../store';
 import { RootState } from '../rootReducer';
 import { closeDialog } from '../Display/displaySlice';
 
@@ -18,7 +19,7 @@ interface DialogProps {
 const ConfirmDialog: React.FC<DialogProps> = (props) => {
   const { dialogTitle, dialogText, onYes } = props;
 
-  const dispatch = useDispatch();
+  const dispatch = useAsyncDispatch();
 
   const { dialogOpen } = useSelector((state: RootState) => state.display.dialogState);
 
@@ -48,7 +49,7 @@ const ConfirmDialog: React.FC<DialogProps> = (props) => {
           <Button onClick={handleNo} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleYes} color="primary" autoFocus>
+          <Button onClick={handleYes} color="primary" autoFocus id="offerDialogConfirmButton">
             Confirm
           </Button>
         </DialogActions>

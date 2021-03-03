@@ -176,7 +176,6 @@ export const deleteSelectedOffer = (): AppThunk => async (dispatch) => {
 
 export const copySelectedOffer = (): void => {
   const { id } = store.getState().offers.selectedOffer;
-
   history.push(`/my-offers/copy/${id}`);
 };
 

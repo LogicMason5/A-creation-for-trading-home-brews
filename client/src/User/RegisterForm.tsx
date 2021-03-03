@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {
   Container, Typography, Grid, Button, Box,
 } from '@material-ui/core';
@@ -8,7 +7,6 @@ import {
 } from 'formik';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import Hidden from '@material-ui/core/Hidden';
 import FormTextField from '../SharedComponents/FormTextField';
 import { setDrawerOpen } from '../Display/displaySlice';
 import { createUser } from './userSlice';
@@ -16,12 +14,8 @@ import { RegisterFormValues } from '../type';
 import { useAsyncDispatch } from '../store';
 import TitleBox from '../SharedComponents/TitleBox';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  toolbarBuffer: theme.mixins.toolbar,
-}));
-
 const validationSchema = yup.object().shape({
-  displayName: yup.string()
+  username: yup.string()
     .required('A display name is required')
     .min(4, 'Min length is 4 characters')
     .matches(/^[a-zA-Z0-9]+$/, 'Username can contain letters and numbers only.'),
@@ -38,8 +32,6 @@ const validationSchema = yup.object().shape({
 });
 
 const RegisterForm: React.FC = () => {
-  const classes = useStyles();
-
   const dispatch = useAsyncDispatch();
 
   useEffect(() => {
@@ -50,10 +42,7 @@ const RegisterForm: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Container fixed>
-      <Hidden mdUp>
-        <div className={classes.toolbarBuffer} />
-      </Hidden>
+    <Container>
       <TitleBox title="Register a new brewer" />
       <Formik
         initialValues={{

@@ -4,22 +4,24 @@ import { RootState } from '../rootReducer';
 import { closeDialog } from '../Display/displaySlice';
 import { deleteSelectedOffer, copySelectedOffer } from './offerSlice';
 import ConfirmDialog from '../SharedComponents/ConfirmDialog';
+import { useAsyncDispatch } from '../store';
 
 const DeleteOfferDialog: React.FC = () => {
-  const dispatch = useDispatch();
+  const asyncDispatch = useAsyncDispatch();
+  const localDispatch = useDispatch();
 
   const { dialogContent, dialogType } = useSelector(
     (state: RootState) => state.display.dialogState,
   );
 
   const handleYes = () => {
-    dispatch(closeDialog());
+    localDispatch(closeDialog());
     switch (dialogType) {
       case 'delete':
-        dispatch(deleteSelectedOffer());
+        asyncDispatch(deleteSelectedOffer());
         break;
       case 'copy':
-        dispatch(copySelectedOffer());
+        copySelectedOffer();
         break;
       default:
         break;

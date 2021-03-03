@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import {
   Container, Grid, Button, FormLabel, CircularProgress,
 } from '@material-ui/core';
@@ -27,12 +26,6 @@ interface OfferFormProps {
   buttonText: string;
 }
 
-const useStyles = makeStyles(() => createStyles({
-  formContainer: {
-    height: '100%',
-  },
-}));
-
 const validationSchema = yup.object().shape({
   beerName: yup.string().required('A name is required').min(3).max(40),
   description: yup.string().required('Required').min(6).max(1200),
@@ -43,8 +36,6 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
   const {
     formTitle, initValues, actionOnSubmit, buttonText,
   } = props;
-
-  const classes = useStyles();
 
   const dispatch = useAsyncDispatch();
 
@@ -64,7 +55,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
   }, [dispatch]);
 
   return (
-    <Container className={classes.formContainer}>
+    <Container>
       <TitleBox title={formTitle} />
       <Formik
         initialValues={initValues}

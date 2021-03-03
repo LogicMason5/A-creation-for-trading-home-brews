@@ -11,7 +11,7 @@ describe('Create offer', () => {
   })
 
 
-  it('mandatory fields required', () => {
+  it('local validation', () => {
     cy.get('#submitOfferButton').click()
     cy.contains('A name is required')
     cy.contains('Required')
@@ -30,40 +30,48 @@ describe('Create offer', () => {
     })
   })
 
-  // describe('saving', () => {
+  describe('saving', () => {
+    before(() => {
+      cy.resetUsers()
+      cy.resetOffers()
+      cy.clearLocalStorage()
+      cy.createTester()
+      cy.loginTester()
+      cy.visit('http://localhost:3000/create-offer')
+    })
 
-  //   before(() => {
-  //     cy.resetUsers()
-  //     cy.resetOffers()
-  //     cy.clearLocalStorage()
-  //     cy.createTester()
-  //     cy.loginTester()
-  //     cy.visit('http://localhost:3000/create-offer')
-  //   })
+    it('works', () => {
 
-  //   it('works', () => {
-  //     Cypress.config('defaultCommandTimeout', 10000);
-  //     cy.get("#beerName").type('Testing Saving Offer')
-  //     cy.get('#descriptionField').type('Testing Offer Saving. Testing Offer Saving. Testing Offer Saving. Testing Offer Saving. ')
-  //     cy.get('#recipeLink').type('www.homebrewswap.app')
-  //     cy.get('#submitOfferButton').click()
-  //     cy.contains('saved')
-  //   })
+      
+      cy.get('#beerName').should('be.visible').type('Testing', { force: true })
+      cy.get('#descriptionField').type('Saving.', { force: true })
+      cy.get('#recipeLink').type('www.homebrewswap.app')
 
+      cy.get('#locationField').type('Tapiola')
+      cy.contains('Tapiolan terveysasema')
+      cy.contains('Tapiolan jääpuutarha')
+      cy.contains('jääpuutarha').click()
 
-  // })
+      cy.get('#submitOfferButton').click()
+      cy.contains('Offer for Testing created')
+    })
+  })
 
   describe('image upload', () => {
+    before(() => {
+      cy.resetUsers()
+      cy.resetOffers()
+      cy.clearLocalStorage()
+      cy.createTester()
+      cy.loginTester()
+      cy.visit('http://localhost:3000/create-offer')
+    })
+    
     it('opens widget', () => {
       cy.get('#uploadImageButton').click()
       cy.get('iframe[data-test="uw-iframe"]')
     })
   })
-
-
-
-  
-
 
 
 

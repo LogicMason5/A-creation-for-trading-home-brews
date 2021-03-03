@@ -15,8 +15,8 @@ describe('Register', () => {
       cy.contains('Register a new brewer')
     })
   
-    it('fails locally with bad credentials', () => {
-      cy.get('#userNameField').type('tes')
+    it('fails local validation', () => {
+      cy.get('#userNameField').type('te')
       cy.get('#emailField').type('tes@tes')
       cy.get('#pwField').type('salainen')
       cy.get('#pwConfirmField').type('salainen1')

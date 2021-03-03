@@ -1,30 +1,6 @@
 /* eslint-disable no-undef */
+import { createAuthHeaders } from '../../src/utils/createHeaders'
 
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 const user = {
   username: "tester",
   password: "salainen1",
@@ -34,6 +10,21 @@ const user = {
 const login = {
   email: "test@homebrewswap.app",
   password: "salainen1"
+}
+
+const offerWithoutName = {
+  beerName: "abeer", //dont use spaces for id
+  description: "this is a beer. this is a beer. this is a beer. this is a beer. ",
+  packageSize: "0.33",
+  amount: 6,
+  location: {
+    lat: 60.1785679,
+    lng: 24.7980908,
+    asText: "Tapiolan terveysasema, Ahertajantie, Espoo, Suomi"
+  },
+  recipeLink: "this.is.link",
+  imgUrl: "https://res.cloudinary.com/www-homebrewswap-app/image/upload/v1614284065/sad_bottle_crcqob.jpg",
+  active: true
 }
 
 Cypress.Commands.add('createTester', () => {
@@ -53,7 +44,17 @@ Cypress.Commands.add('resetUsers', () => {
 Cypress.Commands.add('resetOffers', () => {
   cy.request('POST', 'http://localhost:3001/api/test/resetoffers')
 })
-  
 
-
-
+Cypress.Commands.add('createOffer', (name) => {
+  const offer = {
+    ...offerWithoutName,
+    beerName: name
+  }
+  const headers = createAuthHeaders()
+  cy.request({
+    url: 'http://localhost:3001/api/offers',
+    method: 'POST',
+    body: offer,
+    headers: headers.headers,
+  })
+})

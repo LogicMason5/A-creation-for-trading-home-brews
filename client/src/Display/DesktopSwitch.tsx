@@ -49,26 +49,25 @@ const DesktopSwitch: React.FC = () => {
   return (
     <div id="desktopSwitchContainer" style={{ position: 'relative', flex: 2 }}>
       {mapsLoaded ? <Map /> : <CircularProgress />}
-      <div>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={drawerOpen}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.appBarBuffer} />
-          <MainSwitch />
-          <div className={classes.grow} />
-          <div className={classes.appBarBuffer}>
-            <IconButton onClick={handleDrawerClose}>
-              <Close style={{ fontSize: 40 }} />
-            </IconButton>
-          </div>
-        </Drawer>
-      </div>
+      <Drawer
+        id="drawer"
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={drawerOpen}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.appBarBuffer} />
+        <MainSwitch />
+        <div className={classes.grow} />
+        <div className={classes.appBarBuffer}>
+          <IconButton onClick={handleDrawerClose}>
+            <Close style={{ fontSize: 40 }} />
+          </IconButton>
+        </div>
+      </Drawer>
     </div>
   );
 };

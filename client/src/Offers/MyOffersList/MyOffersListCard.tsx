@@ -88,13 +88,25 @@ const OffersListCard: React.FC<{ initOffer: IOffer }> = ({ initOffer }) => {
           </CardContent>
           <CardActions>
             <div className={classes.icons}>
-              <IconButton aria-label="editOffer" onClick={handleEditClick}>
+              <IconButton
+                aria-label="editOffer"
+                onClick={handleEditClick}
+                id={`edit${offer.beerName}Button`}
+              >
                 <Edit />
               </IconButton>
-              <IconButton aria-label="copyOffer" onClick={handleCopyClick}>
+              <IconButton
+                aria-label="copyOffer"
+                onClick={handleCopyClick}
+                id={`copy${offer.beerName}Button`}
+              >
                 <FileCopy />
               </IconButton>
-              <IconButton aria-label="deleteOffer" onClick={handleDeleteClick}>
+              <IconButton
+                aria-label="deleteOffer"
+                onClick={handleDeleteClick}
+                id={`delete${offer.beerName}Button`}
+              >
                 <DeleteForever />
               </IconButton>
               <div className={classes.grow} />
