@@ -5,31 +5,36 @@ import EditOfferForm from './OfferForm';
 import { createOffer } from '../offerSlice';
 import { RootState } from '../../rootReducer';
 import { setOfferUploadUrl } from '../../Display/displaySlice';
+import { setLocation } from '../../Map/locationSlice';
 
 const CopyOffer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const selectedOffer = useSelector(
+  const {
+    beerName, description, packageSize, amount, location, recipeLink, reviewLink, imgUrl,
+  } = useSelector(
     (state: RootState) => state.offers.selectedOffer,
   );
 
   const copiedOfferValues: OfferFormValues = {
-    beerName: selectedOffer.beerName,
-    description: selectedOffer.description,
-    packageSize: selectedOffer.packageSize ? selectedOffer.packageSize : '',
-    amount: selectedOffer.amount ? selectedOffer.amount : 2,
-    location: '',
-    recipeLink: selectedOffer.recipeLink ? selectedOffer.recipeLink : '',
+    beerName,
+    description,
+    packageSize: packageSize || '',
+    amount: amount || 2,
+    location: location.asText ? location.asText : '',
+    recipeLink: recipeLink || '',
+    reviewLink: reviewLink || '',
   };
 
   useEffect(() => {
-    dispatch(setOfferUploadUrl(selectedOffer.imgUrl));
+    dispatch(setOfferUploadUrl(imgUrl));
+    dispatch(setLocation(location));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <EditOfferForm
-      formTitle={`Creating a new offer from a copy of ${selectedOffer.beerName}`}
+      formTitle={`Creating a new offer from a copy of ${beerName}`}
       initValues={copiedOfferValues}
       actionOnSubmit={createOffer}
       buttonText="save as new"

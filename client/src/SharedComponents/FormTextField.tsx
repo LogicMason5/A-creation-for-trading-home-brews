@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { FieldProps, getIn } from 'formik';
 import { TextFieldProps, TextField } from '@material-ui/core';

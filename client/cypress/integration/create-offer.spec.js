@@ -46,7 +46,7 @@ describe('Create offer', () => {
       cy.get('#beerName').should('be.visible').type(offer.beerName, { force: true })
       cy.get('#descriptionField').type(offer.description,  { force: true })
       cy.get('#recipeLink').type(offer.recipeLink)
-
+      cy.get('#reviewLink').type(offer.reviewLink)
       cy.get('#locationField').type('Tapiola')
       cy.contains('Tapiolan terveysasema')
       cy.contains('Tapiolan jääpuutarha')

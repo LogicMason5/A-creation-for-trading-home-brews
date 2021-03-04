@@ -97,6 +97,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="packageSizeField"
                   label="Package Size"
                   component={RadioGroup}
                   name="packageSize"
@@ -111,6 +112,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               <Grid item xs={12}>
                 <FormLabel>Amount</FormLabel>
                 <Field
+                  id="amountField"
                   component={FormSlider}
                   name="amount"
                   defaultValue={2}
@@ -127,6 +129,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
                     <Field
                       name="location"
                       label="Trade location"
+                      initValue={initValues.location}
                       component={LocationField}
                       fullWidth
                       initHelperText="Give a default location for the trade. Any public location will do."
@@ -145,6 +148,17 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
                   id="recipeLink"
                   name="recipeLink"
                   label="Link to recipe/brewing notes"
+                  size="small"
+                  component={FormTextField}
+                  fullWidth
+                  initHelperText="optional"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  id="reviewLink"
+                  name="reviewLink"
+                  label="Link to review/untappd"
                   size="small"
                   component={FormTextField}
                   fullWidth

@@ -20,6 +20,7 @@ export const offer = {
     asText: "Tapiolan terveysasema, Ahertajantie, Espoo, Suomi"
   },
   recipeLink: "this.is.link",
+  reviewLink: "this.also.link",
   imgUrl: "https://res.cloudinary.com/www-homebrewswap-app/image/upload/v1614284065/sad_bottle_crcqob.jpg",
   active: true
 }

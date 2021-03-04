@@ -14,23 +14,21 @@ describe('Request pw reset email', () => {
     cy.get('#showPwResetFormButton').click()
   })
 
-  // describe('fails', () => {
-  //   it('with non-existing email', () => {
-  //     cy.get('#resetPwEmailField').type('no@homebrewswapp.app')
-  //     cy.get('#sendPwResetReqButton').click()
-  //     cy.contains('Failed to send reset email:')
-  //   })
-  // })
+  describe('fails', () => {
+    it('with non-existing email', () => {
+      cy.get('#resetPwEmailField').type('no@homebrewswapp.app')
+      cy.get('#sendPwResetReqButton').click()
+      cy.contains('Failed to send reset email:')
+    })
+  })
 
-  // describe('succeeds', () => {
-  //   it('with confirmation', () => {
-  //     cy.get('#resetPwEmailField').type(user.email)
-  //     cy.get('#sendPwResetReqButton').click()
-  //     cy.contains(`Password reset email sent to ${user.email}`)
-  //   })
-  // })
-
-
+  describe('succeeds', () => {
+    it('with confirmation', () => {
+      cy.get('#resetPwEmailField').type(user.email)
+      cy.get('#sendPwResetReqButton').click()
+      cy.contains(`Password reset email sent to ${user.email}`)
+    })
+  })
 })
 
 describe('reset', () => {
@@ -65,10 +63,7 @@ describe('reset', () => {
     cy.contains('Trade location')
     cy.contains('Link to recipe/brewing notes')
     cy.contains('Upload an image')
-  }) 
-
-
-
+  })
 })
 
 

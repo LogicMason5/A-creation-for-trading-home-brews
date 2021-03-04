@@ -60,9 +60,14 @@ const OfferDisplay: React.FC = () => {
     );
   }
 
-  const handleLinkClick = (event: React.MouseEvent) => {
+  const handleRecipeLinkClick = (event: React.MouseEvent) => {
     event.preventDefault();
     if (offer.recipeLink) window.open(`//${offer.recipeLink}`, '_blank');
+  };
+
+  const handleReviewLinkClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (offer.reviewLink) window.open(`//${offer.reviewLink}`, '_blank');
   };
 
   return (
@@ -97,8 +102,20 @@ const OfferDisplay: React.FC = () => {
               <Typography color="textSecondary" component="p">
                 Url to recipe/brewing notes:
               </Typography>
-              <Link href={offer.recipeLink} onClick={handleLinkClick} component="p">
+              <Link href={offer.recipeLink} onClick={handleRecipeLinkClick} component="p">
                 {offer.recipeLink}
+              </Link>
+            </div>
+          )
+          : null}
+        {offer.reviewLink
+          ? (
+            <div>
+              <Typography color="textSecondary" component="p">
+                Url to review/untappd:
+              </Typography>
+              <Link href={offer.reviewLink} onClick={handleReviewLinkClick} component="p">
+                {offer.reviewLink}
               </Link>
             </div>
           )

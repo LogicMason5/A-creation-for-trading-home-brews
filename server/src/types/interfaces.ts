@@ -20,6 +20,7 @@ export interface IOffer {
   amount?: number;
   location: ILocation;
   recipeLink?: string;
+  reviewLink?: string;
   imgUrl?: string;
   active: boolean;
   created: string;

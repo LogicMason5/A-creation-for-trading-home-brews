@@ -14,6 +14,7 @@ export interface IOffer {
   amount?: number;
   location: Location;
   recipeLink?: string;
+  reviewLink?: string;
   created: string;
   id: string;
   active: boolean;
@@ -35,6 +36,7 @@ export interface OfferFormValues {
   amount: number;
   location: string;
   recipeLink: string;
+  reviewLink: string;
 }
 
 export interface MessageFormValues {

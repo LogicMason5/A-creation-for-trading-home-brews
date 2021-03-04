@@ -12,8 +12,10 @@ import FormTextField from './FormTextField';
 import { setCoordinates } from '../Map/locationSlice';
 
 // eslint-disable-next-line max-len
-const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string }> = (props) => {
+const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string } & {initValue: string}> = (props) => {
   const dispatch = useDispatch();
+
+  const { initValue } = props;
 
   const {
 
@@ -38,7 +40,7 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
         dispatch(setCoordinates({ lat, lng, asText: description }));
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.log('error: ', error);
+        console.log(error);
       }
     }
   };
@@ -71,6 +73,8 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
     <Autocomplete
       id="locationField"
       options={data}
+      // eslint-disable-next-line react/destructuring-assignment
+      inputValue={initValue}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
       getOptionSelected={() => true}
       autoComplete

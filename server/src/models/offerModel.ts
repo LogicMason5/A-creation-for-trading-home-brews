@@ -17,6 +17,7 @@ const OfferSchema =  new Schema<IOfferModel>({
     asText: { type: String }
   },
   recipeLink: { type: String },
+  reviewLink: { type: String },
   imgUrl: { type: String },
   updatedAt: { type: Date },
   active: { type: Boolean },
@@ -47,6 +48,7 @@ OfferSchema.methods.toDisplayJSON = function (): any {
     amount: this.amount,
     location: this.location,
     recipeLink: this.recipeLink,
+    reviewLink: this.reviewLink,
     imgUrl: this.imgUrl,
     created: this.updatedAt.toString(),
     id: this._id.toString(),

@@ -152,7 +152,6 @@ export const toggleActiveStatus = (offer: IOffer, setTo: boolean): AppThunk => a
       updatedOffer.active
         ? giveAlert('success', `Offer for ${updatedOffer.beerName} activated.`)
         : giveAlert('info', `Offer for ${updatedOffer.beerName} deactivated.`),
-
     );
     dispatch(updateMyOffer(updatedOffer));
   } catch (error) {

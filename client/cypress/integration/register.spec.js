@@ -32,10 +32,10 @@ describe('Register', () => {
     it('succeeds with good credentials', () => {
       cy.get('#userNameField').type(user.username)
       cy.get('#emailField').type(user.email)
-      cy.get('#pwField').type(user.email)
-      cy.get('#pwConfirmField').type(user.email)
+      cy.get('#pwField').type(user.password)
+      cy.get('#pwConfirmField').type(user.password)
       cy.get('#submitRegister').click()
-      cy.contains('Welcome tester')
+      cy.contains(`Welcome ${user.username}`)
     })
   })
 
@@ -51,7 +51,6 @@ describe('Register', () => {
       cy.get('#pwConfirmField').type(user.password)
       cy.get('#submitRegister').click()
       cy.contains('is already taken')
-
     })
 
     it('fails with duplicate email', () => {
@@ -69,9 +68,5 @@ describe('Register', () => {
     cy.contains('Forgot password?')
     cy.url().should('include', '/login')
   })
-
-
-
-
 })
 

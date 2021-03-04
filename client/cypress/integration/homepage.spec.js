@@ -50,6 +50,7 @@ describe('Homepage', () => {
         cy.contains('Package Size')
         cy.contains('Trade location')
         cy.contains('Link to recipe/brewing notes')
+        cy.contains('Link to review')
         cy.contains('Upload an image')
         cy.url().should('include', '/create-offer')
       })

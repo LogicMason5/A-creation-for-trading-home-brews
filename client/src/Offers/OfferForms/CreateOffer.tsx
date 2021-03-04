@@ -14,6 +14,7 @@ const CreateOffer: React.FC = () => {
     amount: 2,
     location: '',
     recipeLink: '',
+    reviewLink: '',
   };
 
   const { isLoggedIn } = useSelector((state: RootState) => state.user);

@@ -5,31 +5,36 @@ import OfferForm from './OfferForm';
 import { updateSelectedOffer } from '../offerSlice';
 import { RootState } from '../../rootReducer';
 import { setOfferUploadUrl } from '../../Display/displaySlice';
+import { setLocation } from '../../Map/locationSlice';
 
-const CreateOffer: React.FC = () => {
+const EditOffer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const selectedOffer = useSelector(
+  const {
+    beerName, description, packageSize, amount, location, recipeLink, reviewLink, imgUrl,
+  } = useSelector(
     (state: RootState) => state.offers.selectedOffer,
   );
 
   const copiedOfferValues: OfferFormValues = {
-    beerName: selectedOffer.beerName,
-    description: selectedOffer.description,
-    packageSize: selectedOffer.packageSize ? selectedOffer.packageSize : '',
-    amount: selectedOffer.amount ? selectedOffer.amount : 2,
-    location: '',
-    recipeLink: selectedOffer.recipeLink ? selectedOffer.recipeLink : '',
+    beerName,
+    description,
+    packageSize: packageSize || '',
+    amount: amount || 2,
+    location: location.asText ? location.asText : '',
+    recipeLink: recipeLink || '',
+    reviewLink: reviewLink || '',
   };
 
   useEffect(() => {
-    dispatch(setOfferUploadUrl(selectedOffer.imgUrl));
+    dispatch(setOfferUploadUrl(imgUrl));
+    dispatch(setLocation(location));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <OfferForm
-      formTitle={`Editing offer for ${selectedOffer.beerName}`}
+      formTitle={`Editing offer for ${beerName}`}
       initValues={copiedOfferValues}
       actionOnSubmit={updateSelectedOffer}
       buttonText="save"
@@ -37,4 +42,4 @@ const CreateOffer: React.FC = () => {
   );
 };
 
-export default CreateOffer;
+export default EditOffer;
