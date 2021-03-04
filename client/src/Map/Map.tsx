@@ -36,7 +36,7 @@ const Map: React.FC = () => {
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyles}
-      zoom={11}
+      zoom={7}
       center={center}
       options={mapOptions}
     >

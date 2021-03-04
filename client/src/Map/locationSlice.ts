@@ -9,8 +9,8 @@ type LocationState = {
 
 const initialState: LocationState = {
   location: {
-    lat: 60.16209,
-    lng: 24.92022,
+    lat: 62.242,
+    lng: 25.747,
     asText: '',
   },
 };

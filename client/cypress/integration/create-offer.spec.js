@@ -44,7 +44,7 @@ describe('Create offer', () => {
 
       
       cy.get('#beerName').should('be.visible').type('Testing', { force: true })
-      cy.get('#descriptionField').type('Saving.', { force: true })
+      cy.get('#descriptionField').type('Saving.',  { force: true })
       cy.get('#recipeLink').type('www.homebrewswap.app')
 
       cy.get('#locationField').type('Tapiola')
