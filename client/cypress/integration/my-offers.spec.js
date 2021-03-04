@@ -19,12 +19,11 @@ describe('My offers', () => {
     cy.contains('active')
   })
 
-  describe('action buttons', () => {
+  describe('action buttons navigate to', () => {
     beforeEach(() => {
       cy.loginTester()
       cy.visit('http://localhost:3000/my-offers')
     })
-
     it('edit', () => {
       cy.get(`#edit${beername}Button`).click()
       cy.url().should('include', '/my-offers/edit/')
@@ -34,7 +33,6 @@ describe('My offers', () => {
       cy.contains('save')
       cy.contains('Link to recipe/brewing notes')
     })
-
     it('copy', () => {
       cy.get(`#copy${beername}Button`).click()
       cy.contains('You will be redirected to edit the details of the new Offer.')

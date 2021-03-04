@@ -6,6 +6,10 @@
       "src": "black.png",
       "type": "image/png",
       "sizes": "128x128"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "type": "image/png" 
     }
   ],
   "start_url": ".",
