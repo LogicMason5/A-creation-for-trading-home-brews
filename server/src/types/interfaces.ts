@@ -26,3 +26,9 @@ export interface IOffer {
   owner: IUserModel;
   updatedAt: string;
 }
+
+export interface IMessage {
+  beerName: string
+  message: string,
+  contactDetails: string
+}

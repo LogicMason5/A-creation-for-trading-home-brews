@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+import { offer } from '../fixtures/testData'
+
 describe('Create offer', () => {
 
   before(() => {
@@ -7,7 +9,7 @@ describe('Create offer', () => {
     cy.clearLocalStorage()
     cy.createTester()
     cy.loginTester()
-    cy.visit('http://localhost:3000/create-offer')
+    cy.visit('create-offer')
   })
 
 
@@ -37,15 +39,13 @@ describe('Create offer', () => {
       cy.clearLocalStorage()
       cy.createTester()
       cy.loginTester()
-      cy.visit('http://localhost:3000/create-offer')
+      cy.visit('create-offer')
     })
 
     it('works', () => {
-
-      
-      cy.get('#beerName').should('be.visible').type('Testing', { force: true })
-      cy.get('#descriptionField').type('Saving.',  { force: true })
-      cy.get('#recipeLink').type('www.homebrewswap.app')
+      cy.get('#beerName').should('be.visible').type(offer.beerName, { force: true })
+      cy.get('#descriptionField').type(offer.description,  { force: true })
+      cy.get('#recipeLink').type(offer.recipeLink)
 
       cy.get('#locationField').type('Tapiola')
       cy.contains('Tapiolan terveysasema')
@@ -53,7 +53,7 @@ describe('Create offer', () => {
       cy.contains('jääpuutarha').click()
 
       cy.get('#submitOfferButton').click()
-      cy.contains('Offer for Testing created')
+      cy.contains(`Offer for ${offer.beerName} created`)
     })
   })
 
@@ -64,7 +64,7 @@ describe('Create offer', () => {
       cy.clearLocalStorage()
       cy.createTester()
       cy.loginTester()
-      cy.visit('http://localhost:3000/create-offer')
+      cy.visit('create-offer')
     })
     
     it('opens widget', () => {

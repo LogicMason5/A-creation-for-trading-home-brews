@@ -63,6 +63,7 @@ const ResetPw: React.FC = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
+                  id="resetPwNewPwField"
                   type="password"
                   name="password"
                   label="New password"
@@ -74,6 +75,7 @@ const ResetPw: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Field
+                  id="resetPwConfirmPwField"
                   type="password"
                   name="passwordConfirm"
                   label="Confirm new password"
@@ -85,6 +87,7 @@ const ResetPw: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button
+                  id="resetPwSubmitButton"
                   type="submit"
                   variant="outlined"
                   size="large"

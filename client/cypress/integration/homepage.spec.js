@@ -4,7 +4,7 @@ describe('Homepage', () => {
   describe('not logged in',() => {
     before(() => {
       cy.clearLocalStorage()
-      cy.visit('http://localhost:3000/')
+      cy.visit('/')
     })
     describe('is showing', () => {
       it('appbar', () => {
@@ -35,11 +35,11 @@ describe('Homepage', () => {
 
   describe('is logged in', () => {
     before(() => {
-      cy.request('POST', 'http://localhost:3001/api/test/resetusers')
+      cy.resetUsers()
       cy.clearLocalStorage()
       cy.createTester()
       cy.loginTester()
-      cy.visit('http://localhost:3000/')
+      cy.visit('/')
     })
 
     describe('appbar navigation',() => {

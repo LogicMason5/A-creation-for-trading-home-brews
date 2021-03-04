@@ -1,9 +1,11 @@
 /* eslint-disable no-undef */
+import { user } from '../fixtures/testData'
+
 describe('Register', () => {
   beforeEach(() => {
-    cy.request('POST', 'http://localhost:3001/api/test/resetusers')
+    cy.resetUsers()
     cy.clearLocalStorage()
-    cy.visit('http://localhost:3000/register')
+    cy.visit('register')
   })
 
   describe('empty db', () => {
@@ -28,10 +30,10 @@ describe('Register', () => {
     })
   
     it('succeeds with good credentials', () => {
-      cy.get('#userNameField').type('tester')
-      cy.get('#emailField').type('test@homebrewswap.app')
-      cy.get('#pwField').type('salainen1')
-      cy.get('#pwConfirmField').type('salainen1')
+      cy.get('#userNameField').type(user.username)
+      cy.get('#emailField').type(user.email)
+      cy.get('#pwField').type(user.email)
+      cy.get('#pwConfirmField').type(user.email)
       cy.get('#submitRegister').click()
       cy.contains('Welcome tester')
     })
@@ -43,10 +45,10 @@ describe('Register', () => {
     })
 
     it('fails with duplicate username', () => {
-      cy.get('#userNameField').type('tester')
+      cy.get('#userNameField').type(user.username)
       cy.get('#emailField').type('tester@testerrr.fo')
-      cy.get('#pwField').type('salainen1')
-      cy.get('#pwConfirmField').type('salainen1')
+      cy.get('#pwField').type(user.password)
+      cy.get('#pwConfirmField').type(user.password)
       cy.get('#submitRegister').click()
       cy.contains('is already taken')
 
@@ -54,9 +56,9 @@ describe('Register', () => {
 
     it('fails with duplicate email', () => {
       cy.get('#userNameField').type('testersson')
-      cy.get('#emailField').type('test@homebrewswap.app')
-      cy.get('#pwField').type('salainen1')
-      cy.get('#pwConfirmField').type('salainen1')
+      cy.get('#emailField').type(user.email)
+      cy.get('#pwField').type(user.password)
+      cy.get('#pwConfirmField').type(user.password)
       cy.get('#submitRegister').click()
       cy.contains('is already taken')
     })

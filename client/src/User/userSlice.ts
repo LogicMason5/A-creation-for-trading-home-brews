@@ -71,8 +71,7 @@ export const reqResetPw = (email: ReqResetPwFormValues): AppThunk => async (disp
     dispatch(giveAlert('success', `Password reset email sent to ${email.email}.`));
     history.push('/login');
   } catch (error) {
-    console.log(error);
-    dispatch(giveAlert('error', `Failed to send reset email: ${JSON.stringify(error.response.data.message)}`));
+    dispatch(giveAlert('error', `Failed to send reset email: ${JSON.stringify(error.response.data)}`));
   }
 };
 
@@ -84,7 +83,7 @@ export const resetPw = (form: ResetPwFormValues, token: string): AppThunk => asy
     dispatch(giveAlert('success', `Welcome ${response.username}! Email confirmation about password reset sent.`));
     history.push('/');
   } catch (error) {
-    dispatch(giveAlert('error', `Failed to reset password: ${JSON.stringify(error.response.data)}`));
+    dispatch(giveAlert('error', `Failed to reset password: ${JSON.stringify(error.response)}`));
   }
 };
 

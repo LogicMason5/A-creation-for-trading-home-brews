@@ -29,6 +29,7 @@ const ReqResetPwForm: React.FC = () => {
       {showResetForm
         ? (
           <Button
+            id="showPwResetFormButton"
             onClick={handleClick}
             variant="outlined"
             size="large"
@@ -57,6 +58,7 @@ const ReqResetPwForm: React.FC = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <Field
+                      id="resetPwEmailField"
                       name="email"
                       label="Email"
                       size="small"
@@ -67,6 +69,7 @@ const ReqResetPwForm: React.FC = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button
+                      id="sendPwResetReqButton"
                       type="submit"
                       variant="outlined"
                       size="large"

@@ -24,6 +24,18 @@ router.post('/resetoffers', async (_req: Request, res: Response) => {
 
 });
 
+router.post('/pwresettoken', async (req: Request, res: Response) => {
+
+  if (process.env.NODE_ENV !== 'test') return res.status(403);
+
+  const user = await User.findOne({ email: req.body.email });
+
+  const token = user.getResetToken();
+
+  return res.json({ token: token });
+
+});
+
 
 
 

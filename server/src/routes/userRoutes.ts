@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response, Router } from 'express';
 require('express-async-errors');
-import { User } from '../models/userModel';
+import IUserModel, { User } from '../models/userModel';
 import passport from 'passport';
 import { authentication } from '../utils/authentication';
 import { SENDGRID_KEY } from "../utils/secrets";
 import sgMail from '@sendgrid/mail';
+import emailer from '../utils/emailer';
+import { IMessage } from 'interfaces';
 sgMail.setApiKey(SENDGRID_KEY);
 
 
@@ -20,7 +22,7 @@ router.post('/register', async (req: Request, res: Response, _next: NextFunction
     user.email    = req.body.email;
     user.setPassword(req.body.password);
 
-    const savedUser = await user.save();
+    const savedUser: IUserModel = await user.save();
 
     return res.json(savedUser.toAuthJSON());
 
@@ -54,23 +56,9 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
   router.post('/message', async (req: Request, res: Response) => {
 
-    const message = req.body;
-
-    const user = await User.findById(req.body.recipient);
-
-    const msg = {
-      to: user.email,
-      from: 'noreply@homebrewswap.app',
-      templateId: 'd-2eb440b5ecd34d3783575e69b2610256',
-      dynamicTemplateData: {
-        beerName: message.beerName,
-        message: message.message,
-        contactDetails: message.contactDetails,
-        brewer: user.username
-      },
-    };
-
-    const emailResponse = await sgMail.send(msg);
+    const message: IMessage = req.body;
+    const user:IUserModel = await User.findById(req.body.recipient);
+    const emailResponse = await emailer.offerMsg(user, message);
     return res.json(emailResponse);
   
   });
@@ -81,23 +69,12 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
       return res.status(422).json({ errors: { email: "not found" } });
     }
 
-    const user = await User.findOne({ email: req.body.email });
+    const user: IUserModel = await User.findOne({ email: req.body.email });
 
     if (!user) return res.sendStatus(404).json({ errors: { user: "not found" } });
 
     const token = user.getResetToken();
-
-    const msg = {
-      to: user.email,
-      from: 'noreply@homebrewswap.app',
-      templateId: 'd-f181b99cf4cc48158830db768b550b15',
-      dynamicTemplateData: {
-        token: token.token,
-        brewer: user.username
-      },
-    };
-
-    const emailResponse = await sgMail.send(msg);
+    const emailResponse = await emailer.pwResetReq(user, token);
 
     return res.json(emailResponse);
   
@@ -120,7 +97,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
     const id = req.body.authUser.id;
 
-    const user  = await User.findOne({ _id: id });
+    const user: IUserModel  = await User.findOne({ _id: id });
 
     if (!user) return res.sendStatus(401);
 
@@ -132,16 +109,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
     const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true });
 
-    const msg = {
-      to: updatedUser.email,
-      from: 'noreply@homebrewswap.app',
-      templateId: 'd-11c10b8b0e3f4e5abf466ee978379d83',
-      dynamicTemplateData: {
-        brewer: updatedUser.username
-      },
-    };
-
-    await sgMail.send(msg);
+    await emailer.pwChangeConfirm(updatedUser);
 
     return res.json(user.toAuthJSON());
 
@@ -151,7 +119,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
     const id = req.body.authUser.id;
 
-    const user  = await User.findOne({ _id: id });
+    const user: IUserModel  = await User.findOne({ _id: id });
 
     if (!user) return res.sendStatus(401);
 
@@ -163,16 +131,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction) => {
 
     const updatedUser = await User.findByIdAndUpdate(user._id, user, { new: true });
 
-    const msg = {
-      to: updatedUser.email,
-      from: 'noreply@homebrewswap.app',
-      templateId: 'd-11c10b8b0e3f4e5abf466ee978379d83',
-      dynamicTemplateData: {
-        brewer: updatedUser.username
-      },
-    };
-
-    await sgMail.send(msg);
+    await emailer.pwChangeConfirm(updatedUser);
 
     return res.json(user.toAuthJSON());
 
