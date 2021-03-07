@@ -1,12 +1,13 @@
-export const login = {
-    email: "test@homebrewswap.app",
-    password: "salainen1"
-}
 
 export const user = {
   username: "tester",
   password: "salainen1",
   email: "test@homebrewswap.app"
+}
+
+export const login = {
+  email: user.email,
+  password: user.password
 }
 
 export const offer = {

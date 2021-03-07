@@ -110,7 +110,11 @@ const OffersListCard: React.FC<{ initOffer: IOffer }> = ({ initOffer }) => {
                 <DeleteForever />
               </IconButton>
               <div className={classes.grow} />
-              <IsActiveSwitch toggle={handleActiveToggle} checked={offer.active} />
+              <IsActiveSwitch
+                toggle={handleActiveToggle}
+                checked={offer.active}
+                id={`toggle${offer.beerName}Switch`}
+              />
             </div>
           </CardActions>
 

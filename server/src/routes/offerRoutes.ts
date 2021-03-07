@@ -51,8 +51,6 @@ router.post('/', authentication.required , async  (req: Request, res: Response) 
 
   const newOffer = new Offer({...req.body, owner: req.body.authUser.id});
 
-  console.log(newOffer);
-
   const savedOffer = await newOffer.save();
 
   if (savedOffer) return res.json(savedOffer.toListJSON());

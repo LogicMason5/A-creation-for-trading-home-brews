@@ -64,6 +64,11 @@ describe('reset', () => {
     cy.contains('Link to recipe/brewing notes')
     cy.contains('Upload an image')
   })
+  it('token is one time use', () => {
+    cy.get('#resetPwNewPwField').type(`${user.password}New`)
+    cy.get('#resetPwConfirmPwField').type(`${user.password}New`)
+    cy.get('#resetPwSubmitButton').click()
+  })
 })
 
 

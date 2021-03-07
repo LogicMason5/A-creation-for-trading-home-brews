@@ -51,7 +51,6 @@ describe('Create offer', () => {
       cy.contains('Tapiolan terveysasema')
       cy.contains('Tapiolan jääpuutarha')
       cy.contains('jääpuutarha').click()
-
       cy.get('#submitOfferButton').click()
       cy.contains(`Offer for ${offer.beerName} created`)
     })

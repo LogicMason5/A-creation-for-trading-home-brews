@@ -44,13 +44,15 @@ const useSwitchStyles = makeStyles((theme: Theme) => createStyles({
 interface IsActiveSwitchProps {
   toggle: () => void;
   checked: boolean;
+  id: string;
 }
 
-const IsActiveSwitch: React.FC<IsActiveSwitchProps> = ({ toggle, checked }) => {
+const IsActiveSwitch: React.FC<IsActiveSwitchProps> = ({ toggle, checked, id }) => {
   const switchClasses = useSwitchStyles();
 
   return (
     <FormControlLabel
+      id={id}
       control={(
         <ToggleSwitch
           name="checked"

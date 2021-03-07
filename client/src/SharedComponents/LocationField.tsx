@@ -1,27 +1,24 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import Grid from '@material-ui/core/Grid';
-import { TextFieldProps } from '@material-ui/core';
+import { TextField, TextFieldProps } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import parse from 'autosuggest-highlight/parse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { FieldProps } from 'formik';
+import { FieldProps, getIn } from 'formik';
 import { useDispatch } from 'react-redux';
-import FormTextField from './FormTextField';
-import { setCoordinates } from '../Map/locationSlice';
+import { setLocation } from '../Map/locationSlice';
 
-// eslint-disable-next-line max-len
-const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: string } & {initValue: string}> = (props) => {
+const LocationField: React.FC<
+FieldProps & TextFieldProps & { initHelperText: string }> = (props) => {
   const dispatch = useDispatch();
 
-  const { initValue } = props;
-
   const {
-
     suggestions: { data },
     setValue,
-
   } = usePlacesAutocomplete({
     requestOptions: {
       // can define search scope here later based on user location
@@ -29,20 +26,12 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
     debounce: 200,
   });
 
-  const handleSelect = async (newValue: google.maps.places.AutocompletePrediction | null) => {
-    if (newValue) {
-      const { description } = newValue;
-
-      try {
-        setValue(description, false);
-        const results = await getGeocode({ address: description });
-        const { lat, lng } = await getLatLng(results[0]);
-        dispatch(setCoordinates({ lat, lng, asText: description }));
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    }
+  const handleSelect = async (newValue: string) => {
+    if (!newValue) return;
+    setValue(newValue, false);
+    const results = await getGeocode({ address: newValue });
+    const { lat, lng } = await getLatLng(results[0]);
+    dispatch(setLocation({ lat, lng, asText: newValue }));
   };
 
   const renderSuggestion = (option: google.maps.places.AutocompletePrediction) => {
@@ -56,8 +45,7 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
       <Grid container alignItems="center">
         <Grid item xs>
           {parts.map((part, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+            <span key={index.toString() + part.text} style={{ fontWeight: part.highlight ? 700 : 400 }}>
               {part.text}
             </span>
           ))}
@@ -69,30 +57,44 @@ const LocationField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
     );
   };
 
+  const {
+    error, helperText, initHelperText, field, ...rest
+  } = props;
+
+  const isTouched = getIn(props.form.touched, props.field.name);
+  const errorMessage = getIn(props.form.errors, props.field.name);
+  console.log(field.value);
+  // console.log(rest);
+
   return (
     <Autocomplete
       id="locationField"
+      defaultValue={{ description: rest.form.initialValues.location } as google.maps.places.AutocompletePrediction}
       options={data}
-      // eslint-disable-next-line react/destructuring-assignment
-      inputValue={initValue}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
       getOptionSelected={() => true}
-      autoComplete
-      includeInputInList
-      onChange={(_event: unknown, newValue: google.maps.places.AutocompletePrediction | null) => {
-        // eslint-disable-next-line no-void
-        void handleSelect(newValue);
+      onChange={(_event: ChangeEvent<{}>, newValue: google.maps.places.AutocompletePrediction | null) => {
+        if (newValue) {
+          handleSelect(newValue.description);
+          rest.form.setFieldValue('location', newValue.description);
+        }
       }}
       onInputChange={(_event, newInputValue) => {
         setValue(newInputValue);
+        rest.form.setFieldValue('location', newInputValue);
       }}
       renderInput={(params) => (
-        <FormTextField
+        <TextField
+          variant="outlined"
+          error={error ?? Boolean(isTouched && errorMessage)}
+          helperText={helperText ?? ((isTouched && errorMessage) ? errorMessage : initHelperText)}
+          {...rest}
           {...params}
-          {...props}
+          {...field}
         />
       )}
       renderOption={renderSuggestion}
+      noOptionsText="Type to get suggestions"
     />
   );
 };

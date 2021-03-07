@@ -39,12 +39,12 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
 
   const dispatch = useAsyncDispatch();
 
-  const isLoaded = useSelector(
-    (state: RootState) => state.display.mapsLoaded,
+  const { mapsLoaded } = useSelector(
+    (state: RootState) => state.display,
   );
 
-  const imgUrl = useSelector(
-    (state: RootState) => state.display.offerUploadUrl,
+  const { offerUploadUrl } = useSelector(
+    (state: RootState) => state.display,
   );
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
-                  id="beerName"
+                  id="beerNameField"
                   name="beerName"
                   label="What do you call it?"
                   size="small"
@@ -124,15 +124,14 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                {isLoaded
+                {mapsLoaded
                   ? (
                     <Field
+                      label="Give a default trade location"
                       name="location"
-                      label="Trade location"
-                      initValue={initValues.location}
                       component={LocationField}
                       fullWidth
-                      initHelperText="Give a default location for the trade. Any public location will do."
+                      initHelperText="Any public location will do. A valid location is required to save."
                     />
                   )
                   : <CircularProgress />}
@@ -141,7 +140,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
                 <ImageUploader />
               </Grid>
               <Grid item xs={12}>
-                <ImageDisplay url={imgUrl} />
+                <ImageDisplay url={offerUploadUrl} />
               </Grid>
               <Grid item xs={12}>
                 <Field

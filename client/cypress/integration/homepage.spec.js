@@ -16,21 +16,14 @@ describe('Homepage', () => {
         cy.contains('Map data')
       })
     })
-
     describe('cookies bar', () => {
       it('is showing', () => {
         cy.contains('This website needs')
       })
-  
       it('on click', () => {
         cy.get('#acceptButton').click()
       })
-
     })
-
-
-
-
   })
 
   describe('is logged in', () => {
