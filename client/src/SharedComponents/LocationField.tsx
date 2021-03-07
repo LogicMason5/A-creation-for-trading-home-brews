@@ -1,20 +1,23 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable max-len */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { ChangeEvent } from 'react';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import Grid from '@material-ui/core/Grid';
-import { TextField, TextFieldProps } from '@material-ui/core';
+import { TextFieldProps } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import parse from 'autosuggest-highlight/parse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { FieldProps, getIn } from 'formik';
+import { FieldProps } from 'formik';
 import { useDispatch } from 'react-redux';
 import { setLocation } from '../Map/locationSlice';
+import FormTextField from './FormTextField';
 
 const LocationField: React.FC<
 FieldProps & TextFieldProps & { initHelperText: string }> = (props) => {
   const dispatch = useDispatch();
+
+  const { form } = props;
 
   const {
     suggestions: { data },
@@ -57,40 +60,28 @@ FieldProps & TextFieldProps & { initHelperText: string }> = (props) => {
     );
   };
 
-  const {
-    error, helperText, initHelperText, field, ...rest
-  } = props;
-
-  const isTouched = getIn(props.form.touched, props.field.name);
-  const errorMessage = getIn(props.form.errors, props.field.name);
-  console.log(field.value);
-  // console.log(rest);
-
   return (
     <Autocomplete
       id="locationField"
-      defaultValue={{ description: rest.form.initialValues.location } as google.maps.places.AutocompletePrediction}
+      defaultValue={{ description: form.initialValues.location } as google.maps.places.AutocompletePrediction} // hacky way to give default value from a string only
       options={data}
+      autoComplete
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
       getOptionSelected={() => true}
       onChange={(_event: ChangeEvent<{}>, newValue: google.maps.places.AutocompletePrediction | null) => {
         if (newValue) {
           handleSelect(newValue.description);
-          rest.form.setFieldValue('location', newValue.description);
+          form.setFieldValue('location', newValue.description); // "intercepting" the Formik function to keep it in sync with the Autocomplete
         }
       }}
       onInputChange={(_event, newInputValue) => {
         setValue(newInputValue);
-        rest.form.setFieldValue('location', newInputValue);
+        form.setFieldValue('location', newInputValue); // "intercepting" the Formik function to keep it in sync with the Autocomplete
       }}
       renderInput={(params) => (
-        <TextField
-          variant="outlined"
-          error={error ?? Boolean(isTouched && errorMessage)}
-          helperText={helperText ?? ((isTouched && errorMessage) ? errorMessage : initHelperText)}
-          {...rest}
+        <FormTextField
+          {...props}
           {...params}
-          {...field}
         />
       )}
       renderOption={renderSuggestion}

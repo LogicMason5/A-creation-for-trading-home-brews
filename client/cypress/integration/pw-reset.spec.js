@@ -60,7 +60,7 @@ describe('reset', () => {
     cy.contains('Create a new offer')
     cy.contains('A few words about your brew')
     cy.contains('Package Size')
-    cy.contains('Trade location')
+    cy.contains('Give a default trade location')
     cy.contains('Link to recipe/brewing notes')
     cy.contains('Upload an image')
   })
