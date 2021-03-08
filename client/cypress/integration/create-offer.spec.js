@@ -12,7 +12,6 @@ describe('Create offer', () => {
     cy.visit('create-offer')
   })
 
-
   it('local validation', () => {
     cy.get('#submitOfferButton').click()
     cy.contains('A name is required')
@@ -45,8 +44,8 @@ describe('Create offer', () => {
     it('works', () => {
       cy.get('#beerNameField').should('be.visible').type(offer.beerName, { force: true })
       cy.get('#descriptionField').type(offer.description,  { force: true })
-      cy.get('#recipeLink').type(offer.recipeLink)
-      cy.get('#reviewLink').type(offer.reviewLink)
+      cy.get('#recipeLinkField').type(offer.recipeLink)
+      cy.get('#reviewLinkField').type(offer.reviewLink)
       cy.get('#locationField').type('Tapiola')
       cy.contains('Tapiolan terveysasema')
       cy.contains('Tapiolan jääpuutarha')

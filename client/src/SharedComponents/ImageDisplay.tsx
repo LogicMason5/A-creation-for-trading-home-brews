@@ -21,6 +21,7 @@ const ImageDisplay: React.FC<ImageDisplayProps> = ({ url }) => {
       ? (
         <Card>
           <CardMedia
+            id="imageDisplay"
             image={url}
             className={classes.media}
           />

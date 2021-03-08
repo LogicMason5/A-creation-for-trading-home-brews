@@ -1,3 +1,4 @@
+/* eslint-disable jest/valid-expect */
 /* eslint-disable no-undef */
 import { offer } from '../fixtures/testData'
 
@@ -57,12 +58,21 @@ describe('My offers', () => {
       cy.contains('No offers found.')
       cy.contains('create a new offer?')
     })
+    it('no in my-offers', () => {
+      cy.visit('my-offers')
+      cy.contains('No offers found.')
+    })
+    it('link to create works', () => {
+      cy.contains('create a new offer').click()
+      cy.url().should('include', '/create-offer')
+    })
   })
 
 
 
   describe('edit', () => {
     before(() => {
+      cy.resetOffers()
       cy.loginTester()
       cy.createOffer()
     })
@@ -71,15 +81,74 @@ describe('My offers', () => {
       cy.visit('my-offers')
       cy.get(`#edit${offer.beerName}Button`).click()
     })
-    it('shows data', () => {
+    it('imports initial data', () => {
       cy.contains(`Editing offer for ${offer.beerName}`)
-      cy.contains(offer.recipeLink)
-      cy.contains(offer.reviewLink)
-      cy.contains(offer.description)
-      cy.contains(offer.imgUrl)
+      cy.checkImportedOfferFormValues()
+    })
+    it('image is loaded', () => {
+      cy.get(`#imageDisplay`)
+      .scrollIntoView()
+      .should('be.visible')
+      //add image comparison with a plugin?
+    })
+    it('editing and saving work', () => {
+      cy.get("#descriptionField")
+      .scrollIntoView()
+      .clear({force: true})
+      .type('new description. new description. new description.', )
+      cy.contains('new description. new description. new description.')
+      cy.get("#submitOfferButton").click()
+      cy.contains(`Offer for ${offer.beerName} updated`)
+    })
+    it('edits are saved', () => {
+      cy.contains('new description. new description. new description.')
+    })
+  })
+
+  describe('copy', () => {
+    before(() => {
+      cy.loginTester()
+      cy.resetOffers()
+      cy.createOffer()
+    })
+    beforeEach(() => {
+      cy.loginTester()
+      cy.visit('my-offers')
+      cy.get(`#copy${offer.beerName}Button`).click()
+    })
+    it('confirm dialog shows', () => {
+      cy.contains(`Create a copy of the offer for ${offer.beerName}`)
+      cy.contains('You will be redirected to edit the details of the new Offer.')
+    })
+    it('imports initial data', () => {
+      cy.contains('Confirm').click()
+      cy.contains(`Creating a new offer from a copy of ${offer.beerName}`)
+      cy.checkImportedOfferFormValues()
+    })
+    it('editing and saving work', () => {
+      cy.contains('Confirm').click()
+      cy.get("#beerNameField")
+      .scrollIntoView()
+      .clear({force: true})
+      .type('newbeername', )
+      cy.get("#submitOfferButton").click()
+      cy.contains(`Offer for newbeername created!`)
+    })
+    it('both offers show in my-offers', () => {
+      cy.visit('my-offers')
+      cy.contains('newbeername')
+      cy.contains(offer.beerName)
+    })
+    it('copied offer has init data', () => {
+      cy.visit('my-offers')
+      cy.get(`#editnewbeernameButton`).click()
+      cy.get("#locationField").should('value', offer.location.asText)
+      cy.get("#recipeLinkField").should('value', offer.recipeLink)
+      cy.get("#reviewLinkField").should('value', offer.reviewLink)
     })
   })
 
 })
+
 
 

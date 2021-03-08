@@ -117,7 +117,6 @@ const OffersListCard: React.FC<{ initOffer: IOffer }> = ({ initOffer }) => {
               />
             </div>
           </CardActions>
-
         </div>
         <Divider />
       </Card>

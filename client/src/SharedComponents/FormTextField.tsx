@@ -15,6 +15,7 @@ const FormTextField: React.FC<FieldProps & TextFieldProps & { initHelperText: st
 
   return (
     <TextField
+      id={`${field.name}Field`}
       variant="outlined"
       error={error ?? Boolean(isTouched && errorMessage)}
       helperText={helperText ?? ((isTouched && errorMessage) ? errorMessage : initHelperText)}

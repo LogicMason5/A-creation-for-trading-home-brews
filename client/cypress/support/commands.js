@@ -31,6 +31,18 @@ Cypress.Commands.add('createOffer', () => {
   })
 })
 
+Cypress.Commands.add('createOfferId', () => {
+  const headers = createAuthHeaders()
+  cy.request({
+    url: `${apiUrl}offers`,
+    method: 'POST',
+    body: offer,
+    headers: headers.headers,
+  }).then((res) => {
+    return res.body.id
+  })
+})
+
 Cypress.Commands.add('getResetToken', () => {
   cy.request('POST', `${apiUrl}test/pwresettoken`, { email: user.email })
 })
@@ -43,6 +55,14 @@ Cypress.Commands.add('requestWithResetToken', (request) => {
     ...request,
     headers: headers.headers,
   })
+})
+
+Cypress.Commands.add('checkImportedOfferFormValues', () => {
+  cy.get("#beerNameField").should('value', offer.beerName)
+  cy.get("#descriptionField").should('value', offer.description)
+  cy.get("#locationField").should('value', offer.location.asText)
+  cy.get("#recipeLinkField").should('value', offer.recipeLink)
+  cy.get("#reviewLinkField").should('value', offer.reviewLink)
 })
 
 

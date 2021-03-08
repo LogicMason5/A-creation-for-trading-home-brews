@@ -144,7 +144,6 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Field
-                  id="recipeLink"
                   name="recipeLink"
                   label="Link to recipe/brewing notes"
                   size="small"
@@ -155,7 +154,7 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Field
-                  id="reviewLink"
+                  id="reviewLinkField"
                   name="reviewLink"
                   label="Link to review/untappd"
                   size="small"
