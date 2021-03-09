@@ -83,7 +83,7 @@ export const resetPw = (form: ResetPwFormValues, token: string): AppThunk => asy
     dispatch(giveAlert('success', `Welcome ${response.username}! Email confirmation about password reset sent.`));
     history.push('/');
   } catch (error) {
-    dispatch(giveAlert('error', `Failed to reset password: ${JSON.stringify(error.response)}`));
+    dispatch(giveAlert('error', 'Failed to reset password. Please request a new link.'));
   }
 };
 

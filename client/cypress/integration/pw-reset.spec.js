@@ -1,5 +1,7 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable jest/valid-expect-in-promise */
 /* eslint-disable no-undef */
-import { user } from '../fixtures/testData'
+import { user, apiUrl, offer } from '../fixtures/testData'
 
 describe('Request pw reset email', () => {
   before(() =>  {
@@ -64,12 +66,40 @@ describe('reset', () => {
     cy.contains('Link to recipe/brewing notes')
     cy.contains('Upload an image')
   })
-  it('token is one time use', () => {
-    cy.get('#resetPwNewPwField').type(`${user.password}New`)
-    cy.get('#resetPwConfirmPwField').type(`${user.password}New`)
-    cy.get('#resetPwSubmitButton').click()
-  })
 })
+
+describe('reset token', () => {
+  before(() =>  {
+    cy.resetUsers()
+    cy.createTester()
+  })
+  it('is one time use', () => {
+    cy.getResetToken().its('body.token').then(token => {
+        cy.visit(`resetpw/${token.token}`)
+        cy.get('#resetPwNewPwField').type(`${user.password}New`)
+        cy.get('#resetPwConfirmPwField').type(`${user.password}New`)
+        cy.get('#resetPwSubmitButton').click()
+        cy.visit(`resetpw/${token.token}`)
+        cy.get('#resetPwNewPwField').type(`${user.password}New`)
+        cy.get('#resetPwConfirmPwField').type(`${user.password}New`)
+        cy.get('#resetPwSubmitButton').click()
+        cy.contains('Failed to reset password. Please request a new link.')
+
+    })
+  })
+  it('doesnt auth to create offer', () => {
+    cy.requestWithResetToken({
+      url: `${apiUrl}offers`,
+      method: 'POST',
+      body: offer,
+      failOnStatusCode: false
+    }).then((res) => {
+      expect(res.status).to.equal(401)
+    })
+  })
+  
+})
+
 
 
 

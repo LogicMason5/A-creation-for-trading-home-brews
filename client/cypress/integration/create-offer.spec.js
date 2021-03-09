@@ -25,7 +25,6 @@ describe('Create offer', () => {
       cy.contains('Tapiolan terveysasema')
       cy.contains('Tapiolan jääpuutarha')
     })
-
     it('options are clickable', () => {
       cy.contains('jääpuutarha').click()
     })
