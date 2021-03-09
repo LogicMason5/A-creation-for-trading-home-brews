@@ -48,12 +48,12 @@ const MyOffersList: React.FC = () => {
         {myOffers.length > 0
           ? myOffers.map((o) => <OffersListCard key={o.id} initOffer={o} />)
           : (
-            <div>
+            <>
               <TitleBox title="No offers found." />
               <Link to="/create-offer">
                 <TitleBox title="create a new offer?" />
               </Link>
-            </div>
+            </>
           )}
 
       </Grid>

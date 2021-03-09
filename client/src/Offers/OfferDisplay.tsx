@@ -54,11 +54,7 @@ const OfferDisplay: React.FC = () => {
     };
   }, [dispatch, id]);
 
-  if (!offer) {
-    return (
-      <CircularProgress />
-    );
-  }
+  if (!offer) return <CircularProgress />;
 
   const handleRecipeLinkClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -98,29 +94,29 @@ const OfferDisplay: React.FC = () => {
           : null}
         {offer.recipeLink
           ? (
-            <div>
+            <>
               <Typography color="textSecondary" component="p">
                 Url to recipe/brewing notes:
               </Typography>
               <Link href={offer.recipeLink} onClick={handleRecipeLinkClick} component="p">
                 {offer.recipeLink}
               </Link>
-            </div>
+            </>
           )
           : null}
         {offer.reviewLink
           ? (
-            <div>
+            <>
               <Typography color="textSecondary" component="p">
                 Url to review/untappd:
               </Typography>
               <Link href={offer.reviewLink} onClick={handleReviewLinkClick} component="p">
                 {offer.reviewLink}
               </Link>
-            </div>
+            </>
           )
           : null}
-        <div>
+        <>
           <Typography color="textSecondary" component="p">
             Offer expires in:
           </Typography>
@@ -130,7 +126,7 @@ const OfferDisplay: React.FC = () => {
               accuracy="minute"
             />
           </Typography>
-        </div>
+        </>
         <DisplayTextItem
           title="Brewer:"
           content={offer.owner.username}

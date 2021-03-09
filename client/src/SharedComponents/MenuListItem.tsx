@@ -29,7 +29,7 @@ const MenuListItem: React.FC<MenuListItemProps> = (props) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <>
       <Link to={linkTo} style={{ textDecoration: 'none' }}>
         <ListItem button onClick={onClick}>
           <ListItemIcon>
@@ -39,7 +39,7 @@ const MenuListItem: React.FC<MenuListItemProps> = (props) => {
         </ListItem>
       </Link>
       <Divider />
-    </div>
+    </>
 
   );
 };

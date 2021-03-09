@@ -32,7 +32,7 @@ const ConfirmDialog: React.FC<DialogProps> = (props) => {
   };
 
   return (
-    <div>
+    <>
       <Dialog
         open={dialogOpen}
         onClose={handleNo}
@@ -54,7 +54,7 @@ const ConfirmDialog: React.FC<DialogProps> = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

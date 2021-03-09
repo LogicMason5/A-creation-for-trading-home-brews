@@ -6,7 +6,7 @@ import LoginForm from './LoginForm';
 import ReqResetPwForm from './ReqResetPwForm';
 
 const LoginPage: React.FC = () => (
-  <div>
+  <>
     <LoginForm />
     <ReqResetPwForm />
     <Container>
@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => (
         </Button>
       </Link>
     </Container>
-  </div>
+  </>
 );
 
 export default LoginPage;

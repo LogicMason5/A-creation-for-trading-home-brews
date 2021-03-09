@@ -7,14 +7,14 @@ interface DisplayTextItemProps {
 }
 
 const DisplayTextItem: React.FC<DisplayTextItemProps> = ({ title, content }) => (
-  <div>
+  <>
     <Typography color="textSecondary" component="p">
       {title}
     </Typography>
     <Typography color="textPrimary" component="p">
       {content}
     </Typography>
-  </div>
+  </>
 );
 
 export default DisplayTextItem;
