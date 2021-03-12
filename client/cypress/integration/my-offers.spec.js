@@ -16,7 +16,7 @@ describe('My offers', () => {
 
   it('displays info', () => {
     cy.contains('beer')
-    cy.contains('13 days, 23 hours and')
+    cy.contains('29 days, 23 hours and')
     cy.contains('active')
   })
 
@@ -46,7 +46,7 @@ describe('My offers', () => {
       cy.contains(`Offer for ${offer.beerName} deactivated.`)
       cy.get(`#toggle${offer.beerName}Switch`).click()
       cy.contains(`Offer for ${offer.beerName} activated.`)
-      cy.contains(`13 days, 23 hours`)
+      cy.contains(`29 days, 23 hours`)
     })
     //delete last or refactor blocks and before functions blocks
     it('delete', () => {

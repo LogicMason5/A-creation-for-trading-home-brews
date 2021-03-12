@@ -24,7 +24,7 @@ const CountDown: React.FC<ExpCountDownProps> = ({ created, accuracy }) => {
     }
   };
 
-  const expiration = Date.parse(created) + (14 * 24 * 60 * 60 * 1000);
+  const expiration = Date.parse(created) + (30 * 24 * 60 * 60 * 1000);
 
   return (
     <Countdown

@@ -116,17 +116,23 @@ const OfferDisplay: React.FC = () => {
             </>
           )
           : null}
-        <>
-          <Typography color="textSecondary" component="p">
-            Offer expires in:
-          </Typography>
-          <Typography color="textPrimary" component="p">
-            <CountDown
-              created={offer.created}
-              accuracy="minute"
-            />
-          </Typography>
-        </>
+
+        {offer.created
+          ? (
+            <>
+              <Typography color="textSecondary" component="p">
+                Offer expires in:
+              </Typography>
+              <Typography color="textPrimary" component="p">
+                <CountDown
+                  created={offer.created}
+                  accuracy="minute"
+                />
+              </Typography>
+            </>
+          )
+          : <CircularProgress />}
+
         <DisplayTextItem
           title="Brewer:"
           content={offer.owner.username}

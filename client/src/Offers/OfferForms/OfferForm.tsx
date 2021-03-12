@@ -12,7 +12,7 @@ import FormTextField from '../../SharedComponents/FormTextField';
 import LocationField from '../../SharedComponents/LocationField';
 import FormSlider from '../../SharedComponents/FormSlider';
 import { RootState } from '../../rootReducer';
-import { setDrawerOpen } from '../../Display/displaySlice';
+import { setDrawerOpen, setOfferUploadUrl } from '../../Display/displaySlice';
 import { AppThunk, useAsyncDispatch } from '../../store';
 import { OfferFormValues } from '../../type';
 import TitleBox from '../../SharedComponents/TitleBox';
@@ -46,6 +46,10 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
   const { offerUploadUrl } = useSelector(
     (state: RootState) => state.display,
   );
+
+  const removeImage = () => {
+    dispatch(setOfferUploadUrl(''));
+  };
 
   useEffect(() => {
     dispatch(setDrawerOpen(true));
@@ -141,6 +145,14 @@ const EditOfferForm: React.FC<OfferFormProps> = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <ImageDisplay url={offerUploadUrl} />
+              </Grid>
+              <Grid item xs={12}>
+                {offerUploadUrl ? (
+                  <Button onClick={removeImage} variant="outlined" color="primary" id="removeImageButton">
+                    Remove the image
+                  </Button>
+                )
+                  : null}
               </Grid>
               <Grid item xs={12}>
                 <Field

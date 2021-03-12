@@ -115,16 +115,14 @@ export const updateSelectedOffer = (formContent: OfferFormValues): AppThunk => a
   const state = store.getState();
 
   const {
-    id, active, owner, imgUrl,
+    id, active, owner,
   } = state.offers.selectedOffer;
-  const updatedImgUrl = store.getState().display.offerUploadUrl;
-
-  const newUrl = updatedImgUrl === '' ? imgUrl : updatedImgUrl;
+  const imgUrl = store.getState().display.offerUploadUrl;
 
   const newOffer = {
     ...formContent,
     location: state.location.location,
-    imgUrl: newUrl,
+    imgUrl,
     id,
     owner,
     active,
@@ -133,6 +131,7 @@ export const updateSelectedOffer = (formContent: OfferFormValues): AppThunk => a
   try {
     const updatedOffer = await offersService.updateById(id, newOffer);
     dispatch(giveAlert('success', `Offer for ${updatedOffer.beerName} updated.`));
+    updateMyOffer(updatedOffer);
     history.push('/my-offers');
   } catch (error) {
     console.log(error);
