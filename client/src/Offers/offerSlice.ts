@@ -101,7 +101,6 @@ export const createOffer = (formContent: OfferFormValues): AppThunk => async (di
 
   try {
     const createdOffer = await offersService.createNew(newOffer);
-
     dispatch(addOffer(createdOffer));
     dispatch(giveAlert('success', `Offer for ${createdOffer.beerName} created!`));
     history.push('/');
