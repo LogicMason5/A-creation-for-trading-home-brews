@@ -9,24 +9,27 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  build-lint-test:
     runs-on: ubuntu-latest
 
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
     #set up Node
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    #frontend install and start
-    - name: npm install, start
-      run: |
-        npm install
-        npm run start
+    #lint frontend
+    - name: lint frontend
+      run: npm run lint
       working-directory: ./client
+    #lint backend
+    - name: lint backend
+      run: npm run lint
+      working-directory: ./server
+
 
 
 
