@@ -21,12 +21,12 @@ describe('Create offer', () => {
 
   describe('location field', () => {
     it('gives options', () => {
-      cy.get('#locationField', { timeout: 15000 }).type('Tapiola')
-      cy.contains('Tapiolan terveysasema', { timeout: 15000 })
-      cy.contains('Tapiolan jääpuutarha', { timeout: 15000 })
+      cy.get('#locationField', ).type('Tapiola', { force: true })
+      cy.contains('Tapiolan terveysasema')
+      cy.contains('Tapiolan jääpuutarha')
     })
     it('options are clickable', () => {
-      cy.contains('jääpuutarha', { timeout: 15000 }).click()
+      cy.contains('jääpuutarha').click()
     })
   })
 
@@ -41,11 +41,11 @@ describe('Create offer', () => {
     })
 
     it('works', () => {
-      cy.get('#beerNameField').should('be.visible').type(offer.beerName, { force: true, timeout: 15000 })
-      cy.get('#descriptionField', { timeout: 15000 }).type(offer.description,  { force: true, timeout: 15000 })
-      cy.get('#recipeLinkField', { timeout: 15000 }).type(offer.recipeLink)
-      cy.get('#reviewLinkField', { timeout: 15000 }).type(offer.reviewLink)
-      cy.get('#locationField', { timeout: 15000 }).type('Tapiola')
+      cy.get('#beerNameField').should('be.visible').type(offer.beerName, { force: true })
+      cy.get('#descriptionField').type(offer.description,  { force: true })
+      cy.get('#recipeLinkField').type(offer.recipeLink)
+      cy.get('#reviewLinkField').type(offer.reviewLink)
+      cy.get('#locationField').type('Tapiola')
       cy.contains('Tapiolan terveysasema')
       cy.contains('Tapiolan jääpuutarha')
       cy.contains('jääpuutarha').click()
