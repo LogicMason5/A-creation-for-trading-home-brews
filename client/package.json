@@ -41,6 +41,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:prod": "npx serve build -l 3000",
     "start:server": "cd .. && cd server && npm run start:test",
     "build": "react-scripts build",
     "lint": "eslint . --ext .ts,.tsx",

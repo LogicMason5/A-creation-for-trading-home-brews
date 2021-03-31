@@ -28,10 +28,11 @@ jobs:
         npm run lint
       working-directory: ./server
     #install, lint front
-    - name: install and lint frontend
+    - name: install, lint, build frontend
       run: |
         npm install
         npm run lint
+        npm run build
       working-directory: ./client
     #run e2e tests
     - name: run e2e tests
@@ -39,7 +40,7 @@ jobs:
       with:
         command: npm run test
         start: |
-          npm run start
+          npm run start:prod
           npm run start:server
         wait-on: 'http://localhost:3000, http://localhost:3001'
         working-directory: client
