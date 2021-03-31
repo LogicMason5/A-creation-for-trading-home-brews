@@ -16,6 +16,9 @@ jobs:
     # checkout the repo
     - name: 'Checkout Github Action'
       uses: actions/checkout@v2
+    #increase watched files limit for server
+    - name: Increase watched files limit
+      run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
     #set up Node
     - name: Set up Node.js version
       uses: actions/setup-node@v1
@@ -28,7 +31,7 @@ jobs:
         npm run lint:fix
       working-directory: ./server
     #install, lint front-end
-    - name: install, lint, build frontend
+    - name: install, lint frontend
       run: |
         npm install
         npm run lint:fix
