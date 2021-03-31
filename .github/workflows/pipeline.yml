@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://go.microsoft.com/fwlink/?linkid=2134798
 # More GitHub Actions for Azure: https://go.microsoft.com/fwlink/?linkid=2135048
 
-name: Homebrew Swap lint, build, test, deploy
+name: Homebrew Swap lint, test, deploy
 
 on:
   push:
@@ -21,18 +21,25 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    #lint frontend
-    - name: install and lint frontend
+    #install, lint, start
+    - name: install and lint, start backend
       run: |
         npm install
         npm run lint
-      working-directory: ./client
-    #lint backend
-    - name: install and lint backend
-      run: |
-        npm install
-        npm run lint
+        npm run start:test
       working-directory: ./server
+    #install, lint, start front
+    - name: install and lint, start frontend
+      run: |
+        npm install
+        npm run lint
+        npm run start
+      working-directory: ./client
+    #run e2e tests
+    - name: run e2e tests
+      run: npm run test
+      working-directory: ./client
+
 
 
 
