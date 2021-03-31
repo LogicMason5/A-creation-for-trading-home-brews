@@ -16,7 +16,7 @@ jobs:
     # checkout the repo
     - name: 'Checkout Github Action'
       uses: actions/checkout@v2
-    #increase watched files limit for server
+    #increase watched files limit for server, required to run dev version of frontend
     - name: Increase watched files limit
       run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
     #set up Node
@@ -50,6 +50,9 @@ jobs:
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
         SG_EMAIl_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
         TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+        REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+        REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
+        
 
 
 
