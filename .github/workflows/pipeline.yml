@@ -25,13 +25,13 @@ jobs:
     - name: install and lint backend
       run: |
         npm install
-        npm run lint
+        npm run lint:fix
       working-directory: ./server
     #install, lint, build front-end
     - name: install, lint, build frontend
       run: |
         npm install
-        npm run lint
+        npm run lint:fix
         npm run build
       working-directory: ./client
     #run e2e tests
