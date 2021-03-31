@@ -22,13 +22,13 @@ jobs:
       with:
         node-version: '12.x'
     #lint frontend
-    - name: lint frontend
+    - name: install and lint frontend
       run: |
         npm install
         npm run lint
       working-directory: ./client
     #lint backend
-    - name: lint backend
+    - name: install and lint backend
       run: |
         npm install
         npm run lint
