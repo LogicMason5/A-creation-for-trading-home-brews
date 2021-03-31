@@ -16,7 +16,10 @@
     ],
      "@typescript-eslint/no-explicit-any": 0,
     "no-case-declarations": 0,
-    "linebreak-style": 0
+    "linebreak-style": [
+      "error",
+      "unix"
+    ]
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

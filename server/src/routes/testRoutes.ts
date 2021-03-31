@@ -36,8 +36,8 @@ router.post('/pwresettoken', async (req: Request, res: Response) => {
 });
 
 router.get('/health'), (_req: Request, res: Response) => {
-  res.send('ok')
-}
+  res.send('ok');
+};
 
 
 

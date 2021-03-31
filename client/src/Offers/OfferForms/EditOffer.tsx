@@ -29,7 +29,6 @@ const EditOffer: React.FC = () => {
   useEffect(() => {
     dispatch(setOfferUploadUrl(imgUrl));
     dispatch(setLocation(location));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
