@@ -43,6 +43,11 @@ jobs:
           npm run start:server
         wait-on: 'http://localhost:3000, http://localhost:3001'
         working-directory: client
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SG_EMAIl_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+
 
 
 
