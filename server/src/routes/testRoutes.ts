@@ -33,8 +33,11 @@ router.post('/pwresettoken', async (req: Request, res: Response) => {
   const token = user.getResetToken();
 
   return res.json({ token: token });
-
 });
+
+router.get('/health'), (_req: Request, res: Response) => {
+  res.send('ok')
+}
 
 
 
