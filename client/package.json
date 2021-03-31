@@ -22,6 +22,7 @@
     "axios": "^0.21.1",
     "formik": "^2.2.6",
     "history": "^4.10.1",
+    "local-web-server": "^4.2.1",
     "material-ui-formik-components": "^0.7.3",
     "react": "^17.0.1",
     "react-cookie-consent": "^6.2.3",

@@ -21,18 +21,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    #install, lint, start
+    #install, lint backend
     - name: install and lint backend
       run: |
         npm install
         npm run lint:fix
       working-directory: ./server
-    #install, lint, build front-end
+    #install, lint front-end
     - name: install, lint, build frontend
       run: |
         npm install
         npm run lint:fix
-        npm run build
       working-directory: ./client
     #run e2e tests
     - name: run e2e tests
@@ -40,7 +39,7 @@ jobs:
       with:
         command: npm run test
         start: |
-          npm run start:prod
+          npm run start
           npm run start:server
         wait-on: 'http://localhost:3000, http://localhost:3001/api/test/health'
         working-directory: client
