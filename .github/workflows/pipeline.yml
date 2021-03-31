@@ -39,10 +39,9 @@ jobs:
       with:
         command: npm run test
         start: |
-          npm run start
-          npm run start:server
+          cd client && npm run start
+          cd client && npm run start:server
         wait-on: 'http://localhost:3000, http://localhost:3001'
-      working-directory: ./client
 
 
 
