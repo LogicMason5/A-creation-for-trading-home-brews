@@ -27,7 +27,7 @@ jobs:
         npm install
         npm run lint
       working-directory: ./server
-    #install, lint front
+    #install, lint, build front-end
     - name: install, lint, build frontend
       run: |
         npm install
@@ -42,7 +42,7 @@ jobs:
         start: |
           npm run start:prod
           npm run start:server
-        wait-on: 'http://localhost:3000, http://localhost:3001'
+        wait-on: 'http://localhost:3000, http://localhost:3001/test/health'
         working-directory: client
       env:
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
