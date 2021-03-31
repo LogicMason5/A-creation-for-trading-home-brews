@@ -42,7 +42,7 @@ jobs:
         start: |
           npm run start:prod
           npm run start:server
-        wait-on: 'http://localhost:3000, http://localhost:3001/test/health'
+        wait-on: 'http://localhost:3000, http://localhost:3001/api/test/health'
         working-directory: client
       env:
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
