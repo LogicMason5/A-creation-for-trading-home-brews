@@ -36,12 +36,17 @@ const Map: React.FC = () => {
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyles}
-      zoom={7}
+      zoom={6}
       center={center}
       options={mapOptions}
     >
       {offers ? offers.map((o) => (
-        <OfferMarker key={o.id} name={o.beerName} position={o.location} id={o.id} />
+        <OfferMarker
+          key={o.id}
+          name={o.beerName}
+          position={o.location}
+          id={o.id}
+        />
       )) : null}
       <LocateButton />
     </GoogleMap>

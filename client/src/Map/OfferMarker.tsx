@@ -48,6 +48,7 @@ const OfferMarker: React.FC<OfferMarkerProps> = ({ name, position, id }) => {
       icon={icon}
       label={label}
       onClick={handleClick}
+      animation={google.maps.Animation.DROP}
     />
   );
 };

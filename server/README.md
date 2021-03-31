@@ -15,8 +15,4 @@ Build and launch in production
 
 start locally with NODE_ENV=test for Cypress
 
-### `npm run cypress`
-
-open cypress for e2e tests
-
 
