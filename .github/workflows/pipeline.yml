@@ -22,22 +22,26 @@ jobs:
       with:
         node-version: '12.x'
     #install, lint, start
-    - name: install and lint, start backend
+    - name: install and lint backend
       run: |
         npm install
         npm run lint
-        npm run start:test
       working-directory: ./server
-    #install, lint, start front
-    - name: install and lint, start frontend
+    #install, lint front
+    - name: install and lint frontend
       run: |
         npm install
         npm run lint
-        npm run start
       working-directory: ./client
     #run e2e tests
     - name: run e2e tests
-      run: npm run test
+      uses: cypress-io/github-action@v2
+      with:
+        command: npm run test
+        start: |
+          npm run start
+          npm run start:server
+        wait-on: 'http://localhost:3000, http://localhost:3001'
       working-directory: ./client
 
 
