@@ -53,11 +53,13 @@ jobs:
         TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
         REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
         REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
+    #deploy to Azure with publish profile
     - name: deploy to Azure with publish profile
       uses: azure/webapps-deploy@v2
       with:
         app-name: homebrewswap
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD2404AA7C6A468F80DB209699E93E09 }}
+        working-directory: server
         
 
 
