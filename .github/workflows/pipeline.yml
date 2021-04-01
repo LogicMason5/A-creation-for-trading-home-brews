@@ -20,7 +20,7 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '10.x'
     #install and lint backend
     - name: install and lint backend
       run: |
@@ -53,6 +53,11 @@ jobs:
         TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
         REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
         REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
+    - name: deploy to Azure with publish profile
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: homebrewswap
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD2404AA7C6A468F80DB209699E93E09 }}
         
 
 
