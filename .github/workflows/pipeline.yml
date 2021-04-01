@@ -46,7 +46,6 @@ jobs:
           npm run start:server
         wait-on: 'http://localhost:3000, http://localhost:3001/api/test/health'
         working-directory: client
-        # hacky: specify specs since create-offer.spec mostly fails in the Github Actions environment but works elsewhere
         spec: |
           cypress/integration/homepage.spec.js
           cypress/integration/login.spec.js
