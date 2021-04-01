@@ -33,7 +33,7 @@ app.use('/api', MainRouter);
 
 app.use(express.static('build'));
 
-const buildPath = path.resolve(__dirname, '../build')
+const buildPath = path.resolve(__dirname, '../build');
 
 app.get('/*', function (_req, res) {
   res.sendFile('index.html', { root: buildPath });
