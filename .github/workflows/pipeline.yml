@@ -33,10 +33,11 @@ jobs:
         npm run lint
       working-directory: ./server
     #install, lint, build front-end, then move to backend dir to serve
-    - name: install, lint, build and move frontend 
+    - name: install, lint, build  frontend and move build-dir to backend-dir
       run: |
         npm install
         npm run lint
+        REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
         npm run build:mv
       working-directory: ./client
     #run e2e tests
