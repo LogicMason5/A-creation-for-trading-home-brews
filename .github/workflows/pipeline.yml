@@ -34,7 +34,9 @@ jobs:
       working-directory: ./server
     #create .env for frontend build
     - name: create .env for frontend build
-      run: echo REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY >> .env
+      run: | 
+        echo REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY >> .env
+        cat .env
       working-directory: ./client
     #install, lint, build front-end, then move to backend dir to serve
     - name: install, lint, build  frontend and move build-dir to backend-dir
