@@ -46,6 +46,7 @@
     "build": "react-scripts build",
     "build:mv-win": "npm run build && move /y build ../server/",
     "build:mv": "npm run build && mv build ../server/",
+    "build:ga": "REACT_APP_GOOGLE_MAPS_URI=${{ secrets.REACT_APP_GOOGLE_MAPS_URI }} react-scripts build",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "cypress": "cypress open",

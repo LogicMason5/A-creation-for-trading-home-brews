@@ -32,18 +32,12 @@ jobs:
         npm install
         npm run lint
       working-directory: ./server
-    #create .env to include maps key in front-end build
-    - name: create .env to frontend
-      run: |
-        touch .env
-        echo 'REACT_APP_GOOGLE_MAPS_API_KEY='${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }} >> .env
-      working-directory: ./client
     #install, lint, build front-end, then move to backend dir to serve
     - name: install, lint, build  frontend and move build-dir to backend-dir
       run: |
         npm install
         npm run lint
-        npm run build:mv
+        npm run build:ga
       working-directory: ./client
     #run e2e tests
     - name: run e2e tests
