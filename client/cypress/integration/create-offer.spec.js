@@ -21,8 +21,6 @@ describe('Create offer', () => {
 
   describe('location field', () => {
     it('gives options', () => {
-      console.log('printg maps key:')
-      console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
       cy.get('#locationField', ).type('Tapiola', { force: true })
       cy.contains('Tapiolan terveysasema')
       cy.contains('Tapiolan jääpuutarha')
