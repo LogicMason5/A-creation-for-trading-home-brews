@@ -53,6 +53,7 @@ jobs:
         start: npm run start:server
         wait-on: 'http://localhost:3001/api/test/health'
         working-directory: client
+        spec: cypress/integration/homepage.spec.js
     #deploy to Azure with publish profile
     - name: deploy to Azure with publish profile
       uses: azure/webapps-deploy@v2
