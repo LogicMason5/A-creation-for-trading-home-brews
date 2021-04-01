@@ -11,7 +11,12 @@ on:
 jobs:
   build-lint-test:
     runs-on: ubuntu-latest
-
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      SG_EMAIl_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
+      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+      REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+      REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
@@ -41,18 +46,7 @@ jobs:
         start: npm run start:server
         wait-on: 'http://localhost:3001/api/test/health'
         working-directory: client
-        spec: |
-          cypress/integration/homepage.spec.js
-          cypress/integration/login.spec.js
-          cypress/integration/my-offers.spec.js
-          cypress/integration/pw-reset.spec.js
-          cypress/integration/register.spec.js
-      env:
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        SG_EMAIl_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
-        TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-        REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-        REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
+
     #deploy to Azure with publish profile
     - name: deploy to Azure with publish profile
       uses: azure/webapps-deploy@v2
