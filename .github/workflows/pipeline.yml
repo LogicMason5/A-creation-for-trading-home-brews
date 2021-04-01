@@ -38,12 +38,10 @@ jobs:
     - name: run e2e tests
       uses: cypress-io/github-action@v2
       with:
-        command: npm run test
         start: npm run start:server
         wait-on: 'http://localhost:3001/api/test/health'
         working-directory: client
         spec: cypress/integration/homepage.spec.js
-
       env:
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
         SG_EMAIl_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
