@@ -35,7 +35,7 @@ jobs:
     #create .env for frontend build
     - name: create .env for frontend build
       run: |
-        echo
+        touch .env
         echo $REACT_APP_GOOGLE_MAPS_API_KEY
         cat 'REACT_APP_GOOGLE_MAPS_API_KEY='$REACT_APP_GOOGLE_MAPS_API_KEY > .env
         echo 'cat .env'
