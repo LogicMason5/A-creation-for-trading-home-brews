@@ -12,7 +12,7 @@ router.get('/', async  (_req: Request, res: Response) => {
   
   const date = new Date();
 
-  date.setDate(date.getDate() - 14);
+  date.setDate(date.getDate() - 30);
 
   const offers = await Offer.find({ 
     updatedAt: { $gte: date.toISOString() }, 

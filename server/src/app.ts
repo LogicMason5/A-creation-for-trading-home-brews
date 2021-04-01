@@ -10,13 +10,14 @@ import { SESSION_SECRET } from "./utils/secrets";
 import './db'; // initialize database
 import './utils/passport';
 import cors from 'cors';
+import path from 'path';
 
 
 
 const app: Application = express();
 
 app.use(cors());
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(compression());
 app.use(bodyParser.json());
 app.use(session({
@@ -29,6 +30,14 @@ app.use(session({
   }
 ));
 app.use('/api', MainRouter);
+
+app.use(express.static('build'));
+
+const buildPath = path.resolve(__dirname, '../build')
+
+app.get('/*', function (_req, res) {
+  res.sendFile('index.html', { root: buildPath });
+});
 
 loadErrorHandlers(app);
 

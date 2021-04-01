@@ -28,25 +28,23 @@ jobs:
     - name: install and lint backend
       run: |
         npm install
-        npm run lint:fix
+        npm run lint
       working-directory: ./server
-    #install and lint front-end
-    - name: install and lint frontend
+    #install, lint, build front-end, then move to backend dir to serve
+    - name: install, lint, build and move frontend 
       run: |
         npm install
-        npm run lint:fix
+        npm run lint
+        npm run build:mv
       working-directory: ./client
     #run e2e tests
     - name: run e2e tests
       uses: cypress-io/github-action@v2
       with:
         command: npm run test
-        start: |
-          npm run start
-          npm run start:server
-        wait-on: 'http://localhost:3000, http://localhost:3001/api/test/health'
+        start: npm run start:server
+        wait-on: 'http://localhost:3001/api/test/health'
         working-directory: client
-        browser: chrome
         spec: |
           cypress/integration/homepage.spec.js
           cypress/integration/login.spec.js
