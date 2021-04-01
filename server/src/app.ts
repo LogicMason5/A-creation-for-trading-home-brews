@@ -41,10 +41,10 @@ app.get('/*', function (_req, res) {
 
 loadErrorHandlers(app);
 
-console.log('logging key')
-console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
-console.log('logging key lengths')
-console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY.length)
+console.log('logging key');
+console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+console.log('logging key lengths');
+console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY.length);
 
 
 export default app;
