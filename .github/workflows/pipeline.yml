@@ -32,12 +32,20 @@ jobs:
         npm install
         npm run lint
       working-directory: ./server
+    #create .env for frontend build
+    - name: create .env for frontend build
+      run: |
+        echo
+        echo $REACT_APP_GOOGLE_MAPS_API_KEY
+        cat 'REACT_APP_GOOGLE_MAPS_API_KEY='$REACT_APP_GOOGLE_MAPS_API_KEY > .env
+        echo 'cat .env'
+      working-directory: ./client
     #install, lint, build front-end, then move to backend dir to serve
     - name: install, lint, build  frontend and move build-dir to backend-dir
       run: |
         npm install
         npm run lint
-        REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY npm run build:mv
+        npm run build:mv
       working-directory: ./client
     #run e2e tests
     - name: run e2e tests
