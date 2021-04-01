@@ -46,7 +46,7 @@
     "build": "react-scripts build",
     "build:mv-win": "npm run build && move /y build ../server/",
     "build:mv": "npm run build && mv build ../server/",
-    "build:ga": "REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }} react-scripts build",
+    "build:ga": "REACT_APP_GOOGLE_MAPS_API_KEY=${secrets.REACT_APP_GOOGLE_MAPS_API_KEY} react-scripts build && mv build ../server/",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "cypress": "cypress open",
