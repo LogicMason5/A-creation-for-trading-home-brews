@@ -24,14 +24,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    #install, lint backend
+    #install and lint backend
     - name: install and lint backend
       run: |
         npm install
         npm run lint:fix
       working-directory: ./server
-    #install, lint front-end
-    - name: install, lint frontend
+    #install and lint front-end
+    - name: install and lint frontend
       run: |
         npm install
         npm run lint:fix
@@ -46,6 +46,7 @@ jobs:
           npm run start:server
         wait-on: 'http://localhost:3000, http://localhost:3001/api/test/health'
         working-directory: client
+        browser: chrome
         spec: |
           cypress/integration/homepage.spec.js
           cypress/integration/login.spec.js
