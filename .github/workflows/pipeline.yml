@@ -16,9 +16,6 @@ jobs:
     # checkout the repo
     - name: 'Checkout Github Action'
       uses: actions/checkout@v2
-    #increase watched files limit for server, required to run dev version of frontend
-    - name: Increase watched files limit
-      run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
     #set up Node
     - name: Set up Node.js version
       uses: actions/setup-node@v1
@@ -45,12 +42,8 @@ jobs:
         start: npm run start:server
         wait-on: 'http://localhost:3001/api/test/health'
         working-directory: client
-        spec: |
-          cypress/integration/homepage.spec.js
-          cypress/integration/login.spec.js
-          cypress/integration/my-offers.spec.js
-          cypress/integration/pw-reset.spec.js
-          cypress/integration/register.spec.js
+        spec: cypress/integration/homepage.spec.js
+
       env:
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
         SG_EMAIl_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
