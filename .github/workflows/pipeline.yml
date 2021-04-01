@@ -15,8 +15,6 @@ jobs:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       SG_EMAIL_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
       TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-      REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-      REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
@@ -32,14 +30,6 @@ jobs:
         npm install
         npm run lint
       working-directory: ./server
-    #create .env file to include maps-key in the frontend build
-    - name: create frontend .env
-      uses: SpicyPizza/create-envfile@v1
-      with:
-        envkey_DEBUG: false
-        envkey_REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-        envkey_REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
-        directory: ./client
     #install, lint, build front-end, then move to backend dir to serve
     - name: install, lint, build and move frontend 
       run: |
@@ -47,6 +37,9 @@ jobs:
         npm run lint
         npm run build:mv
       working-directory: ./client
+      env:
+        REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+        REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
     #run e2e tests, skipping create-offer since it doesnt work in GA environment atm
     - name: run e2e tests
       uses: cypress-io/github-action@v2
