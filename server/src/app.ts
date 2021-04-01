@@ -39,10 +39,10 @@ app.get('/*', function (_req, res) {
   res.sendFile('index.html', { root: buildPath });
 });
 
-console.log('BE: printing maps key:')
-console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
-console.log('BE: printing sg key')
-console.log(process.env.SG_EMAIL_SENDKEY)
+console.log('BE: printing maps key:');
+console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+console.log('BE: printing sg key');
+console.log(process.env.SG_EMAIL_SENDKEY);
 
 loadErrorHandlers(app);
 
