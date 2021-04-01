@@ -15,6 +15,8 @@ jobs:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       SG_EMAIL_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
       TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+      REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+      REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
@@ -38,16 +40,13 @@ jobs:
         npm run build:mv
       working-directory: ./client
       env:
-        REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-        REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
-    #run e2e tests, skipping create-offer since it doesnt work in GA environment atm
+    #run e2e tests
     - name: run e2e tests
       uses: cypress-io/github-action@v2
       with:
         start: npm run start:server
         wait-on: 'http://localhost:3001/api/test/health'
         working-directory: client
-
     #deploy to Azure with publish profile
     - name: deploy to Azure with publish profile
       uses: azure/webapps-deploy@v2
