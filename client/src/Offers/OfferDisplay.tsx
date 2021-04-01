@@ -132,11 +132,15 @@ const OfferDisplay: React.FC = () => {
             </>
           )
           : <CircularProgress />}
+        {offer.owner
+          ? (
+            <DisplayTextItem
+              title="Brewer:"
+              content={offer.owner.username}
+            />
+          )
+          : null}
 
-        <DisplayTextItem
-          title="Brewer:"
-          content={offer.owner.username}
-        />
       </CardContent>
       <MessageForm />
     </Container>
