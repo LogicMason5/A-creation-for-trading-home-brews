@@ -59,7 +59,7 @@ jobs:
       with:
         app-name: homebrewswap
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD2404AA7C6A468F80DB209699E93E09 }}
-        working-directory: server
+        package: ./server
         
 
 
