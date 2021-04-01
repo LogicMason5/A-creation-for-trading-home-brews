@@ -37,8 +37,7 @@ jobs:
       run: |
         npm install
         npm run lint
-        REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-        npm run build:mv
+        REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }} npm run build:mv
       working-directory: ./client
     #run e2e tests
     - name: run e2e tests
