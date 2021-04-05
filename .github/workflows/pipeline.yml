@@ -10,7 +10,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  build-lint-test:
+  build-lint-test-deploy:
     runs-on: ubuntu-latest
     env:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -68,6 +68,7 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
           rollbackonhealthcheckfailed: true
+          appdir: server
     #run simple tests on staging
     - name: simple tests on staging
       if: ${{ github.event_name == 'push' }}
