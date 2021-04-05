@@ -60,16 +60,16 @@ jobs:
       if: ${{ github.event_name == 'push' }}
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: staging-homebrew-swap
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          #healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
-          #rollbackonhealthcheckfailed: true
-          appdir: server
-          env:
-            HD_JWT_SECRET: $JWT_SECRET
-            HD_SG_EMAIL_SENDKEY: $SG_EMAIL_SENDKEY
-            HD_MONGODB_URI: $MONGODB_URI
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: staging-homebrew-swap
+        heroku_email: ${{secrets.HEROKU_EMAIL}}
+        #healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
+        #rollbackonhealthcheckfailed: true
+        appdir: server
+      env:
+        HD_JWT_SECRET: ${{ JWT_SECRET }}
+        HD_SG_EMAIL_SENDKEY: ${{ SG_EMAIL_SENDKEY }}
+        HD_MONGODB_URI: ${{ MONGODB_URI }}
     #run simple tests on staging
     - name: simple tests on staging
       if: ${{ github.event_name == 'push' }}
