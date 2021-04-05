@@ -55,7 +55,7 @@ jobs:
           cypress/integration/my-offers.spec.js
           cypress/integration/pw-reset.spec.js
           cypress/integration/register.spec.js
-        env: TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+        env: TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}
     #deploy to Heroku staging app
     - name: deploy to staging
       if: ${{ github.event_name == 'push' }}
