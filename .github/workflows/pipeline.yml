@@ -15,6 +15,7 @@ jobs:
     env:
       REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
       REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
+      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
@@ -55,7 +56,6 @@ jobs:
           cypress/integration/my-offers.spec.js
           cypress/integration/pw-reset.spec.js
           cypress/integration/register.spec.js
-        env: TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}
     #deploy to Heroku staging app
     - name: deploy to staging
       if: ${{ github.event_name == 'push' }}
@@ -73,7 +73,7 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
         working-directory: client
-        spec: cypress/live/live.spec.js
+        spec: cypress/staging/staging.spec.js
         config: baseUrl=https://staging-homebrew-swap.herokuapp.com
     #bump version
     - name: Bump version and push tag
