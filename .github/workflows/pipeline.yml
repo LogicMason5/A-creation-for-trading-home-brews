@@ -55,26 +55,17 @@ jobs:
           cypress/integration/my-offers.spec.js
           cypress/integration/pw-reset.spec.js
           cypress/integration/register.spec.js
-    #deploy to Heroku staging app
-    - name: deploy to staging
+    #deploy to Heroku 
+    - name: deploy
       if: ${{ github.event_name == 'push' }}
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: staging-homebrew-swap
+        heroku_app_name: homebrew-swap
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         appdir: server
-        #healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
-        #rollbackonhealthcheckfailed: true
-    #run simple tests on staging
-    - name: simple tests on staging
-      if: ${{ github.event_name == 'push' }}
-      uses: cypress-io/github-action@v2
-      with:
-        wait-on: 'https://staging-homebrew-swap.herokuapp.com/api/test/health'
-        working-directory: client
-        spec: cypress/staging/staging.spec.js
-        config: baseUrl=https://staging-homebrew-swap.herokuapp.com
+        healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
+        rollbackonhealthcheckfailed: true
     #bump version
     - name: Bump version and push tag
       if: ${{ github.event_name == 'push' }}
