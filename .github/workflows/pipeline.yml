@@ -66,10 +66,6 @@ jobs:
         #healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
         #rollbackonhealthcheckfailed: true
         appdir: server
-      env:
-        HD_JWT_SECRET: ${{ JWT_SECRET }}
-        HD_SG_EMAIL_SENDKEY: ${{ SG_EMAIL_SENDKEY }}
-        HD_MONGODB_URI: ${{ MONGODB_URI }}
     #run simple tests on staging
     - name: simple tests on staging
       if: ${{ github.event_name == 'push' }}
