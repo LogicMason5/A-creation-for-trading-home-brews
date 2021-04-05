@@ -36,7 +36,9 @@ jobs:
         npm install
         npm run lint
         cd ../client
+        npm install
         npm run lint
+        npm build:mv
       working-directory: ./server
     #run e2e tests (location field broken in CI environment so skipping 1 spec)
     - name: run full e2e tests
@@ -62,12 +64,12 @@ jobs:
         appdir: server
         #healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
         #rollbackonhealthcheckfailed: true
-
     #run simple tests on staging
     - name: simple tests on staging
       if: ${{ github.event_name == 'push' }}
       uses: cypress-io/github-action@v2
       with:
+        wait-on: 'https://staging-homebrew-swap.herokuapp.com/api/test/health'
         working-directory: client
         spec: cypress/staging/staging.spec.js
         config: baseUrl=https://staging-homebrew-swap.herokuapp.com
