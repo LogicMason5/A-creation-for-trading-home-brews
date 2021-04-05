@@ -26,7 +26,7 @@ jobs:
       with:
         node-version: '10.x'
     #install and lint backend
-    - name: install, lint, build
+    - name: install, lint, build back-end
       run: |
         npm install
         npm run lint
@@ -36,12 +36,11 @@ jobs:
       run: | 
         echo REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY >> .env
       working-directory: ./client
-    #install and lint backend
-    - name: install, lint, build
+    #install and lint front-end
+    - name: install, lint front-end
       run: |
         npm install
         npm run lint
-        npm run build:mv
       working-directory: ./client
     #run e2e tests (location field broken in CI environment so skipping 1 spec)
     - name: run full e2e tests
