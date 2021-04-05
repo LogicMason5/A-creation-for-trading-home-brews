@@ -7,15 +7,12 @@ on:
       - main
   pull_request:
     branches: [main]
-    types: [opened, synchronize]
+    types: [synchronize]
 
 jobs:
   build-lint-test-deploy:
     runs-on: ubuntu-latest
     env:
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
-      SG_EMAIL_SENDKEY: ${{ secrets.SG_EMAIL_SENDKEY }}
-      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
       REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
       REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
     steps:

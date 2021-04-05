@@ -45,16 +45,14 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 
 Fully automated with [Github Actions](https://github.com/features/actions):
 
-On any pull requests to main:
-&#8594 Install, lint and build front-end. Move build folder to back-end to be served via Express.
-&#8594 Install, lint, build and start back-end in test mode (with static front-end included)
-&#8594 Run full e2e tests with [Cypress](https://www.cypress.io/)
-
-On merges to main:
-&#8594 Deploy to [Heroku](https://www.heroku.com) staging. Revert to previous version on fail.
-&#8594 Run simple tests on staging with [Cypress](https://www.cypress.io/)
-&#8594 Deploy to [Heroku](https://www.heroku.com) live. Revert to previous version on fail.
-&#8594 Bump version on success
+On pushes/merges to main:
+- Install, lint and build front-end. Move build folder to back-end to be served via Express.
+- Install, lint, build and start back-end in test mode (with static front-end included)
+- Run full e2e tests with [Cypress](https://www.cypress.io/)
+- Deploy to [Heroku](https://www.heroku.com) staging. Revert to previous version on fail.
+- Run simple tests on staging with [Cypress](https://www.cypress.io/)
+- Deploy to [Heroku](https://www.heroku.com) live. Revert to previous version on fail.
+- Bump version on success
 
 [pipeline.yml](/github/workflows/pipeline.yml) for full details
 
