@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "hobby",
-  "main": "./app/build/index.js",
+  "main": "./build/index.js",
   "scripts": {
     "build-ts": "tsc -b",
-    "postinstall": "npm run build-ts",
+    "postinstall": "cd ../client && npm run build:mv && cd ../server && npm run build-ts",
     "start:dev": "ts-node-dev ./src/index.ts",
     "start:prod": "node dist/index.js",
     "deploy": "git add . && git commit -m Heroku && git push heroku master",
