@@ -1,0 +1,19 @@
+{
+  "short_name": "Homebrew Swap",
+  "name": "homebrewswap.app",
+  "icons": [
+    {
+      "src": "black.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "type": "image/png" 
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#fffff6"
+}

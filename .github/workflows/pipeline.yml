@@ -31,7 +31,7 @@ jobs:
         echo REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY >> .env
       working-directory: ./client
     #install and lint backend
-    - name: install and lint backend
+    - name: install, lint, build
       run: |
         npm install
         npm run lint
@@ -59,9 +59,10 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: staging-homebrew-swap
         heroku_email: ${{secrets.HEROKU_EMAIL}}
+        appdir: server
         #healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
         #rollbackonhealthcheckfailed: true
-        appdir: server
+
     #run simple tests on staging
     - name: simple tests on staging
       if: ${{ github.event_name == 'push' }}

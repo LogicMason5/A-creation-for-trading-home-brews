@@ -5,7 +5,7 @@
   "main": "./build/index.js",
   "scripts": {
     "build-ts": "tsc -b",
-    "postinstall": "cd ../client && npm install && npm run build:mv && cd ../server && npm run build-ts",
+    "postinstall": "npm run build-ts",
     "start:dev": "ts-node-dev ./src/index.ts",
     "start:prod": "node dist/index.js",
     "deploy": "git add . && git commit -m Heroku && git push heroku master",

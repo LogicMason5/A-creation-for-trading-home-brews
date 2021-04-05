@@ -2,6 +2,5 @@ node_modules
 logs
 requests
 dist
-build
 
 .env
