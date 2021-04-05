@@ -66,8 +66,8 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: staging-homebrew-swap
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-          healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
-          rollbackonhealthcheckfailed: true
+          #healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
+          #rollbackonhealthcheckfailed: true
           appdir: server
     #run simple tests on staging
     - name: simple tests on staging
