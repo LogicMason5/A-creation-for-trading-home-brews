@@ -25,24 +25,19 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-    #install and lint backend
-    - name: install and lint backend
-      run: |
-        npm install
-        npm run lint
-      working-directory: ./server
     #create .env for frontend build to include maps key in build
     - name: create .env for frontend build
       run: | 
         echo REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY >> .env
       working-directory: ./client
-    #install, lint, build front-end, then move to backend dir to serve
-    - name: install, lint, build  frontend and move build-dir to backend-dir
+    #install and lint backend
+    - name: install and lint backend
       run: |
         npm install
         npm run lint
-        npm run build:mv
-      working-directory: ./client
+        cd ../client
+        npm run lint
+      working-directory: ./server
     #run e2e tests (location field broken in CI environment so skipping 1 spec)
     - name: run full e2e tests
       uses: cypress-io/github-action@v2
