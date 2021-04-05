@@ -6,7 +6,7 @@ This is a hobbyist project for trading homebrews (the malt+yeast kind, not the f
 
 ## Features
 
-*updated 3.03.2021*
+*updated 2.04.2021*
 
 ### User management
 
@@ -41,9 +41,22 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 
 [package.json](./server/package.json) for full details
 
-## Testing
+## DevOps
 
-[Cypress](https://www.cypress.io/) for end-to-end
+Fully automated with [Github Actions](https://github.com/features/actions):
+
+On any pull requests to main:
+&#8594 Install, lint and build front-end. Move build folder to back-end to be served via Express.
+&#8594 Install, lint, build and start back-end in test mode (with static front-end included)
+&#8594 Run full e2e tests with [Cypress](https://www.cypress.io/)
+
+On merges to main:
+&#8594 Deploy to [Heroku](https://www.heroku.com) staging. Revert to previous version on fail.
+&#8594 Run simple tests on staging with [Cypress](https://www.cypress.io/)
+&#8594 Deploy to [Heroku](https://www.heroku.com) live. Revert to previous version on fail.
+&#8594 Bump version on success
+
+[pipeline.yml](/github/workflows/pipeline.yml) for full details
 
 ## APIs
 
@@ -53,7 +66,7 @@ Express, Typescript, MongoDB Atlas, Mongoose, Passport.js
 
 [homebrewswap.app](https://www.homebrewswap.app)
 
-Back-end deployed to [Heroku](https://www.heroku.com). Front-end deployed to [Bluehost](https://www.bluehost.com).
+Hosted on [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/)
 
 
 
