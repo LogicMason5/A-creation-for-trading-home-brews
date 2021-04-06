@@ -76,10 +76,10 @@ jobs:
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: homebrew-swap
+        heroku_app_name: staging-homebrew-swap
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         appdir: server
-        healthcheck: https://homebrew-swap.herokuapp.com/api/test/health
+        healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
         rollbackonhealthcheckfailed: true
     #bump version
     - name: Bump version and push tag

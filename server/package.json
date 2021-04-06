@@ -2,7 +2,6 @@
   "name": "server",
   "version": "1.0.0",
   "description": "hobby",
-  "main": "./index.js",
   "scripts": {
     "build-ts": "tsc -b",
     "postinstall": "npm run build-ts",
