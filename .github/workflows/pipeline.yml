@@ -19,6 +19,8 @@ jobs:
     # checkout the repo
     - name: 'Checkout Github Action'
       uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
     #set up Node
     - name: Set up Node.js version
       uses: actions/setup-node@v1
@@ -61,9 +63,9 @@ jobs:
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: staging-homebrew-swap
+        heroku_app_name: homebrew-swap
         heroku_email: ${{secrets.HEROKU_EMAIL}}
-        healthcheck: https://staging-homebrew-swap.herokuapp.com/api/offers
+        healthcheck: https://homebrew-swap.herokuapp.com/api/offers
         rollbackonhealthcheckfailed: true
         appdir: server
     #deploy front-end to Azure
@@ -85,6 +87,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BUMP: patch
+        WITH_V: true
           
         
 
