@@ -55,6 +55,17 @@ jobs:
           cypress/integration/my-offers.spec.js
           cypress/integration/pw-reset.spec.js
           cypress/integration/register.spec.js
+    #deploy back-end to Heroku 
+    - name: deploy back-end to Heroku
+      if: ${{ github.event_name == 'push' }}
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: staging-homebrew-swap
+        heroku_email: ${{secrets.HEROKU_EMAIL}}
+        healthcheck: https://staging-homebrew-swap.herokuapp.com/api/offers
+        rollbackonhealthcheckfailed: true
+        appdir: server
     #deploy front-end to Azure
     - name: deploy front-end to azure
       if: ${{ github.event_name == 'push' }}
@@ -67,17 +78,6 @@ jobs:
         app_location: '/client'
       env:
         REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-    #deploy back-end to Heroku 
-    - name: deploy back-end to Heroku
-      if: ${{ github.event_name == 'push' }}
-      uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: staging-homebrew-swap
-        heroku_email: ${{secrets.HEROKU_EMAIL}}
-        healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
-        rollbackonhealthcheckfailed: true
-        working-directory: ./server
     #bump version
     - name: Bump version and push tag
       if: ${{ github.event_name == 'push' }}
