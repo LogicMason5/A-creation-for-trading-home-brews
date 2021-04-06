@@ -77,7 +77,7 @@ jobs:
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
         rollbackonhealthcheckfailed: true
-      working-directory: ./server
+        working-directory: ./server
     #bump version
     - name: Bump version and push tag
       if: ${{ github.event_name == 'push' }}
