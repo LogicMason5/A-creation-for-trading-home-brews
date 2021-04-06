@@ -31,7 +31,7 @@ app.use(session({
 ));
 app.use('/api', MainRouter);
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV === 'test') {
   app.use(express.static('build'));
 
   const buildPath = path.resolve(__dirname, '../build');

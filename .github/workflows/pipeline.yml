@@ -10,7 +10,7 @@ on:
     types: [synchronize]
 
 jobs:
-  build-lint-test-deploy:
+  lint-build-test-deploy:
     runs-on: ubuntu-latest
     env:
       REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
@@ -30,7 +30,7 @@ jobs:
         echo REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY >> .env
       working-directory: ./client
     #install, lint front-end, move to back-end folder to be served for tests
-    - name: install, lint front-end
+    - name: install, lint, build front-end
       run: |
         npm install
         npm run lint
