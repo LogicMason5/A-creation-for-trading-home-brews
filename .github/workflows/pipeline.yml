@@ -29,7 +29,7 @@ jobs:
       run: | 
         echo REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY >> .env
       working-directory: ./client
-    #install and lint front-end
+    #install, lint front-end, move to back-end folder to be served for tests
     - name: install, lint front-end
       run: |
         npm install
