@@ -31,13 +31,18 @@ app.use(session({
 ));
 app.use('/api', MainRouter);
 
-app.use(express.static('build'));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(express.static('build'));
 
-const buildPath = path.resolve(__dirname, '../build');
+  const buildPath = path.resolve(__dirname, '../build');
 
-app.get('/*', function (_req, res) {
-  res.sendFile('index.html', { root: buildPath });
-});
+  app.get('/*', function (_req, res) {
+    res.sendFile('index.html', { root: buildPath });
+  });
+
+}
+
+
 
 loadErrorHandlers(app);
 
