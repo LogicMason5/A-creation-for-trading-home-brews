@@ -55,8 +55,23 @@ jobs:
           cypress/integration/my-offers.spec.js
           cypress/integration/pw-reset.spec.js
           cypress/integration/register.spec.js
-    #deploy to Heroku 
-    - name: deploy back-end
+    #deploy front-end to Azure
+    - name: deploy front-end to azure
+      if: ${{ github.event_name == 'push' }}
+      id: builddeploy
+      uses: Azure/static-web-apps-deploy@v0.0.1-preview
+      with:
+        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LEMON_SKY_0D2570103 }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+        action: "upload"
+        ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+        # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+        app_location: '/client' # App source code path
+        output_location: '/client/build' # Built app content directory - optional
+        ###### End of Repository/Build Configurations ######
+
+    #deploy back-end to Heroku 
+    - name: deploy back-end to Heroku
       if: ${{ github.event_name == 'push' }}
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
@@ -64,7 +79,7 @@ jobs:
         heroku_app_name: homebrew-swap
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         appdir: server
-        healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
+        healthcheck: https://homebrew-swap.herokuapp.com/api/test/health
         rollbackonhealthcheckfailed: true
     #bump version
     - name: Bump version and push tag
