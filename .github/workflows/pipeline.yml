@@ -62,12 +62,9 @@ jobs:
       uses: Azure/static-web-apps-deploy@v0.0.1-preview
       with:
         azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LEMON_SKY_0D2570103 }}
-        repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
         action: "upload"
-        ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-        # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-        app_location: '/client' # App source code path
-        ###### End of Repository/Build Configurations ######
+        app_location: '/client'
       env:
         REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
     #deploy back-end to Heroku 
@@ -78,9 +75,9 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: staging-homebrew-swap
         heroku_email: ${{secrets.HEROKU_EMAIL}}
-        appdir: server
         healthcheck: https://staging-homebrew-swap.herokuapp.com/api/test/health
         rollbackonhealthcheckfailed: true
+      working-directory: ./server
     #bump version
     - name: Bump version and push tag
       if: ${{ github.event_name == 'push' }}
