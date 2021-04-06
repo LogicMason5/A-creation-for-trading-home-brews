@@ -29,8 +29,12 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run cypress`
+### `npm run build:mv`
 
-Open cypress client to run e2e tests.
+Build and move the build directory to ../server to be included in the back-end build.
+
+### `test`
+
+Run e2e tests with cypress. Requires back end to be running at http://localhost:3001.
 
 

@@ -8,7 +8,6 @@
     "postinstall": "npm run build-ts",
     "start:dev": "ts-node-dev ./src/index.ts",
     "start:prod": "node dist/index.js",
-    "deploy": "git add . && git commit -m Heroku && git push heroku master",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "start:test": "cross-env NODE_ENV=test ts-node ./src/index.ts"

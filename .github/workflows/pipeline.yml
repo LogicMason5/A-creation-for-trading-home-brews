@@ -56,7 +56,7 @@ jobs:
           cypress/integration/pw-reset.spec.js
           cypress/integration/register.spec.js
     #deploy to Heroku 
-    - name: deploy
+    - name: deploy back-end
       if: ${{ github.event_name == 'push' }}
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
