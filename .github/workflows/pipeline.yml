@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-      REACT_APP_GOOGLE_MAPS_URI: ${{ secrets.REACT_APP_GOOGLE_MAPS_URI }}
       TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
     steps:
     # checkout the repo
@@ -68,8 +67,10 @@ jobs:
         ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
         # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
         app_location: '/client' # App source code path
-        output_location: '/build' # Built app content directory - optional
         ###### End of Repository/Build Configurations ######
+      env:
+        REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+
 
     #deploy back-end to Heroku 
     - name: deploy back-end to Heroku
