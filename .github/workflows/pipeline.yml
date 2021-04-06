@@ -70,8 +70,6 @@ jobs:
         ###### End of Repository/Build Configurations ######
       env:
         REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-
-
     #deploy back-end to Heroku 
     - name: deploy back-end to Heroku
       if: ${{ github.event_name == 'push' }}
