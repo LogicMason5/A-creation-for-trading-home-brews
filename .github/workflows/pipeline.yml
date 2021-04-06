@@ -41,6 +41,7 @@ jobs:
       run: |
         npm install
         npm run lint
+        npm run build:mv
       working-directory: ./client
     #run e2e tests (location field broken in CI environment so skipping 1 spec)
     - name: run full e2e tests
