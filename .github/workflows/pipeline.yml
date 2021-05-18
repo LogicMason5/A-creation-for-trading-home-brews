@@ -81,14 +81,6 @@ jobs:
         app_location: '/client'
       env:
         REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-    #bump version
-    - name: Bump version and push tag
-      if: ${{ github.event_name == 'push' }}
-      uses: anothrNick/github-tag-action@1.33.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DEFAULT_BUMP: patch
-        WITH_V: true
           
         
 
