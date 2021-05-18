@@ -1,7 +1,7 @@
 import React, { CSSProperties, useEffect } from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 import { useSelector } from 'react-redux';
-import OfferMarker from './OfferMarker';
+import OfferMarkerClusterer from './OfferMarkerClusterer';
 import { mapStyles } from './mapStyles';
 import { RootState } from '../rootReducer';
 import { fetchActiveOffers } from '../Offers/offerSlice';
@@ -13,10 +13,6 @@ const Map: React.FC = () => {
 
   const center = useSelector(
     (state: RootState) => state.location.location,
-  );
-
-  const offers = useSelector(
-    (state: RootState) => state.offers.activeOffers,
   );
 
   useEffect(() => {
@@ -40,14 +36,7 @@ const Map: React.FC = () => {
       center={center}
       options={mapOptions}
     >
-      {offers ? offers.map((o) => (
-        <OfferMarker
-          key={o.id}
-          name={o.beerName}
-          position={o.location}
-          id={o.id}
-        />
-      )) : null}
+      <OfferMarkerClusterer />
       <LocateButton />
     </GoogleMap>
   );

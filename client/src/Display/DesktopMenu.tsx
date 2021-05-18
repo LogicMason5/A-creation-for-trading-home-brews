@@ -34,7 +34,7 @@ const DesktopMenu: React.FC = () => {
 
   return (
     <Container className={classes.accountMenuContainer}>
-      <div>
+      <>
         <List component="nav" aria-label="account menu list" className={classes.menuList}>
           <MenuListItem
             itemText="My offers"
@@ -53,7 +53,7 @@ const DesktopMenu: React.FC = () => {
             icon={<ExitToApp />}
           />
         </List>
-      </div>
+      </>
     </Container>
   );
 };
