@@ -1,53 +1,66 @@
 import mongoose from 'mongoose';
-import logger from "./utils/logger";
-import { DB_URI } from './utils/secrets';
+import logger from '../utils/logger.js';
+import { DB_URI } from '../utils/secrets.js';
 
-const options = {
-  useNewUrlParser   : true,
-  useCreateIndex    : true,
-  useUnifiedTopology: true,
-  useFindAndModify  : false,
-  autoIndex         : true,
-  poolSize          : 10, // Maintain up to 10 socket connections
-  // If not connected, return errors immediately rather than waiting for reconnect
-  bufferMaxEntries  : 0,
-  connectTimeoutMS  : 10000, // Give up initial connection after 10 seconds
-  socketTimeoutMS   : 45000, // Close sockets after 45 seconds of inactivity
+let isConnected = false;
+
+/**
+ * Connect to MongoDB
+ */
+export const connectDB = async () => {
+  if (isConnected) {
+    logger.info('MongoDB already connected');
+    return;
+  }
+
+  try {
+    await mongoose.connect(DB_URI, {
+      maxPoolSize: 10,
+      minPoolSize: 2,
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+      autoIndex: process.env.NODE_ENV !== 'production',
+    });
+
+    isConnected = true;
+
+    logger.info('✅ MongoDB connection established');
+    logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  } catch (error) {
+    logger.error('❌ MongoDB connection failed:', error);
+    process.exit(1); // Fail fast (recommended for production)
+  }
 };
 
-// Create the database connection
-mongoose
-  .connect(DB_URI, options)
-  .then(() => {
-    logger.info('Mongoose connection taken');
-    logger.info(`NODE_ENV is ${process.env.NODE_ENV ? process.env.NODE_ENV : 'dev'}`);
-  })
-  .catch((e) => {
-    logger.info('Mongoose connection error');
-    logger.error(e);
-  });
-
-  
-// CONNECTION EVENTS
-// When successfully connected
+/**
+ * Mongoose Connection Events
+ */
 mongoose.connection.on('connected', () => {
-  logger.info('Mongoose default connection open.');
+  logger.info('Mongoose connected to DB');
 });
 
-// If the connection throws an error
 mongoose.connection.on('error', (err) => {
-  logger.error('Mongoose default connection error: ' + err);
+  logger.error('Mongoose connection error:', err);
 });
 
-// When the connection is disconnected
 mongoose.connection.on('disconnected', () => {
-  logger.info('Mongoose default connection disconnected');
+  logger.warn('Mongoose disconnected');
 });
 
-// If the Node process ends, close the Mongoose connection
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
-    logger.info('Mongoose default connection disconnected through app termination');
+/**
+ * Graceful shutdown handler
+ */
+const gracefulShutdown = async (signal) => {
+  try {
+    await mongoose.connection.close();
+    logger.info(`MongoDB connection closed due to ${signal}`);
     process.exit(0);
-  });
-});
+  } catch (err) {
+    logger.error('Error during MongoDB shutdown:', err);
+    process.exit(1);
+  }
+};
+
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));     // Ctrl+C
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));   // Docker/K8s
+process.on('SIGUSR2', () => gracefulShutdown('SIGUSR2'));   // Nodemon
