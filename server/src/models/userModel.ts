@@ -1,101 +1,236 @@
-import { Document, Model, model, Schema } from 'mongoose';
-import { IUser } from '../types/interfaces';
-import * as jwt from 'jsonwebtoken';
-import * as crypto from 'crypto';
+import { Schema, model, Document, Model } from "mongoose";
+import { IUser } from "../types/interfaces";
+import jwt, { SignOptions } from "jsonwebtoken";
+import crypto from "crypto";
+import mongooseUniqueValidator from "mongoose-unique-validator";
 import { JWT_SECRET } from "../utils/secrets";
-import mongooseUniqueValidator = require("mongoose-unique-validator");
 
+/**
+ * ================================
+ * Interface
+ * ================================
+ */
 
-export default interface IUserModel extends IUser, Document {
-  salt: string;
+export interface IUserDocument extends IUser, Document {
   hash: string;
+  salt: string;
+
+  setPassword(password: string): Promise<void>;
+  validPassword(password: string): Promise<boolean>;
+
   generateJWT(): string;
   generateResetJWT(): string;
-  toAuthJSON(): any;
-  getResetToken(): { token: string };
-  setPassword(password: string): void;
-  validPassword(password: string): boolean;
+
+  toAuthJSON(): {
+    id: string;
+    username: string;
+    email: string;
+    token: string;
+  };
+
+  getResetToken(): {
+    token: string;
+  };
 }
 
-const UserSchema = new Schema<IUserModel>({
-  username : {
-    type     : Schema.Types.String,
-    unique   : true,
-    required : [true, "can't be blank"],
-    match    : /^[a-zA-Z0-9]+$/,
-    index    : true
-  },
-  email    : {
-    type     : Schema.Types.String,
-    lowercase: true,
-    unique   : true,
-    required : [true, "can't be blank"],
-    match    : /\S+@\S+\.\S+/,
-    index    : true
-  },
-  offers: [     
-    {
-      type: Schema.Types.ObjectId,
-      ref : 'Offer'
-    }
-  ],
-  hash: {
-    type: Schema.Types.String
-  },
-  salt: {
-    type: Schema.Types.String
-  },
-}, {timestamps: true});
+/**
+ * ================================
+ * Schema
+ * ================================
+ */
 
+const UserSchema = new Schema<IUserDocument>(
+  {
+    username: {
+      type: String,
+      required: [true, "Username can't be blank"],
+      unique: true,
+      trim: true,
+      match: /^[a-zA-Z0-9]+$/,
+      index: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Email can't be blank"],
+      unique: true,
+      lowercase: true,
+      trim: true,
+      match: /\S+@\S+\.\S+/,
+      index: true,
+    },
+    offers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Offer",
+      },
+    ],
+    hash: {
+      type: String,
+      select: false,
+    },
+    salt: {
+      type: String,
+      select: false,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
 
+/**
+ * ================================
+ * Plugins
+ * ================================
+ */
 
-UserSchema.plugin(mongooseUniqueValidator, {message: 'is already taken.'});
+UserSchema.plugin(mongooseUniqueValidator, {
+  message: "{PATH} is already taken.",
+});
 
-UserSchema.methods.validPassword = function (password: string): boolean {
-  const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-  return this.hash === hash;
+/**
+ * ================================
+ * Password Methods (ASYNC + SAFE)
+ * ================================
+ */
+
+UserSchema.methods.setPassword = async function (
+  password: string
+): Promise<void> {
+  this.salt = crypto.randomBytes(16).toString("hex");
+
+  this.hash = await new Promise<string>((resolve, reject) => {
+    crypto.pbkdf2(
+      password,
+      this.salt,
+      10000,
+      64,
+      "sha512",
+      (err, derivedKey) => {
+        if (err) reject(err);
+        resolve(derivedKey.toString("hex"));
+      }
+    );
+  });
 };
 
-UserSchema.methods.setPassword = function (password: string) {
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+UserSchema.methods.validPassword = async function (
+  password: string
+): Promise<boolean> {
+  if (!this.salt || !this.hash) return false;
+
+  const hash = await new Promise<string>((resolve, reject) => {
+    crypto.pbkdf2(
+      password,
+      this.salt,
+      10000,
+      64,
+      "sha512",
+      (err, derivedKey) => {
+        if (err) reject(err);
+        resolve(derivedKey.toString("hex"));
+      }
+    );
+  });
+
+  const hashBuffer = Buffer.from(this.hash, "hex");
+  const inputBuffer = Buffer.from(hash, "hex");
+
+  if (hashBuffer.length !== inputBuffer.length) return false;
+
+  return crypto.timingSafeEqual(hashBuffer, inputBuffer);
 };
+
+/**
+ * ================================
+ * JWT Methods
+ * ================================
+ */
 
 UserSchema.methods.generateJWT = function (): string {
-  const today = new Date();
-  const exp   = new Date(today);
-  exp.setDate(today.getDate() + 60);
+  if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET is not defined");
+  }
 
-  return jwt.sign({
-    id      : this._id,
-    username: this.username, 
-    exp     : exp.getTime() / 1000,
-  }, JWT_SECRET);
+  const options: SignOptions = {
+    expiresIn: "60d",
+    algorithm: "HS256",
+  };
+
+  return jwt.sign(
+    {
+      id: this._id.toString(),
+      username: this.username,
+      email: this.email,
+    },
+    JWT_SECRET,
+    options
+  );
 };
 
 UserSchema.methods.generateResetJWT = function (): string {
+  if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET is not defined");
+  }
 
-  return jwt.sign({
-    id      : this._id,
-    hash    : this.hash, //using hash to generate a single use token
-    exp     : Math.floor(Date.now() / 1000) + (60 * 15), // 15 mins duration
-  }, JWT_SECRET);
+  const options: SignOptions = {
+    expiresIn: "15m",
+    algorithm: "HS256",
+  };
+
+  return jwt.sign(
+    {
+      id: this._id.toString(),
+      hash: this.hash, // becomes invalid after password change
+    },
+    JWT_SECRET,
+    options
+  );
 };
 
+/**
+ * ================================
+ * Output Helpers
+ * ================================
+ */
 
-UserSchema.methods.toAuthJSON = function (): any {
+UserSchema.methods.toAuthJSON = function () {
   return {
+    id: this._id.toString(),
     username: this.username,
+    email: this.email,
     token: this.generateJWT(),
-    id: this._id    
   };
 };
 
-UserSchema.methods.getResetToken = function (): any {
+UserSchema.methods.getResetToken = function () {
   return {
     token: this.generateResetJWT(),
   };
 };
 
+/**
+ * ================================
+ * Hide Sensitive Fields Automatically
+ * ================================
+ */
 
-export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);
+UserSchema.set("toJSON", {
+  transform: (_doc, ret) => {
+    delete ret.hash;
+    delete ret.salt;
+    return ret;
+  },
+});
+
+/**
+ * ================================
+ * Model
+ * ================================
+ */
+
+export const User: Model<IUserDocument> = model<IUserDocument>(
+  "User",
+  UserSchema
+);
